@@ -4,6 +4,7 @@ import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_list.dar
 import 'package:dappstore/features/dapp_store_home/infrastructure/datasources/remote_data_source.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_info_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_list_dto.dart';
+import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
@@ -15,10 +16,10 @@ class DappListRepoImpl {
       : _network = network,
         _remoteDataSource = RemoteDataSource(network: network);
 
-  Future<DappList> getDappList() async {
-    final DappListDto dappList =
-        await _remoteDataSource.getDappList(); // from remote data source
-    return const DappListDto().toDomain();
+  Future<DappList> getDappList({GetDappQueryDto? queryParams}) async {
+    final DappListDto dappList = await _remoteDataSource.getDappList(
+        queryParams: queryParams); // from remote data source
+    return dappList.toDomain();
   }
 
   Future<DappInfo> getDappInfo(String ID) async {
