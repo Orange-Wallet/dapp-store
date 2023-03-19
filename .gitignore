@@ -12,6 +12,7 @@ migrate_working_dir/
 ./lib/api_key.dart
 *.freezed.dart
 *.g.dart
+.fvm/
 
 # IntelliJ related
 *.iml
