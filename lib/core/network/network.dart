@@ -175,9 +175,4 @@ class Network {
     );
     return options;
   }
-  // Future get() async {
-  // }
-  // Future post() async {}
-  // Future put() async {}
-  // Future delete() async {}
 }

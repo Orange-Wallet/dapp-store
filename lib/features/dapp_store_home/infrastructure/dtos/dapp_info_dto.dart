@@ -33,7 +33,7 @@ class DappInfoDto with _$DappInfoDto {
   factory DappInfoDto.fromJson(Map<String, Object?> json) =>
       _$DappInfoDtoFromJson(json);
 
-  toDomain() => DappInfo();
+  toDomain() => DappInfo.fromJson(this.toJson());
 }
 
 @freezed
