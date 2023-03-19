@@ -1,7 +1,7 @@
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_list.dart';
 
-abstract class IDappListRepository {
+abstract class IDappListRepo {
   Future<DappList> getDappList();
 
   Future<DappInfo> getDappInfo(String ID);
