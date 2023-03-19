@@ -7,6 +7,7 @@ part '../../../../generated/features/dapp_store_home/infrastructure/dtos/dapp_li
 
 @freezed
 class DappListDto with _$DappListDto {
+  const DappListDto._();
   const factory DappListDto({
     int? page,
     int? limit,

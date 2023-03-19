@@ -6,6 +6,8 @@ part '../../../../generated/features/dapp_store_home/infrastructure/dtos/dapp_in
 
 @freezed
 class DappInfoDto with _$DappInfoDto {
+  const DappInfoDto._();
+
   factory DappInfoDto({
     String? name,
     String? description,
