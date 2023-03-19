@@ -31,6 +31,11 @@ class _PwaWebViewState extends State<PwaWebView> {
     injectedWeb3Cubit = handler.getInjectedWebViewCubit();
     _dappName = widget.dappName;
     appBar = AppBar(
+      actions: [
+        BackButton(onPressed: handler.onBackPressed),
+        ElevatedButton(
+            onPressed: handler.clearCookies, child: const Text("C C"))
+      ],
       title: Text(_dappName),
     );
     super.initState();
@@ -54,6 +59,27 @@ class _PwaWebViewState extends State<PwaWebView> {
                           URLRequest(url: Uri.parse(webViewState.url)),
                       chainId: injectedWeb3State.connectedChainId ?? 1,
                       rpc: injectedWeb3State.connectedChainRpc ?? "",
+                      onWebViewCreated: handler.initWebViewCubit,
+                      initialOptions: InAppWebViewGroupOptions(
+                        crossPlatform: InAppWebViewOptions(
+                          useShouldOverrideUrlLoading: true,
+                        ),
+                        android: AndroidInAppWebViewOptions(
+                            useHybridComposition: true),
+                      ),
+                      onProgressChanged: handler.onProgressChanged,
+                      onLoadStart: handler.onLoadStart,
+                      onLoadStop: handler.onLoadStop,
+                      signMessage: handler.signMessage,
+                      requestAccounts: handler.requestAccount,
+                      signTransaction: handler.signTransaction,
+                      signTypedMessage: handler.signTypedMessage,
+                      signPersonalMessage: handler.signPersonalMessage,
+                      addEthereumChain: handler.addEthereumChain,
+                      watchAsset: handler.watchAsset,
+                      ecRecover: handler.ecRecover,
+                      shouldOverrideUrlLoading:
+                          handler.shouldOverrideUrlLoading,
                     )
                   ],
                 ),
