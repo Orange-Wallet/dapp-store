@@ -1,6 +1,11 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_injected_web3/flutter_injected_web3.dart';
 
-abstract class IInjectedWeb3Cubit {
+import 'injected_web3_cubit.dart';
+
+abstract class IInjectedWeb3Cubit extends Cubit<InjectedWeb3State> {
+  IInjectedWeb3Cubit(super.initialState);
+
   started();
 
   connect(int chainId, String originalUrl);

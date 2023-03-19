@@ -10,6 +10,6 @@ class InjectedWeb3State with _$InjectedWeb3State {
     String? originalUrl,
   }) = _InjectedWeb3State;
 
-  factory InjectedWeb3State.initial() =>
-      _InjectedWeb3State(connected: false, failure: false, originalUrl: "");
+  factory InjectedWeb3State.initial() => const _InjectedWeb3State(
+      connected: false, failure: false, originalUrl: "");
 }

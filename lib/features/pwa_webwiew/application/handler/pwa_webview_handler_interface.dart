@@ -4,4 +4,5 @@ import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/pwa
 abstract class IPwaWebviewHandler {
   IPwaWebviewCubit getWebViewCubit();
   IInjectedWeb3Cubit getInjectedWebViewCubit();
+  void unfocus();
 }

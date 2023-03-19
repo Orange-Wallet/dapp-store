@@ -4,6 +4,7 @@ import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/i
 import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/injected_web3_cubit_interface.dart';
 import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/pwa_webview_cubit.dart';
 import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/pwa_webview_cubit_interface.dart';
+import 'package:flutter/material.dart';
 
 class PwaWebviewHandler implements IPwaWebviewHandler {
   @override
@@ -14,5 +15,11 @@ class PwaWebviewHandler implements IPwaWebviewHandler {
   @override
   IInjectedWeb3Cubit getInjectedWebViewCubit() {
     return getIt<InjectedWeb3Cubit>();
+  }
+
+  @override
+  void unfocus() {
+    WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
+    getWebViewCubit().hideUrlField();
   }
 }
