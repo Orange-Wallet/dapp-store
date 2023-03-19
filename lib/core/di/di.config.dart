@@ -9,7 +9,6 @@ import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/i
     as _i3;
 import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/pwa_webview_cubit.dart'
     as _i4;
-// ignore: depend_on_referenced_packages
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 

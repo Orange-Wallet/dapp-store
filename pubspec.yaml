@@ -23,6 +23,9 @@ dependencies:
   flutter_injected_web3: ^1.0.1
   flutter_inappwebview: ^5.7.2+3
   injectable: ^2.1.0
+  dio_cache_interceptor: ^3.4.0
+  get_it: ^7.2.0
+
 
 dev_dependencies:
   flutter_test:
