@@ -1,6 +1,8 @@
 import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/core/permissions/i_permissions_cubit.dart';
 import 'package:dappstore/core/permissions/permissions_cubit.dart';
+import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';
+import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_info_query_dto.dart';
@@ -19,11 +21,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  IStoreCubit cubit = getIt<StoreCubit>();
+  late final IDappStoreHandler storeHandler;
+  late final IStoreCubit storeCubit;
   IDownloader downloaderCubit = getIt<Downloader>();
   IPermissions permissiosnCubit = getIt<Permissions>();
   @override
   void initState() {
+    storeHandler = DappStoreHandler();
+    storeCubit = storeHandler.getStoreCubit();
     downloaderCubit.initializeStorageDir();
     super.initState();
   }
@@ -31,7 +36,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<IStoreCubit, StoreState>(
-      bloc: cubit,
+      bloc: storeCubit,
       builder: (context, webViewState) {
         return Scaffold(
           appBar: AppBar(title: const Text("test")),
@@ -41,7 +46,7 @@ class _HomePageState extends State<HomePage> {
                 child: ElevatedButton(
                   child: const Text("getdappList"),
                   onPressed: () {
-                    cubit.getDappList();
+                    storeHandler.getDappList();
                   },
                 ),
               ),
@@ -49,7 +54,7 @@ class _HomePageState extends State<HomePage> {
                 child: ElevatedButton(
                   child: const Text("nextPageList"),
                   onPressed: () {
-                    cubit.getDappListNextPage();
+                    storeHandler.getDappListNextPage();
                   },
                 ),
               ),
@@ -57,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                 child: ElevatedButton(
                   child: const Text("getDappInfo"),
                   onPressed: () {
-                    cubit.getDappInfo(
+                    storeHandler.getDappInfo(
                         queryParams: GetDappInfoQueryDto(
                             dappId: "com.crypteriors.dapp"));
                   },
@@ -67,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                 child: ElevatedButton(
                   child: const Text("getCuratedList"),
                   onPressed: () {
-                    cubit.getCuratedList();
+                    storeHandler.getCuratedList();
                   },
                 ),
               ),
@@ -75,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                 child: ElevatedButton(
                   child: const Text("getSearchResult"),
                   onPressed: () {
-                    cubit.getSearchDappList(
+                    storeHandler.getSearchDappList(
                         queryParams: GetDappQueryDto(search: "cryp"));
                   },
                 ),
@@ -84,7 +89,7 @@ class _HomePageState extends State<HomePage> {
                 child: ElevatedButton(
                   child: const Text("getSearchResultNextPage"),
                   onPressed: () {
-                    cubit.getSearchDappListNextPage();
+                    storeHandler.getSearchDappListNextPage();
                   },
                 ),
               ),
