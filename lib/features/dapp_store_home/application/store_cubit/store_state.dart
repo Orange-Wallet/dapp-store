@@ -4,10 +4,11 @@ part of 'store_cubit.dart';
 class StoreState with _$StoreState {
   const factory StoreState({
     DappList? dappList,
-    DappList? searchresult,
-    CuratedList? curatedList,
+    DappList? searchResult,
+    List<CuratedList?>? curatedList,
     int? currentPage,
     int? searchPage,
+    GetDappQueryDto? searchParams,
   }) = _StoreState;
 
   factory StoreState.initial() => const _StoreState();

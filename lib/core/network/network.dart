@@ -57,14 +57,14 @@ class Network {
   /// the [globalCacheOptions].
   ///
   /// [options] are special instructions that can be merged with the request.
-  Future<ResponseModel<R>> get<R>({
+  Future<Response<R>> get<R>({
     required String path,
     JSON? queryParams,
     Options? options,
     CacheOptions? cacheOptions,
     CancelToken? cancelToken,
   }) async {
-    final response = await _dio.get<JSON>(
+    final response = await _dio.get<R>(
       path,
       queryParameters: queryParams,
       options: _mergeDioAndCacheOptions(
@@ -73,7 +73,7 @@ class Network {
       ),
       cancelToken: cancelToken ?? _cancelToken,
     );
-    return ResponseModel<R>.fromJson(response.data!);
+    return response;
   }
 
   /// This method sends a `POST` request to the [path], **decodes**
@@ -88,7 +88,7 @@ class Network {
   /// the **default** [cancelToken] inside [DioService] is used.
   ///
   /// [options] are special instructions that can be merged with the request.
-  Future<ResponseModel<R>> post<R>({
+  Future<Response<JSON>> post<R>({
     required String path,
     JSON? data,
     Options? options,
@@ -100,7 +100,7 @@ class Network {
       options: options,
       cancelToken: cancelToken ?? _cancelToken,
     );
-    return ResponseModel<R>.fromJson(response.data!);
+    return response;
   }
 
   /// This method sends a `PUT` request to the [path], **decodes**
@@ -115,7 +115,7 @@ class Network {
   /// the **default** [cancelToken] inside [DioService] is used.
   ///
   /// [options] are special instructions that can be merged with the request.
-  Future<ResponseModel<R>> put<R>({
+  Future<Response<JSON>> put<R>({
     required String path,
     JSON? data,
     Options? options,
@@ -127,7 +127,7 @@ class Network {
       options: options,
       cancelToken: cancelToken ?? _cancelToken,
     );
-    return ResponseModel<R>.fromJson(response.data!);
+    return response;
   }
 
   /// This method sends a `DELETE` request to the [path], **decodes**
@@ -142,7 +142,7 @@ class Network {
   /// the **default** [cancelToken] inside [DioService] is used.
   ///
   /// [options] are special instructions that can be merged with the request.
-  Future<ResponseModel<R>> delete<R>({
+  Future<Response<JSON>> delete<R>({
     required String path,
     JSON? data,
     Options? options,
@@ -154,7 +154,7 @@ class Network {
       options: options,
       cancelToken: cancelToken ?? _cancelToken,
     );
-    return ResponseModel<R>.fromJson(response.data!);
+    return response;
   }
 
   Options? _mergeDioAndCacheOptions({
