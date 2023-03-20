@@ -1,40 +1,44 @@
 import 'package:dappstore/core/network/network.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_list.dart';
+import 'package:dappstore/features/dapp_store_home/domain/repositories/i_dapp_list_repository.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/datasources/remote_data_source.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_info_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_list_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class DappListRepoImpl {
-  final Network _network;
-  final RemoteDataSource _remoteDataSource;
+class DappListRepoImpl implements IDappListRepo {
+  late final Network _network = Network(dioClient: Dio());
+  late final RemoteDataSource _remoteDataSource =
+      RemoteDataSource(network: _network);
 
-  DappListRepoImpl({required Network network})
-      : _network = network,
-        _remoteDataSource = RemoteDataSource(network: network);
+  DappListRepoImpl();
 
+  @override
   Future<DappList> getDappList({GetDappQueryDto? queryParams}) async {
     final DappListDto dappList = await _remoteDataSource.getDappList(
         queryParams: queryParams); // from remote data source
     return dappList.toDomain();
   }
 
-  Future<DappInfo> getDappInfo(String ID) async {
-    final DappInfoDto dappList =
-        await _remoteDataSource.getDappInfo(ID); // from remote data source
-    return DappInfoDto().toDomain();
+  @override
+  Future<DappInfo> getDappInfo(String id) async {
+    final DappInfoDto dappInfo =
+        await _remoteDataSource.getDappInfo(id); // from remote data source
+    return dappInfo.toDomain();
   }
 
+  @override
   Future<List<DappInfo>> searchDapps(String searchString) async {
     final List<DappInfoDto> dappList = await _remoteDataSource
         .searchDapps(searchString); // from remote data source
     final List<DappInfo> list = [];
-    dappList.forEach((element) {
+    for (var element in dappList) {
       list.add(element.toDomain());
-    });
+    }
     return list;
   }
 }

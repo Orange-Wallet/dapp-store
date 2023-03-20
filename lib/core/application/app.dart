@@ -1,8 +1,8 @@
+import 'package:dappstore/features/dapp_store_home/presentation/pages/homepage.dart';
 import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/injected_web3_cubit.dart';
 import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/injected_web3_cubit_interface.dart';
 import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/pwa_webview_cubit.dart';
 import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/pwa_webview_cubit_interface.dart';
-import 'package:dappstore/features/pwa_webwiew/application/screens/pwa_webview_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,9 +22,7 @@ class App extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const PwaWebView(
-          dappName: "DappRadar",
-        ),
+        home: const HomePage(),
       ),
     );
   }

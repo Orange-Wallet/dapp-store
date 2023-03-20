@@ -15,7 +15,7 @@ class ResponseModel<T> {
       headers: _ResponseHeadersModel.fromJson(
         json['headers'] as JSON,
       ),
-      body: json['body'] as T,
+      body: json['data'] as T,
     );
   }
 }
