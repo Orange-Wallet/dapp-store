@@ -2,7 +2,6 @@ package com.example.dappstore
 
 import android.content.Intent
 import android.util.Log
-import androidx.annotation.NonNull
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
@@ -10,38 +9,42 @@ import java.lang.Exception
 
 class MainActivity: FlutterActivity() {
     private val CHANNEL = "dappStore/platformChannel"
-    override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
+    override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler {
                 call, result ->
-            if(call.method == "StartForegroundService"){
-                try{
-                    Log.d("FG","In start forground");
-                    val intent = Intent(context, ForegroundService::class.java)
-                    context.startService(intent)
-                    result.success(true)
-                }catch(e:Exception){
-                    result.error("0", e.message.toString(),  null);
+            when (call.method) {
+                "StartForegroundService" -> {
+                    try{
+                        Log.d("FG","In start forground")
+                        val intent = Intent(context, ForegroundService::class.java)
+                        context.startService(intent)
+                        result.success(true)
+                    }catch(e:Exception){
+                        result.error("0", e.message.toString(),  null)
+                    }
+
                 }
+                "StopForegroundService" -> {
+                    try{
+                        Log.d("FG","In Stop forground")
 
-            }else  if(call.method == "StopForegroundService"){
-                try{
-                    Log.d("FG","In Stop forground");
-
-                    val intent = Intent(context, ForegroundService::class.java)
-                    context.stopService(intent);
-                    result.success(true);
-                }catch(e:Exception){
-                    result.error("0", e.message.toString(),  null);
+                        val intent = Intent(context, ForegroundService::class.java)
+                        context.stopService(intent)
+                        result.success(true)
+                    }catch(e:Exception){
+                        result.error("0", e.message.toString(),  null)
+                    }
                 }
-            }else  if(call.method == "IsForegroundServiceRunning"){
-                try{
-                    Log.d("FG","In status forground");
+                "IsForegroundServiceRunning" -> {
+                    try{
+                        Log.d("FG","In status forground")
 
-                    result.success(ForegroundService.IS_ACTIVITY_RUNNING);
-                }catch(e:Exception){
-                    result.error("0", e.message.toString(),  null);
+                        result.success(ForegroundService.IS_ACTIVITY_RUNNING)
+                    }catch(e:Exception){
+                        result.error("0", e.message.toString(),  null)
 
+                    }
                 }
             }
         }
