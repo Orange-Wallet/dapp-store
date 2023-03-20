@@ -4,6 +4,7 @@ import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_
 
 abstract class IDappStoreHandler {
   IStoreCubit getStoreCubit();
+
   getDappList();
 
   getDappListNextPage();

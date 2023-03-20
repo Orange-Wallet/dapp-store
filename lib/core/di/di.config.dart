@@ -23,6 +23,10 @@ import 'package:dappstore/features/download_and_installer/infrastructure/reposit
     as _i16;
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/downloader/i_downloader_cubit.dart'
     as _i15;
+import 'package:dappstore/features/download_and_installer/infrastructure/repositories/foreground_service/foreground_service_cubit.dart'
+    as _i18;
+import 'package:dappstore/features/download_and_installer/infrastructure/repositories/foreground_service/i_foreground_service_cubit.dart'
+    as _i17;
 import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/i_injected_web3_cubit.dart'
     as _i5;
 import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/injected_web3_cubit.dart'
@@ -57,5 +61,7 @@ _i1.GetIt $initGetIt(
       () => _i14.StoreCubit(dappListRepo: gh<_i3.IDappListRepo>()));
   gh.lazySingleton<_i15.IDownloader>(
       () => _i16.DownloaderCubit(permissionsCubit: gh<_i7.IPermissions>()));
+  gh.lazySingleton<_i17.IForegroundService>(() => _i18.ForegroundService(
+      platformChannelCubit: gh<_i9.IPlatformChannelCubit>()));
   return getIt;
 }

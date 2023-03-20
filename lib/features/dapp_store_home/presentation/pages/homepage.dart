@@ -1,6 +1,5 @@
 import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/core/permissions/i_permissions_cubit.dart';
-import 'package:dappstore/core/permissions/permissions_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
@@ -8,8 +7,8 @@ import 'package:dappstore/features/dapp_store_home/application/store_cubit/store
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_info_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
 import 'package:dappstore/features/download_and_installer/infrastructure/dtos/task_info.dart';
-import 'package:dappstore/features/download_and_installer/infrastructure/repositories/downloader/downloader_cubit.dart';
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/downloader/i_downloader_cubit.dart';
+import 'package:dappstore/features/download_and_installer/infrastructure/repositories/foreground_service/i_foreground_service_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,6 +24,7 @@ class _HomePageState extends State<HomePage> {
   late final IStoreCubit storeCubit;
   IDownloader downloaderCubit = getIt<IDownloader>();
   IPermissions permissiosnCubit = getIt<IPermissions>();
+  IForegroundService foregroundService = getIt<IForegroundService>();
   @override
   void initState() {
     storeHandler = DappStoreHandler();
@@ -110,6 +110,31 @@ class _HomePageState extends State<HomePage> {
                       link:
                           "https://github.com/bartekpacia/spitfire/releases/download/v1.2.0/spitfire.apk",
                     ));
+                  },
+                ),
+              ),
+              Center(
+                child: ElevatedButton(
+                  child: const Text("START FG"),
+                  onPressed: () {
+                    foregroundService.startForegroundService();
+                  },
+                ),
+              ),
+              Center(
+                child: ElevatedButton(
+                  child: const Text("Foreground service"),
+                  onPressed: () {
+                    foregroundService.stopForegroundService();
+                  },
+                ),
+              ),
+              Center(
+                child: ElevatedButton(
+                  child: const Text("Status"),
+                  onPressed: () {
+                    final status = foregroundService.statusForegroundService();
+                    debugPrint("Status: $status");
                   },
                 ),
               ),
