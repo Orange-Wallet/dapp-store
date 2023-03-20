@@ -2,8 +2,10 @@ import 'dart:developer';
 
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/curated_list.dart';
+import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_list.dart';
 import 'package:dappstore/features/dapp_store_home/domain/repositories/i_dapp_list_repository.dart';
+import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_info_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/repositories/dapp_list_repository_impl.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -55,6 +57,53 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
         dappList: updatedList,
         currentPage: updatedList.page,
       ));
+      log(state.toString());
+    }
+  }
+
+  @override
+  getDappInfo({GetDappInfoQueryDto? queryParams}) async {
+    DappInfo dappInfo =
+        await dappListRepo.getDappInfo(queryParams: queryParams);
+    log(dappInfo.toString());
+  }
+
+  @override
+  getCuratedList() async {
+    List<CuratedList> curatedList = await dappListRepo.getCuratedList();
+    emit(state.copyWith(curatedList: curatedList));
+    log(state.toString());
+  }
+
+  @override
+  getSearchDappList({required GetDappQueryDto queryParams}) async {
+    DappList dappList =
+        await dappListRepo.getDappList(queryParams: queryParams);
+    emit(state.copyWith(
+        searchResult: dappList,
+        searchPage: dappList.page,
+        searchParams: queryParams));
+    log(state.toString());
+  }
+
+  @override
+  getSearchDappListNextPage() async {
+    GetDappQueryDto queryParams = state.searchParams!;
+    int nextPage = (state.searchPage ?? 0) + 1;
+    if (nextPage <= (state.searchResult?.pageCount ?? 0)) {
+      DappList searchList = await dappListRepo.getDappList(
+          queryParams: queryParams.copyWith(page: nextPage));
+      DappList? currentList = state.searchResult;
+
+      DappList updatedList = DappList(
+          page: searchList.page,
+          limit: searchList.limit,
+          pageCount: searchList.pageCount,
+          response: [...?currentList?.response, ...?searchList.response]);
+      emit(state.copyWith(
+          searchResult: updatedList,
+          searchPage: updatedList.page,
+          searchParams: queryParams.copyWith(page: nextPage)));
       log(state.toString());
     }
   }

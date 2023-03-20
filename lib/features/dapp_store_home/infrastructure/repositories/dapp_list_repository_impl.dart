@@ -1,10 +1,13 @@
 import 'package:dappstore/core/network/network.dart';
+import 'package:dappstore/features/dapp_store_home/domain/entities/curated_list.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_list.dart';
 import 'package:dappstore/features/dapp_store_home/domain/repositories/i_dapp_list_repository.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/datasources/remote_data_source.dart';
+import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/curated_list_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_info_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_list_dto.dart';
+import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_info_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
@@ -25,18 +28,18 @@ class DappListRepoImpl implements IDappListRepo {
   }
 
   @override
-  Future<DappInfo> getDappInfo(String id) async {
-    final DappInfoDto dappInfo =
-        await _remoteDataSource.getDappInfo(id); // from remote data source
+  Future<DappInfo> getDappInfo({GetDappInfoQueryDto? queryParams}) async {
+    final DappInfoDto dappInfo = await _remoteDataSource.getDappInfo(
+        queryParams: queryParams); // from remote data source
     return dappInfo.toDomain();
   }
 
   @override
-  Future<List<DappInfo>> searchDapps(String searchString) async {
-    final List<DappInfoDto> dappList = await _remoteDataSource
-        .searchDapps(searchString); // from remote data source
-    final List<DappInfo> list = [];
-    for (var element in dappList) {
+  Future<List<CuratedList>> getCuratedList() async {
+    final List<CuratedListDto> curatedList =
+        await _remoteDataSource.getCuratedList();
+    final List<CuratedList> list = [];
+    for (var element in curatedList) {
       list.add(element.toDomain());
     }
     return list;
