@@ -7,7 +7,6 @@ import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_list.dar
 import 'package:dappstore/features/dapp_store_home/domain/repositories/i_dapp_list_repository.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_info_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
-import 'package:dappstore/features/dapp_store_home/infrastructure/repositories/dapp_list_repository_impl.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';

@@ -56,6 +56,6 @@ _i1.GetIt $initGetIt(
   gh.lazySingleton<_i13.IStoreCubit>(
       () => _i14.StoreCubit(dappListRepo: gh<_i3.IDappListRepo>()));
   gh.lazySingleton<_i15.IDownloader>(
-      () => _i16.Downloader(permissionsCubit: gh<_i7.IPermissions>()));
+      () => _i16.DownloaderCubit(permissionsCubit: gh<_i7.IPermissions>()));
   return getIt;
 }

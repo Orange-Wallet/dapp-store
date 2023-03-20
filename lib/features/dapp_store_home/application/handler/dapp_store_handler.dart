@@ -8,7 +8,7 @@ import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_
 class DappStoreHandler implements IDappStoreHandler {
   @override
   IStoreCubit getStoreCubit() {
-    return getIt<StoreCubit>();
+    return getIt<IStoreCubit>();
   }
 
   @override

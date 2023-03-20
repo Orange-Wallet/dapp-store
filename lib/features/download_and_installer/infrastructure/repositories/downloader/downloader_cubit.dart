@@ -4,7 +4,7 @@ import 'dart:ui';
 
 import 'package:android_path_provider/android_path_provider.dart';
 import 'package:dappstore/core/permissions/i_permissions_cubit.dart';
-import 'package:dappstore/core/permissions/permissions_cubit.dart';
+import 'package:dappstore/features/download_and_installer/infrastructure/datasources/downloader.dart';
 import 'package:dappstore/features/download_and_installer/infrastructure/dtos/task_info.dart';
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/downloader/i_downloader_cubit.dart';
 import 'package:flutter/foundation.dart';
@@ -12,31 +12,31 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:injectable/injectable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 part '../../../../../generated/features/download_and_installer/infrastructure/repositories/downloader/downloader_cubit.freezed.dart';
 part 'downloader_state.dart';
 
 @LazySingleton(as: IDownloader)
-class Downloader extends Cubit<DownloaderState> implements IDownloader {
+class DownloaderCubit extends Cubit<DownloaderState> implements IDownloader {
   final IPermissions permissionsCubit;
-  Downloader({required this.permissionsCubit})
+  DownloaderCubit({required this.permissionsCubit})
       : super(DownloaderState.initial());
 
   @override
   initialize() async {
-    await FlutterDownloader.initialize(debug: true, ignoreSsl: true);
+    Downloader.initialize(downloadCallback);
     _bindBackgroundIsolate();
-    FlutterDownloader.registerCallback(downloadCallback, step: 1);
   }
 
   @override
   initializeStorageDir() async {
     final storagePerms = await _checkStorage();
     if (storagePerms && state.storageInitialized != true) {
-      await _prepareSaveDir();
-      emit(state.copyWith(storageInitialized: true));
+      final saveDir = await Downloader.getSavedDir();
+      final status = await Downloader.initializeStorageDir(
+          state.storageInitialized, saveDir!);
+      emit(state.copyWith(storageInitialized: status));
     }
   }
 
@@ -97,30 +97,27 @@ class Downloader extends Cubit<DownloaderState> implements IDownloader {
     final storagePerms = await _checkStorage();
     debugPrint('StoragePermission: $storagePerms');
     if (storagePerms && (state.storageInitialized ?? false)) {
-      final taskId = await FlutterDownloader.enqueue(
-        url: task.link!,
-        headers: {'auth': 'test_for_sql_encoding'},
-        savedDir: state.localPath!,
-        saveInPublicStorage: true,
-      );
-      return task.copyWith(taskId: taskId);
+      final saveDir = await Downloader.getSavedDir();
+      final queuedTask = await Downloader.requestDownload(
+          task, state.storageInitialized ?? false, saveDir!);
+      return queuedTask;
     }
     return null;
   }
 
   @override
   Future<void> pauseDownload(TaskInfo task) async {
-    await FlutterDownloader.pause(taskId: task.taskId!);
+    await Downloader.pauseDownload(task);
   }
 
   @override
   Future<void> resumeDownload(TaskInfo task) async {
-    await FlutterDownloader.resume(taskId: task.taskId!);
+    await Downloader.resumeDownload(task);
   }
 
   @override
   Future<void> retryDownload(TaskInfo task) async {
-    await FlutterDownloader.retry(taskId: task.taskId!);
+    await Downloader.retryDownload(task);
   }
 
   @override
@@ -130,71 +127,20 @@ class Downloader extends Cubit<DownloaderState> implements IDownloader {
       return false;
     }
 
-    return FlutterDownloader.open(taskId: taskId);
+    return Downloader.openDownloadedFile(task);
   }
 
   @override
   Future<void> delete(TaskInfo task) async {
-    await FlutterDownloader.remove(
-      taskId: task.taskId!,
-      shouldDeleteContent: true,
-    );
-    await _prepare();
-  }
+    Downloader.delete(task);
+    final saveDir = await Downloader.getSavedDir();
 
-  Future<void> _prepare() async {
-    final tasks = await FlutterDownloader.loadTasks();
-
-    if (tasks == null) {
-      debugPrint('No tasks were retrieved from the database.');
-      return;
-    }
-
-    final Map<String, TaskInfo> tasks_ = {};
-
-    for (final task in tasks) {
-      tasks_[task.taskId] = TaskInfo(
-        taskId: task.taskId,
-        progress: task.progress,
-        link: task.url,
-        status: task.status,
-        saveDir: task.savedDir,
-      );
-    }
-    emit(state.copyWith(tasks: tasks_));
-    await _prepareSaveDir();
-  }
-
-  Future<void> _prepareSaveDir() async {
+    final Map<String, TaskInfo> tasks = await Downloader.prepare(saveDir!);
     final storagePerms = await _checkStorage();
-
     if (storagePerms) {
-      final localPath = (await _getSavedDir())!;
-      final savedDir = Directory(localPath);
-      if (!savedDir.existsSync()) {
-        await savedDir.create();
-      }
+      await Downloader.prepareSaveDir(saveDir);
     }
-  }
-
-  Future<String?> _getSavedDir() async {
-    String? externalStorageDirPath;
-
-    if (Platform.isAndroid) {
-      try {
-        externalStorageDirPath = await AndroidPathProvider.downloadsPath;
-      } catch (err, st) {
-        debugPrint('failed to get downloads path: $err, $st');
-
-        final directory = await getExternalStorageDirectory();
-        externalStorageDirPath = directory?.path;
-      }
-    } else if (Platform.isIOS) {
-      externalStorageDirPath =
-          (await getApplicationDocumentsDirectory()).absolute.path;
-    }
-    emit(state.copyWith(localPath: externalStorageDirPath));
-    return externalStorageDirPath;
+    emit(state.copyWith(tasks: tasks));
   }
 
   Future<bool> _checkStorage() async {

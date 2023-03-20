@@ -23,8 +23,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late final IDappStoreHandler storeHandler;
   late final IStoreCubit storeCubit;
-  IDownloader downloaderCubit = getIt<Downloader>();
-  IPermissions permissiosnCubit = getIt<Permissions>();
+  IDownloader downloaderCubit = getIt<IDownloader>();
+  IPermissions permissiosnCubit = getIt<IPermissions>();
   @override
   void initState() {
     storeHandler = DappStoreHandler();
