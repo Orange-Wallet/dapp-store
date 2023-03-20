@@ -12,7 +12,7 @@ import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
-@lazySingleton
+@LazySingleton(as: IDappListRepo)
 class DappListRepoImpl implements IDappListRepo {
   late final Network _network = Network(dioClient: Dio());
   late final RemoteDataSource _remoteDataSource =

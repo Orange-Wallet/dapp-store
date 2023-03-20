@@ -16,12 +16,11 @@ part '../../../../generated/features/dapp_store_home/application/store_cubit/sto
 part '../../../../generated/features/dapp_store_home/application/store_cubit/store_cubit.g.dart';
 part 'store_state.dart';
 
-@lazySingleton
+@LazySingleton(as: IStoreCubit)
 class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
   @override
   IDappListRepo dappListRepo;
-  StoreCubit({required DappListRepoImpl this.dappListRepo})
-      : super(StoreState.initial());
+  StoreCubit({required this.dappListRepo}) : super(StoreState.initial());
 
   @override
   Future<void> close() {

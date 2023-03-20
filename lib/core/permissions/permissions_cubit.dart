@@ -10,7 +10,7 @@ import 'package:permission_handler/permission_handler.dart';
 part '../../generated/core/permissions/permissions_cubit.freezed.dart';
 part 'permissions_state.dart';
 
-@lazySingleton
+@LazySingleton(as: IPermissions)
 class Permissions extends Cubit<PermissionsState> implements IPermissions {
   Permissions() : super(PermissionsState.initial());
   @override

@@ -3,6 +3,7 @@ import 'dart:isolate';
 import 'dart:ui';
 
 import 'package:android_path_provider/android_path_provider.dart';
+import 'package:dappstore/core/permissions/i_permissions_cubit.dart';
 import 'package:dappstore/core/permissions/permissions_cubit.dart';
 import 'package:dappstore/features/download_and_installer/infrastructure/dtos/task_info.dart';
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/downloader/i_downloader_cubit.dart';
@@ -17,9 +18,9 @@ import 'package:permission_handler/permission_handler.dart';
 part '../../../../../generated/features/download_and_installer/infrastructure/repositories/downloader/downloader_cubit.freezed.dart';
 part 'downloader_state.dart';
 
-@lazySingleton
+@LazySingleton(as: IDownloader)
 class Downloader extends Cubit<DownloaderState> implements IDownloader {
-  final Permissions permissionsCubit;
+  final IPermissions permissionsCubit;
   Downloader({required this.permissionsCubit})
       : super(DownloaderState.initial());
 

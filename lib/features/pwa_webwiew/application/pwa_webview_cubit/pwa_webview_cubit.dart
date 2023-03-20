@@ -9,7 +9,7 @@ import 'package:injectable/injectable.dart';
 part '../../../../generated/features/pwa_webwiew/application/pwa_webview_cubit/pwa_webview_cubit.freezed.dart';
 part 'pwa_webview_state.dart';
 
-@lazySingleton
+@LazySingleton(as: IPwaWebviewCubit)
 class PwaWebviewCubit extends Cubit<PwaWebviewState>
     implements IPwaWebviewCubit {
   PwaWebviewCubit() : super(PwaWebviewState.initial());

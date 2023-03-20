@@ -8,7 +8,7 @@ import 'i_injected_web3_cubit.dart';
 part '../../../../generated/features/pwa_webwiew/application/injected_web3_cubit/injected_web3_cubit.freezed.dart';
 part 'injected_web3_state.dart';
 
-@lazySingleton
+@LazySingleton(as: IInjectedWeb3Cubit)
 class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
     implements IInjectedWeb3Cubit {
   InjectedWeb3Cubit() : super(InjectedWeb3State.initial());
@@ -116,5 +116,31 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
     //     jsonData: jsonEncode(data.toJson()),
     //     version: TypedDataVersion.V4);
     return "";
+  }
+}
+
+abstract class Person {
+  getName();
+}
+
+class Male implements Person {
+  @override
+  getName() {
+    return "Mr.";
+  }
+}
+
+class Female implements Person {
+  @override
+  getName() {
+    return "Mrs.";
+  }
+}
+
+class abc {
+  Person person;
+  abc({required this.person});
+  getFullName() {
+    return person.getName();
   }
 }
