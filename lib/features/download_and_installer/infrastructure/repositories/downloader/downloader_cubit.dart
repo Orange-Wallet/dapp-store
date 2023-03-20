@@ -3,6 +3,7 @@ import 'dart:isolate';
 import 'dart:ui';
 
 import 'package:android_path_provider/android_path_provider.dart';
+import 'package:dappstore/core/permissions/permissions_cubit.dart';
 import 'package:dappstore/features/download_and_installer/infrastructure/dtos/task_info.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,7 +19,9 @@ part 'downloader_state.dart';
 
 @lazySingleton
 class Downloader extends Cubit<DownloaderState> {
-  Downloader() : super(DownloaderState.initial());
+  final Permissions permissionsCubit;
+  Downloader({required this.permissionsCubit})
+      : super(DownloaderState.initial());
 
   initialize() async {
     await FlutterDownloader.initialize(debug: true, ignoreSsl: true);

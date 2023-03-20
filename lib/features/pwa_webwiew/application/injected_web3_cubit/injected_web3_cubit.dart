@@ -3,7 +3,7 @@ import 'package:flutter_injected_web3/flutter_injected_web3.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
-import 'injected_web3_cubit_interface.dart';
+import 'i_injected_web3_cubit.dart';
 
 part '../../../../generated/features/pwa_webwiew/application/injected_web3_cubit/injected_web3_cubit.freezed.dart';
 part 'injected_web3_state.dart';
