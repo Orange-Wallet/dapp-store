@@ -1,8 +1,13 @@
 import 'package:dappstore/core/di/di.dart';
+import 'package:dappstore/core/permissions/i_permissions_cubit.dart';
+import 'package:dappstore/core/permissions/permissions_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_info_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
+import 'package:dappstore/features/download_and_installer/infrastructure/dtos/task_info.dart';
+import 'package:dappstore/features/download_and_installer/infrastructure/repositories/downloader/downloader_cubit.dart';
+import 'package:dappstore/features/download_and_installer/infrastructure/repositories/downloader/i_downloader_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,6 +20,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   IStoreCubit cubit = getIt<StoreCubit>();
+  IDownloader downloaderCubit = getIt<Downloader>();
+  IPermissions permissiosnCubit = getIt<Permissions>();
+  @override
+  void initState() {
+    downloaderCubit.initializeStorageDir();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<IStoreCubit, StoreState>(
@@ -72,6 +85,26 @@ class _HomePageState extends State<HomePage> {
                   child: const Text("getSearchResultNextPage"),
                   onPressed: () {
                     cubit.getSearchDappListNextPage();
+                  },
+                ),
+              ),
+              Center(
+                child: ElevatedButton(
+                  child: const Text("Request Permission"),
+                  onPressed: () {
+                    permissiosnCubit.requestStoragePermission();
+                  },
+                ),
+              ),
+              Center(
+                child: ElevatedButton(
+                  child: const Text("download APK"),
+                  onPressed: () {
+                    downloaderCubit.requestDownload(const TaskInfo(
+                      name: "Test",
+                      link:
+                          "https://github.com/bartekpacia/spitfire/releases/download/v1.2.0/spitfire.apk",
+                    ));
                   },
                 ),
               ),
