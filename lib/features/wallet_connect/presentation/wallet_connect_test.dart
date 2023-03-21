@@ -14,7 +14,7 @@ class WCTestWidget extends StatelessWidget {
             onPressed: () async {
               var cubit = getIt<WalletConnectCubit>();
               await cubit.initialize();
-              cubit.getConnectRequest();
+              cubit.getConnectRequest(["eip155:137", "eip155:1"]);
             },
             child: Text("Connecet")),
         ElevatedButton(
@@ -22,7 +22,13 @@ class WCTestWidget extends StatelessWidget {
               var cubit = getIt<WalletConnectCubit>();
               cubit.getPersonalSign("Testing");
             },
-            child: Text("personal Sign"))
+            child: Text("personal Sign")),
+        ElevatedButton(
+            onPressed: () {
+              var cubit = getIt<WalletConnectCubit>();
+              cubit.disconnectAll();
+            },
+            child: Text("delete all"))
       ],
     );
   }

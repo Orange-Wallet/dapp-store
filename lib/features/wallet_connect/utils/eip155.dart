@@ -1,4 +1,6 @@
+import 'package:dappstore/features/wallet_connect/models/chain_metadata.dart';
 import 'package:dappstore/features/wallet_connect/models/eth/ethereum_transaction.dart';
+import 'package:dappstore/features/wallet_connect/utils/helpers.dart';
 import 'package:wallet_connect_dart_v2/sign/engine/models.dart';
 import 'package:wallet_connect_dart_v2/wallet_connect_dart_v2.dart';
 
@@ -52,6 +54,16 @@ class Eip155Data {
     Eip155Events.CHAIN_CHANGED: 'eth_chainsChanged',
     Eip155Events.ACCOUNTS_CHANGED: 'eth_accountsChanged',
   };
+
+  static SessionConnectParams getSessionConnectParams(List<String> chainIds) {
+    return SessionConnectParams(requiredNamespaces: {
+      ChainType.eip155.name: ProposalRequiredNamespace(
+        chains: chainIds,
+        events: WCHelper.getChainEvents(ChainType.eip155),
+        methods: WCHelper.getChainMethods(ChainType.eip155),
+      )
+    });
+  }
 
   static SessionRequestParams getRequestParams(
       {required String topic,

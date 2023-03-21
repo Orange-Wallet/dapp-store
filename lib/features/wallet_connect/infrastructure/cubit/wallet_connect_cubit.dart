@@ -1,7 +1,11 @@
 import 'dart:developer';
 
+import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
+import 'package:dappstore/features/wallet_connect/models/chain_metadata.dart';
+import 'package:dappstore/features/wallet_connect/models/connected_account.dart';
 import 'package:dappstore/features/wallet_connect/models/eth/ethereum_transaction.dart';
 import 'package:dappstore/features/wallet_connect/utils/eip155.dart';
+import 'package:dappstore/features/wallet_connect/utils/helpers.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -14,15 +18,19 @@ part '../../../../generated/features/wallet_connect/infrastructure/cubit/wallet_
 part 'wallet_connect_state.dart';
 
 @lazySingleton
-class WalletConnectCubit extends Cubit<WalletConnectState> {
+class WalletConnectCubit extends Cubit<WalletConnectState>
+    implements IWalletConnectCubit {
+  @override
   SignClient? signClient;
   WalletConnectCubit() : super(WalletConnectState.initial());
 
+  @override
   started() async {
     await initialize();
     // getSessionAndPairings();
   }
 
+  @override
   initialize() async {
     signClient = await SignClient.init(
       projectId: "36f352c5daeb6ed6ae15657366a9df3d",
@@ -36,45 +44,31 @@ class WalletConnectCubit extends Cubit<WalletConnectState> {
       database: 'wallet_connect_v2.db',
       logger: Logger(level: Level.error),
     );
-
-    // signClient!.on(SignClientEvent.SESSION_EVENT.value, (data) async {
-    //   final eventData = data as SignClientEventParams<RequestSessionEvent>;
-    //   log('SESSION_EVENT: $eventData');
-    // });
-
-    // signClient!.on(SignClientEvent.SESSION_PING.value, (data) async {
-    //   final eventData = data as SignClientEventParams<void>;
-    //   log('SESSION_PING: $eventData');
-    // });
-
-    // signClient!.on(SignClientEvent.SESSION_DELETE.value, (data) async {
-    //   final eventData = data as SignClientEventParams<void>;
-    //   log('SESSION_DELETE: $eventData');
-    // });
   }
 
-  // getSessionAndPairings() {
-  //   final sessions = signClient!.session.getAll();
-  //   final pairings = signClient!.core.pairing.getPairings();
-  //   emit(state.copyWith(sessions: sessions, pairings: pairings));
-  // }
-  getConnectRequest() async {
+  @override
+  getSessionAndPairings() {
+    final sessions = signClient!.session.getAll();
+    final pairings = signClient!.core.pairing.getPairings();
+    emit(state.copyWith(sessions: sessions, pairings: pairings));
+  }
+
+  @override
+  getConnectRequest(List<String> chainIds) async {
     EngineConnection? res =
-        await signClient?.connect(SessionConnectParams(requiredNamespaces: {
-      "eip155": const ProposalRequiredNamespace(chains: [
-        'eip155:137'
-      ], events: [
-        "eth_chainsChanged"
-      ], methods: [
-        "personal_sign",
-        "eth_sign",
-        "eth_signTransaction",
-        "eth_signTypedData",
-        "eth_sendTransaction"
-      ])
-    }));
+        await signClient?.connect(Eip155Data.getSessionConnectParams(chainIds));
     res?.approval?.then((value) {
-      emit(state.copyWith(activeSession: value));
+      emit(state.copyWith(
+        activeSession: value,
+        failure: false,
+        sessions: signClient!.session.getAll(),
+        activeChainId: WCHelper.getChainIdFromAccountStr(
+            value.namespaces[ChainType.eip155.name]!.accounts.first),
+        activeAddress: WCHelper.getAddressFromAccountStr(
+            value.namespaces[ChainType.eip155.name]!.accounts.first),
+        connected: true,
+      ));
+      getSessionAndPairings();
       log("connected");
     }).catchError((_) {
       log("failed");
@@ -82,17 +76,18 @@ class WalletConnectCubit extends Cubit<WalletConnectState> {
     launchUrlString(res!.uri!);
   }
 
-  getPersonalSign(String data) async {
+  @override
+  getPersonalSign(
+    String data,
+  ) async {
     if (state.activeSession != null) {
       SessionRequestParams params = Eip155Data.getRequestParams(
         topic: state.activeSession!.topic,
         method: Eip155Methods.PERSONAL_SIGN,
-        chainId: 'eip155:137',
-        address:
-            state.activeSession!.namespaces.entries.first.value.accounts.first,
+        chainId: state.activeChainId!,
+        address: state.activeAddress!,
         data: data,
       );
-
       var res = await signClient?.request(params);
       return res;
     } else {
@@ -100,6 +95,7 @@ class WalletConnectCubit extends Cubit<WalletConnectState> {
     }
   }
 
+  @override
   getEthSign(String data) async {
     if (state.activeSession != null) {
       SessionRequestParams params = Eip155Data.getRequestParams(
@@ -117,6 +113,7 @@ class WalletConnectCubit extends Cubit<WalletConnectState> {
     }
   }
 
+  @override
   getEthSignTypedData(String data) async {
     if (state.activeSession != null) {
       SessionRequestParams params = Eip155Data.getRequestParams(
@@ -134,6 +131,7 @@ class WalletConnectCubit extends Cubit<WalletConnectState> {
     }
   }
 
+  @override
   getEthSignTransaction(EthereumTransaction transaction) async {
     if (state.activeSession != null) {
       SessionRequestParams params = Eip155Data.getRequestParams(
@@ -151,6 +149,7 @@ class WalletConnectCubit extends Cubit<WalletConnectState> {
     }
   }
 
+  @override
   getEthSendTransaction(EthereumTransaction transaction) async {
     if (state.activeSession != null) {
       SessionRequestParams params = Eip155Data.getRequestParams(
@@ -168,41 +167,38 @@ class WalletConnectCubit extends Cubit<WalletConnectState> {
     }
   }
 
-  // Future<void> disconnect(String topic) async {
-  //   await signClient!.disconnect(
-  //     topic: topic,
-  //     reason: getSdkError(SdkErrorKey.USER_DISCONNECTED),
-  //   );
-  //   getSessionAndPairings();
-  // }
+  @override
+  Future<void> disconnect(String topic) async {
+    await signClient!.disconnect(
+      topic: topic,
+      reason: getSdkError(SdkErrorKey.USER_DISCONNECTED),
+    );
+    getSessionAndPairings();
+  }
 
-  // deleteAllSessions() async {
-  //   signClient!.pairing.values.forEach((element) async {
-  //     await signClient!.disconnect(
-  //       topic: element.topic,
-  //       reason: getSdkError(SdkErrorKey.USER_DISCONNECTED),
-  //     );
-  //   });
-  // }
+  @override
+  disconnectAll() async {
+    log("message");
+    for (var element in state.sessions) {
+      try {
+        await signClient!.disconnect(
+          topic: element.topic,
+          reason: getSdkError(SdkErrorKey.USER_DISCONNECTED),
+        );
+      } catch (e, stackTrace) {
+        log(" ${e.toString()}: $stackTrace");
+      }
+    }
+  }
 
-  // connectNewSession(
-  //   String qrCode, {
-  //   bool fromIosWeb = false,
-  // }) async {
-  //   if (_isValidPairUri(qrCode)) {
-  //     await signClient!.pair(qrCode);
-  //   }
-  // }
-
-  // bool _isValidPairUri(String qrCode) {
-  //   if (Uri.tryParse(qrCode) != null) {
-  //     final uri = Uri.parse(qrCode);
-  //     final path = uri.path;
-  //     final requiredValues = path.split("@");
-  //     if (requiredValues[1] == '2') {
-  //       return true;
-  //     }
-  //   }
-  //   return false;
-  // }
+// returns topic->AccountList
+  @override
+  Map<String, List<ConnectedAccount>> getAllConnectedAccounts() {
+    Map<String, List<ConnectedAccount>> accountList = {};
+    for (var element in state.sessions) {
+      accountList[element.topic] =
+          WCHelper.getConnectedAccountForSession(element);
+    }
+    return accountList;
+  }
 }
