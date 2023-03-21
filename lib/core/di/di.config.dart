@@ -14,6 +14,8 @@ import 'package:dappstore/core/platform_channel/i_platform_channel_cubit.dart'
     as _i11;
 import 'package:dappstore/core/platform_channel/platform_channel_cubit.dart'
     as _i12;
+import 'package:dappstore/core/theme/i_theme_cubit.dart' as _i17;
+import 'package:dappstore/core/theme/theme_cubit.dart' as _i18;
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart'
     as _i15;
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/store_cubit.dart'
@@ -23,13 +25,13 @@ import 'package:dappstore/features/dapp_store_home/domain/repositories/i_dapp_li
 import 'package:dappstore/features/dapp_store_home/infrastructure/repositories/dapp_list_repository_impl.dart'
     as _i4;
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/downloader/downloader_cubit.dart'
-    as _i20;
-import 'package:dappstore/features/download_and_installer/infrastructure/repositories/downloader/i_downloader_cubit.dart'
-    as _i19;
-import 'package:dappstore/features/download_and_installer/infrastructure/repositories/foreground_service/foreground_service_cubit.dart'
     as _i22;
-import 'package:dappstore/features/download_and_installer/infrastructure/repositories/foreground_service/i_foreground_service_cubit.dart'
+import 'package:dappstore/features/download_and_installer/infrastructure/repositories/downloader/i_downloader_cubit.dart'
     as _i21;
+import 'package:dappstore/features/download_and_installer/infrastructure/repositories/foreground_service/foreground_service_cubit.dart'
+    as _i24;
+import 'package:dappstore/features/download_and_installer/infrastructure/repositories/foreground_service/i_foreground_service_cubit.dart'
+    as _i23;
 import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/i_injected_web3_cubit.dart'
     as _i5;
 import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/injected_web3_cubit.dart'
@@ -39,9 +41,9 @@ import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/i_p
 import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/pwa_webview_cubit.dart'
     as _i14;
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/wallet_connect_cubit.dart'
-    as _i18;
+    as _i20;
 import 'package:dappstore/features/wallet_connect/infrastructure/wallet_connect.dart'
-    as _i17;
+    as _i19;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
@@ -67,11 +69,12 @@ _i1.GetIt $initGetIt(
   gh.lazySingleton<_i13.IPwaWebviewCubit>(() => _i14.PwaWebviewCubit());
   gh.lazySingleton<_i15.IStoreCubit>(
       () => _i16.StoreCubit(dappListRepo: gh<_i3.IDappListRepo>()));
-  gh.lazySingleton<_i17.WalletConnect>(() => _i17.WalletConnect());
-  gh.lazySingleton<_i18.WalletConnectCubit>(() => _i18.WalletConnectCubit());
-  gh.lazySingleton<_i19.IDownloader>(
-      () => _i20.DownloaderCubit(permissionsCubit: gh<_i9.IPermissions>()));
-  gh.lazySingleton<_i21.IForegroundService>(() => _i22.ForegroundService(
+  gh.lazySingleton<_i17.IThemeCubit>(() => _i18.ThemeCubit());
+  gh.lazySingleton<_i19.WalletConnect>(() => _i19.WalletConnect());
+  gh.lazySingleton<_i20.WalletConnectCubit>(() => _i20.WalletConnectCubit());
+  gh.lazySingleton<_i21.IDownloader>(
+      () => _i22.DownloaderCubit(permissionsCubit: gh<_i9.IPermissions>()));
+  gh.lazySingleton<_i23.IForegroundService>(() => _i24.ForegroundService(
       platformChannelCubit: gh<_i11.IPlatformChannelCubit>()));
   return getIt;
 }
