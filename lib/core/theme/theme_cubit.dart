@@ -16,10 +16,23 @@ class ThemeCubit extends Cubit<ThemeState> implements IThemeCubit {
   @override
   initialise() async {
     final isDark = await _isDarkEnabledStorage();
+    final shouldFollowSystem = await _shouldFollowSystem();
     if (isDark == true) {
-      emit(state.copyWith(activeTheme: DarkTheme(), isDark: true));
+      emit(
+        state.copyWith(
+          activeTheme: DarkTheme(),
+          isDark: true,
+          shouldFollowSystem: shouldFollowSystem,
+        ),
+      );
     } else {
-      emit(state.copyWith(activeTheme: LightTheme(), isDark: false));
+      emit(
+        state.copyWith(
+          activeTheme: LightTheme(),
+          isDark: false,
+          shouldFollowSystem: shouldFollowSystem,
+        ),
+      );
     }
   }
 
@@ -46,8 +59,29 @@ class ThemeCubit extends Cubit<ThemeState> implements IThemeCubit {
     _updateTheme(true);
   }
 
+  @override
+  toggleShouldFollowSystem(
+      bool shouldFollowSystem, bool isCurrentDarkTheme) async {
+    await _updateShouldFollowSystem(shouldFollowSystem);
+    if (isCurrentDarkTheme) {
+      emit(state.copyWith(activeTheme: LightTheme(), isDark: false));
+      _updateTheme(false);
+    } else {
+      emit(state.copyWith(activeTheme: DarkTheme(), isDark: true));
+      _updateTheme(true);
+    }
+  }
+
   _updateTheme(bool isDark) async {
     await themeStore.setCurrentTheme(isDark);
+  }
+
+  _updateShouldFollowSystem(bool shouldFollowSystem) async {
+    await themeStore.setShouldFollowSystem(shouldFollowSystem);
+  }
+
+  _shouldFollowSystem() async {
+    return await themeStore.isShouldFollowSystem();
   }
 
   Future<bool> _isDarkEnabledStorage() async {

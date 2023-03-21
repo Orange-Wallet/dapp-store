@@ -1,3 +1,4 @@
+import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/features/pwa_webwiew/application/handler/pwa_webview_handler.dart';
 import 'package:dappstore/features/pwa_webwiew/application/handler/i_pwa_webview_handler.dart';
 import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/injected_web3_cubit.dart';
@@ -26,7 +27,7 @@ class _PwaWebViewState extends State<PwaWebView> {
 
   @override
   void initState() {
-    handler = PwaWebviewHandler();
+    handler = getIt<IPwaWebviewHandler>();
     pwaWebviewCubit = handler.getWebViewCubit();
     injectedWeb3Cubit = handler.getInjectedWebViewCubit();
     _dappName = widget.dappName;

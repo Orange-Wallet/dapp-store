@@ -5,8 +5,9 @@ class ThemeState with _$ThemeState {
   const factory ThemeState({
     IThemeSpec? activeTheme,
     bool? isDark,
+    bool? shouldFollowSystem,
   }) = _ThemeState;
 
-  factory ThemeState.initial() =>
-      ThemeState(activeTheme: LightTheme(), isDark: false);
+  factory ThemeState.initial() => ThemeState(
+      activeTheme: LightTheme(), isDark: false, shouldFollowSystem: true);
 }

@@ -1,8 +1,8 @@
 import 'package:dappstore/core/theme/store/entities/theme_storage.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 Future<void> initialiseStore() async {
-  Hive.init("DappStore");
+  await Hive.initFlutter("./dappstore");
   //Register all the adapters here.
   Hive.registerAdapter(ThemeStorageAdapter());
 }

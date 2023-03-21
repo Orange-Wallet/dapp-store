@@ -7,7 +7,9 @@ import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/i_p
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_injected_web3/flutter_injected_web3.dart';
+import 'package:injectable/injectable.dart';
 
+@LazySingleton(as: IPwaWebviewHandler)
 class PwaWebviewHandler implements IPwaWebviewHandler {
   @override
   IPwaWebviewCubit getWebViewCubit() {
