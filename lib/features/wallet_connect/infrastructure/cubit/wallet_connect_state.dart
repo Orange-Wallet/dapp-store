@@ -1,0 +1,27 @@
+part of 'wallet_connect_cubit.dart';
+
+@freezed
+class WalletConnectState with _$WalletConnectState {
+  const factory WalletConnectState({
+    required bool connected,
+    required bool failure,
+    required List<SessionStruct> sessions,
+    required SessionStruct? activeSession,
+    required String? activeAddress,
+    required String? activeChainId,
+    required List<PairingStruct> pairings,
+  }) = _WalletConnectState;
+
+  factory WalletConnectState.initial() => WalletConnectState(
+        connected: false,
+        failure: false,
+        sessions: [],
+        pairings: [],
+        activeSession: null,
+        activeAddress: null,
+        activeChainId: null,
+      );
+
+  factory WalletConnectState.fromJson(Map<String, dynamic> json) =>
+      _$WalletConnectStateFromJson(json);
+}

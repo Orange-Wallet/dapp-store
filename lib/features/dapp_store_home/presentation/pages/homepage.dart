@@ -10,6 +10,7 @@ import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_
 import 'package:dappstore/features/download_and_installer/infrastructure/dtos/task_info.dart';
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/downloader/i_downloader_cubit.dart';
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/foreground_service/i_foreground_service_cubit.dart';
+import 'package:dappstore/features/wallet_connect/presentation/wallet_connect_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -152,6 +153,7 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
               ),
+              const WCTestWidget(),
             ],
           ),
         );

@@ -33,6 +33,8 @@ dependencies:
   path_provider: ^2.0.13
   permission_handler: ^10.2.0
   installed_apps: ^1.3.1
+  wallet_connect_dart_v2: ^0.0.1
+  url_launcher: ^6.1.10
   
 
 dev_dependencies:
