@@ -1,4 +1,5 @@
 import 'package:dappstore/core/theme/i_theme_cubit.dart';
+import 'package:dappstore/core/theme/store/i_theme_store.dart';
 import 'package:dappstore/core/theme/theme_specs/dark_theme.dart';
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:dappstore/core/theme/theme_specs/light_theme.dart';
@@ -10,11 +11,11 @@ part 'theme_state.dart';
 
 @LazySingleton(as: IThemeCubit)
 class ThemeCubit extends Cubit<ThemeState> implements IThemeCubit {
-  ThemeCubit() : super(ThemeState.initial());
+  final IThemeStore themeStore;
+  ThemeCubit({required this.themeStore}) : super(ThemeState.initial());
   @override
   initialise() async {
-    //todo: check from DB
-    final isDark = await _isDarkStored();
+    final isDark = await _isDarkEnabledStorage();
     if (isDark == true) {
       emit(state.copyWith(activeTheme: DarkTheme(), isDark: true));
     } else {
@@ -45,11 +46,12 @@ class ThemeCubit extends Cubit<ThemeState> implements IThemeCubit {
     _updateTheme(true);
   }
 
-  _updateTheme(bool isDark) {
-    //todo: implement store db
+  _updateTheme(bool isDark) async {
+    await themeStore.setCurrentTheme(isDark);
   }
-  Future<bool?> _isDarkStored() async {
-    //todo: fetch from db
-    return true;
+
+  Future<bool> _isDarkEnabledStorage() async {
+    final isDarkEnabled = await themeStore.isDarkThemeEnabled();
+    return isDarkEnabled;
   }
 }

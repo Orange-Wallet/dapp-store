@@ -14,8 +14,10 @@ import 'package:dappstore/core/platform_channel/i_platform_channel_cubit.dart'
     as _i11;
 import 'package:dappstore/core/platform_channel/platform_channel_cubit.dart'
     as _i12;
-import 'package:dappstore/core/theme/i_theme_cubit.dart' as _i17;
-import 'package:dappstore/core/theme/theme_cubit.dart' as _i18;
+import 'package:dappstore/core/theme/i_theme_cubit.dart' as _i25;
+import 'package:dappstore/core/theme/store/i_theme_store.dart' as _i17;
+import 'package:dappstore/core/theme/store/theme_store.dart' as _i18;
+import 'package:dappstore/core/theme/theme_cubit.dart' as _i26;
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart'
     as _i15;
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/store_cubit.dart'
@@ -69,12 +71,14 @@ _i1.GetIt $initGetIt(
   gh.lazySingleton<_i13.IPwaWebviewCubit>(() => _i14.PwaWebviewCubit());
   gh.lazySingleton<_i15.IStoreCubit>(
       () => _i16.StoreCubit(dappListRepo: gh<_i3.IDappListRepo>()));
-  gh.lazySingleton<_i17.IThemeCubit>(() => _i18.ThemeCubit());
+  gh.lazySingleton<_i17.IThemeStore>(() => _i18.ThemeStore());
   gh.lazySingleton<_i19.WalletConnect>(() => _i19.WalletConnect());
   gh.lazySingleton<_i20.WalletConnectCubit>(() => _i20.WalletConnectCubit());
   gh.lazySingleton<_i21.IDownloader>(
       () => _i22.DownloaderCubit(permissionsCubit: gh<_i9.IPermissions>()));
   gh.lazySingleton<_i23.IForegroundService>(() => _i24.ForegroundService(
       platformChannelCubit: gh<_i11.IPlatformChannelCubit>()));
+  gh.lazySingleton<_i25.IThemeCubit>(
+      () => _i26.ThemeCubit(themeStore: gh<_i17.IThemeStore>()));
   return getIt;
 }

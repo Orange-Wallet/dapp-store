@@ -4,7 +4,7 @@ import 'package:dappstore/features/download_and_installer/infrastructure/reposit
 
 Future<void> initialise() async {
   configureDependencies();
-  await getIt<IDownloader>().initialize();
-  await initialiseStore();
+  getIt<IDownloader>().initialize();
+  initialiseStore();
   // Initialize the app dependencies
 }
