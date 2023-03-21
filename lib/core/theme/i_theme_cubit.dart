@@ -12,5 +12,5 @@ abstract class IThemeCubit extends Cubit<ThemeState> {
 
   setDarkTheme();
 
-  toggleShouldFollowSystem(bool shouldFollowSystem, bool isCurrentDarkTheme);
+  toggleShouldFollowSystem(bool shouldFollowSystem);
 }

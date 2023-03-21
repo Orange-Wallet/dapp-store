@@ -9,5 +9,5 @@ class ThemeState with _$ThemeState {
   }) = _ThemeState;
 
   factory ThemeState.initial() => ThemeState(
-      activeTheme: LightTheme(), isDark: false, shouldFollowSystem: true);
+      activeTheme: LightTheme(), isDark: false, shouldFollowSystem: false);
 }

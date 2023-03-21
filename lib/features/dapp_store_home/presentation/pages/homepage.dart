@@ -1,6 +1,7 @@
 import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/core/installed_apps/i_installed_apps_cubit.dart';
 import 'package:dappstore/core/permissions/i_permissions_cubit.dart';
+import 'package:dappstore/core/theme/i_theme_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
@@ -28,6 +29,7 @@ class _HomePageState extends State<HomePage> {
   IPermissions permissiosnCubit = getIt<IPermissions>();
   IForegroundService foregroundService = getIt<IForegroundService>();
   IInstalledAppsCubit installedApps = getIt<IInstalledAppsCubit>();
+  IThemeCubit themeCubit = getIt<IThemeCubit>();
   @override
   void initState() {
     storeHandler = DappStoreHandler();
@@ -150,6 +152,14 @@ class _HomePageState extends State<HomePage> {
                         withIcon: true,
                         packageNamePrefix: "");
                     debugPrint("Status: ${status![0].name}");
+                  },
+                ),
+              ),
+              Center(
+                child: ElevatedButton(
+                  child: const Text("Test Theme toggle"),
+                  onPressed: () async {
+                    await themeCubit.toggleShouldFollowSystem(true);
                   },
                 ),
               ),

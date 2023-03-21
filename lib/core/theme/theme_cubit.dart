@@ -3,6 +3,7 @@ import 'package:dappstore/core/theme/store/i_theme_store.dart';
 import 'package:dappstore/core/theme/theme_specs/dark_theme.dart';
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:dappstore/core/theme/theme_specs/light_theme.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -60,10 +61,9 @@ class ThemeCubit extends Cubit<ThemeState> implements IThemeCubit {
   }
 
   @override
-  toggleShouldFollowSystem(
-      bool shouldFollowSystem, bool isCurrentDarkTheme) async {
+  toggleShouldFollowSystem(bool shouldFollowSystem) async {
     await _updateShouldFollowSystem(shouldFollowSystem);
-    if (isCurrentDarkTheme) {
+    if (state.isDark!) {
       emit(state.copyWith(activeTheme: LightTheme(), isDark: false));
       _updateTheme(false);
     } else {
@@ -78,6 +78,7 @@ class ThemeCubit extends Cubit<ThemeState> implements IThemeCubit {
 
   _updateShouldFollowSystem(bool shouldFollowSystem) async {
     await themeStore.setShouldFollowSystem(shouldFollowSystem);
+    emit(state.copyWith(shouldFollowSystem: shouldFollowSystem));
   }
 
   _shouldFollowSystem() async {

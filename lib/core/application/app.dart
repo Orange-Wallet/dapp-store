@@ -26,7 +26,8 @@ class _AppState extends State<App> with WidgetsBindingObserver {
         appHandler.isFollowingSystemBrightness) {
       appHandler.setDarkTheme();
       debugPrint("Switching to dark theme");
-    } else {
+    } else if (brightness == Brightness.light &&
+        appHandler.isFollowingSystemBrightness) {
       appHandler.setLightTheme();
       debugPrint("Switching to Light theme");
     }
@@ -40,7 +41,8 @@ class _AppState extends State<App> with WidgetsBindingObserver {
         appHandler.isFollowingSystemBrightness) {
       appHandler.setDarkTheme();
       debugPrint("Switching to dark theme");
-    } else {
+    } else if (brightness == Brightness.light &&
+        appHandler.isFollowingSystemBrightness) {
       appHandler.setLightTheme();
       debugPrint("Switching to Light theme");
     }

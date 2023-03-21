@@ -1,5 +1,6 @@
 import 'package:dappstore/core/theme/store/entities/theme_storage.dart';
 import 'package:dappstore/core/theme/store/i_theme_store.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
 
@@ -10,14 +11,18 @@ class ThemeStore implements IThemeStore {
   setCurrentTheme(bool isDarkEnabled) async {
     Box<ThemeStorage> box =
         await Hive.openBox<ThemeStorage>(themeStoageBoxName);
-    await box.put(0, ThemeStorage(isDarkEnabled: isDarkEnabled));
+    final ThemeStorage themeStorage = box.get(0) ?? ThemeStorage();
+    themeStorage.isDarkEnabled = isDarkEnabled;
+    await box.put(0, themeStorage);
   }
 
   @override
   setShouldFollowSystem(bool shouldFollowSystem) async {
     Box<ThemeStorage> box =
         await Hive.openBox<ThemeStorage>(themeStoageBoxName);
-    await box.put(0, ThemeStorage(shouldFollowSystem: shouldFollowSystem));
+    final ThemeStorage themeStorage = box.get(0) ?? ThemeStorage();
+    themeStorage.shouldFollowSystem = shouldFollowSystem;
+    await box.putAt(0, themeStorage);
   }
 
   @override
@@ -32,7 +37,8 @@ class ThemeStore implements IThemeStore {
   Future<bool> isShouldFollowSystem() async {
     Box<ThemeStorage> box =
         await Hive.openBox<ThemeStorage>(themeStoageBoxName);
-    final ThemeStorage? themeStorage = box.get(0);
+    final ThemeStorage? themeStorage = box.getAt(0);
+
     return themeStorage?.shouldFollowSystem ?? false;
   }
 }
