@@ -1,7 +1,9 @@
 import 'dart:developer';
 
+import 'package:dappstore/features/wallet_connect/models/chain_metadata.dart';
 import 'package:dappstore/features/wallet_connect/models/eth/ethereum_transaction.dart';
 import 'package:dappstore/features/wallet_connect/utils/eip155.dart';
+import 'package:dappstore/features/wallet_connect/utils/helpers.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -53,28 +55,27 @@ class WalletConnectCubit extends Cubit<WalletConnectState> {
     // });
   }
 
-  // getSessionAndPairings() {
-  //   final sessions = signClient!.session.getAll();
-  //   final pairings = signClient!.core.pairing.getPairings();
-  //   emit(state.copyWith(sessions: sessions, pairings: pairings));
-  // }
-  getConnectRequest() async {
+  getSessionAndPairings() {
+    final sessions = signClient!.session.getAll();
+    final pairings = signClient!.core.pairing.getPairings();
+    emit(state.copyWith(sessions: sessions, pairings: pairings));
+  }
+
+  getConnectRequest(List<String> chainIds) async {
     EngineConnection? res =
-        await signClient?.connect(SessionConnectParams(requiredNamespaces: {
-      "eip155": const ProposalRequiredNamespace(chains: [
-        'eip155:137'
-      ], events: [
-        "eth_chainsChanged"
-      ], methods: [
-        "personal_sign",
-        "eth_sign",
-        "eth_signTransaction",
-        "eth_signTypedData",
-        "eth_sendTransaction"
-      ])
-    }));
+        await signClient?.connect(Eip155Data.getSessionConnectParams(chainIds));
     res?.approval?.then((value) {
-      emit(state.copyWith(activeSession: value));
+      emit(state.copyWith(
+        activeSession: value,
+        failure: false,
+        sessions: signClient!.session.getAll(),
+        activeChainId: WCHelper.getChainIdFromAccountStr(
+            value.namespaces[ChainType.eip155.name]!.accounts.first),
+        activeAddress: WCHelper.getAddressFromAccountStr(
+            value.namespaces[ChainType.eip155.name]!.accounts.first),
+        connected: true,
+      ));
+      getSessionAndPairings();
       log("connected");
     }).catchError((_) {
       log("failed");
@@ -82,17 +83,17 @@ class WalletConnectCubit extends Cubit<WalletConnectState> {
     launchUrlString(res!.uri!);
   }
 
-  getPersonalSign(String data) async {
+  getPersonalSign(
+    String data,
+  ) async {
     if (state.activeSession != null) {
       SessionRequestParams params = Eip155Data.getRequestParams(
         topic: state.activeSession!.topic,
         method: Eip155Methods.PERSONAL_SIGN,
-        chainId: 'eip155:137',
-        address:
-            state.activeSession!.namespaces.entries.first.value.accounts.first,
+        chainId: state.activeChainId!,
+        address: state.activeAddress!,
         data: data,
       );
-
       var res = await signClient?.request(params);
       return res;
     } else {
@@ -168,22 +169,27 @@ class WalletConnectCubit extends Cubit<WalletConnectState> {
     }
   }
 
-  // Future<void> disconnect(String topic) async {
-  //   await signClient!.disconnect(
-  //     topic: topic,
-  //     reason: getSdkError(SdkErrorKey.USER_DISCONNECTED),
-  //   );
-  //   getSessionAndPairings();
-  // }
+  Future<void> disconnect(String topic) async {
+    await signClient!.disconnect(
+      topic: topic,
+      reason: getSdkError(SdkErrorKey.USER_DISCONNECTED),
+    );
+    getSessionAndPairings();
+  }
 
-  // deleteAllSessions() async {
-  //   signClient!.pairing.values.forEach((element) async {
-  //     await signClient!.disconnect(
-  //       topic: element.topic,
-  //       reason: getSdkError(SdkErrorKey.USER_DISCONNECTED),
-  //     );
-  //   });
-  // }
+  disconnectAll() async {
+    log("message");
+    for (var element in state.sessions) {
+      try {
+        await signClient!.disconnect(
+          topic: element.topic,
+          reason: getSdkError(SdkErrorKey.USER_DISCONNECTED),
+        );
+      } catch (e, stackTrace) {
+        log(" ${e.toString()}: $stackTrace");
+      }
+    }
+  }
 
   // connectNewSession(
   //   String qrCode, {
