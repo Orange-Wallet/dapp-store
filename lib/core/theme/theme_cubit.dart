@@ -60,6 +60,8 @@ class ThemeCubit extends Cubit<ThemeState> implements IThemeCubit {
   }
 
   @override
+  IThemeSpec get theme => state.activeTheme ?? DarkTheme();
+  @override
   toggleShouldFollowSystem(bool shouldFollowSystem) async {
     await _updateShouldFollowSystem(shouldFollowSystem);
     if (state.isDark!) {
