@@ -46,6 +46,7 @@ class _TestHomePageState extends State<TestHomePage> {
       bloc: storeCubit,
       builder: (context, webViewState) {
         return Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(title: Text(context.getLocale!.helloWorld)),
           body: ListView(
             children: [
@@ -161,7 +162,7 @@ class _TestHomePageState extends State<TestHomePage> {
                 child: ElevatedButton(
                   child: const Text("Test Theme toggle"),
                   onPressed: () async {
-                    await themeCubit.toggleShouldFollowSystem(true);
+                    await themeCubit.setLightTheme();
                   },
                 ),
               ),

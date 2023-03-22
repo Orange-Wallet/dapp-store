@@ -1,11 +1,7 @@
 import 'package:dappstore/core/application/i_app_handler.dart';
 import 'package:dappstore/core/di/di.dart';
-import 'package:dappstore/core/theme/i_theme_cubit.dart';
-import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/i_injected_web3_cubit.dart';
-import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/i_pwa_webview_cubit.dart';
 import 'package:dappstore/test_homepage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class App extends StatefulWidget {
@@ -51,26 +47,24 @@ class _AppState extends State<App> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<IPwaWebviewCubit>(
-            create: (_) => getIt<IPwaWebviewCubit>()),
-        BlocProvider<IInjectedWeb3Cubit>(
-            create: (_) => getIt<IInjectedWeb3Cubit>()),
-        BlocProvider<IThemeCubit>(create: (_) => getIt<IThemeCubit>()),
-      ],
-      child: MaterialApp(
-        title: "Test",
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          useMaterial3: true,
-        ),
-        localizationsDelegates:
-            AppLocalizations.localizationsDelegates.toList(),
-        supportedLocales: AppLocalizations.supportedLocales,
-        locale: appHandler.localeCubit.getLocaleToUse(),
-        home: const TestHomePage(),
+    return MaterialApp(
+      title: "Test",
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        useMaterial3: true,
       ),
+      darkTheme: ThemeData(
+        primarySwatch: Colors.blue,
+        backgroundColor: Colors.black,
+        useMaterial3: true,
+      ),
+      themeMode: appHandler.themeCubit.theme.isDarkTheme
+          ? ThemeMode.dark
+          : ThemeMode.light,
+      localizationsDelegates: AppLocalizations.localizationsDelegates.toList(),
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: appHandler.localeCubit.getLocaleToUse(),
+      home: const TestHomePage(),
     );
   }
 }

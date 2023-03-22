@@ -1,8 +1,6 @@
 import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/features/pwa_webwiew/application/handler/i_pwa_webview_handler.dart';
-import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/injected_web3_cubit.dart';
 import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/i_injected_web3_cubit.dart';
-import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/pwa_webview_cubit.dart';
 import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/i_pwa_webview_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -13,12 +11,12 @@ import 'package:injectable/injectable.dart';
 class PwaWebviewHandler implements IPwaWebviewHandler {
   @override
   IPwaWebviewCubit getWebViewCubit() {
-    return getIt<PwaWebviewCubit>();
+    return getIt<IPwaWebviewCubit>();
   }
 
   @override
   IInjectedWeb3Cubit getInjectedWebViewCubit() {
-    return getIt<InjectedWeb3Cubit>();
+    return getIt<IInjectedWeb3Cubit>();
   }
 
   @override
