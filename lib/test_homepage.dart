@@ -1,5 +1,6 @@
 import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/core/installed_apps/i_installed_apps_cubit.dart';
+import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/permissions/i_permissions_cubit.dart';
 import 'package:dappstore/core/theme/i_theme_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';
@@ -45,8 +46,7 @@ class _TestHomePageState extends State<TestHomePage> {
       bloc: storeCubit,
       builder: (context, webViewState) {
         return Scaffold(
-          appBar: AppBar(
-              title: Text(AppLocalizations.of(context)?.helloWorld ?? "")),
+          appBar: AppBar(title: Text(context.getLocale!.helloWorld)),
           body: ListView(
             children: [
               Center(
