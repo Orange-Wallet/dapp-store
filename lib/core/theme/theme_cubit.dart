@@ -3,7 +3,6 @@ import 'package:dappstore/core/theme/store/i_theme_store.dart';
 import 'package:dappstore/core/theme/theme_specs/dark_theme.dart';
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:dappstore/core/theme/theme_specs/light_theme.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';

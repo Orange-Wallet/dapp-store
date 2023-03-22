@@ -21,7 +21,7 @@ class ThemeStore implements IThemeStore {
         await Hive.openBox<ThemeStorage>(themeStoageBoxName);
     final ThemeStorage themeStorage = box.get(0) ?? ThemeStorage();
     themeStorage.shouldFollowSystem = shouldFollowSystem;
-    await box.putAt(0, themeStorage);
+    await box.put(0, themeStorage);
   }
 
   @override
@@ -36,7 +36,7 @@ class ThemeStore implements IThemeStore {
   Future<bool> isShouldFollowSystem() async {
     Box<ThemeStorage> box =
         await Hive.openBox<ThemeStorage>(themeStoageBoxName);
-    final ThemeStorage? themeStorage = box.getAt(0);
+    final ThemeStorage? themeStorage = box.get(0);
 
     return themeStorage?.shouldFollowSystem ?? false;
   }

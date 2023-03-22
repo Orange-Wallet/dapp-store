@@ -14,6 +14,7 @@ import 'package:dappstore/features/download_and_installer/infrastructure/reposit
 import 'package:dappstore/features/wallet_connect/presentation/wallet_connect_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -44,7 +45,8 @@ class _HomePageState extends State<HomePage> {
       bloc: storeCubit,
       builder: (context, webViewState) {
         return Scaffold(
-          appBar: AppBar(title: const Text("test")),
+          appBar: AppBar(
+              title: Text(AppLocalizations.of(context)?.helloWorld ?? "")),
           body: ListView(
             children: [
               Center(
