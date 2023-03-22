@@ -17,7 +17,7 @@ part '../../../../generated/features/wallet_connect/infrastructure/cubit/wallet_
 part '../../../../generated/features/wallet_connect/infrastructure/cubit/wallet_connect_cubit.g.dart';
 part 'wallet_connect_state.dart';
 
-@lazySingleton
+@LazySingleton(as: IWalletConnectCubit)
 class WalletConnectCubit extends Cubit<WalletConnectState>
     implements IWalletConnectCubit {
   @override
@@ -27,7 +27,7 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
   @override
   started() async {
     await initialize();
-    // getSessionAndPairings();
+    getSessionAndPairings();
   }
 
   @override
@@ -189,6 +189,7 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
         log(" ${e.toString()}: $stackTrace");
       }
     }
+    getSessionAndPairings();
   }
 
 // returns topic->AccountList
