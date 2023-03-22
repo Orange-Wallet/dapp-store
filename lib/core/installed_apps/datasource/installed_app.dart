@@ -1,7 +1,10 @@
+import 'package:dappstore/core/di/di.dart';
+import 'package:dappstore/core/error/i_error_logger.dart';
 import 'package:installed_apps/app_info.dart';
 import 'package:installed_apps/installed_apps.dart';
 
 class InstalledAppsUtils {
+  static IErrorLogger errorLogger = getIt<IErrorLogger>();
   static Future<List<AppInfo>?> getInstalledApps(
       {required bool excludeSystemApps,
       required bool withIcon,
@@ -14,7 +17,7 @@ class InstalledAppsUtils {
       );
       return apps;
     } catch (e) {
-      //todo: error logger here
+      errorLogger.logError(e);
       return null;
     }
   }
@@ -24,7 +27,8 @@ class InstalledAppsUtils {
       AppInfo? appInfo = await InstalledApps.getAppInfo(packageName);
       return appInfo;
     } catch (e) {
-      //todo: error logger here
+      errorLogger.logError(e);
+
       return null;
     }
   }
@@ -34,7 +38,8 @@ class InstalledAppsUtils {
       bool? status = await InstalledApps.startApp(packageName);
       return status;
     } catch (e) {
-      //todo: error logger here
+      errorLogger.logError(e);
+
       return null;
     }
   }
@@ -44,7 +49,8 @@ class InstalledAppsUtils {
       bool? status = await InstalledApps.openSettings(packageName);
       return status;
     } catch (e) {
-      //todo: error logger here
+      errorLogger.logError(e);
+
       return null;
     }
   }
@@ -54,7 +60,8 @@ class InstalledAppsUtils {
       bool? isSystemApp = await InstalledApps.isSystemApp(packageName);
       return isSystemApp;
     } catch (e) {
-      //todo: error logger here
+      errorLogger.logError(e);
+
       return null;
     }
   }

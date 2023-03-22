@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:android_path_provider/android_path_provider.dart';
+import 'package:dappstore/core/di/di.dart';
+import 'package:dappstore/core/error/i_error_logger.dart';
 import 'package:dappstore/features/download_and_installer/infrastructure/dtos/task_info.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -11,6 +13,7 @@ typedef DownloadCallBackType = void Function(
     String id, DownloadTaskStatus status, int progress);
 
 class Downloader {
+  static IErrorLogger errorLogger = getIt<IErrorLogger>();
   static initialize(DownloadCallBackType downloadCallback) async {
     await FlutterDownloader.initialize(debug: true, ignoreSsl: true);
     FlutterDownloader.registerCallback(downloadCallback, step: 1);
@@ -22,7 +25,7 @@ class Downloader {
       await prepareSaveDir(saveDir);
       return true;
     } catch (e) {
-      //todo: put logger here
+      errorLogger.logError(e);
 
       return false;
     }
@@ -39,7 +42,8 @@ class Downloader {
       );
       return task.copyWith(taskId: taskId);
     } catch (e) {
-      //todo: put logger here
+      errorLogger.logError(e);
+
       return null;
     }
   }
@@ -49,7 +53,8 @@ class Downloader {
       await FlutterDownloader.pause(taskId: task.taskId!);
       return true;
     } catch (e) {
-      //todo: error logger
+      errorLogger.logError(e);
+
       return false;
     }
   }
@@ -59,7 +64,8 @@ class Downloader {
       await FlutterDownloader.resume(taskId: task.taskId!);
       return true;
     } catch (e) {
-      //todo: error logger
+      errorLogger.logError(e);
+
       return false;
     }
   }
@@ -69,7 +75,8 @@ class Downloader {
       await FlutterDownloader.retry(taskId: task.taskId!);
       return true;
     } catch (e) {
-      //todo: error logger
+      errorLogger.logError(e);
+
       return false;
     }
   }
@@ -82,7 +89,8 @@ class Downloader {
       }
       return FlutterDownloader.open(taskId: taskId);
     } catch (e) {
-      //todo: error logger
+      errorLogger.logError(e);
+
       return false;
     }
   }
@@ -95,7 +103,8 @@ class Downloader {
       );
       return true;
     } catch (e) {
-      //todo: error logger
+      errorLogger.logError(e);
+
       return false;
     }
   }
@@ -123,7 +132,8 @@ class Downloader {
       await prepareSaveDir(saveDir);
       return tasks_;
     } catch (e) {
-      //todo: error logger
+      errorLogger.logError(e);
+
       return {};
     }
   }
@@ -137,7 +147,8 @@ class Downloader {
       }
       return true;
     } catch (e) {
-      //todo: error logger
+      errorLogger.logError(e);
+
       return false;
     }
   }
@@ -149,7 +160,8 @@ class Downloader {
       try {
         externalStorageDirPath = await AndroidPathProvider.downloadsPath;
       } catch (err, st) {
-        //todo: logger here
+        errorLogger.logError(err);
+
         debugPrint('failed to get downloads path: $err, $st');
 
         final directory = await getExternalStorageDirectory();
@@ -160,7 +172,8 @@ class Downloader {
         externalStorageDirPath =
             (await getApplicationDocumentsDirectory()).absolute.path;
       } catch (err, st) {
-        //todo: logger here
+        errorLogger.logError(err);
+
         debugPrint('failed to get downloads path: $err, $st');
       }
       externalStorageDirPath =
