@@ -16,14 +16,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class TestHomePage extends StatefulWidget {
+  const TestHomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<TestHomePage> createState() => _TestHomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _TestHomePageState extends State<TestHomePage> {
   late final IDappStoreHandler storeHandler;
   late final IStoreCubit storeCubit;
   IDownloader downloaderCubit = getIt<IDownloader>();

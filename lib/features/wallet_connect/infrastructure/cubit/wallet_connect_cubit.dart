@@ -17,7 +17,7 @@ part '../../../../generated/features/wallet_connect/infrastructure/cubit/wallet_
 part '../../../../generated/features/wallet_connect/infrastructure/cubit/wallet_connect_cubit.g.dart';
 part 'wallet_connect_state.dart';
 
-@LazySingleton(as: IWalletConnectCubit)
+@lazySingleton
 class WalletConnectCubit extends Cubit<WalletConnectState>
     implements IWalletConnectCubit {
   @override
@@ -32,18 +32,23 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
 
   @override
   initialize() async {
-    signClient = await SignClient.init(
-      projectId: "36f352c5daeb6ed6ae15657366a9df3d",
-      relayUrl: "wss://relay.walletconnect.com",
-      metadata: const AppMetadata(
-        name: 'DappStore_test',
-        description: 'Dapp Store by HTC',
-        url: 'https://orangewallet.app/',
-        icons: ['https://avatars.githubusercontent.com/u/82613752'],
-      ),
-      database: 'wallet_connect_v2.db',
-      logger: Logger(level: Level.error),
-    );
+    try {
+      signClient = await SignClient.init(
+        projectId: "36f352c5daeb6ed6ae15657366a9df3d",
+        relayUrl: "wss://relay.walletconnect.com",
+        metadata: const AppMetadata(
+          name: 'DappStore_test',
+          description: 'Dapp Store by HTC',
+          url: 'https://orangewallet.app/',
+          icons: ['https://avatars.githubusercontent.com/u/82613752'],
+        ),
+        database: 'wallet_connect_v2.db',
+        logger: Logger(level: Level.error),
+      );
+      log(signClient?.name ?? "error");
+    } catch (e, trace) {
+      log("${e.toString()}: $trace");
+    }
   }
 
   @override

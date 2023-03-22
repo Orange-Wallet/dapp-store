@@ -1,9 +1,9 @@
 import 'package:dappstore/core/application/i_app_handler.dart';
 import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/core/theme/i_theme_cubit.dart';
-import 'package:dappstore/features/dapp_store_home/presentation/pages/homepage.dart';
 import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/i_injected_web3_cubit.dart';
 import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/i_pwa_webview_cubit.dart';
+import 'package:dappstore/test_homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -69,7 +69,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
             AppLocalizations.localizationsDelegates.toList(),
         supportedLocales: AppLocalizations.supportedLocales,
         locale: appHandler.localeCubit.getLocaleToUse(),
-        home: const HomePage(),
+        home: const TestHomePage(),
       ),
     );
   }
