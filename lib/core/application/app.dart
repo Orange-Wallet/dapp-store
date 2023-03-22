@@ -61,9 +61,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
         home: const HomePage(),
       ),
     );
