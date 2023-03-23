@@ -3,7 +3,6 @@ import 'package:dappstore/core/installed_apps/i_installed_apps_cubit.dart';
 import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/permissions/i_permissions_cubit.dart';
 import 'package:dappstore/core/theme/i_theme_cubit.dart';
-import 'package:dappstore/features/dapp_info/presentation/widgets/image_carousel.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
@@ -13,7 +12,6 @@ import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_
 import 'package:dappstore/features/download_and_installer/infrastructure/dtos/task_info.dart';
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/downloader/i_downloader_cubit.dart';
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/foreground_service/i_foreground_service_cubit.dart';
-import 'package:dappstore/features/download_and_installer/infrastructure/repositories/installer/i_installer_cubit.dart';
 import 'package:dappstore/features/wallet_connect/presentation/wallet_connect_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
