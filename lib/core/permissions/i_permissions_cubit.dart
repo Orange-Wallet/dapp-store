@@ -5,7 +5,11 @@ abstract class IPermissions {
 
   Future<PermissionStatus> requestStoragePermission();
 
+  Future<PermissionStatus?> checkAppInstallationPermissions();
+
   Future<PermissionStatus> checkNotificationPermission();
+
+  Future<PermissionStatus?> requestAppInstallationPermission();
 
   Future<PermissionStatus> requestNotificationPermission();
 }

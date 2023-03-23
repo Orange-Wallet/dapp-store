@@ -12,10 +12,10 @@ import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_
 import 'package:dappstore/features/download_and_installer/infrastructure/dtos/task_info.dart';
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/downloader/i_downloader_cubit.dart';
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/foreground_service/i_foreground_service_cubit.dart';
+import 'package:dappstore/features/download_and_installer/infrastructure/repositories/installer/i_installer_cubit.dart';
 import 'package:dappstore/features/wallet_connect/presentation/wallet_connect_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TestHomePage extends StatefulWidget {
   const TestHomePage({super.key});
@@ -27,11 +27,12 @@ class TestHomePage extends StatefulWidget {
 class _TestHomePageState extends State<TestHomePage> {
   late final IDappStoreHandler storeHandler;
   late final IStoreCubit storeCubit;
-  IDownloader downloaderCubit = getIt<IDownloader>();
+  static IDownloader downloaderCubit = getIt<IDownloader>();
   IPermissions permissiosnCubit = getIt<IPermissions>();
   IForegroundService foregroundService = getIt<IForegroundService>();
   IInstalledAppsCubit installedApps = getIt<IInstalledAppsCubit>();
   IThemeCubit themeCubit = getIt<IThemeCubit>();
+  static IInstallerCubit installer = getIt<IInstallerCubit>();
   @override
   void initState() {
     storeHandler = DappStoreHandler();
@@ -112,12 +113,14 @@ class _TestHomePageState extends State<TestHomePage> {
               Center(
                 child: ElevatedButton(
                   child: const Text("download APK"),
-                  onPressed: () {
-                    downloaderCubit.requestDownload(const TaskInfo(
+                  onPressed: () async {
+                    await downloaderCubit.requestDownload(const TaskInfo(
                       name: "Test",
                       link:
                           "https://github.com/bartekpacia/spitfire/releases/download/v1.2.0/spitfire.apk",
+                      fileName: "test.apk",
                     ));
+                    // await downloaderCubit.addOnComplete(taskInfo);
                   },
                 ),
               ),
