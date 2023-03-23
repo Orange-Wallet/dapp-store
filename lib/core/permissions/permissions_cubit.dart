@@ -29,6 +29,17 @@ class Permissions extends Cubit<PermissionsState> implements IPermissions {
   }
 
   @override
+  Future<PermissionStatus?> checkAppInstallationPermissions() async {
+    if (Platform.isAndroid) {
+      final status = await Permission.requestInstallPackages.status;
+      emit(state.copyWith(appInstallation: status));
+
+      return status;
+    }
+    return null;
+  }
+
+  @override
   Future<PermissionStatus> checkNotificationPermission() async {
     final status = await Permission.notification.status;
     emit(state.copyWith(storagePermission: status));
@@ -47,5 +58,15 @@ class Permissions extends Cubit<PermissionsState> implements IPermissions {
     final result = await Permission.notification.request();
     emit(state.copyWith(storagePermission: result));
     return result;
+  }
+
+  @override
+  Future<PermissionStatus?> requestAppInstallationPermission() async {
+    if (Platform.isAndroid) {
+      final result = await Permission.requestInstallPackages.request();
+      emit(state.copyWith(appInstallation: result));
+      return result;
+    }
+    return null;
   }
 }

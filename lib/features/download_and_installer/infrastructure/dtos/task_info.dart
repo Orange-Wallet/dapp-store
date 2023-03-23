@@ -9,6 +9,7 @@ class TaskInfo with _$TaskInfo {
     String? link,
     String? taskId,
     String? saveDir,
+    String? fileName,
     @Default(0) int? progress,
     @Default(DownloadTaskStatus.undefined) DownloadTaskStatus? status,
   }) = _TaskInfo;
