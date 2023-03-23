@@ -1,0 +1,21 @@
+{
+  "es": [
+    "htcDappStore",
+    "exploreTheBestDapps",
+    "connectWallet",
+    "featuredDapps",
+    "exploreMore",
+    "exploreByCategories",
+    "top",
+    "seeAll",
+    "keepYourDappUpToDate",
+    "autoUpdateYourDapps",
+    "updateAll",
+    "viewAll",
+    "termAndConditions",
+    "helpAndSupport",
+    "whatAreYouLooking",
+    "add",
+    "install"
+  ]
+}

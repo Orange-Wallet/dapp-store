@@ -61,3 +61,22 @@ flutter:
   assets:
     # Add assets from the images directory to the application.
     - assets/images/
+    - assets/icons/
+  
+  fonts:
+    - family: GeneralSans
+      fonts:
+        - asset: assets/fonts/GeneralSans-Bold.ttf
+          weight: 600
+        - asset: assets/fonts/GeneralSans-BoldItalic.ttf
+          weight: 600
+        - asset: assets/fonts/GeneralSans-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/GeneralSans-Regular.ttf
+          weight: 400
+          style: normal
+        - asset: assets/fonts/GeneralSans-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/GeneralSans-MediumItalic.ttf
+          weight: 500

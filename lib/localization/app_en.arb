@@ -3,5 +3,24 @@
   "helloWorld": "Hello World",
   "@helloWorld": {
     "description": "Hello world"
-  }
+  },
+  "htcDappStore":"HTC DAPP STORE",
+  "exploreTheBestDapps":"Explore the best dApps created by community.",
+  "connectWallet":"Connect Wallet",
+  "featuredDapps":"FEATURED DAPPS",
+  "exploreMore":"Explore More",
+  "exploreByCategories":"EXPLORE BY CATEGORIES",
+  "top":"TOP",
+  "seeAll":"See all",
+  "keepYourDappUpToDate":"Keep your dApps up to date.",
+  "autoUpdateYourDapps":"Auto update your dApps at once to enjoy all the latest features.",
+  "autoUpdateYourDapps":"Auto update your dApps at once to enjoy all the latest features.",
+  "updateAll":"Update all",
+  "viewAll":"View all",
+  "termAndConditions":"Terms & conditions",
+  "helpAndSupport":"Help and support",
+  "whatAreYouLooking":"What are you looking for today?",
+  "add":"ADD",
+  "install":"Install"
+
 }

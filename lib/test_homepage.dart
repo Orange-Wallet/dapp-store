@@ -15,7 +15,6 @@ import 'package:dappstore/features/download_and_installer/infrastructure/reposit
 import 'package:dappstore/features/wallet_connect/presentation/wallet_connect_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TestHomePage extends StatefulWidget {
   const TestHomePage({super.key});
@@ -162,7 +161,13 @@ class _TestHomePageState extends State<TestHomePage> {
                 child: ElevatedButton(
                   child: const Text("Test Theme toggle"),
                   onPressed: () async {
-                    await themeCubit.setLightTheme();
+                    if (!themeCubit.theme.isDarkTheme) {
+                      await themeCubit.setDarkTheme();
+                    } else {
+                      await themeCubit.setLightTheme();
+                    }
+                    print(
+                        "darkTheme " + themeCubit.theme.isDarkTheme.toString());
                   },
                 ),
               ),

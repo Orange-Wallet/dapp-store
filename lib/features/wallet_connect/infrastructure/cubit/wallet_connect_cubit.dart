@@ -42,7 +42,7 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
           url: 'https://orangewallet.app/',
           icons: ['https://avatars.githubusercontent.com/u/82613752'],
         ),
-        database: 'wallet_connect_v2.db',
+        database: ':memory:',
         logger: Logger(level: Level.error),
       );
       log(signClient?.name ?? "error");
