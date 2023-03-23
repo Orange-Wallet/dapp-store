@@ -8,7 +8,7 @@ import 'package:dappstore/features/wallet_connect/infrastructure/cubit/wallet_co
 
 Future<void> initialise() async {
   configureDependencies();
-  await getIt<IDownloader>().initialize();
+  //await getIt<IDownloader>().initialize();
   await getIt<IErrorLogger>().initialise();
   await initialiseStore().then((_) {
     getIt<IThemeCubit>().initialise();

@@ -3,6 +3,7 @@ import 'package:dappstore/core/installed_apps/i_installed_apps_cubit.dart';
 import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/permissions/i_permissions_cubit.dart';
 import 'package:dappstore/core/theme/i_theme_cubit.dart';
+import 'package:dappstore/features/dapp_info/presentation/widgets/image_carousel.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
@@ -32,7 +33,12 @@ class _TestHomePageState extends State<TestHomePage> {
   IForegroundService foregroundService = getIt<IForegroundService>();
   IInstalledAppsCubit installedApps = getIt<IInstalledAppsCubit>();
   IThemeCubit themeCubit = getIt<IThemeCubit>();
-  static IInstallerCubit installer = getIt<IInstallerCubit>();
+  final imageUrls = [
+    "https://dummyimage.com/200x800.png",
+    "https://dummyimage.com/200x800.png",
+    "https://dummyimage.com/200x800.png",
+    "https://dummyimage.com/200x800.png",
+  ];
   @override
   void initState() {
     storeHandler = DappStoreHandler();
@@ -51,6 +57,7 @@ class _TestHomePageState extends State<TestHomePage> {
           appBar: AppBar(title: Text(context.getLocale!.helloWorld)),
           body: ListView(
             children: [
+              ImageCarousel(imageUrls: imageUrls, height: 300),
               Center(
                 child: ElevatedButton(
                   child: const Text("getdappList"),

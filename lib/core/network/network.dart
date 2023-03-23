@@ -57,14 +57,14 @@ class Network {
   /// the [globalCacheOptions].
   ///
   /// [options] are special instructions that can be merged with the request.
-  Future<Response<R>> get<R>({
+  Future<dynamic> get<R>({
     required String path,
     JSON? queryParams,
     Options? options,
     CacheOptions? cacheOptions,
     CancelToken? cancelToken,
   }) async {
-    final response = await _dio.get<R>(
+    final response = await _dio.get(
       path,
       queryParameters: queryParams,
       options: _mergeDioAndCacheOptions(
