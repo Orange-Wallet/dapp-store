@@ -9,6 +9,8 @@ import 'package:dappstore/features/dapp_info/presentation/widgets/image_carousel
 import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
+import 'package:dappstore/features/dapp_store_home/application/store_cubit/store_cubit.dart';
+import 'package:dappstore/features/dapp_store_home/domain/repositories/i_dapp_list_repository.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/connect_and_explore_card.dart';
 import 'package:dappstore/widgets/app_bar/home_appbar.dart';
 import 'package:flutter/material.dart';
@@ -40,15 +42,19 @@ class _DappInforPageState extends State<DappInforPage> {
       bloc: themeCubit,
       builder: (context, state) {
         final theme = state.activeTheme!;
-        return Scaffold(
-          backgroundColor: theme.backgroundColor,
-          appBar: HomeAppbar(),
-          body: ListView(
-            children: [
-              //ImageCarousel(imageUrls: imageUrls),
-            ],
-          ),
-        );
+        return BlocBuilder<IStoreCubit, StoreState>(
+            bloc: dappInfoHandler.storeCubit,
+            builder: (context, storeState) {
+              return Scaffold(
+                backgroundColor: theme.backgroundColor,
+                appBar: HomeAppbar(),
+                body: ListView(
+                  children: [
+                    //ImageCarousel(imageUrls: imageUrls),
+                  ],
+                ),
+              );
+            });
       },
     );
   }

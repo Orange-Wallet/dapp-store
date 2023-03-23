@@ -24,7 +24,7 @@ class LocalDataSource implements IDataSource {
   }
 
   @override
-  Future<DappInfoDto> getDappInfo({GetDappInfoQueryDto? queryParams}) async {
+  Future<DappInfoDto?> getDappInfo({GetDappInfoQueryDto? queryParams}) async {
     return DappInfoDto.fromJson({
       "name": "Axie Infinity",
       "description":

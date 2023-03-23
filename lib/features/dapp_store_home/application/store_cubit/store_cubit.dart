@@ -60,10 +60,11 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
   }
 
   @override
-  getDappInfo({GetDappInfoQueryDto? queryParams}) async {
-    DappInfo dappInfo =
+  Future<DappInfo?> getDappInfo({GetDappInfoQueryDto? queryParams}) async {
+    DappInfo? dappInfo =
         await dappListRepo.getDappInfo(queryParams: queryParams);
     log(dappInfo.toString());
+    return dappInfo;
   }
 
   @override

@@ -9,7 +9,7 @@ abstract class IDataSource {
     GetDappQueryDto? queryParams,
   });
 
-  Future<DappInfoDto> getDappInfo({GetDappInfoQueryDto? queryParams});
+  Future<DappInfoDto?> getDappInfo({GetDappInfoQueryDto? queryParams});
 
   Future<List<DappInfoDto>> searchDapps(String searchString);
 

@@ -7,7 +7,7 @@ import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_
 abstract class IDappListRepo {
   Future<DappList> getDappList({GetDappQueryDto? queryParams});
 
-  Future<DappInfo> getDappInfo({GetDappInfoQueryDto? queryParams});
+  Future<DappInfo?> getDappInfo({GetDappInfoQueryDto? queryParams});
 
   Future<List<CuratedList>> getCuratedList();
 }
