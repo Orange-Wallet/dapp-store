@@ -172,7 +172,13 @@ class _TestHomePageState extends State<TestHomePage> {
                 child: ElevatedButton(
                   child: const Text("Test Theme toggle"),
                   onPressed: () async {
-                    await themeCubit.setLightTheme();
+                    if (!themeCubit.theme.isDarkTheme) {
+                      await themeCubit.setDarkTheme();
+                    } else {
+                      await themeCubit.setLightTheme();
+                    }
+                    print(
+                        "darkTheme " + themeCubit.theme.isDarkTheme.toString());
                   },
                 ),
               ),

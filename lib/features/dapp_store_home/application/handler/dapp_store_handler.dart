@@ -1,7 +1,8 @@
 import 'package:dappstore/core/di/di.dart';
+import 'package:dappstore/core/theme/i_theme_cubit.dart';
+import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
-import 'package:dappstore/features/dapp_store_home/application/store_cubit/store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_info_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
 
@@ -40,4 +41,7 @@ class DappStoreHandler implements IDappStoreHandler {
   getSearchDappListNextPage() {
     getStoreCubit().getSearchDappListNextPage();
   }
+
+  @override
+  IThemeSpec get theme => getIt<IThemeCubit>().theme;
 }
