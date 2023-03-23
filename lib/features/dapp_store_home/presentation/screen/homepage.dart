@@ -4,7 +4,7 @@ import 'package:dappstore/features/dapp_store_home/application/handler/dapp_stor
 import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/connect_and_explore_card.dart';
-import 'package:dappstore/features/dapp_store_home/presentation/widgets/home_appbar.dart';
+import 'package:dappstore/widgets/app_bar/home_appbar.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulScreen {

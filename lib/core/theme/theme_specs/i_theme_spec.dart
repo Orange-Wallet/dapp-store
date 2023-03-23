@@ -12,6 +12,7 @@ abstract class IThemeSpec {
   Color get secondaryBackgroundColor;
   Color get thirdBackgroundColor;
   Color get whiteColor;
+  Color get arrowButtonBackgroundColor;
 
   TextStyle get secondaryTextStyle1;
   TextStyle get headingTextStyle;

@@ -57,7 +57,6 @@ class _TestHomePageState extends State<TestHomePage> {
           appBar: AppBar(title: Text(context.getLocale!.helloWorld)),
           body: ListView(
             children: [
-              ImageCarousel(imageUrls: imageUrls, height: 300),
               Center(
                 child: ElevatedButton(
                   child: const Text("getdappList"),

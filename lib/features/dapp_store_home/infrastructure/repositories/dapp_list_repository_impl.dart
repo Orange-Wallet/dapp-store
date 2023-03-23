@@ -3,6 +3,7 @@ import 'package:dappstore/features/dapp_store_home/domain/entities/curated_list.
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_list.dart';
 import 'package:dappstore/features/dapp_store_home/domain/repositories/i_dapp_list_repository.dart';
+import 'package:dappstore/features/dapp_store_home/infrastructure/datasources/local_data_source.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/datasources/remote_data_source.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/curated_list_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_info_dto.dart';
@@ -17,6 +18,9 @@ class DappListRepoImpl implements IDappListRepo {
   late final Network _network = Network(dioClient: Dio());
   late final RemoteDataSource _remoteDataSource =
       RemoteDataSource(network: _network);
+
+  late final LocalDataSource _localDataSource =
+      LocalDataSource(network: _network);
 
   DappListRepoImpl();
 

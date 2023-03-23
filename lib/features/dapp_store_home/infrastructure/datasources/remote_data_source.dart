@@ -1,5 +1,6 @@
 import 'package:dappstore/config/config.dart';
 import 'package:dappstore/core/network/network.dart';
+import 'package:dappstore/features/dapp_store_home/infrastructure/datasources/i_data_source.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/curated_list_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_info_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_list_dto.dart';
@@ -7,10 +8,11 @@ import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
 import 'package:dio/dio.dart';
 
-class RemoteDataSource {
+class RemoteDataSource implements IDataSource {
   final Network _network;
   RemoteDataSource({required Network network}) : _network = network;
 
+  @override
   Future<DappListDto> getDappList({
     GetDappQueryDto? queryParams,
   }) async {
@@ -21,6 +23,7 @@ class RemoteDataSource {
     return DappListDto.fromJson(res.data);
   }
 
+  @override
   Future<DappInfoDto> getDappInfo({GetDappInfoQueryDto? queryParams}) async {
     Response res = await _network.get(
         path: "${Config.registryApiBaseUrl}/dapp/searchById",
@@ -28,11 +31,13 @@ class RemoteDataSource {
     return DappInfoDto.fromJson(res.data[0]);
   }
 
+  @override
   Future<List<DappInfoDto>> searchDapps(String searchString) async {
     //dio api call
     return [DappInfoDto()];
   }
 
+  @override
   Future<List<CuratedListDto>> getCuratedList() async {
     Response res = await _network.get(
       path: "${Config.registryApiBaseUrl}/store/featured",

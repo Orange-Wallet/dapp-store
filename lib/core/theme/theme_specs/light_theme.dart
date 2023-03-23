@@ -16,7 +16,7 @@ class LightTheme implements IThemeSpec {
   Color get secondaryTextColor => const Color.fromARGB(255, 114, 114, 114);
 
   @override
-  Color get whiteColor => Colors.white;
+  Color get whiteColor => const Color.fromARGB(255, 255, 255, 255);
 
   @override
   Color get secondaryBackgroundColor => const Color.fromARGB(255, 51, 51, 51);
@@ -26,6 +26,10 @@ class LightTheme implements IThemeSpec {
 
   @override
   Color get bodyTextColor => const Color.fromARGB(255, 139, 137, 147);
+
+  @override
+  Color get arrowButtonBackgroundColor =>
+      const Color.fromRGBO(192, 195, 201, 1);
 
   @override
   TextStyle get headingTextStyle => TextStyle(

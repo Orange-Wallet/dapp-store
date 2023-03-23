@@ -22,6 +22,7 @@ class ImageWidget extends StatefulWidget {
   final PlaceholderType? placeholderType;
   final bool renderSvg;
   final String? renderPlaceHolderText;
+  final bool keepAlive;
   final Function(BuildContext, String, DownloadProgress)?
       progressIndicatorBuilder;
 
@@ -39,13 +40,15 @@ class ImageWidget extends StatefulWidget {
       this.placeholderType,
       this.renderSvg = true,
       this.renderPlaceHolderText,
-      this.progressIndicatorBuilder});
+      this.progressIndicatorBuilder,
+      this.keepAlive = false});
 
   @override
   State<ImageWidget> createState() => _ImageWidgetState();
 }
 
-class _ImageWidgetState extends State<ImageWidget> {
+class _ImageWidgetState extends State<ImageWidget>
+    with AutomaticKeepAliveClientMixin {
   late bool _isLoading;
   late bool _hasError;
   late bool _isNetworkPath;
@@ -177,6 +180,7 @@ class _ImageWidgetState extends State<ImageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     Widget? imageWidget;
 
     if (_isLoading) {
@@ -240,6 +244,9 @@ class _ImageWidgetState extends State<ImageWidget> {
       child: imageWidget,
     );
   }
+
+  @override
+  bool get wantKeepAlive => widget.keepAlive!;
 }
 
 class _LoadingIndicator extends StatelessWidget {
