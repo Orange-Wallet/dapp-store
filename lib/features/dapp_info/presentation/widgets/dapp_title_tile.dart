@@ -1,8 +1,8 @@
+import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/features/dapp_info/application/handler/i_dapp_info_handler.dart';
 import 'package:dappstore/widgets/buttons/elevated_button.dart';
 import 'package:dappstore/widgets/image_widgets/image.dart';
 import 'package:flutter/material.dart';
-import 'package:dappstore/core/localisation/localisation_extension.dart';
 
 class DappTitleTile extends StatelessWidget {
   final IDappInfoHandler dappInfoHandler;
@@ -26,6 +26,7 @@ class DappTitleTile extends StatelessWidget {
             enableNetworkCache: true,
             height: 42,
             width: 42,
+            keepAlive: true,
           ),
         ),
       ),

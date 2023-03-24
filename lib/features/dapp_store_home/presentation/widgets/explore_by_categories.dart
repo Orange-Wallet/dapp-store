@@ -92,6 +92,7 @@ class _ExploreBycategoriesState extends State<ExploreBycategories> {
               fit: BoxFit.cover,
               enableNetworkCache: true,
               placeholderType: PlaceholderType.nftItemSymbol,
+              keepAlive: true,
             ),
             Align(
               alignment: Alignment.bottomCenter,

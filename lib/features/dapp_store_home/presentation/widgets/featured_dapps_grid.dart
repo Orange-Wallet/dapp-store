@@ -118,6 +118,7 @@ class _FeaturedDappsGridState extends State<FeaturedDappsGrid> {
           width: 74,
           enableNetworkCache: true,
           placeholderType: PlaceholderType.nftItemSymbol,
+          keepAlive: true,
         ),
       ),
     );

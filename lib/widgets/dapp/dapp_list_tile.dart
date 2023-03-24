@@ -27,6 +27,7 @@ class DappListTile extends StatelessWidget {
             ),
             clipBehavior: Clip.hardEdge,
             child: ImageWidget(
+              keepAlive: true,
               dapp.images!.logo!,
               height: 60,
               width: 60,
