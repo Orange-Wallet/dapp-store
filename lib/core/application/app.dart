@@ -1,5 +1,8 @@
 import 'package:dappstore/core/application/i_app_handler.dart';
 import 'package:dappstore/core/di/di.dart';
+import 'package:dappstore/features/dapp_info/presentation/screens/dapp_info.dart';
+import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
+import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/screen/homepage.dart';
 import 'package:dappstore/test_homepage.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +31,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
       appHandler.setLightTheme();
       debugPrint("Switching to Light theme");
     }
+
     super.initState();
   }
 

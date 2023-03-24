@@ -16,6 +16,9 @@
     "helpAndSupport",
     "whatAreYouLooking",
     "add",
-    "install"
+    "install",
+    "installdApp",
+    "aboutApp",
+    "details"
   ]
 }

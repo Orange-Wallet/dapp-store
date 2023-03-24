@@ -16,11 +16,49 @@ class LocalDataSource implements IDataSource {
   Future<DappListDto> getDappList({
     GetDappQueryDto? queryParams,
   }) async {
-    Response res = await _network.get(
-        path: "${Config.registryApiBaseUrl}/dapp",
-        queryParams: queryParams?.toJson());
-
-    return DappListDto.fromJson(res.data);
+    return DappListDto.fromJson({
+      "page": 0,
+      "pageCount": 1,
+      "limit": 10,
+      "response": [
+        {
+          "name": "Axie Infinity",
+          "description":
+              "Axie Infinity is a Pokemon-inspired digital pet universe where players use their cute characters called Axies in various games. The Axie Infinity Universe highlights the benefits of blockchain technology through \"Free to Play to Earn\" gameplay and a player-owned economy.",
+          "appUrl": "https://axieinfinity.com/",
+          "images": {
+            "logo":
+                "https://dashboard-assets.dappradar.com/document/9495/axieinfinity-dapp-games-ronin-logo_1ec806d57fd80ab68d351658cb8d146a.png",
+            "screenshots": [
+              "https://dummyimage.com/200x800.png",
+              "https://dummyimage.com/200x800.png",
+              "https://dummyimage.com/200x800.png",
+              "https://dummyimage.com/200x800.png",
+            ]
+          },
+          "minAge": 13,
+          "isForMatureAudience": false,
+          "isSelfModerated": true,
+          "language": "en",
+          "version": "unknown",
+          "isListed": true,
+          "listDate": "2023-01-30",
+          "availableOnPlatform": ["web"],
+          "category": "games",
+          "chains": [1],
+          "dappId": "com.axieinfinity.dapp",
+          "metrics": {
+            "dappId": "com.axieinfinity.dapp",
+            "downloads": 0,
+            "installs": 0,
+            "uninstalls": 0,
+            "ratingsCount": 0,
+            "visits": 0,
+            "rating": null
+          }
+        }
+      ]
+    });
   }
 
   @override
@@ -32,7 +70,13 @@ class LocalDataSource implements IDataSource {
       "appUrl": "https://axieinfinity.com/",
       "images": {
         "logo":
-            "https://dashboard-assets.dappradar.com/document/9495/axieinfinity-dapp-games-ronin-logo_1ec806d57fd80ab68d351658cb8d146a.png"
+            "https://dashboard-assets.dappradar.com/document/9495/axieinfinity-dapp-games-ronin-logo_1ec806d57fd80ab68d351658cb8d146a.png",
+        "screenshots": [
+          "https://dummyimage.com/200x800.png",
+          "https://dummyimage.com/200x800.png",
+          "https://dummyimage.com/200x800.png",
+          "https://dummyimage.com/200x800.png",
+        ]
       },
       "minAge": 13,
       "isForMatureAudience": false,

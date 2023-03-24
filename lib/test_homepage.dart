@@ -2,11 +2,15 @@ import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/core/installed_apps/i_installed_apps_cubit.dart';
 import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/permissions/i_permissions_cubit.dart';
+import 'package:dappstore/core/router/interface/route.dart';
+import 'package:dappstore/core/router/router.dart';
 import 'package:dappstore/core/theme/i_theme_cubit.dart';
+import 'package:dappstore/features/dapp_info/presentation/screens/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/store_cubit.dart';
+import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_info_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
 import 'package:dappstore/features/download_and_installer/infrastructure/dtos/task_info.dart';
@@ -16,11 +20,15 @@ import 'package:dappstore/features/wallet_connect/presentation/wallet_connect_te
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class TestHomePage extends StatefulWidget {
+class TestHomePage extends StatefulScreen {
   const TestHomePage({super.key});
 
   @override
   State<TestHomePage> createState() => _TestHomePageState();
+
+  @override
+  // TODO: implement route
+  String get route => throw UnimplementedError();
 }
 
 class _TestHomePageState extends State<TestHomePage> {
@@ -58,8 +66,18 @@ class _TestHomePageState extends State<TestHomePage> {
               Center(
                 child: ElevatedButton(
                   child: const Text("getdappList"),
-                  onPressed: () {
-                    storeHandler.getDappList();
+                  onPressed: () async {
+                    await getIt<IStoreCubit>().getDappList();
+                    await getIt<IStoreCubit>().setActiveDappId(
+                      dappId: getIt<IStoreCubit>()
+                              .state
+                              .dappList
+                              ?.response
+                              ?.first
+                              ?.dappId ??
+                          "",
+                    );
+                    context.pushRoute(DappInfoPage());
                   },
                 ),
               ),

@@ -12,8 +12,8 @@ class ConnectAndExploreCard extends StatelessWidget {
     DappStoreHandler handler = DappStoreHandler();
 
     return Container(
-        padding: EdgeInsets.all(16),
-        margin: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
+        margin: const EdgeInsets.all(16),
         color: handler.theme.secondaryBackgroundColor,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,7 +38,7 @@ class ConnectAndExploreCard extends StatelessWidget {
                         onPressed: () {},
                         style: TextButton.styleFrom(
                             backgroundColor: handler.theme.backgroundColor,
-                            padding: EdgeInsets.symmetric(vertical: 8)),
+                            padding: const EdgeInsets.symmetric(vertical: 8)),
                         child: Text(
                           context.getLocale!.connectWallet,
                           style: handler.theme.buttonTextStyle,

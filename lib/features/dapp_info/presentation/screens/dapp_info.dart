@@ -3,36 +3,36 @@ import 'package:dappstore/core/router/constants/routes.dart';
 import 'package:dappstore/core/router/interface/route.dart';
 import 'package:dappstore/core/theme/i_theme_cubit.dart';
 import 'package:dappstore/core/theme/theme_cubit.dart';
-import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
+import 'package:dappstore/features/dapp_info/application/dapp_info_cubit.dart';
+import 'package:dappstore/features/dapp_info/application/handler/dapp_info_handler.dart';
 import 'package:dappstore/features/dapp_info/application/handler/i_dapp_info_handler.dart';
+import 'package:dappstore/features/dapp_info/application/i_dapp_info_cubit.dart';
+import 'package:dappstore/features/dapp_info/presentation/widgets/dapp_title_tile.dart';
+import 'package:dappstore/features/dapp_info/presentation/widgets/description_box.dart';
 import 'package:dappstore/features/dapp_info/presentation/widgets/image_carousel.dart';
-import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';
-import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
-import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
-import 'package:dappstore/features/dapp_store_home/application/store_cubit/store_cubit.dart';
-import 'package:dappstore/features/dapp_store_home/domain/repositories/i_dapp_list_repository.dart';
-import 'package:dappstore/features/dapp_store_home/presentation/widgets/connect_and_explore_card.dart';
-import 'package:dappstore/widgets/app_bar/home_appbar.dart';
+import 'package:dappstore/features/dapp_store_home/presentation/widgets/home_appbar.dart';
+import 'package:dappstore/features/dapp_store_home/presentation/widgets/in_screen_appbar.dart';
+import 'package:dappstore/features/dapp_store_home/presentation/widgets/scaffold_with_background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class DappInforPage extends StatefulScreen {
-  const DappInforPage({super.key});
+class DappInfoPage extends StatefulScreen {
+  const DappInfoPage({super.key});
 
   @override
-  State<DappInforPage> createState() => _DappInforPageState();
+  State<DappInfoPage> createState() => _DappInfoPageState();
 
   @override
-  String get route => Routes.home;
+  String get route => Routes.dappInfo;
 }
 
-class _DappInforPageState extends State<DappInforPage> {
+class _DappInfoPageState extends State<DappInfoPage> {
   late final IDappInfoHandler dappInfoHandler;
   late final IThemeCubit themeCubit;
   @override
   void initState() {
     super.initState();
-    dappInfoHandler = getIt<IDappInfoHandler>();
+    dappInfoHandler = DappInfoHandler();
     themeCubit = dappInfoHandler.themeCubit;
   }
 
@@ -42,15 +42,35 @@ class _DappInforPageState extends State<DappInforPage> {
       bloc: themeCubit,
       builder: (context, state) {
         final theme = state.activeTheme!;
-        return BlocBuilder<IStoreCubit, StoreState>(
-            bloc: dappInfoHandler.storeCubit,
-            builder: (context, storeState) {
-              return Scaffold(
+        return BlocBuilder<IDappInfoCubit, DappInfoState>(
+            bloc: dappInfoHandler.dappInfoCubit,
+            builder: (context, dappState) {
+              return ScaffoldWithBackground(
                 backgroundColor: theme.backgroundColor,
-                appBar: HomeAppbar(),
+                themeSpec: theme,
+                appBar: InScreenAppBar(
+                  themeSpec: theme,
+                  actions: const [],
+                ),
                 body: ListView(
                   children: [
-                    //ImageCarousel(imageUrls: imageUrls),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 32.0,
+                        horizontal: 10,
+                      ),
+                      child: ImageCarousel(
+                        imageUrls: dappState.dappInfo!.images!.screenshots!,
+                        dappInfoHandler: dappInfoHandler,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20.0),
+                      child: DappTitleTile(
+                        dappInfoHandler: dappInfoHandler,
+                      ),
+                    ),
+                    AppDescriptionBox(dappInfoHandler: dappInfoHandler),
                   ],
                 ),
               );

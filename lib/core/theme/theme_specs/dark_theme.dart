@@ -11,7 +11,7 @@ class DarkTheme implements IThemeSpec {
   Color get appBarBackgroundColor => Colors.black;
 
   @override
-  Color get backgroundColor => const Color(0x00646363);
+  Color get backgroundColor => const Color.fromRGBO(0, 0, 0, 0.2363);
 
   @override
   Color get secondaryTextColor => const Color.fromARGB(255, 114, 114, 114);
@@ -31,6 +31,15 @@ class DarkTheme implements IThemeSpec {
   @override
   Color get arrowButtonBackgroundColor =>
       const Color.fromRGBO(192, 195, 201, 1);
+
+  @override
+  Color get appGreen => const Color.fromRGBO(77, 204, 143, 1);
+
+  @override
+  Color get backgroundCardColor => const Color.fromRGBO(255, 255, 255, 0.1);
+
+  @override
+  Color get cardColor => const Color.fromRGBO(255, 255, 255, 0.07);
 
   @override
   TextStyle get headingTextStyle => TextStyle(
@@ -75,7 +84,24 @@ class DarkTheme implements IThemeSpec {
         color: whiteColor,
         fontWeight: FontWeight.w700,
       );
+  @override
+  TextStyle get whiteBoldTextStyle => TextStyle(
+        fontFamily: fontName,
+        fontSize: 14,
+        color: whiteColor,
+        fontWeight: FontWeight.w400,
+      );
 
   @override
   String get fontName => 'GeneralSans';
+
+  @override
+  double get cardRadius => 16;
+
+  @override
+  RoundedRectangleBorder get cardShape => const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(16),
+        ),
+      );
 }

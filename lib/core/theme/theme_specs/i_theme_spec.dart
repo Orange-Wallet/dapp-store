@@ -13,10 +13,17 @@ abstract class IThemeSpec {
   Color get thirdBackgroundColor;
   Color get whiteColor;
   Color get arrowButtonBackgroundColor;
+  Color get appGreen;
+  Color get backgroundCardColor;
+  Color get cardColor;
 
   TextStyle get secondaryTextStyle1;
   TextStyle get headingTextStyle;
   TextStyle get buttonTextStyle;
   TextStyle get bodyTextStyle;
   TextStyle get titleTextStyle;
+  TextStyle get whiteBoldTextStyle;
+
+  double get cardRadius;
+  RoundedRectangleBorder get cardShape;
 }

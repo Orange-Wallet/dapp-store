@@ -17,5 +17,5 @@ class DappListDto with _$DappListDto {
   factory DappListDto.fromJson(Map<String, Object?> json) =>
       _$DappListDtoFromJson(json);
 
-  toDomain() => DappList.fromJson(this.toJson());
+  toDomain() => DappList.fromJson(toJson());
 }

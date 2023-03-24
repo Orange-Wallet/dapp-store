@@ -1,17 +1,14 @@
-import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/features/dapp_info/application/handler/i_dapp_info_handler.dart';
 import 'package:dappstore/widgets/image_widgets/image.dart';
 import 'package:flutter/material.dart';
 
 class ImageCarousel extends StatelessWidget {
   final List<String> imageUrls;
-  ImageCarousel({
-    super.key,
-    required this.imageUrls,
-  });
+  final IDappInfoHandler dappInfoHandler;
+  ImageCarousel(
+      {super.key, required this.imageUrls, required this.dappInfoHandler});
   final PageController pageController =
       PageController(viewportFraction: 0.33334, keepPage: false);
-  final IDappInfoHandler dappInfoHandler = getIt<IDappInfoHandler>();
 
   @override
   Widget build(BuildContext context) {
@@ -51,11 +48,15 @@ class ImageCarousel extends StatelessWidget {
           end: 4,
           top: 5,
           bottom: 5,
-          child: SizedBox(
-            height: 10,
+          child: GestureDetector(
+            onTap: () {
+              pageController.nextPage(
+                  duration: const Duration(milliseconds: 140),
+                  curve: Curves.ease);
+            },
             child: Container(
-              height: 18.5,
-              width: 18.5,
+              height: 28.5,
+              width: 28.5,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: theme.arrowButtonBackgroundColor,
@@ -72,17 +73,24 @@ class ImageCarousel extends StatelessWidget {
           bottom: 5,
           top: 5,
           start: 4,
-          child: Container(
-            height: 18.5,
-            width: 18.5,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: theme.arrowButtonBackgroundColor,
-            ),
-            child: Icon(
-              Icons.arrow_back_ios_new_rounded,
-              color: theme.whiteColor,
-              size: 15,
+          child: GestureDetector(
+            onTap: () {
+              pageController.previousPage(
+                  duration: const Duration(milliseconds: 140),
+                  curve: Curves.ease);
+            },
+            child: Container(
+              height: 28.5,
+              width: 28.5,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: theme.arrowButtonBackgroundColor,
+              ),
+              child: Icon(
+                Icons.arrow_back_ios_new_rounded,
+                color: theme.whiteColor,
+                size: 15,
+              ),
             ),
           ),
         ),

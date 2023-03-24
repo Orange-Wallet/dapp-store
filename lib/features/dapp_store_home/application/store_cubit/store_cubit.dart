@@ -32,10 +32,10 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
   }
 
   @override
-  getDappList() async {
+  Future<DappList> getDappList() async {
     DappList dappList = await dappListRepo.getDappList();
     emit(state.copyWith(dappList: dappList, currentPage: dappList.page));
-    log(state.toString());
+    return dappList;
   }
 
   @override
@@ -66,6 +66,15 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
     log(dappInfo.toString());
     return dappInfo;
   }
+
+  @override
+  setActiveDappId({required String dappId}) {
+    emit(state.copyWith(activeDappId: dappId));
+  }
+
+  @override
+  DappInfo? get getActiveDappInfo => state.dappList?.response
+      ?.firstWhere((element) => element?.dappId == state.activeDappId);
 
   @override
   getCuratedList() async {

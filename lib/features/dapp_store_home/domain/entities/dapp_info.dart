@@ -36,7 +36,7 @@ class Images with _$Images {
   factory Images({
     String? logo,
     String? banner,
-    List<String?>? screenshots,
+    List<String>? screenshots,
   }) = _Images;
   factory Images.fromJson(Map<String, Object?> json) => _$ImagesFromJson(json);
 }
