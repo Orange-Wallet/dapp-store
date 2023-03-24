@@ -30,5 +30,12 @@
       }
     }
   },
-  "details": "Details"
+  "details": "Details",
+  "ratings": "Ratings",
+  "downloads": "Downloads",
+  "size": "Size",
+  "addRating": "Add Rating",
+  "contactSupport": "Contact Support",
+  "noContactInfo": "No contact information available.",
+  "youMightLike": "You might also like"
 }

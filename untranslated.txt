@@ -19,6 +19,13 @@
     "install",
     "installdApp",
     "aboutApp",
-    "details"
+    "details",
+    "ratings",
+    "downloads",
+    "size",
+    "addRating",
+    "contactSupport",
+    "noContactInfo",
+    "youMightLike"
   ]
 }

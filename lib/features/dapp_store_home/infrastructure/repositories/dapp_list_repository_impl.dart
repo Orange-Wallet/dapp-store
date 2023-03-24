@@ -4,6 +4,7 @@ import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dar
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_list.dart';
 import 'package:dappstore/features/dapp_store_home/domain/repositories/i_dapp_list_repository.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/datasources/i_data_source.dart';
+import 'package:dappstore/features/dapp_store_home/infrastructure/datasources/local_data_source.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/datasources/remote_data_source.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/curated_list_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_info_dto.dart';
@@ -16,7 +17,7 @@ import 'package:injectable/injectable.dart';
 @LazySingleton(as: IDappListRepo)
 class DappListRepoImpl implements IDappListRepo {
   late final Network _network = Network(dioClient: Dio());
-  late final IDataSource _dataSource = RemoteDataSource(network: _network);
+  late final IDataSource _dataSource = LocalDataSource(network: _network);
 
   DappListRepoImpl();
 

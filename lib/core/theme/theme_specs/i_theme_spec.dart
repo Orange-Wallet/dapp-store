@@ -18,6 +18,9 @@ abstract class IThemeSpec {
   Color get appGreen;
   Color get backgroundCardColor;
   Color get cardColor;
+  Color get ratingGrey;
+  Color get unratedGrey;
+  Color get errorRed;
 
   TextStyle get secondaryTextStyle1;
   TextStyle get headingTextStyle;

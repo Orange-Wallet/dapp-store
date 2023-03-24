@@ -34,10 +34,18 @@ class DarkTheme implements IThemeSpec {
   Color get appGreen => const Color.fromRGBO(77, 204, 143, 1);
 
   @override
-  Color get backgroundCardColor => const Color.fromRGBO(255, 255, 255, 0.1);
+  Color get backgroundCardColor => const Color.fromARGB(255, 26, 26, 26);
 
   @override
-  Color get cardColor => secondaryBackgroundColor;
+  Color get cardColor => const Color.fromARGB(255, 42, 42, 42);
+
+  @override
+  Color get ratingGrey => const Color.fromARGB(255, 178, 178, 178);
+
+  @override
+  Color get unratedGrey => const Color.fromARGB(255, 76, 76, 76);
+  @override
+  Color get errorRed => const Color.fromARGB(255, 194, 60, 60);
 
   @override
   TextStyle get headingTextStyle => TextStyle(
