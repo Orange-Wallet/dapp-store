@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:flutter/material.dart';
 
@@ -75,6 +73,9 @@ class DarkTheme implements IThemeSpec {
         color: whiteColor,
         fontWeight: FontWeight.w700,
       );
+
+  @override
+  double get imageBorderRadius => 20;
 
   @override
   String get fontName => 'GeneralSans';

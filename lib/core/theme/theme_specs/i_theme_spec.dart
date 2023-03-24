@@ -5,6 +5,8 @@ abstract class IThemeSpec {
 
   bool get isDarkTheme;
 
+  double get imageBorderRadius => 20;
+
   Color get backgroundColor;
   Color get appBarBackgroundColor;
   Color get secondaryTextColor;
