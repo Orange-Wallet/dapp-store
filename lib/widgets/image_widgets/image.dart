@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:convert';
 import 'dart:typed_data';
 
@@ -246,7 +248,7 @@ class _ImageWidgetState extends State<ImageWidget>
   }
 
   @override
-  bool get wantKeepAlive => widget.keepAlive!;
+  bool get wantKeepAlive => widget.keepAlive;
 }
 
 class _LoadingIndicator extends StatelessWidget {
