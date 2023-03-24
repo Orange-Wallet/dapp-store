@@ -3,19 +3,19 @@ import 'package:dappstore/features/dapp_store_home/application/handler/dapp_stor
 import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/store_cubit.dart';
-import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
+import 'package:dappstore/features/dapp_store_home/domain/entities/curated_category_list.dart';
 import 'package:dappstore/widgets/image_widgets/image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class FeaturedDappsGrid extends StatefulWidget {
-  const FeaturedDappsGrid({super.key});
+class ExploreBycategories extends StatefulWidget {
+  const ExploreBycategories({super.key});
 
   @override
-  State<FeaturedDappsGrid> createState() => _FeaturedDappsGridState();
+  State<ExploreBycategories> createState() => _ExploreBycategoriesState();
 }
 
-class _FeaturedDappsGridState extends State<FeaturedDappsGrid> {
+class _ExploreBycategoriesState extends State<ExploreBycategories> {
   late final IDappStoreHandler handler;
   @override
   void initState() {
@@ -27,11 +27,11 @@ class _FeaturedDappsGridState extends State<FeaturedDappsGrid> {
   Widget build(BuildContext context) {
     return BlocBuilder<IStoreCubit, StoreState>(
         buildWhen: (previous, current) =>
-            previous.featuredDappList.hashCode !=
-            current.featuredDappList.hashCode,
+            previous.curatedCategoryList.hashCode !=
+            current.curatedCategoryList.hashCode,
         bloc: handler.getStoreCubit(),
         builder: (context, state) {
-          List<DappInfo?>? list = state.featuredDappList?.response;
+          List<CuratedCategoryList?>? list = state.curatedCategoryList;
           if (list == null) {
             return Container();
           }
@@ -40,14 +40,12 @@ class _FeaturedDappsGridState extends State<FeaturedDappsGrid> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Chip(
-                  label: Text(
-                    context.getLocale!.featuredDapps,
-                    style: handler.theme.secondaryTextStyle2,
-                  ),
-                  backgroundColor: handler.theme.secondaryBackgroundColor,
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+                Text(
+                  context.getLocale!.exploreByCategories,
+                  style: handler.theme.buttonTextStyle,
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
                 GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),
@@ -56,11 +54,11 @@ class _FeaturedDappsGridState extends State<FeaturedDappsGrid> {
                   addAutomaticKeepAlives: true,
                   cacheExtent: 200,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4,
+                    crossAxisCount: 3,
                     crossAxisSpacing: 12,
                     mainAxisSpacing: 12,
                   ),
-                  itemCount: 16,
+                  itemCount: 9,
                   itemBuilder: (BuildContext context, int index) {
                     return getGridTile(list[index]);
                   },
@@ -68,56 +66,49 @@ class _FeaturedDappsGridState extends State<FeaturedDappsGrid> {
                 const SizedBox(
                   height: 12,
                 ),
-                TextButton(
-                    onPressed: () {
-                      // TODO redirect to explore page
-                    },
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        const RoundedRectangleBorder(),
-                      ),
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          handler.theme.secondaryBackgroundColor),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            context.getLocale!.exploreMore,
-                            style: handler.theme.normalTextStyle,
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            color: handler.theme.whiteColor,
-                          ),
-                        ],
-                      ),
-                    )),
               ],
             ),
           );
         });
   }
 
-  Widget getGridTile(DappInfo? dapp) {
+  Widget getGridTile(CuratedCategoryList? curatedCategory) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(handler.theme.imageBorderRadius),
       ),
       clipBehavior: Clip.hardEdge,
+      height: 100,
+      width: 100,
       child: InkWell(
         onTap: () {
-          //TODO add onclick redirection to dappinfo page
+          //TODO add onclick redirection to category page
         },
         borderRadius: BorderRadius.circular(handler.theme.imageBorderRadius),
-        child: ImageWidget(
-          dapp!.images!.logo!,
-          height: 74,
-          width: 74,
-          enableNetworkCache: true,
-          placeholderType: PlaceholderType.nftItemSymbol,
+        child: Stack(
+          children: [
+            ImageWidget(
+              curatedCategory?.image ?? "",
+              fit: BoxFit.cover,
+              enableNetworkCache: true,
+              placeholderType: PlaceholderType.nftItemSymbol,
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                color: handler.theme.secondaryBackgroundColor.withOpacity(0.7),
+                width: double.maxFinite,
+                child: Text(
+                  curatedCategory?.category?.toUpperCase() ?? "",
+                  style: handler.theme.buttonTextStyle,
+                  overflow: TextOverflow.fade,
+                  maxLines: 1,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );

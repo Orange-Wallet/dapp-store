@@ -13,6 +13,11 @@ class DappStoreHandler implements IDappStoreHandler {
   }
 
   @override
+  started() async {
+    await getStoreCubit().started();
+  }
+
+  @override
   getCuratedList() {
     getStoreCubit().getCuratedList();
   }
@@ -44,4 +49,19 @@ class DappStoreHandler implements IDappStoreHandler {
 
   @override
   IThemeSpec get theme => getIt<IThemeCubit>().theme;
+
+  @override
+  getCuratedCategoryList() {
+    getStoreCubit().getCuratedCategoryList();
+  }
+
+  @override
+  getFeaturedDappsByCategory({required String category}) {
+    getStoreCubit().getFeaturedDappsByCategory(category: category);
+  }
+
+  @override
+  getFeaturedDappsList() {
+    getStoreCubit().getFeaturedDappsList();
+  }
 }

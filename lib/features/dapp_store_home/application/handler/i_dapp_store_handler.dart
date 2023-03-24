@@ -7,6 +7,8 @@ abstract class IDappStoreHandler {
   IStoreCubit getStoreCubit();
 
   IThemeSpec get theme;
+
+  started();
   getDappList();
 
   getDappListNextPage();
@@ -18,4 +20,10 @@ abstract class IDappStoreHandler {
   getSearchDappList({required GetDappQueryDto queryParams});
 
   getSearchDappListNextPage();
+
+  getCuratedCategoryList();
+
+  getFeaturedDappsList();
+
+  getFeaturedDappsByCategory({required String category});
 }
