@@ -7,6 +7,7 @@ import 'package:dappstore/features/dapp_info/application/dapp_info_cubit.dart';
 import 'package:dappstore/features/dapp_info/application/handler/dapp_info_handler.dart';
 import 'package:dappstore/features/dapp_info/application/handler/i_dapp_info_handler.dart';
 import 'package:dappstore/features/dapp_info/application/i_dapp_info_cubit.dart';
+import 'package:dappstore/features/dapp_info/presentation/widgets/app_stats_card.dart';
 import 'package:dappstore/features/dapp_info/presentation/widgets/dapp_title_tile.dart';
 import 'package:dappstore/features/dapp_info/presentation/widgets/description_box.dart';
 import 'package:dappstore/features/dapp_info/presentation/widgets/image_carousel.dart';
@@ -71,6 +72,9 @@ class _DappInfoPageState extends State<DappInfoPage> {
                       ),
                     ),
                     AppDescriptionBox(dappInfoHandler: dappInfoHandler),
+                    AppStatsCard(
+                      dappInfoHandler: dappInfoHandler,
+                    )
                   ],
                 ),
               );

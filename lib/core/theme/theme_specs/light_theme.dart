@@ -37,7 +37,7 @@ class LightTheme implements IThemeSpec {
   Color get backgroundCardColor => const Color.fromRGBO(255, 255, 255, 0.1);
 
   @override
-  Color get cardColor => const Color.fromRGBO(255, 255, 255, 0.07);
+  Color get cardColor => secondaryBackgroundColor;
 
   @override
   TextStyle get headingTextStyle => TextStyle(
@@ -90,6 +90,7 @@ class LightTheme implements IThemeSpec {
         fontWeight: FontWeight.w400,
       );
 
+  @override
   double get imageBorderRadius => 20;
   @override
   String get fontName => 'GeneralSans';
