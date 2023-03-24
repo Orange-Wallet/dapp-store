@@ -98,7 +98,30 @@ class LightTheme implements IThemeSpec {
         color: whiteColor,
         fontWeight: FontWeight.w400,
       );
-
+  @override
+  TextStyle get normalTextStyle => TextStyle(
+        // h5 -> headline
+        fontFamily: fontName,
+        fontSize: 14,
+        color: whiteColor,
+        fontWeight: FontWeight.w500,
+      );
+  @override
+  TextStyle get secondaryTextStyle2 => TextStyle(
+        // h5 -> headline
+        fontFamily: fontName,
+        fontSize: 10,
+        color: whiteColor,
+        fontWeight: FontWeight.w500,
+      );
+  @override
+  TextStyle get smallButtonTextStyle => TextStyle(
+        // h5 -> headline
+        fontFamily: fontName,
+        fontSize: 12,
+        color: whiteColor,
+        fontWeight: FontWeight.w700,
+      );
   @override
   double get imageBorderRadius => 20;
   @override

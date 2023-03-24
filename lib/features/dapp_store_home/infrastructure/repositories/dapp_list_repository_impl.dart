@@ -1,4 +1,5 @@
 import 'package:dappstore/core/network/network.dart';
+import 'package:dappstore/features/dapp_store_home/domain/entities/curated_category_list.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/curated_list.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_list.dart';
@@ -6,6 +7,7 @@ import 'package:dappstore/features/dapp_store_home/domain/repositories/i_dapp_li
 import 'package:dappstore/features/dapp_store_home/infrastructure/datasources/i_data_source.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/datasources/local_data_source.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/datasources/remote_data_source.dart';
+import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/curated_category_list_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/curated_list_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_info_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_list_dto.dart';
@@ -43,5 +45,36 @@ class DappListRepoImpl implements IDappListRepo {
       list.add(element.toDomain());
     }
     return list;
+  }
+
+  @override
+  Future<List<CuratedCategoryList>> getCuratedCategoryList() async {
+    final List<CuratedCategoryListDto> curatedCategoryList =
+        await _localSource.getCuratedCategoryList();
+    final List<CuratedCategoryList> list = [];
+    for (var element in curatedCategoryList) {
+      list.add(element.toDomain());
+    }
+    return list;
+  }
+
+  @override
+  Future<DappList> getFeaturedDappsByCategory(
+      {required String category}) async {
+    final DappListDto dappList =
+        await _dataSource.getFeaturedDappsByCategory(category: category);
+    return dappList.toDomain();
+  }
+
+  @override
+  Future<DappList> getFeaturedDappsList() async {
+    final DappListDto dappList = await _dataSource.getFeaturedDappsList();
+    return dappList.toDomain();
+  }
+
+  @override
+  Future<List<DappInfo>> searchDapps(String searchString) {
+    // TODO: implement searchDapps
+    throw UnimplementedError();
   }
 }

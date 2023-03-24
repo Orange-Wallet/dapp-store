@@ -1,3 +1,4 @@
+import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/curated_category_list_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/curated_list_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_info_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_list_dto.dart';
@@ -14,4 +15,7 @@ abstract class IDataSource {
   Future<List<DappInfoDto>> searchDapps(String searchString);
 
   Future<List<CuratedListDto>> getCuratedList();
+  Future<List<CuratedCategoryListDto>> getCuratedCategoryList();
+  Future<DappListDto> getFeaturedDappsList();
+  Future<DappListDto> getFeaturedDappsByCategory({required String category});
 }

@@ -1,11 +1,15 @@
+import 'dart:convert';
+
 import 'package:dappstore/config/config.dart';
 import 'package:dappstore/core/network/network.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/datasources/i_data_source.dart';
+import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/curated_category_list_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/curated_list_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_info_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_list_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_info_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
+import 'package:dappstore/utils/typedef.dart';
 import 'package:dio/dio.dart';
 
 class LocalDataSource implements IDataSource {
@@ -115,5 +119,65 @@ class LocalDataSource implements IDataSource {
     List<CuratedListDto> list =
         (res.data as List).map((i) => CuratedListDto.fromJson(i)).toList();
     return list;
+  }
+
+  @override
+  Future<List<CuratedCategoryListDto>> getCuratedCategoryList() async {
+    var str = ''' {
+"response": [
+{
+"category": "Games",
+"image": "https://dashboard-assets.dappradar.com/document/3/cryptokitties-dapp-games-eth-logo_43af8137d6219e1fd08b52d9cdfc9447.png"
+},
+{
+"category": "DEfi",
+"image": "https://dashboard-assets.dappradar.com/document/3/cryptokitties-dapp-games-eth-logo_43af8137d6219e1fd08b52d9cdfc9447.png"
+},
+{
+"category": "dao",
+"image": "https://dashboard-assets.dappradar.com/document/3/cryptokitties-dapp-games-eth-logo_43af8137d6219e1fd08b52d9cdfc9447.png"
+},
+{
+"category": "metaverse",
+"image": "https://dashboard-assets.dappradar.com/document/3/cryptokitties-dapp-games-eth-logo_43af8137d6219e1fd08b52d9cdfc9447.png"
+},
+{
+"category": "social",
+"image": "https://dashboard-assets.dappradar.com/document/3/cryptokitties-dapp-games-eth-logo_43af8137d6219e1fd08b52d9cdfc9447.png"
+},
+{
+"category": "lifestyle",
+"image": "https://dashboard-assets.dappradar.com/document/3/cryptokitties-dapp-games-eth-logo_43af8137d6219e1fd08b52d9cdfc9447.png"
+},
+{
+"category": "finance",
+"image": "https://dashboard-assets.dappradar.com/document/3/cryptokitties-dapp-games-eth-logo_43af8137d6219e1fd08b52d9cdfc9447.png"
+},{
+"category": "finance",
+"image": "https://dashboard-assets.dappradar.com/document/3/cryptokitties-dapp-games-eth-logo_43af8137d6219e1fd08b52d9cdfc9447.png"
+},{
+"category": "finance",
+"image": "https://dashboard-assets.dappradar.com/document/3/cryptokitties-dapp-games-eth-logo_43af8137d6219e1fd08b52d9cdfc9447.png"
+}
+]
+}''';
+
+    JSON res = await jsonDecode(str);
+    List<CuratedCategoryListDto> list = (res['response'] as List)
+        .map((i) => CuratedCategoryListDto.fromJson(i))
+        .toList();
+    return list;
+  }
+
+  @override
+  Future<DappListDto> getFeaturedDappsByCategory({required String category}) {
+    // TODO: implement getFeaturedDappsByCategory
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<DappListDto> getFeaturedDappsList() {
+    // TODO: implement getFeaturedDappsList
+    throw UnimplementedError();
   }
 }

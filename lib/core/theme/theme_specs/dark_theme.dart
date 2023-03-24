@@ -65,6 +65,14 @@ class DarkTheme implements IThemeSpec {
       );
 
   @override
+  TextStyle get secondaryTextStyle2 => TextStyle(
+      // h5 -> headline
+      fontFamily: fontName,
+      fontSize: 10,
+      color: whiteColor,
+      fontWeight: FontWeight.w500);
+
+  @override
   TextStyle get titleTextStyle => TextStyle(
         // h5 -> headline
         fontFamily: fontName,
@@ -90,6 +98,24 @@ class DarkTheme implements IThemeSpec {
         color: whiteColor,
         fontWeight: FontWeight.w700,
       );
+
+  @override
+  TextStyle get smallButtonTextStyle => TextStyle(
+        // h5 -> headline
+        fontFamily: fontName,
+        fontSize: 12,
+        color: whiteColor,
+        fontWeight: FontWeight.w700,
+      );
+  @override
+  TextStyle get normalTextStyle => TextStyle(
+        // h5 -> headline
+        fontFamily: fontName,
+        fontSize: 14,
+        color: whiteColor,
+        fontWeight: FontWeight.w500,
+      );
+
   @override
   TextStyle get whiteBoldTextStyle => TextStyle(
         fontFamily: fontName,

@@ -27,45 +27,76 @@ class _FeaturedDappsGridState extends State<FeaturedDappsGrid> {
   Widget build(BuildContext context) {
     return BlocBuilder<IStoreCubit, StoreState>(
         buildWhen: (previous, current) =>
-            previous.dappList.hashCode != current.dappList.hashCode,
+            previous.featuredDappList.hashCode !=
+            current.featuredDappList.hashCode,
         bloc: handler.getStoreCubit(),
         builder: (context, state) {
-          // TODO currently using dapplist instead of curated list
-          List<DappInfo?>? list = state.dappList?.response;
+          List<DappInfo?>? list = state.featuredDappList?.response;
           if (list == null) {
             return Container();
           }
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 21, top: 70),
-                child: Chip(
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 21, vertical: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Chip(
                   label: Text(
                     context.getLocale!.featuredDapps,
-                    style: handler.theme.buttonTextStyle,
+                    style: handler.theme.secondaryTextStyle2,
                   ),
                   backgroundColor: handler.theme.secondaryBackgroundColor,
                   padding:
                       const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
                 ),
-              ),
-              GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 21, vertical: 12),
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
-                  crossAxisSpacing: 12,
-                  mainAxisSpacing: 12,
+                GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  shrinkWrap: true,
+                  addAutomaticKeepAlives: true,
+                  cacheExtent: 200,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12,
+                  ),
+                  itemCount: 16,
+                  itemBuilder: (BuildContext context, int index) {
+                    return getGridTile(list[index]);
+                  },
                 ),
-                itemCount: 16,
-                itemBuilder: (BuildContext context, int index) {
-                  return getGridTile(list[index]);
-                },
-              ),
-            ],
+                const SizedBox(
+                  height: 12,
+                ),
+                TextButton(
+                    onPressed: () {
+                      // TODO redirect to explore page
+                    },
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        const RoundedRectangleBorder(),
+                      ),
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          handler.theme.secondaryBackgroundColor),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            context.getLocale!.exploreMore,
+                            style: handler.theme.normalTextStyle,
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            color: handler.theme.whiteColor,
+                          ),
+                        ],
+                      ),
+                    )),
+              ],
+            ),
           );
         });
   }
@@ -87,6 +118,7 @@ class _FeaturedDappsGridState extends State<FeaturedDappsGrid> {
           width: 74,
           enableNetworkCache: true,
           placeholderType: PlaceholderType.nftItemSymbol,
+          keepAlive: true,
         ),
       ),
     );

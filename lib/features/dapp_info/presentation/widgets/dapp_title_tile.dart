@@ -1,9 +1,13 @@
+<<<<<<< HEAD
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
+=======
+import 'package:dappstore/core/localisation/localisation_extension.dart';
+import 'package:dappstore/features/dapp_info/application/handler/i_dapp_info_handler.dart';
+>>>>>>> f5bd5aca8b3c07df5be41295707b9715e8470fe9
 import 'package:dappstore/widgets/buttons/elevated_button.dart';
 import 'package:dappstore/widgets/image_widgets/image.dart';
 import 'package:flutter/material.dart';
-import 'package:dappstore/core/localisation/localisation_extension.dart';
 
 class DappTitleTile extends StatelessWidget {
   final DappInfo dappInfo;

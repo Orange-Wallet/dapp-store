@@ -28,6 +28,9 @@ abstract class IThemeSpec {
   TextStyle get bodyTextStyle;
   TextStyle get titleTextStyle;
   TextStyle get whiteBoldTextStyle;
+  TextStyle get normalTextStyle;
+  TextStyle get secondaryTextStyle2;
+  TextStyle get smallButtonTextStyle;
 
   double get cardRadius;
   RoundedRectangleBorder get cardShape;

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
+import 'package:dappstore/features/dapp_store_home/domain/entities/curated_category_list.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/curated_list.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_list.dart';
@@ -27,21 +28,30 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
   }
 
   @override
-  started() {
-    getDappList();
+  started() async {
+    await getDappList();
+    await getCuratedCategoryList();
+    await getCuratedList();
+    await getFeaturedDappsList();
+    for (var i = 0; i < 3; i++) {
+      if (state.curatedCategoryList?[i]?.category != null) {
+        getFeaturedDappsByCategory(
+            category: state.curatedCategoryList![i]!.category!);
+      }
+    }
   }
 
   @override
-  Future<DappList> getDappList() async {
+  getDappList() async {
     DappList dappList =
         await dappListRepo.getDappList(queryParams: GetDappQueryDto(limit: 20));
-    emit(state.copyWith(dappList: dappList, currentPage: dappList.page));
-    return dappList;
+    emit(
+        state.copyWith(dappList: dappList, dappListCurrentPage: dappList.page));
   }
 
   @override
   getDappListNextPage() async {
-    int nextPage = (state.currentPage ?? 0) + 1;
+    int nextPage = (state.dappListCurrentPage ?? 0) + 1;
     if (nextPage <= (state.dappList?.pageCount ?? 0)) {
       DappList dappList = await dappListRepo.getDappList(
           queryParams: GetDappQueryDto(page: nextPage));
@@ -54,7 +64,7 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
           response: [...?currentList?.response, ...?dappList.response]);
       emit(state.copyWith(
         dappList: updatedList,
-        currentPage: updatedList.page,
+        dappListCurrentPage: updatedList.page,
       ));
       log(state.toString());
     }
@@ -115,5 +125,28 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
           searchParams: queryParams.copyWith(page: nextPage)));
       log(state.toString());
     }
+  }
+
+  @override
+  getCuratedCategoryList() async {
+    List<CuratedCategoryList> curatedCategoryList =
+        await dappListRepo.getCuratedCategoryList();
+    emit(state.copyWith(curatedCategoryList: curatedCategoryList));
+  }
+
+  @override
+  getFeaturedDappsByCategory({required String category}) async {
+    DappList dappList =
+        await dappListRepo.getFeaturedDappsByCategory(category: category);
+    Map<String, DappList?> map = Map.of(state.featuredDappsByCategory ?? {});
+    map[category] = dappList;
+
+    emit(state.copyWith(featuredDappsByCategory: map));
+  }
+
+  @override
+  getFeaturedDappsList() async {
+    DappList dappList = await dappListRepo.getFeaturedDappsList();
+    emit(state.copyWith(featuredDappList: dappList));
   }
 }
