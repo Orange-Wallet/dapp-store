@@ -90,6 +90,7 @@ class LightTheme implements IThemeSpec {
         fontWeight: FontWeight.w400,
       );
 
+  double get imageBorderRadius => 20;
   @override
   String get fontName => 'GeneralSans';
 

@@ -1,7 +1,8 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:dappstore/features/wallet_connect/models/chain_metadata.dart';
 import 'package:dappstore/features/wallet_connect/models/eth/ethereum_transaction.dart';
 import 'package:dappstore/features/wallet_connect/utils/helpers.dart';
-import 'package:wallet_connect_dart_v2/sign/engine/models.dart';
 import 'package:wallet_connect_dart_v2/wallet_connect_dart_v2.dart';
 
 enum Eip155Methods {

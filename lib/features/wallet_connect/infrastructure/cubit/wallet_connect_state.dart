@@ -12,7 +12,7 @@ class WalletConnectState with _$WalletConnectState {
     required List<PairingStruct> pairings,
   }) = _WalletConnectState;
 
-  factory WalletConnectState.initial() => WalletConnectState(
+  factory WalletConnectState.initial() => const WalletConnectState(
         connected: false,
         failure: false,
         sessions: [],

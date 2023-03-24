@@ -169,9 +169,9 @@ class Network {
       return dioOptions;
     }
 
-    final _cacheOptionsMap = cacheOptions!.toExtra();
+    final cacheOptionsMap = cacheOptions!.toExtra();
     final options = dioOptions!.copyWith(
-      extra: <String, dynamic>{...dioOptions.extra!, ..._cacheOptionsMap},
+      extra: <String, dynamic>{...dioOptions.extra!, ...cacheOptionsMap},
     );
     return options;
   }

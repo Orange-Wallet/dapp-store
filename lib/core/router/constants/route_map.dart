@@ -5,6 +5,6 @@ class RouteMap {
   RouteMap._();
 
   static Map<String, Widget Function(BuildContext)> routes = {
-    HomePage().route: (context) => HomePage(),
+    const HomePage().route: (context) => const HomePage(),
   };
 }

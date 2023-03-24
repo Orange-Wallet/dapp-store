@@ -5,6 +5,7 @@ import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_st
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/connect_and_explore_card.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/home_appbar.dart';
+import 'package:dappstore/features/dapp_store_home/presentation/widgets/featured_dapps_grid.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulScreen {
@@ -25,16 +26,18 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     storeHandler = DappStoreHandler();
     storeCubit = storeHandler.getStoreCubit();
+    storeCubit.getDappList();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: storeHandler.theme.backgroundColor,
-      appBar: HomeAppbar(),
+      appBar: const HomeAppbar(),
       body: ListView(
-        children: [
+        children: const [
           ConnectAndExploreCard(),
+          FeaturedDappsGrid(),
         ],
       ),
     );

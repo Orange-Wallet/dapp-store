@@ -1,4 +1,3 @@
-import 'package:dappstore/features/download_and_installer/infrastructure/datasources/downloader.dart';
 import 'package:dappstore/features/download_and_installer/infrastructure/dtos/task_info.dart';
 
 abstract class IDownloader {

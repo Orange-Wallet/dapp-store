@@ -1,8 +1,6 @@
 import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class ConnectAndExploreCard extends StatelessWidget {
   const ConnectAndExploreCard({super.key});
@@ -32,18 +30,22 @@ class ConnectAndExploreCard extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: Container(
-                    color: handler.theme.appBarBackgroundColor,
-                    child: TextButton(
-                        onPressed: () {},
-                        style: TextButton.styleFrom(
-                            backgroundColor: handler.theme.backgroundColor,
-                            padding: const EdgeInsets.symmetric(vertical: 8)),
-                        child: Text(
-                          context.getLocale!.connectWallet,
-                          style: handler.theme.buttonTextStyle,
-                        )),
-                  ),
+                  child: TextButton(
+                      onPressed: () {
+                        // TODO add connect wallet implementation
+                      },
+                      style: ButtonStyle(
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          const RoundedRectangleBorder(),
+                        ),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            handler.theme.appBarBackgroundColor),
+                      ),
+                      child: Text(
+                        context.getLocale!.connectWallet,
+                        style: handler.theme.buttonTextStyle,
+                      )),
                 ),
               ],
             ),
