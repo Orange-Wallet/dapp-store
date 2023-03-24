@@ -35,12 +35,12 @@ class _FeaturedDappsGridState extends State<FeaturedDappsGrid> {
           if (list == null) {
             return Container();
           }
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 21, top: 70),
-                child: Chip(
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: 21, vertical: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Chip(
                   label: Text(
                     context.getLocale!.featuredDapps,
                     style: handler.theme.buttonTextStyle,
@@ -49,23 +49,52 @@ class _FeaturedDappsGridState extends State<FeaturedDappsGrid> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
                 ),
-              ),
-              GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 21, vertical: 12),
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
-                  crossAxisSpacing: 12,
-                  mainAxisSpacing: 12,
+                GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  shrinkWrap: true,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12,
+                  ),
+                  itemCount: 16,
+                  itemBuilder: (BuildContext context, int index) {
+                    return getGridTile(list[index]);
+                  },
                 ),
-                itemCount: 16,
-                itemBuilder: (BuildContext context, int index) {
-                  return getGridTile(list[index]);
-                },
-              ),
-            ],
+                const SizedBox(
+                  height: 12,
+                ),
+                TextButton(
+                    onPressed: () {
+                      // TODO add connect wallet implementation
+                    },
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        const RoundedRectangleBorder(),
+                      ),
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          handler.theme.secondaryBackgroundColor),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            context.getLocale!.exploreMore,
+                            style: handler.theme.titleTextStyle,
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            color: handler.theme.whiteColor,
+                          ),
+                        ],
+                      ),
+                    )),
+              ],
+            ),
           );
         });
   }
