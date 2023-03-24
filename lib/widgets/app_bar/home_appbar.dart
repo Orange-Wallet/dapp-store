@@ -3,7 +3,7 @@ import 'package:dappstore/utils/image_constants.dart';
 import 'package:flutter/material.dart';
 
 class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
-  HomeAppbar({super.key});
+  const HomeAppbar({super.key});
 
   @override
   Widget build(BuildContext context) {

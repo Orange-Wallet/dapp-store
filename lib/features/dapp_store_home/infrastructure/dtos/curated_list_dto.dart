@@ -16,5 +16,5 @@ class CuratedListDto with _$CuratedListDto {
   factory CuratedListDto.fromJson(Map<String, Object?> json) =>
       _$CuratedListDtoFromJson(json);
 
-  toDomain() => CuratedList.fromJson(this.toJson());
+  toDomain() => CuratedList.fromJson(toJson());
 }

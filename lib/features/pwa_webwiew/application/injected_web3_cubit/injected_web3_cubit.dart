@@ -118,29 +118,3 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
     return "";
   }
 }
-
-abstract class Person {
-  getName();
-}
-
-class Male implements Person {
-  @override
-  getName() {
-    return "Mr.";
-  }
-}
-
-class Female implements Person {
-  @override
-  getName() {
-    return "Mrs.";
-  }
-}
-
-class abc {
-  Person person;
-  abc({required this.person});
-  getFullName() {
-    return person.getName();
-  }
-}

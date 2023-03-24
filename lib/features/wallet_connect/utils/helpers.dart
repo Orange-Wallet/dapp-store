@@ -54,6 +54,7 @@ class WCHelper {
       SessionStruct session) {
     List<ConnectedAccount> connectedAccounts = [];
 
+    // ignore: avoid_function_literals_in_foreach_calls
     session.namespaces[ChainType.eip155.name]?.accounts.forEach((ele) {
       String address = getAddressFromAccountStr(ele);
       ChainMetadata chainMetadata =

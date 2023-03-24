@@ -174,8 +174,6 @@ class _TestHomePageState extends State<TestHomePage> {
                     } else {
                       await themeCubit.setLightTheme();
                     }
-                    print(
-                        "darkTheme " + themeCubit.theme.isDarkTheme.toString());
                   },
                 ),
               ),
