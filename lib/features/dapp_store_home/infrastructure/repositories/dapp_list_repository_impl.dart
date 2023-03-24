@@ -50,7 +50,7 @@ class DappListRepoImpl implements IDappListRepo {
   @override
   Future<List<CuratedCategoryList>> getCuratedCategoryList() async {
     final List<CuratedCategoryListDto> curatedCategoryList =
-        await _localSource.getCuratedCategoryList();
+        await _dataSource.getCuratedCategoryList();
     final List<CuratedCategoryList> list = [];
     for (var element in curatedCategoryList) {
       list.add(element.toDomain());
