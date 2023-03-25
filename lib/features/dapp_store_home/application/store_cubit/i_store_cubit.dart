@@ -37,4 +37,6 @@ abstract class IStoreCubit extends Cubit<StoreState> {
   getFeaturedDappsByCategory({required String category});
 
   DappInfo? get getActiveDappInfo;
+
+  getBuildUrl(String dappId);
 }

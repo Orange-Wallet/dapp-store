@@ -41,5 +41,6 @@
   "openDapp": "Open dApp",
   "installing": "Installing...",
   "download": "Download",
-  "update": "Update"
+  "update": "Update",
+  "apkFetchFail": "Failed to Fetch APK"
 }

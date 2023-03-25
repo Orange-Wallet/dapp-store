@@ -14,4 +14,5 @@ abstract class IDappListRepo {
   Future<List<CuratedCategoryList>> getCuratedCategoryList();
   Future<DappList> getFeaturedDappsList();
   Future<DappList> getFeaturedDappsByCategory({required String category});
+  Future<String?> getBuildUrl(String dappId);
 }

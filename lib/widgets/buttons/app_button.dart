@@ -47,7 +47,7 @@ class AppButton extends StatelessWidget {
             (dappInfo.availableOnPlatform?.contains("android") ?? false)) {
           return CustomElevatedButton(
             onTap: () {
-              appButtonHandler.startDownload(dappInfo);
+              appButtonHandler.startDownload(dappInfo, context);
             },
             color: theme.appGreen,
             radius: radius,
@@ -119,7 +119,7 @@ class AppButton extends StatelessWidget {
             (double.tryParse(dappInfo.version ?? "0") ?? 0)) {
           return CustomElevatedButton(
             onTap: () {
-              appButtonHandler.startDownload(dappInfo);
+              appButtonHandler.startDownload(dappInfo, context);
             },
             color: theme.appGreen,
             radius: radius,

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dappstore/config/config.dart';
 import 'package:dappstore/core/network/network.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/datasources/i_data_source.dart';
+import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/build_url_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/curated_category_list_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/curated_list_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_info_dto.dart';
@@ -179,5 +180,14 @@ class LocalDataSource implements IDataSource {
   Future<DappListDto> getFeaturedDappsList() {
     // TODO: implement getFeaturedDappsList
     throw UnimplementedError();
+  }
+
+  @override
+  Future<BuildUrlDto> getBuildUrl(String dappId) async {
+    return BuildUrlDto.fromJson({
+      "url":
+          "https://github.com/bartekpacia/spitfire/releases/download/v1.2.0/spitfire.apk",
+      "success": true
+    });
   }
 }

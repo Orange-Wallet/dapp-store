@@ -1,6 +1,7 @@
 import 'package:dappstore/config/config.dart';
 import 'package:dappstore/core/network/network.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/datasources/i_data_source.dart';
+import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/build_url_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/curated_category_list_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/curated_list_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_info_dto.dart';
@@ -74,5 +75,14 @@ class RemoteDataSource implements IDataSource {
         queryParams: GetDappQueryDto(limit: 20).toJson());
 
     return DappListDto.fromJson(res.data);
+  }
+
+  @override
+  Future<BuildUrlDto> getBuildUrl(String dappId) async {
+    Response res = await _network.get(
+      path: "${Config.registryApiBaseUrl}/dapp/$dappId/build",
+    );
+
+    return BuildUrlDto.fromJson(res.data);
   }
 }

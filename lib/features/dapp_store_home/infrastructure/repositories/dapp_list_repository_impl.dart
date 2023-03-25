@@ -7,6 +7,7 @@ import 'package:dappstore/features/dapp_store_home/domain/repositories/i_dapp_li
 import 'package:dappstore/features/dapp_store_home/infrastructure/datasources/i_data_source.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/datasources/local_data_source.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/datasources/remote_data_source.dart';
+import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/build_url_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/curated_category_list_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/curated_list_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_info_dto.dart';
@@ -71,5 +72,14 @@ class DappListRepoImpl implements IDappListRepo {
   Future<DappList> getFeaturedDappsList() async {
     final DappListDto dappList = await _dataSource.getFeaturedDappsList();
     return dappList.toDomain();
+  }
+
+  @override
+  Future<String?> getBuildUrl(String dappId) async {
+    final BuildUrlDto dto = await _dataSource.getBuildUrl(dappId);
+    if (dto.success ?? false) {
+      return dto.url;
+    }
+    return null;
   }
 }

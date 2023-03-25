@@ -163,4 +163,10 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
     DappList dappList = await dappListRepo.getFeaturedDappsList();
     emit(state.copyWith(featuredDappList: dappList));
   }
+
+  @override
+  getBuildUrl(String dappId) async {
+    String? build = await dappListRepo.getBuildUrl(dappId);
+    return build;
+  }
 }

@@ -30,6 +30,7 @@
     "openDapp",
     "installing",
     "download",
-    "update"
+    "update",
+    "apkFetchFail"
   ]
 }
