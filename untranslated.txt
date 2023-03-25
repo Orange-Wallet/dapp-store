@@ -26,6 +26,10 @@
     "addRating",
     "contactSupport",
     "noContactInfo",
-    "youMightLike"
+    "youMightLike",
+    "openDapp",
+    "installing",
+    "download",
+    "update"
   ]
 }

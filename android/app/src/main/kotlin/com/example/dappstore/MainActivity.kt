@@ -17,9 +17,14 @@ class MainActivity: FlutterActivity() {
                 "StartForegroundService" -> {
                     try{
                         Log.d("FG","In start forground")
-                        val intent = Intent(context, ForegroundService::class.java)
-                        context.startService(intent)
-                        result.success(true)
+                        if(ForegroundService.IS_ACTIVITY_RUNNING){
+                            result.success(true);
+                        }else{
+                            val intent = Intent(context, ForegroundService::class.java)
+                            context.startService(intent)
+                            result.success(true)
+                        }
+                       
                     }catch(e:Exception){
                         result.error("0", e.message.toString(),  null)
                     }
@@ -28,10 +33,14 @@ class MainActivity: FlutterActivity() {
                 "StopForegroundService" -> {
                     try{
                         Log.d("FG","In Stop forground")
-
-                        val intent = Intent(context, ForegroundService::class.java)
-                        context.stopService(intent)
-                        result.success(true)
+                        if(ForegroundService.IS_ACTIVITY_RUNNING){
+                            val intent = Intent(context, ForegroundService::class.java)
+                            context.stopService(intent)
+                            result.success(true)
+                        }else {
+                            result.success(true)
+                        }
+                      
                     }catch(e:Exception){
                         result.error("0", e.message.toString(),  null)
                     }

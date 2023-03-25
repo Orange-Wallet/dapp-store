@@ -37,5 +37,9 @@
   "addRating": "Add Rating",
   "contactSupport": "Contact Support",
   "noContactInfo": "No contact information available.",
-  "youMightLike": "You might also like"
+  "youMightLike": "You might also like",
+  "openDapp": "Open dApp",
+  "installing": "Installing...",
+  "download": "Download",
+  "update": "Update"
 }

@@ -84,4 +84,9 @@ class PwaWebviewCubit extends Cubit<PwaWebviewState>
   setLoading(bool value) {
     emit(state.copyWith(loading: value));
   }
+
+  @override
+  setUrl(String url) {
+    emit(state.copyWith(url: url));
+  }
 }

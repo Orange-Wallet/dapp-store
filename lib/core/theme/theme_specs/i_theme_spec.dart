@@ -21,6 +21,7 @@ abstract class IThemeSpec {
   Color get ratingGrey;
   Color get unratedGrey;
   Color get errorRed;
+  Color get blue;
 
   TextStyle get secondaryTextStyle1;
   TextStyle get headingTextStyle;

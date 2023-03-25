@@ -26,4 +26,6 @@ abstract class IPwaWebviewCubit extends Cubit<PwaWebviewState> {
   updateProgress(int value);
 
   setLoading(bool value);
+
+  setUrl(String url);
 }

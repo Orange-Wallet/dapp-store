@@ -75,15 +75,11 @@ class DownloaderCubit extends Cubit<DownloaderState> implements IDownloader {
           emit(state.copyWith(tasks: tasks));
         }
       }
-      if (status == DownloadTaskStatus.complete) {
-        await installerCubit.installApp(
-            '${state.tasks![taskId]?.saveDir}/${state.tasks![taskId]?.fileName}');
-      }
     });
   }
 
   void _unbindBackgroundIsolate() {
-    IsolateNameServer.removePortNameMapping('downloader_sendstate.port!');
+    IsolateNameServer.removePortNameMapping('downloader_sendstate.port');
   }
 
   @override
@@ -106,6 +102,11 @@ class DownloaderCubit extends Cubit<DownloaderState> implements IDownloader {
   @override
   Future<void> pauseDownload(TaskInfo task) async {
     await Downloader.pauseDownload(task);
+  }
+
+  @override
+  Future<List<DownloadTask>?> getAllDownloads() async {
+    return await Downloader.getAllDownloads();
   }
 
   @override
@@ -151,6 +152,8 @@ class DownloaderCubit extends Cubit<DownloaderState> implements IDownloader {
     emit(state.copyWith(tasks: tasks));
   }
 
+  @override
+  String? get saveDir => state.localPath;
   Future<bool> _checkStorage() async {
     final storagePermission = await permissionsCubit.checkStoragePermission();
     return storagePermission == PermissionStatus.granted;

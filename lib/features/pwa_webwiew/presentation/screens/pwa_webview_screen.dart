@@ -1,4 +1,5 @@
 import 'package:dappstore/core/di/di.dart';
+import 'package:dappstore/core/router/interface/route.dart';
 import 'package:dappstore/features/pwa_webwiew/application/handler/i_pwa_webview_handler.dart';
 import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/i_injected_web3_cubit.dart';
 import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/injected_web3_cubit.dart';
@@ -9,12 +10,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_injected_web3/flutter_injected_web3.dart';
 
-class PwaWebView extends StatefulWidget {
+class PwaWebView extends StatefulScreen {
   final String dappName;
   const PwaWebView({super.key, required this.dappName});
 
   @override
   State<PwaWebView> createState() => _PwaWebViewState();
+
+  @override
+  String get route => "/pwaWebview";
 }
 
 class _PwaWebViewState extends State<PwaWebView> {

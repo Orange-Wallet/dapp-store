@@ -1,4 +1,5 @@
 import 'package:dappstore/features/download_and_installer/infrastructure/dtos/task_info.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 
 abstract class IDownloader {
   initialize();
@@ -17,7 +18,11 @@ abstract class IDownloader {
 
   Future<TaskInfo?> findById(String id);
 
+  Future<List<DownloadTask>?> getAllDownloads();
+
   Future<void> addOnComplete(TaskInfo task);
 
   Future<void> delete(TaskInfo task);
+
+  String? get saveDir;
 }

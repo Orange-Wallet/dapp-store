@@ -26,10 +26,10 @@ import 'package:dappstore/core/platform_channel/i_platform_channel_cubit.dart'
 import 'package:dappstore/core/platform_channel/platform_channel_cubit.dart'
     as _i21;
 import 'package:dappstore/core/router/custom_route_observer.dart' as _i3;
-import 'package:dappstore/core/theme/i_theme_cubit.dart' as _i38;
+import 'package:dappstore/core/theme/i_theme_cubit.dart' as _i40;
 import 'package:dappstore/core/theme/store/i_theme_store.dart' as _i28;
 import 'package:dappstore/core/theme/store/theme_store.dart' as _i29;
-import 'package:dappstore/core/theme/theme_cubit.dart' as _i39;
+import 'package:dappstore/core/theme/theme_cubit.dart' as _i41;
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart'
     as _i26;
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/store_cubit.dart'
@@ -50,6 +50,10 @@ import 'package:dappstore/features/download_and_installer/infrastructure/reposit
     as _i14;
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/installer/installer_cubit.dart'
     as _i15;
+import 'package:dappstore/features/download_and_installer/infrastructure/repositories/package_manager.dart/i_package_manager.dart'
+    as _i38;
+import 'package:dappstore/features/download_and_installer/infrastructure/repositories/package_manager.dart/package_manager_cubit.dart'
+    as _i39;
 import 'package:dappstore/features/pwa_webwiew/application/handler/i_pwa_webview_handler.dart'
     as _i24;
 import 'package:dappstore/features/pwa_webwiew/application/handler/pwa_webview_handler.dart'
@@ -108,7 +112,13 @@ _i1.GetIt $initGetIt(
       platformChannelCubit: gh<_i20.IPlatformChannelCubit>()));
   gh.lazySingleton<_i36.ILocaleCubit>(
       () => _i37.LocaleCubit(localisationStore: gh<_i16.ILocalisationStore>()));
-  gh.lazySingleton<_i38.IThemeCubit>(
-      () => _i39.ThemeCubit(themeStore: gh<_i28.IThemeStore>()));
+  gh.lazySingleton<_i38.IPackageManager>(() => _i39.PackageManager(
+        gh<_i14.IInstallerCubit>(),
+        gh<_i32.IDownloader>(),
+        gh<_i34.IForegroundService>(),
+        gh<_i12.IInstalledAppsCubit>(),
+      ));
+  gh.lazySingleton<_i40.IThemeCubit>(
+      () => _i41.ThemeCubit(themeStore: gh<_i28.IThemeStore>()));
   return getIt;
 }

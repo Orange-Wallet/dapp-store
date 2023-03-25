@@ -80,6 +80,16 @@ class Downloader {
     }
   }
 
+  static Future<List<DownloadTask>?> getAllDownloads() async {
+    try {
+      return await FlutterDownloader.loadTasks();
+    } catch (e) {
+      errorLogger.logError(e);
+
+      return [];
+    }
+  }
+
   static Future<bool> retryDownload(TaskInfo task) async {
     try {
       await FlutterDownloader.retry(taskId: task.taskId!);
