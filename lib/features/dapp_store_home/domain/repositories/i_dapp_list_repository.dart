@@ -11,7 +11,6 @@ abstract class IDappListRepo {
   Future<DappInfo?> getDappInfo({GetDappInfoQueryDto? queryParams});
 
   Future<List<CuratedList>> getCuratedList();
-  Future<List<DappInfo>> searchDapps(String searchString);
   Future<List<CuratedCategoryList>> getCuratedCategoryList();
   Future<DappList> getFeaturedDappsList();
   Future<DappList> getFeaturedDappsByCategory({required String category});

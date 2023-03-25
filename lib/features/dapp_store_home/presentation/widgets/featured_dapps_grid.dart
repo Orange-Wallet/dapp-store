@@ -112,13 +112,10 @@ class _FeaturedDappsGridState extends State<FeaturedDappsGrid> {
           //TODO add onclick redirection to dappinfo page
         },
         borderRadius: BorderRadius.circular(handler.theme.imageBorderRadius),
-        child: ImageWidget(
+        child: ImageWidgetCached(
           dapp!.images!.logo!,
           height: 74,
           width: 74,
-          enableNetworkCache: true,
-          placeholderType: PlaceholderType.nftItemSymbol,
-          keepAlive: true,
         ),
       ),
     );

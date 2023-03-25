@@ -1,3 +1,4 @@
+import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/widgets/buttons/elevated_button.dart';
@@ -27,10 +28,9 @@ class DappTitleTile extends StatelessWidget {
             clipBehavior: Clip.hardEdge,
             decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(10))),
-            child: ImageWidget(
+            child: ImageWidgetCached(
               dappInfo.images?.logo! ?? "",
               fit: BoxFit.fill,
-              enableNetworkCache: true,
               height: 42,
               width: 42,
             ),

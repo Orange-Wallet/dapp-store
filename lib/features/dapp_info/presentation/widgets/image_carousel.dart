@@ -16,11 +16,9 @@ class ImageCarousel extends StatelessWidget {
     final images = imageUrls
         .map((e) => Container(
               margin: const EdgeInsets.all(5),
-              child: ImageWidget(
+              child: ImageWidgetCached(
                 e,
-                enableNetworkCache: true,
                 fit: BoxFit.cover,
-                keepAlive: true,
                 width: 115,
               ),
             ))

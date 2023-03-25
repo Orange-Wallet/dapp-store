@@ -87,12 +87,9 @@ class _ExploreBycategoriesState extends State<ExploreBycategories> {
         borderRadius: BorderRadius.circular(handler.theme.imageBorderRadius),
         child: Stack(
           children: [
-            ImageWidget(
+            ImageWidgetCached(
               curatedCategory?.image ?? "",
               fit: BoxFit.cover,
-              enableNetworkCache: true,
-              placeholderType: PlaceholderType.nftItemSymbol,
-              keepAlive: true,
             ),
             Align(
               alignment: Alignment.bottomCenter,

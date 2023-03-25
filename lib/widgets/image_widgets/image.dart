@@ -6,6 +6,7 @@ import 'dart:typed_data';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dappstore/core/network/network.dart';
 import 'package:dio/dio.dart';
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:jovial_svg/jovial_svg.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
@@ -84,8 +85,22 @@ class _ImageWidgetState extends State<ImageWidget>
         }
       }
 
-      Network(dioClient: Dio())
+      Network(
+              dioClient: Dio()
+                ..interceptors.add(DioCacheInterceptor(
+                    options: CacheOptions(
+                  store:
+                      MemCacheStore(maxSize: 200000000, maxEntrySize: 7340032),
+                  policy: CachePolicy.request,
+                  hitCacheOnErrorExcept: [401, 403],
+                  maxStale: const Duration(days: 7),
+                  priority: CachePriority.normal,
+                  cipher: null,
+                  keyBuilder: CacheOptions.defaultCacheKeyBuilder,
+                  allowPostMethod: false,
+                ))))
           .get(
+        // cacheOptions: CacheOptions(store: MemCacheStore()),
         options: Options(responseType: ResponseType.bytes),
         path: _imagePath,
       )
@@ -186,7 +201,7 @@ class _ImageWidgetState extends State<ImageWidget>
     Widget? imageWidget;
 
     if (_isLoading) {
-      imageWidget = const _LoadingIndicator();
+      imageWidget = const LoadingIndicator();
     } else if (_hasError) {
       imageWidget = _getPlaceHolder(widget.placeholderType);
     } else {
@@ -201,7 +216,7 @@ class _ImageWidgetState extends State<ImageWidget>
                           null
                       ? widget.progressIndicatorBuilder!.call(
                           context, "", DownloadProgress(_svgString!, 100, 100))
-                      : const _LoadingIndicator(),
+                      : const LoadingIndicator(),
                   onError: (_) => _getPlaceHolder(widget.placeholderType),
                   fit: widget.fit ?? BoxFit.contain,
                   alignment: widget.alignment ?? Alignment.center,
@@ -251,8 +266,42 @@ class _ImageWidgetState extends State<ImageWidget>
   bool get wantKeepAlive => widget.keepAlive;
 }
 
-class _LoadingIndicator extends StatelessWidget {
-  const _LoadingIndicator({Key? key}) : super(key: key);
+class ImageWidgetCached extends StatelessWidget {
+  final String image;
+  final Color? color;
+  final double? width;
+  final double? height;
+  final BoxFit? fit;
+  final Alignment? alignment;
+
+  const ImageWidgetCached(
+    this.image, {
+    super.key,
+    this.color,
+    this.width,
+    this.height,
+    this.fit = BoxFit.contain,
+    this.alignment = Alignment.center,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return CachedNetworkImage(
+      imageUrl: image,
+      // keepAlive: true,
+      key: ValueKey(image),
+      height: height,
+      width: width, fit: fit, alignment: alignment ?? Alignment.center,
+      color: color,
+      placeholder: ((context, url) => const LoadingIndicator()),
+      // enableNetworkCache: true,
+      // placeholderType: PlaceholderType.nftItemSymbol,
+    );
+  }
+}
+
+class LoadingIndicator extends StatelessWidget {
+  const LoadingIndicator({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

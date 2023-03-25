@@ -51,22 +51,28 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
 
   @override
   getDappListNextPage() async {
-    int nextPage = (state.dappListCurrentPage ?? 0) + 1;
-    if (nextPage <= (state.dappList?.pageCount ?? 0)) {
-      DappList dappList = await dappListRepo.getDappList(
-          queryParams: GetDappQueryDto(page: nextPage));
-      DappList? currentList = state.dappList;
+    if (!(state.isLoadingNextDappListPage ?? false)) {
+      int nextPage = (state.dappListCurrentPage ?? 0) + 1;
+      if (nextPage <= (state.dappList?.pageCount ?? 0)) {
+        emit(state.copyWith(isLoadingNextDappListPage: true));
 
-      DappList updatedList = DappList(
-          page: dappList.page,
-          limit: dappList.limit,
-          pageCount: dappList.pageCount,
-          response: [...?currentList?.response, ...?dappList.response]);
-      emit(state.copyWith(
-        dappList: updatedList,
-        dappListCurrentPage: updatedList.page,
-      ));
-      log(state.toString());
+        DappList dappList = await dappListRepo.getDappList(
+            queryParams: GetDappQueryDto(page: nextPage));
+        DappList? currentList = state.dappList;
+        DappList updatedList = DappList(
+            page: dappList.page,
+            limit: dappList.limit,
+            pageCount: dappList.pageCount,
+            response: [...?currentList?.response, ...?dappList.response]);
+
+        emit(state.copyWith(
+          dappList: updatedList,
+          dappListCurrentPage: updatedList.page,
+          isLoadingNextDappListPage: false,
+        ));
+
+        log(state.toString());
+      }
     }
   }
 
@@ -99,31 +105,39 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
     DappList dappList =
         await dappListRepo.getDappList(queryParams: queryParams);
     emit(state.copyWith(
-        searchResult: dappList,
-        searchPage: dappList.page,
-        searchParams: queryParams));
+      searchResult: dappList,
+      searchPage: dappList.page,
+      searchParams: queryParams,
+    ));
     log(state.toString());
   }
 
   @override
   getSearchDappListNextPage() async {
-    GetDappQueryDto queryParams = state.searchParams!;
-    int nextPage = (state.searchPage ?? 0) + 1;
-    if (nextPage <= (state.searchResult?.pageCount ?? 0)) {
-      DappList searchList = await dappListRepo.getDappList(
-          queryParams: queryParams.copyWith(page: nextPage));
-      DappList? currentList = state.searchResult;
+    if (!(state.isLoadingNextSearchPage ?? false)) {
+      GetDappQueryDto queryParams = state.searchParams!;
+      int nextPage = (state.searchPage ?? 0) + 1;
+      if (nextPage <= (state.searchResult?.pageCount ?? 0)) {
+        emit(state.copyWith(isLoadingNextSearchPage: true));
 
-      DappList updatedList = DappList(
-          page: searchList.page,
-          limit: searchList.limit,
-          pageCount: searchList.pageCount,
-          response: [...?currentList?.response, ...?searchList.response]);
-      emit(state.copyWith(
+        DappList searchList = await dappListRepo.getDappList(
+            queryParams: queryParams.copyWith(page: nextPage));
+        DappList? currentList = state.searchResult;
+        DappList updatedList = DappList(
+            page: searchList.page,
+            limit: searchList.limit,
+            pageCount: searchList.pageCount,
+            response: [...?currentList?.response, ...?searchList.response]);
+
+        emit(state.copyWith(
           searchResult: updatedList,
           searchPage: updatedList.page,
-          searchParams: queryParams.copyWith(page: nextPage)));
-      log(state.toString());
+          searchParams: queryParams.copyWith(page: nextPage),
+          isLoadingNextSearchPage: false,
+        ));
+
+        log(state.toString());
+      }
     }
   }
 
