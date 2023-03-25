@@ -13,6 +13,8 @@ class StoreState with _$StoreState {
     int? searchPage,
     GetDappQueryDto? searchParams,
     String? activeDappId,
+    bool? isLoadingNextSearchPage,
+    bool? isLoadingNextDappListPage,
   }) = _StoreState;
 
   factory StoreState.initial() => const _StoreState(

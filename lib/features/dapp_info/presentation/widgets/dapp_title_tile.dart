@@ -28,10 +28,9 @@ class DappTitleTile extends StatelessWidget {
             clipBehavior: Clip.hardEdge,
             decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(10))),
-            child: ImageWidget(
+            child: ImageWidgetCached(
               dappInfo.images?.logo! ?? "",
               fit: BoxFit.fill,
-              enableNetworkCache: true,
               height: 42,
               width: 42,
             ),

@@ -26,13 +26,11 @@ class DappListTile extends StatelessWidget {
                   BorderRadius.circular(handler.theme.imageBorderRadius),
             ),
             clipBehavior: Clip.hardEdge,
-            child: ImageWidget(
-              keepAlive: true,
+            child: ImageWidgetCached(
               dapp.images!.logo!,
+              key: ValueKey(dapp.images!.logo!),
               height: 60,
               width: 60,
-              enableNetworkCache: true,
-              placeholderType: PlaceholderType.nftItemSymbol,
             ),
           ),
           Expanded(

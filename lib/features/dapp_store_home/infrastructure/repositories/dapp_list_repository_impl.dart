@@ -19,7 +19,8 @@ import 'package:injectable/injectable.dart';
 @LazySingleton(as: IDappListRepo)
 class DappListRepoImpl implements IDappListRepo {
   late final Network _network = Network(dioClient: Dio());
-  late final IDataSource _dataSource = LocalDataSource(network: _network);
+  late final IDataSource _dataSource = RemoteDataSource(network: _network);
+  late final IDataSource _localDataSource = LocalDataSource(network: _network);
 
   DappListRepoImpl();
 
@@ -50,7 +51,7 @@ class DappListRepoImpl implements IDappListRepo {
   @override
   Future<List<CuratedCategoryList>> getCuratedCategoryList() async {
     final List<CuratedCategoryListDto> curatedCategoryList =
-        await _dataSource.getCuratedCategoryList();
+        await _localDataSource.getCuratedCategoryList();
     final List<CuratedCategoryList> list = [];
     for (var element in curatedCategoryList) {
       list.add(element.toDomain());
@@ -70,11 +71,5 @@ class DappListRepoImpl implements IDappListRepo {
   Future<DappList> getFeaturedDappsList() async {
     final DappListDto dappList = await _dataSource.getFeaturedDappsList();
     return dappList.toDomain();
-  }
-
-  @override
-  Future<List<DappInfo>> searchDapps(String searchString) {
-    // TODO: implement searchDapps
-    throw UnimplementedError();
   }
 }

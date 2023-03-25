@@ -1,4 +1,6 @@
 import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';
+import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
+import 'package:dappstore/features/dapp_store_home/presentation/widgets/custom_search_delegate.dart';
 import 'package:dappstore/utils/image_constants.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +9,7 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    DappStoreHandler handler = DappStoreHandler();
+    IDappStoreHandler handler = DappStoreHandler();
     return AppBar(
       backgroundColor: handler.theme.appBarBackgroundColor,
       leading: Padding(
@@ -17,7 +19,12 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
       // title: TextField(),
       actions: [
         IconButton(
-            onPressed: () {},
+            onPressed: () {
+              showSearch(
+                  context: context,
+                  delegate:
+                      CustomSearchDelegate(handler: handler, context: context));
+            },
             icon: const Icon(
               Icons.search,
               color: Colors.white,
