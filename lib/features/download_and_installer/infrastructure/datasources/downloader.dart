@@ -19,7 +19,7 @@ class Downloader {
   static const uiCallBackPort = 'downloader_sendstate.port';
   static IErrorLogger errorLogger = getIt<IErrorLogger>();
   static IInstallerCubit installerCubit = getIt<IInstallerCubit>();
-  static initialize(DownloadCallBackType downloadCallback) async {
+  static Future<void> initialize(DownloadCallBackType downloadCallback) async {
     await FlutterDownloader.initialize(debug: true, ignoreSsl: true);
     FlutterDownloader.registerCallback(downloadCallback, step: 1);
   }

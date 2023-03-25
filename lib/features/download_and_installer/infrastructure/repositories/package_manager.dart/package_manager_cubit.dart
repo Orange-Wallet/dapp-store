@@ -81,7 +81,7 @@ class PackageManager extends Cubit<PackageManagerState>
     emit(state.copyWith(
         packageMapping: packageMapping,
         taskIdToPackageName: taskIdToPackageName));
-    _bindBackgroundIsolate();
+    // _bindBackgroundIsolate();
   }
 
   @override

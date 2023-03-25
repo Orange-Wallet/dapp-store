@@ -90,7 +90,7 @@ class LocalDataSource implements IDataSource {
       "version": "unknown",
       "isListed": true,
       "listDate": "2023-01-30",
-      "availableOnPlatform": ["web"],
+      "availableOnPlatform": ["web", "android"],
       "category": "games",
       "chains": [1],
       "dappId": "com.axieinfinity.dapp",

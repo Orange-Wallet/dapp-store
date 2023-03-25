@@ -1,3 +1,4 @@
+import 'package:dappstore/widgets/buttons/app_button_handler/i_app_button_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -15,7 +16,7 @@ import 'package:dappstore/widgets/buttons/elevated_button.dart';
 class AppButton extends StatelessWidget {
   final IThemeSpec theme;
   final DappInfo dappInfo;
-  late AppButtonHandler appButtonHandler;
+  late IAppButtonHandler appButtonHandler;
   late IPackageManager packageManager;
   final double radius;
   final double height;
@@ -24,12 +25,11 @@ class AppButton extends StatelessWidget {
     Key? key,
     required this.theme,
     required this.dappInfo,
-    required this.packageManager,
     required this.radius,
     required this.height,
     required this.width,
   }) : super(key: key) {
-    appButtonHandler = getIt<AppButtonHandler>();
+    appButtonHandler = getIt<IAppButtonHandler>();
     packageManager = appButtonHandler.packageManager;
   }
 

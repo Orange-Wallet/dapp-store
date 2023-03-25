@@ -1,6 +1,7 @@
 import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
+import 'package:dappstore/widgets/buttons/app_button.dart';
 import 'package:dappstore/widgets/buttons/elevated_button.dart';
 import 'package:dappstore/widgets/image_widgets/image.dart';
 import 'package:flutter/material.dart';
@@ -44,18 +45,12 @@ class DappTitleTile extends StatelessWidget {
           "${dappInfo.developer} · ${dappInfo.category}",
           style: theme.bodyTextStyle,
         ),
-        trailing: CustomElevatedButton(
-          onTap: () {
-            //todo: set logic
-          },
-          color: primaryTile ? theme.appGreen : theme.ratingGrey,
+        trailing: AppButton(
+          theme: theme,
+          dappInfo: dappInfo,
           radius: 6,
           height: 34,
           width: 103,
-          child: Text(
-            context.getLocale!.installdApp,
-            style: theme.whiteBoldTextStyle,
-          ),
         ),
       ),
     );

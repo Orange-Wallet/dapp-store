@@ -51,6 +51,7 @@ class _PwaWebViewState extends State<PwaWebView> {
       bloc: pwaWebviewCubit,
       builder: (context, webViewState) {
         return BlocBuilder<IInjectedWeb3Cubit, InjectedWeb3State>(
+          bloc: injectedWeb3Cubit,
           builder: (context, injectedWeb3State) {
             return GestureDetector(
               onTap: handler.unfocus,
