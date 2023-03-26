@@ -76,7 +76,7 @@ class DappListRepoImpl implements IDappListRepo {
 
   @override
   Future<String?> getBuildUrl(String dappId) async {
-    final BuildUrlDto dto = await _dataSource.getBuildUrl(dappId);
+    final BuildUrlDto dto = await _localDataSource.getBuildUrl(dappId);
     if (dto.success ?? false) {
       return dto.url;
     }

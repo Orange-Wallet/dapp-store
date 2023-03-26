@@ -11,6 +11,7 @@ import 'package:dappstore/features/download_and_installer/infrastructure/reposit
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/installer/i_installer_cubit.dart';
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/package_manager.dart/i_package_manager.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_app_installer/flutter_app_installer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -54,7 +55,7 @@ class PackageManager extends Cubit<PackageManagerState>
       }
     }
     for (var dt in downloads!) {
-      final packageName = _fileNameToDappId(dt.filename!);
+      final packageName = _fileNameToPackageName(dt.filename!);
       if (packageMapping[packageName] != null) {
         PackageInfo package = packageMapping[packageName]!;
         package = package.copyWith(
@@ -81,7 +82,8 @@ class PackageManager extends Cubit<PackageManagerState>
     emit(state.copyWith(
         packageMapping: packageMapping,
         taskIdToPackageName: taskIdToPackageName));
-    // _bindBackgroundIsolate();
+    _bindBackgroundIsolate();
+    installer.registerCallBack(installerCallBack);
   }
 
   @override
@@ -91,12 +93,14 @@ class PackageManager extends Cubit<PackageManagerState>
     bool autoInstall,
   ) async {
     TaskInfo downloadRequest = TaskInfo(
-        fileName: "${dappInfo.dappId}.apk", name: dappInfo.name, link: link);
+        fileName: "${dappInfo.androidPackage}.apk",
+        name: dappInfo.name,
+        link: link);
     final queuedTaskInfo = await downloader.requestDownload(downloadRequest);
     if (queuedTaskInfo != null) {
       foregroundService.startForegroundService();
-      PackageInfo? package =
-          state.packageMapping![_fileNameToDappId(queuedTaskInfo.fileName!)];
+      PackageInfo? package = state
+          .packageMapping![_fileNameToPackageName(queuedTaskInfo.fileName!)];
       if (package != null) {
         package = package.copyWith(
           progress: queuedTaskInfo.progress,
@@ -117,59 +121,50 @@ class PackageManager extends Cubit<PackageManagerState>
           saveDir: queuedTaskInfo.saveDir,
           autoInstall: autoInstall,
         );
-        final Map<String, String> updateTaskToPackage = {
-          ...state.taskIdToPackageName!
-        };
-        updateTaskToPackage[queuedTaskInfo.taskId!] =
-            _fileNameToDappId(queuedTaskInfo.fileName!);
-        final Map<String, PackageInfo> updatedMap = {...state.packageMapping!};
-        updatedMap[_fileNameToDappId(queuedTaskInfo.fileName!)] = package;
-        emit(state.copyWith(
-            packageMapping: updatedMap,
-            taskIdToPackageName: updateTaskToPackage));
       }
+      final Map<String, String> updateTaskToPackage = {
+        ...state.taskIdToPackageName!
+      };
+      updateTaskToPackage[queuedTaskInfo.taskId!] =
+          _fileNameToPackageName(queuedTaskInfo.fileName!);
+      final Map<String, PackageInfo> updatedMap = {...state.packageMapping!};
+      updatedMap[_fileNameToPackageName(queuedTaskInfo.fileName!)] = package;
+      emit(state.copyWith(
+          packageMapping: updatedMap,
+          taskIdToPackageName: updateTaskToPackage));
     }
   }
 
   @override
   triggerInstall(String fileName) async {
-    final dappId = _fileNameToDappId(fileName);
+    final packageId = _fileNameToPackageName(fileName);
     {
       final packageMap = state.packageMapping;
-      if (packageMap![dappId] != null) {
-        final package = packageMap[dappId]!.copyWith(installing: true);
+      if (packageMap![packageId] != null) {
+        final package = packageMap[packageId]!.copyWith(installing: true);
         final updatedMap = {...packageMap};
-        updatedMap[dappId] = package;
+        updatedMap[packageId] = package;
         emit(state.copyWith(packageMapping: updatedMap));
       }
     }
-    await installer.installApp("${downloader.saveDir}/$dappId.apk");
-    final packageMap = state.packageMapping;
-    if (packageMap![dappId] != null) {
-      final appInfo = await installedApps.getAppInfo(packageName: dappId);
-      if (appInfo != null) {
-        final package = packageMap[dappId]!.copyWith(installed: true);
-        final updatedMap = {...packageMap};
-        updatedMap[dappId] = package;
-        emit(state.copyWith(packageMapping: updatedMap));
-      }
-    }
+    await installer.installApp("${downloader.saveDir}/$packageId.apk");
   }
 
   @override
   Future<bool?> openSettings(DappInfo dappInfo) async {
     bool? status =
-        await installedApps.openSettings(packageName: dappInfo.dappId!);
+        await installedApps.openSettings(packageName: dappInfo.androidPackage!);
     return status;
   }
 
   @override
   Future<bool?> openApp(DappInfo dappInfo) async {
-    bool? status = await installedApps.startApp(packageName: dappInfo.dappId!);
+    bool? status =
+        await installedApps.startApp(packageName: dappInfo.androidPackage!);
     return status;
   }
 
-  String _fileNameToDappId(String fileName) {
+  String _fileNameToPackageName(String fileName) {
     return fileName.substring(0, fileName.length - 4);
   }
 
@@ -179,6 +174,7 @@ class PackageManager extends Cubit<PackageManagerState>
       Downloader.uiCallBackPort,
     );
     if (!isSuccess) {
+      _unbindBackgroundIsolate();
       _bindBackgroundIsolate();
       return;
     }
@@ -207,16 +203,35 @@ class PackageManager extends Cubit<PackageManagerState>
             if (status == DownloadTaskStatus.complete) {
               final tasks = await downloader.getAllDownloads();
               final queue = tasks?.where((e) {
-                return e.status == DownloadTaskStatus.enqueued;
+                return e.status.value == 2;
               }).toList();
               if (queue?.isEmpty ?? false) {
                 foregroundService.stopForegroundService();
               }
-              triggerInstall("$package.apk");
+              triggerInstall("${package.fileName}");
             }
           }
         }
       }
     });
+  }
+
+  void installerCallBack(InstallStatus status) async {
+    final packageMap = state.packageMapping;
+    if (packageMap![status.packageName] != null) {
+      final appInfo =
+          await installedApps.getAppInfo(packageName: status.packageName);
+      if (appInfo != null) {
+        final package = packageMap[status.packageName]!
+            .copyWith(installed: status.status, installing: false);
+        final updatedMap = {...packageMap};
+        updatedMap[status.packageName] = package;
+        emit(state.copyWith(packageMapping: updatedMap));
+      }
+    }
+  }
+
+  void _unbindBackgroundIsolate() {
+    IsolateNameServer.removePortNameMapping('downloader_sendstate.port');
   }
 }

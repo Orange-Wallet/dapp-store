@@ -12,6 +12,7 @@ class DappInfoDto with _$DappInfoDto {
     String? name,
     String? description,
     String? appUrl,
+    String? androidPackage,
     ImagesDto? images,
     String? repoUrl,
     String? dappId,

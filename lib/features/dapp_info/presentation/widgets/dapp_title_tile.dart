@@ -48,6 +48,8 @@ class DappTitleTile extends StatelessWidget {
         trailing: AppButton(
           theme: theme,
           dappInfo: dappInfo,
+          showPrimary: true,
+          showSecondary: true,
           radius: 6,
           height: 34,
           width: 103,

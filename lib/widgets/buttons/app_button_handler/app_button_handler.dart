@@ -23,7 +23,7 @@ class AppButtonHandler implements IAppButtonHandler {
   startDownload(DappInfo dappInfo, BuildContext context) async {
     final url = await storeCubit.getBuildUrl(dappInfo.dappId!);
     if (url != null) {
-      await packageManager.startDownload(dappInfo, "link", true);
+      await packageManager.startDownload(dappInfo, url, true);
     } else {
       // ignore: use_build_context_synchronously
       context.showMsgBar(context.getLocale!.apkFetchFail);
@@ -45,6 +45,6 @@ class AppButtonHandler implements IAppButtonHandler {
 
   @override
   triggerInstall(DappInfo dappInfo) async {
-    await packageManager.triggerInstall("${dappInfo.dappId}.apk");
+    await packageManager.triggerInstall("${dappInfo.androidPackage}.apk");
   }
 }

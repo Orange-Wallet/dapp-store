@@ -25,4 +25,10 @@ abstract class IDownloader {
   Future<void> delete(TaskInfo task);
 
   String? get saveDir;
+
+  void getDataFromBgIsolate(
+    String taskId,
+    DownloadTaskStatus status,
+    int progress,
+  );
 }

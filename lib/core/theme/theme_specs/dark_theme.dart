@@ -51,6 +51,9 @@ class DarkTheme implements IThemeSpec {
   Color get blue => const Color.fromARGB(255, 60, 152, 194);
 
   @override
+  Color get greyBlue => Color.fromARGB(255, 46, 93, 115);
+
+  @override
   TextStyle get headingTextStyle => TextStyle(
         // h5 -> headline
         fontFamily: fontName,

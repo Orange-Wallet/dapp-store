@@ -50,6 +50,8 @@ class LightTheme implements IThemeSpec {
 
   @override
   Color get blue => const Color.fromARGB(255, 60, 152, 194);
+  @override
+  Color get greyBlue => Color.fromARGB(255, 46, 93, 115);
 
   @override
   TextStyle get headingTextStyle => TextStyle(

@@ -27,7 +27,7 @@ class DownloaderCubit extends Cubit<DownloaderState> implements IDownloader {
   @override
   initialize() async {
     await Downloader.initialize(Downloader.downloadCallback);
-    _bindBackgroundIsolate();
+    //_bindBackgroundIsolate();
   }
 
   @override
@@ -44,42 +44,27 @@ class DownloaderCubit extends Cubit<DownloaderState> implements IDownloader {
     }
   }
 
-  void _bindBackgroundIsolate() {
-    final isSuccess = IsolateNameServer.registerPortWithName(
-      state.port!.sendPort,
-      Downloader.uiCallBackPort,
+  @override
+  void getDataFromBgIsolate(
+    String taskId,
+    DownloadTaskStatus status,
+    int progress,
+  ) {
+    debugPrint(
+      'Callback on UI isolate: '
+      'task ($taskId) is in status ($status) and process ($progress)',
     );
-    if (!isSuccess) {
-      _unbindBackgroundIsolate();
-      _bindBackgroundIsolate();
-      return;
-    }
-    state.port!.listen((dynamic data) async {
-      debugPrint("UI data: $data");
-      final taskId = (data as List<dynamic>)[0] as String;
-      final status = data[1] as DownloadTaskStatus;
-      final progress = data[2] as int;
-
-      debugPrint(
-        'Callback on UI isolate: '
-        'task ($taskId) is in status ($status) and process ($progress)',
-      );
-      debugPrint("State: ${state.tasks}");
-      if (state.tasks != null && state.tasks!.isNotEmpty) {
-        final task = state.tasks![taskId];
-        if (task != null) {
-          // ignore: unused_result
-          task.copyWith(status: status, progress: progress);
-          Map<String, TaskInfo> tasks = {...state.tasks!};
-          tasks[taskId] = task;
-          emit(state.copyWith(tasks: tasks));
-        }
+    debugPrint("State: ${state.tasks}");
+    if (state.tasks != null && state.tasks!.isNotEmpty) {
+      final task = state.tasks![taskId];
+      if (task != null) {
+        // ignore: unused_result
+        task.copyWith(status: status, progress: progress);
+        Map<String, TaskInfo> tasks = {...state.tasks!};
+        tasks[taskId] = task;
+        emit(state.copyWith(tasks: tasks));
       }
-    });
-  }
-
-  void _unbindBackgroundIsolate() {
-    IsolateNameServer.removePortNameMapping('downloader_sendstate.port');
+    }
   }
 
   @override
