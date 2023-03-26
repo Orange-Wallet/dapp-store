@@ -18,4 +18,6 @@ abstract class IPackageManager extends Cubit<PackageManagerState> {
   Future<bool?> openSettings(DappInfo dappInfo);
 
   Future<bool?> openApp(DappInfo dappInfo);
+
+  reloadPackageManagerData();
 }

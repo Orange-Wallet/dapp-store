@@ -87,6 +87,39 @@ class PackageManager extends Cubit<PackageManagerState>
   }
 
   @override
+  reloadPackageManagerData() async {
+    final List<AppInfo>? appInfo = await installedApps.getInstalledApps(
+        excludeSystemApps: true, withIcon: true, packageNamePrefix: "");
+    Map<String, PackageInfo> packageMapping = {...state.packageMapping!};
+
+    for (var element in appInfo!) {
+      if (element.packageName != null) {
+        final package = packageMapping[element.packageName!];
+        if (package != null) {
+          packageMapping[element.packageName!] = package.copyWith(
+            name: element.name,
+            icon: element.icon,
+            versionCode: element.versionCode?.toDouble() ?? 0,
+            versionName: element.versionName,
+            packageName: element.packageName,
+            installed: true,
+          );
+        } else {
+          packageMapping[element.packageName!] = PackageInfo(
+            name: element.name,
+            icon: element.icon,
+            versionCode: element.versionCode?.toDouble() ?? 0,
+            versionName: element.versionName,
+            packageName: element.packageName,
+            installed: true,
+          );
+        }
+      }
+    }
+    emit(state.copyWith(packageMapping: packageMapping));
+  }
+
+  @override
   startDownload(
     DappInfo dappInfo,
     String link,
