@@ -86,7 +86,8 @@ class _SearchResultState extends State<SearchResult> {
                 }
                 if (index == 0) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 20),
                     child: BigDappCard(
                       dapp: list[index]!,
                       handler: widget.handler,

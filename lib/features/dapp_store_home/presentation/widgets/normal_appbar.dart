@@ -1,24 +1,29 @@
+import 'package:dappstore/core/router/router.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/custom_search_delegate.dart';
-import 'package:dappstore/utils/image_constants.dart';
 import 'package:flutter/material.dart';
 
-class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
-  const HomeAppbar({
-    super.key,
-  });
+class NormalAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final String title;
+  const NormalAppBar({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
     IDappStoreHandler handler = DappStoreHandler();
     return AppBar(
       backgroundColor: handler.theme.appBarBackgroundColor,
-      leading: Padding(
-        padding: const EdgeInsets.only(left: 20),
-        child: Image.asset(ImageConstants.htcLogo),
+      leading: InkWell(
+        onTap: context.popRoute,
+        child: Icon(
+          Icons.arrow_back,
+          color: handler.theme.whiteColor,
+        ),
       ),
-      // title: TextField(),
+      title: Text(
+        title,
+        style: handler.theme.headingTextStyle,
+      ),
       actions: [
         IconButton(
             onPressed: () {
@@ -27,15 +32,12 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
                   delegate:
                       CustomSearchDelegate(handler: handler, context: context));
             },
-            icon: const Icon(
-              Icons.search,
-              color: Colors.white,
-            )),
+            icon: Icon(Icons.search, color: handler.theme.whiteColor)),
         IconButton(
             onPressed: () {},
-            icon: const Icon(
+            icon: Icon(
               Icons.menu,
-              color: Colors.white,
+              color: handler.theme.whiteColor,
             ))
       ],
     );

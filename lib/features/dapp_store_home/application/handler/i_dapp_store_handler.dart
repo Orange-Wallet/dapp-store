@@ -26,4 +26,10 @@ abstract class IDappStoreHandler {
   getFeaturedDappsList();
 
   getFeaturedDappsByCategory({required String category});
+
+  getSelectedCategoryDappList({required GetDappQueryDto queryParams});
+
+  getSelectedCategoryDappListNextPage();
+
+  resetSelectedCategory();
 }

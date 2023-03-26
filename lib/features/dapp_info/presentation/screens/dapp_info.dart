@@ -1,4 +1,3 @@
-import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/router/constants/routes.dart';
 import 'package:dappstore/core/router/interface/route.dart';

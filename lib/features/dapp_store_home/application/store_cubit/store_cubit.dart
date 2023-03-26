@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/curated_category_list.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/curated_list.dart';
@@ -33,7 +31,7 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
     await getCuratedCategoryList();
     await getCuratedList();
     await getFeaturedDappsList();
-    for (var i = 0; i < 3; i++) {
+    for (var i = 0; i < state.curatedCategoryList!.length; i++) {
       if (state.curatedCategoryList?[i]?.category != null) {
         getFeaturedDappsByCategory(
             category: state.curatedCategoryList![i]!.category!);
@@ -70,8 +68,6 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
           dappListCurrentPage: updatedList.page,
           isLoadingNextDappListPage: false,
         ));
-
-        log(state.toString());
       }
     }
   }
@@ -80,7 +76,6 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
   Future<DappInfo?> getDappInfo({GetDappInfoQueryDto? queryParams}) async {
     DappInfo? dappInfo =
         await dappListRepo.getDappInfo(queryParams: queryParams);
-    log(dappInfo.toString());
     return dappInfo;
   }
 
@@ -97,7 +92,6 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
   getCuratedList() async {
     List<CuratedList> curatedList = await dappListRepo.getCuratedList();
     emit(state.copyWith(curatedList: curatedList));
-    log(state.toString());
   }
 
   @override
@@ -109,7 +103,6 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
       searchPage: dappList.page,
       searchParams: queryParams,
     ));
-    log(state.toString());
   }
 
   @override
@@ -135,8 +128,56 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
           searchParams: queryParams.copyWith(page: nextPage),
           isLoadingNextSearchPage: false,
         ));
+      }
+    }
+  }
 
-        log(state.toString());
+  @override
+  resetSelectedCategory() async {
+    emit(state.copyWith(
+      selectedCategoryDappList: null,
+      selectedCategoryPage: null,
+      categoryParams: null,
+      isLoadingNextselectedCategoryPage: false,
+    ));
+  }
+
+  @override
+  getSelectedCategoryDappList({required GetDappQueryDto queryParams}) async {
+    emit(state.copyWith(isLoadingNextselectedCategoryPage: true));
+    DappList dappList =
+        await dappListRepo.getDappList(queryParams: queryParams);
+    emit(state.copyWith(
+      selectedCategoryDappList: dappList,
+      selectedCategoryPage: dappList.page,
+      categoryParams: queryParams,
+      isLoadingNextselectedCategoryPage: false,
+    ));
+  }
+
+  @override
+  getSelectedCategoryDappListNextPage() async {
+    if (!(state.isLoadingNextselectedCategoryPage ?? false)) {
+      GetDappQueryDto queryParams = state.categoryParams!;
+      int nextPage = (state.selectedCategoryPage ?? 0) + 1;
+      if (nextPage <= (state.selectedCategoryDappList?.pageCount ?? 0)) {
+        emit(state.copyWith(isLoadingNextselectedCategoryPage: true));
+
+        DappList searchList = await dappListRepo.getDappList(
+            queryParams: queryParams.copyWith(page: nextPage));
+        DappList? currentList = state.selectedCategoryDappList;
+        DappList updatedList = DappList(
+            page: searchList.page,
+            limit: searchList.limit,
+            pageCount: searchList.pageCount,
+            response: [...?currentList?.response, ...?searchList.response]);
+
+        emit(state.copyWith(
+          selectedCategoryDappList: updatedList,
+          selectedCategoryPage: updatedList.page,
+          categoryParams: queryParams.copyWith(page: nextPage),
+          isLoadingNextselectedCategoryPage: false,
+        ));
       }
     }
   }

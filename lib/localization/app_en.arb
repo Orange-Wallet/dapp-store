@@ -44,5 +44,8 @@
   "update": "Update",
   "apkFetchFail": "Failed to Fetch APK",
   "open": "Open",
-  "save": "Save"
+  "save": "Save",
+  "categories": "Categoreis",
+  "explore": "Explore",
+  "all": "All"
 }

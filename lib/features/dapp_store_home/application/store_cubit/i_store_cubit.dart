@@ -28,6 +28,12 @@ abstract class IStoreCubit extends Cubit<StoreState> {
 
   getSearchDappListNextPage();
 
+  getSelectedCategoryDappList({required GetDappQueryDto queryParams});
+
+  getSelectedCategoryDappListNextPage();
+
+  resetSelectedCategory();
+
   setActiveDappId({required String dappId});
 
   getCuratedCategoryList();

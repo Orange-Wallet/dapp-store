@@ -1,49 +1,49 @@
+import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/router/constants/routes.dart';
 import 'package:dappstore/core/router/interface/route.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
-import 'package:dappstore/features/dapp_store_home/presentation/widgets/connect_and_explore_card.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/explore_by_categories.dart';
-import 'package:dappstore/features/dapp_store_home/presentation/widgets/featured_dapps_grid.dart';
-import 'package:dappstore/features/dapp_store_home/presentation/widgets/home_appbar.dart';
+import 'package:dappstore/features/dapp_store_home/presentation/widgets/normal_appbar.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/top_category_list.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulScreen {
-  const HomePage({super.key});
+class ExploreCategories extends StatefulScreen {
+  const ExploreCategories({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<ExploreCategories> createState() => _ExploreCategoriesState();
 
   @override
-  String get route => Routes.home;
+  String get route => Routes.exploreCategories;
 }
 
-class _HomePageState extends State<HomePage> {
+class _ExploreCategoriesState extends State<ExploreCategories> {
   late final IDappStoreHandler storeHandler;
   late final IStoreCubit storeCubit;
   @override
   void initState() {
     super.initState();
     storeHandler = DappStoreHandler();
-    storeHandler.started();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: storeHandler.theme.backgroundColor,
-      appBar: const HomeAppbar(),
+      appBar: NormalAppBar(
+        title: context.getLocale!.categories,
+      ),
       body: ListView(
-        physics: const BouncingScrollPhysics(),
         addAutomaticKeepAlives: true,
+        physics: const BouncingScrollPhysics(),
         cacheExtent: 20,
         children: const [
-          ConnectAndExploreCard(),
-          FeaturedDappsGrid(),
-          ExploreBycategories(),
-          TopCategoriesList(),
+          ExploreBycategories(
+            useSmallGrid: true,
+          ),
+          TopCategoriesList(isInExploreCategory: true),
         ],
       ),
     );

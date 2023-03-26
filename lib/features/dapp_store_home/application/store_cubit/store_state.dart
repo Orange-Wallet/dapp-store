@@ -6,15 +6,19 @@ class StoreState with _$StoreState {
     DappList? dappList,
     DappList? searchResult,
     DappList? featuredDappList,
+    DappList? selectedCategoryDappList,
     List<CuratedCategoryList?>? curatedCategoryList,
     List<CuratedList?>? curatedList,
     Map<String, DappList?>? featuredDappsByCategory,
     int? dappListCurrentPage,
     int? searchPage,
+    int? selectedCategoryPage,
     GetDappQueryDto? searchParams,
+    GetDappQueryDto? categoryParams,
     String? activeDappId,
     bool? isLoadingNextSearchPage,
     bool? isLoadingNextDappListPage,
+    bool? isLoadingNextselectedCategoryPage,
   }) = _StoreState;
 
   factory StoreState.initial() => const _StoreState(
