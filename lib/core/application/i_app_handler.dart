@@ -17,5 +17,5 @@ abstract class IAppHandler {
 
   bool get isFollowingSystemBrightness;
 
-  get reloadPackages;
+  reloadPackages();
 }

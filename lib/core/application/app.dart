@@ -72,7 +72,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      //todo: check for app installs
+      appHandler.reloadPackages();
     }
     super.didChangeAppLifecycleState(state);
   }

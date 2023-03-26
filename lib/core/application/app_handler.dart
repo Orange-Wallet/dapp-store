@@ -31,5 +31,5 @@ class AppHandler implements IAppHandler {
       getIt<IThemeCubit>().state.shouldFollowSystem ?? false;
 
   @override
-  get reloadPackages => packageManager.reloadPackageManagerData();
+  reloadPackages() => packageManager.reloadPackageManagerData();
 }
