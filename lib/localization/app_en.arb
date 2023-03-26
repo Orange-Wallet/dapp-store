@@ -43,5 +43,7 @@
   "download": "Download",
   "update": "Update",
   "apkFetchFail": "Failed to Fetch APK",
-  "categories":"Categoreis"
+  "categories":"Categoreis",
+  "explore":"Explore",
+  "all":"All"
 }

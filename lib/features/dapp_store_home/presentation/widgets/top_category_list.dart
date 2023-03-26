@@ -4,6 +4,7 @@ import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_st
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_list.dart';
+import 'package:dappstore/widgets/chip.dart';
 import 'package:dappstore/widgets/dapp/dapp_list_horizantal_tile.dart';
 import 'package:dappstore/widgets/dapp/dapp_list_tile.dart';
 import 'package:flutter/material.dart';
@@ -58,10 +59,11 @@ class _TopCategoriesListState extends State<TopCategoriesList> {
         });
   }
 
-  Widget topCategoryListWidget(
-      {required String category,
-      required DappList? list,
-      Axis axis = Axis.vertical}) {
+  Widget topCategoryListWidget({
+    required String category,
+    required DappList? list,
+    Axis axis = Axis.vertical,
+  }) {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: 21,
@@ -70,72 +72,95 @@ class _TopCategoriesListState extends State<TopCategoriesList> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "${context.getLocale!.top} ${category.toUpperCase()}",
-                style: handler.theme.buttonTextStyle,
-              ),
-              TextButton(
-                  onPressed: () {
-                    //TODO take to explore page
-                  },
-                  child: Text(
-                    context.getLocale!.seeAll,
-                    style: handler.theme.normalTextStyle,
-                  ))
-            ],
-          ),
+          buildTitleAndSeeAll(category),
           const SizedBox(
             height: 20,
           ),
           axis == Axis.horizontal
-              ? SizedBox(
-                  height: 210,
-                  width: double.maxFinite,
-                  child: ListView.builder(
-                    itemCount: 10,
-                    shrinkWrap: true,
-                    physics: const BouncingScrollPhysics(),
-                    addAutomaticKeepAlives: true,
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    cacheExtent: 200,
-                    scrollDirection: axis,
-                    itemBuilder: (BuildContext context, int index) {
-                      if (list?.response?[index] == null) {
-                        return const SizedBox();
-                      }
-                      return DappListHorizantal(
-                        dapp: list!.response![index]!,
-                        handler: handler,
-                      );
-                    },
-                  ),
-                )
-              : ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  shrinkWrap: true,
-                  itemCount: 4,
-                  addAutomaticKeepAlives: true,
-                  cacheExtent: 200,
-                  itemBuilder: (BuildContext context, int index) {
-                    if (list?.response?[index] == null) {
-                      return const SizedBox();
-                    }
-                    return DappListTile(
-                      dapp: list!.response![index]!,
-                      handler: handler,
-                      isThreeLines: widget.isInExploreCategory,
-                    );
-                  },
-                ),
+              ? buildHorizontalList(axis: axis, list: list)
+              : buildVerticalList(list: list),
           const SizedBox(
             height: 12,
           ),
         ],
       ),
+    );
+  }
+
+  Widget buildTitleAndSeeAll(String category) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        (widget.isInExploreCategory)
+            ? Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: CustomChip(
+                      handler: handler,
+                      title:
+                          "${context.getLocale!.top} ${category.toUpperCase()}"),
+                ),
+              )
+            : Text(
+                "${context.getLocale!.top} ${category.toUpperCase()}",
+                style: handler.theme.buttonTextStyle,
+              ),
+        TextButton(
+            onPressed: () {
+              //TODO take to explore page
+            },
+            child: Text(
+              context.getLocale!.seeAll,
+              style: handler.theme.normalTextStyle,
+            ))
+      ],
+    );
+  }
+
+  Widget buildHorizontalList({required Axis axis, required DappList? list}) {
+    return SizedBox(
+      height: 210,
+      width: double.maxFinite,
+      child: ListView.builder(
+        itemCount: 10,
+        shrinkWrap: true,
+        physics: const BouncingScrollPhysics(),
+        addAutomaticKeepAlives: true,
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        cacheExtent: 200,
+        scrollDirection: axis,
+        itemBuilder: (BuildContext context, int index) {
+          if (list?.response?[index] == null) {
+            return const SizedBox();
+          }
+          return DappListHorizantal(
+            dapp: list!.response![index]!,
+            handler: handler,
+          );
+        },
+      ),
+    );
+  }
+
+  Widget buildVerticalList({required DappList? list}) {
+    return ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      shrinkWrap: true,
+      itemCount: 4,
+      addAutomaticKeepAlives: true,
+      cacheExtent: 200,
+      itemBuilder: (BuildContext context, int index) {
+        if (list?.response?[index] == null) {
+          return const SizedBox();
+        }
+        return DappListTile(
+          dapp: list!.response![index]!,
+          handler: handler,
+          isThreeLines: widget.isInExploreCategory,
+        );
+      },
     );
   }
 }

@@ -4,4 +4,8 @@ class Routes {
   static const home = '/home';
 
   static const dappInfo = '/dappInfo';
+
+  static const exploreCategories = '/exploreCategories';
+
+  static const category = '/category';
 }

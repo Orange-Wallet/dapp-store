@@ -64,4 +64,19 @@ class DappStoreHandler implements IDappStoreHandler {
   getFeaturedDappsList() {
     getStoreCubit().getFeaturedDappsList();
   }
+
+  @override
+  getSelectedCategoryDappList({required GetDappQueryDto queryParams}) {
+    getStoreCubit().getSelectedCategoryDappList(queryParams: queryParams);
+  }
+
+  @override
+  getSelectedCategoryDappListNextPage() {
+    getStoreCubit().getSelectedCategoryDappListNextPage();
+  }
+
+  @override
+  resetSelectedCategory() {
+    getStoreCubit().resetSelectedCategory();
+  }
 }

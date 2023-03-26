@@ -32,6 +32,8 @@
     "download",
     "update",
     "apkFetchFail",
-    "categories"
+    "categories",
+    "explore",
+    "all"
   ]
 }

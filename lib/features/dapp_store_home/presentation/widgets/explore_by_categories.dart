@@ -1,9 +1,11 @@
 import 'package:dappstore/core/localisation/localisation_extension.dart';
+import 'package:dappstore/core/router/router.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/curated_category_list.dart';
+import 'package:dappstore/features/dapp_store_home/presentation/screen/category_screen.dart';
 import 'package:dappstore/widgets/image_widgets/image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -64,6 +66,9 @@ class _ExploreBycategoriesState extends State<ExploreBycategories> {
                       childAspectRatio: ((widget.useSmallGrid) ? (3) : 1)),
                   itemCount: list.length,
                   itemBuilder: (BuildContext context, int index) {
+                    if (list[index] == null) {
+                      return const SizedBox();
+                    }
                     if (widget.useSmallGrid) {
                       return smallGridTile(list[index]);
                     } else {
@@ -88,7 +93,8 @@ class _ExploreBycategoriesState extends State<ExploreBycategories> {
       clipBehavior: Clip.hardEdge,
       child: InkWell(
         onTap: () {
-          //TODO add onclick redirection to category page
+          context
+              .pushRoute(CategoryScreen(category: curatedCategory!.category!));
         },
         borderRadius: BorderRadius.circular(handler.theme.imageBorderRadius),
         child: Stack(
@@ -128,7 +134,8 @@ class _ExploreBycategoriesState extends State<ExploreBycategories> {
       width: double.maxFinite,
       child: InkWell(
         onTap: () {
-          //TODO add onclick redirection to category page
+          context
+              .pushRoute(CategoryScreen(category: curatedCategory!.category!));
         },
         borderRadius: BorderRadius.circular(handler.theme.imageBorderRadius),
         child: Stack(

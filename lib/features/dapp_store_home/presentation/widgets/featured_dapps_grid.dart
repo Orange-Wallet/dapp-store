@@ -6,6 +6,7 @@ import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_sto
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/screen/explore_categories.dart';
+import 'package:dappstore/widgets/chip.dart';
 import 'package:dappstore/widgets/image_widgets/image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,14 +43,9 @@ class _FeaturedDappsGridState extends State<FeaturedDappsGrid> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Chip(
-                  label: Text(
-                    context.getLocale!.featuredDapps,
-                    style: handler.theme.secondaryTextStyle2,
-                  ),
-                  backgroundColor: handler.theme.secondaryBackgroundColor,
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+                CustomChip(
+                  handler: handler,
+                  title: context.getLocale!.featuredDapps,
                 ),
                 GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),
@@ -70,33 +66,7 @@ class _FeaturedDappsGridState extends State<FeaturedDappsGrid> {
                 const SizedBox(
                   height: 12,
                 ),
-                TextButton(
-                    onPressed: () {
-                      context.pushRoute(const ExploreCategories());
-                    },
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        const RoundedRectangleBorder(),
-                      ),
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          handler.theme.secondaryBackgroundColor),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            context.getLocale!.exploreMore,
-                            style: handler.theme.normalTextStyle,
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            color: handler.theme.whiteColor,
-                          ),
-                        ],
-                      ),
-                    )),
+                getExpolreMore(),
               ],
             ),
           );
@@ -121,5 +91,35 @@ class _FeaturedDappsGridState extends State<FeaturedDappsGrid> {
         ),
       ),
     );
+  }
+
+  Widget getExpolreMore() {
+    return TextButton(
+        onPressed: () {
+          context.pushRoute(const ExploreCategories());
+        },
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            const RoundedRectangleBorder(),
+          ),
+          backgroundColor: MaterialStateProperty.all<Color>(
+              handler.theme.secondaryBackgroundColor),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                context.getLocale!.exploreMore,
+                style: handler.theme.normalTextStyle,
+              ),
+              Icon(
+                Icons.arrow_forward_ios,
+                color: handler.theme.whiteColor,
+              ),
+            ],
+          ),
+        ));
   }
 }
