@@ -140,7 +140,7 @@ class _TopCategoriesListState extends State<TopCategoriesList> {
       height: 210,
       width: double.maxFinite,
       child: ListView.builder(
-        itemCount: 10,
+        itemCount: list?.response?.length,
         shrinkWrap: true,
         physics: const BouncingScrollPhysics(),
         addAutomaticKeepAlives: true,
@@ -165,7 +165,9 @@ class _TopCategoriesListState extends State<TopCategoriesList> {
       physics: const NeverScrollableScrollPhysics(),
       padding: const EdgeInsets.symmetric(vertical: 12),
       shrinkWrap: true,
-      itemCount: 4,
+      itemCount: ((list?.response?.length ?? 0) > 4)
+          ? 4
+          : (list?.response?.length ?? 0),
       addAutomaticKeepAlives: true,
       cacheExtent: 200,
       itemBuilder: (BuildContext context, int index) {

@@ -136,7 +136,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       height: 210,
       width: double.maxFinite,
       child: ListView.builder(
-        itemCount: 10,
+        itemCount: featuredCategoryList[widget.category]?.response?.length,
         shrinkWrap: true,
         physics: const BouncingScrollPhysics(),
         addAutomaticKeepAlives: true,
