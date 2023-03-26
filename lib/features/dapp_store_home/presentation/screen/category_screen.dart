@@ -81,7 +81,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
               cacheExtent: 20,
               controller: controller,
               children: [
-                if (featuredCategoryList == null)
+                if (featuredCategoryList == null ||
+                    featuredCategoryList.isEmpty)
                   const SizedBox()
                 else ...[
                   Align(
@@ -102,7 +103,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         featuredCategoryList: featuredCategoryList),
                   ),
                 ],
-                if ((list == null))
+                if ((list == null || list.isEmpty))
                   (state.isLoadingNextselectedCategoryPage ?? false)
                       ? Center(
                           child: CircularProgressIndicator(
@@ -149,6 +150,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
           return DappListHorizantal(
             dapp: featuredCategoryList[widget.category]!.response![index]!,
             handler: storeHandler,
+            tryBig: true,
           );
         },
       ),

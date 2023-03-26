@@ -6,33 +6,38 @@ import 'package:flutter/material.dart';
 class DappListHorizantal extends StatelessWidget {
   final DappInfo dapp;
   final IDappStoreHandler handler;
+  final bool tryBig;
 
   const DappListHorizantal({
     required this.dapp,
     required this.handler,
+    this.tryBig = false,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.only(bottom: 12, left: 12),
       child: SizedBox(
-        width: MediaQuery.of(context).size.width / 2.5,
+        width: MediaQuery.of(context).size.width / ((tryBig) ? 1.5 : 2.5),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius:
-                    BorderRadius.circular(handler.theme.imageBorderRadius),
-              ),
-              clipBehavior: Clip.antiAlias,
-              child: ImageWidgetCached(
-                dapp.images?.banner ?? dapp.images!.logo!,
-                key: ValueKey(dapp.images?.banner ?? dapp.images!.logo!),
-                height: 120,
-                width: 120,
+            Expanded(
+              child: Center(
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius:
+                        BorderRadius.circular(handler.theme.imageBorderRadius),
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  child: ImageWidgetCached(
+                    dapp.images?.banner ?? dapp.images!.logo!,
+                    fit: BoxFit.contain,
+                    key: ValueKey(dapp.images?.banner ?? dapp.images!.logo!),
+                  ),
+                ),
               ),
             ),
             const SizedBox(
@@ -67,19 +72,25 @@ class DappListHorizantal extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      Row(
-                        children: [
-                          Text(
-                            dapp.metrics?.rating?.toString() ?? "0",
-                            style: handler.theme.bodyTextStyle,
-                          ),
-                          Icon(
-                            Icons.star,
-                            color: handler.theme.bodyTextColor,
-                            size: handler.theme.bodyTextStyle.fontSize,
-                          )
-                        ],
-                      )
+                      tryBig
+                          ? Text(
+                              dapp.description ?? "",
+                              maxLines: 1,
+                              style: handler.theme.bodyTextStyle,
+                            )
+                          : Row(
+                              children: [
+                                Text(
+                                  dapp.metrics?.rating?.toString() ?? "0",
+                                  style: handler.theme.bodyTextStyle,
+                                ),
+                                Icon(
+                                  Icons.star,
+                                  color: handler.theme.bodyTextColor,
+                                  size: handler.theme.bodyTextStyle.fontSize,
+                                )
+                              ],
+                            )
                     ],
                   ),
                 ),

@@ -1,9 +1,11 @@
 import 'package:dappstore/core/localisation/localisation_extension.dart';
+import 'package:dappstore/core/router/router.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_list.dart';
+import 'package:dappstore/features/dapp_store_home/presentation/screen/category_screen.dart';
 import 'package:dappstore/widgets/chip.dart';
 import 'package:dappstore/widgets/dapp/dapp_list_horizantal_tile.dart';
 import 'package:dappstore/widgets/dapp/dapp_list_tile.dart';
@@ -108,11 +110,26 @@ class _TopCategoriesListState extends State<TopCategoriesList> {
               ),
         TextButton(
             onPressed: () {
-              //TODO take to explore page
+              context.pushRoute(CategoryScreen(category: category));
             },
-            child: Text(
-              context.getLocale!.seeAll,
-              style: handler.theme.normalTextStyle,
+            child: Row(
+              children: [
+                Text(
+                  context.getLocale!.seeAll,
+                  style: (widget.isInExploreCategory)
+                      ? handler.theme.bodyTextStyle
+                      : handler.theme.normalTextStyle,
+                ),
+                if (widget.isInExploreCategory)
+                  Padding(
+                    padding: const EdgeInsets.only(left: 4),
+                    child: Icon(
+                      Icons.arrow_forward,
+                      color: handler.theme.bodyTextColor,
+                      size: handler.theme.bodyTextStyle.fontSize,
+                    ),
+                  )
+              ],
             ))
       ],
     );
