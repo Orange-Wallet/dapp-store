@@ -33,7 +33,7 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
     await getCuratedCategoryList();
     await getCuratedList();
     await getFeaturedDappsList();
-    for (var i = 0; i < 3; i++) {
+    for (var i = 0; i < state.curatedCategoryList!.length; i++) {
       if (state.curatedCategoryList?[i]?.category != null) {
         getFeaturedDappsByCategory(
             category: state.curatedCategoryList![i]!.category!);

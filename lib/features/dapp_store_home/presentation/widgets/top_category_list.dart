@@ -4,14 +4,14 @@ import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_st
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_list.dart';
+import 'package:dappstore/widgets/dapp/dapp_list_horizantal_tile.dart';
 import 'package:dappstore/widgets/dapp/dapp_list_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TopCategoriesList extends StatefulWidget {
-  const TopCategoriesList({super.key});
+  final bool isInExploreCategory;
+  const TopCategoriesList({super.key, this.isInExploreCategory = false});
 
   @override
   State<TopCategoriesList> createState() => _TopCategoriesListState();
@@ -19,6 +19,7 @@ class TopCategoriesList extends StatefulWidget {
 
 class _TopCategoriesListState extends State<TopCategoriesList> {
   late final IDappStoreHandler handler;
+
   @override
   void initState() {
     handler = DappStoreHandler();
@@ -47,18 +48,25 @@ class _TopCategoriesListState extends State<TopCategoriesList> {
             addAutomaticKeepAlives: true,
             itemBuilder: (BuildContext context, int index) {
               return topCategoryListWidget(
-                category: list.entries.elementAt(index).key,
-                list: list.entries.elementAt(index).value,
-              );
+                  category: list.entries.elementAt(index).key,
+                  list: list.entries.elementAt(index).value,
+                  axis: widget.isInExploreCategory
+                      ? (index.isEven ? Axis.horizontal : Axis.vertical)
+                      : Axis.vertical);
             },
           );
         });
   }
 
   Widget topCategoryListWidget(
-      {required String category, required DappList? list}) {
+      {required String category,
+      required DappList? list,
+      Axis axis = Axis.vertical}) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 21, vertical: 20),
+      padding: EdgeInsets.symmetric(
+        horizontal: 21,
+        vertical: widget.isInExploreCategory ? 0 : 20,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -82,23 +90,47 @@ class _TopCategoriesListState extends State<TopCategoriesList> {
           const SizedBox(
             height: 20,
           ),
-          ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            shrinkWrap: true,
-            itemCount: 4,
-            addAutomaticKeepAlives: true,
-            cacheExtent: 200,
-            itemBuilder: (BuildContext context, int index) {
-              if (list?.response?[index] == null) {
-                return const SizedBox();
-              }
-              return DappListTile(
-                dapp: list!.response![index]!,
-                handler: handler,
-              );
-            },
-          ),
+          axis == Axis.horizontal
+              ? SizedBox(
+                  height: 210,
+                  width: double.maxFinite,
+                  child: ListView.builder(
+                    itemCount: 10,
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    addAutomaticKeepAlives: true,
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    cacheExtent: 200,
+                    scrollDirection: axis,
+                    itemBuilder: (BuildContext context, int index) {
+                      if (list?.response?[index] == null) {
+                        return const SizedBox();
+                      }
+                      return DappListHorizantal(
+                        dapp: list!.response![index]!,
+                        handler: handler,
+                      );
+                    },
+                  ),
+                )
+              : ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  shrinkWrap: true,
+                  itemCount: 4,
+                  addAutomaticKeepAlives: true,
+                  cacheExtent: 200,
+                  itemBuilder: (BuildContext context, int index) {
+                    if (list?.response?[index] == null) {
+                      return const SizedBox();
+                    }
+                    return DappListTile(
+                      dapp: list!.response![index]!,
+                      handler: handler,
+                      isThreeLines: widget.isInExploreCategory,
+                    );
+                  },
+                ),
           const SizedBox(
             height: 12,
           ),

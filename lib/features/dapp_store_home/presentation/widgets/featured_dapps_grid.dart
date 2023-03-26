@@ -1,9 +1,11 @@
 import 'package:dappstore/core/localisation/localisation_extension.dart';
+import 'package:dappstore/core/router/router.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
+import 'package:dappstore/features/dapp_store_home/presentation/screen/explore_categories.dart';
 import 'package:dappstore/widgets/image_widgets/image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -70,7 +72,7 @@ class _FeaturedDappsGridState extends State<FeaturedDappsGrid> {
                 ),
                 TextButton(
                     onPressed: () {
-                      // TODO redirect to explore page
+                      context.pushRoute(const ExploreCategories());
                     },
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(

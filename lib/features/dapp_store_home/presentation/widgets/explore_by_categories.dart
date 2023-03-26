@@ -9,7 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ExploreBycategories extends StatefulWidget {
-  const ExploreBycategories({super.key});
+  final bool useSmallGrid;
+  const ExploreBycategories({
+    super.key,
+    this.useSmallGrid = false,
+  });
 
   @override
   State<ExploreBycategories> createState() => _ExploreBycategoriesState();
@@ -53,14 +57,18 @@ class _ExploreBycategoriesState extends State<ExploreBycategories> {
                   shrinkWrap: true,
                   addAutomaticKeepAlives: true,
                   cacheExtent: 200,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 12,
-                    mainAxisSpacing: 12,
-                  ),
-                  itemCount: 9,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: (widget.useSmallGrid) ? 2 : 3,
+                      crossAxisSpacing: 12,
+                      mainAxisSpacing: 12,
+                      childAspectRatio: ((widget.useSmallGrid) ? (3) : 1)),
+                  itemCount: list.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return getGridTile(list[index]);
+                    if (widget.useSmallGrid) {
+                      return smallGridTile(list[index]);
+                    } else {
+                      return getGridTile(list[index]);
+                    }
                   },
                 ),
                 const SizedBox(
@@ -78,8 +86,6 @@ class _ExploreBycategoriesState extends State<ExploreBycategories> {
         borderRadius: BorderRadius.circular(handler.theme.imageBorderRadius),
       ),
       clipBehavior: Clip.hardEdge,
-      height: 100,
-      width: 100,
       child: InkWell(
         onTap: () {
           //TODO add onclick redirection to category page
@@ -103,6 +109,50 @@ class _ExploreBycategoriesState extends State<ExploreBycategories> {
                   overflow: TextOverflow.fade,
                   maxLines: 1,
                   textAlign: TextAlign.center,
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget smallGridTile(CuratedCategoryList? curatedCategory) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(handler.theme.imageBorderRadius),
+      ),
+      clipBehavior: Clip.hardEdge,
+      height: 50,
+      width: double.maxFinite,
+      child: InkWell(
+        onTap: () {
+          //TODO add onclick redirection to category page
+        },
+        borderRadius: BorderRadius.circular(handler.theme.imageBorderRadius),
+        child: Stack(
+          children: [
+            ImageWidgetCached(
+              curatedCategory?.image ?? "",
+              fit: BoxFit.cover,
+              width: double.maxFinite,
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                color: handler.theme.secondaryBackgroundColor.withOpacity(0.7),
+                width: double.maxFinite,
+                height: double.maxFinite,
+                child: Center(
+                  child: Text(
+                    curatedCategory?.category?.toUpperCase() ?? "",
+                    style: handler.theme.buttonTextStyle,
+                    overflow: TextOverflow.fade,
+                    maxLines: 1,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
             )

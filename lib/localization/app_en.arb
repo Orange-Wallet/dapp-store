@@ -42,5 +42,6 @@
   "installing": "Installing...",
   "download": "Download",
   "update": "Update",
-  "apkFetchFail": "Failed to Fetch APK"
+  "apkFetchFail": "Failed to Fetch APK",
+  "categories":"Categoreis"
 }

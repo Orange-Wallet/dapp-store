@@ -7,10 +7,12 @@ import 'package:flutter/material.dart';
 class DappListTile extends StatelessWidget {
   final DappInfo dapp;
   final IDappStoreHandler handler;
+  final bool isThreeLines;
 
   const DappListTile({
     required this.dapp,
     required this.handler,
+    this.isThreeLines = false,
     super.key,
   });
 
@@ -25,7 +27,7 @@ class DappListTile extends StatelessWidget {
               borderRadius:
                   BorderRadius.circular(handler.theme.imageBorderRadius),
             ),
-            clipBehavior: Clip.hardEdge,
+            clipBehavior: Clip.antiAlias,
             child: ImageWidgetCached(
               dapp.images!.logo!,
               key: ValueKey(dapp.images!.logo!),
@@ -48,10 +50,24 @@ class DappListTile extends StatelessWidget {
                   Text(
                     dapp.description ?? "N/A",
                     style: handler.theme.bodyTextStyle,
-                    maxLines: 2,
+                    maxLines: isThreeLines ? 1 : 2,
                     softWrap: true,
                     overflow: TextOverflow.ellipsis,
                   ),
+                  if (isThreeLines)
+                    Row(
+                      children: [
+                        Text(
+                          dapp.metrics?.rating?.toString() ?? "0",
+                          style: handler.theme.bodyTextStyle,
+                        ),
+                        Icon(
+                          Icons.star,
+                          color: handler.theme.bodyTextColor,
+                          size: handler.theme.bodyTextStyle.fontSize,
+                        )
+                      ],
+                    )
                 ],
               ),
             ),

@@ -36,6 +36,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: storeHandler.theme.backgroundColor,
       appBar: const HomeAppbar(),
       body: ListView(
+        physics: const BouncingScrollPhysics(),
         addAutomaticKeepAlives: true,
         cacheExtent: 20,
         children: const [
