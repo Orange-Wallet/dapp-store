@@ -19,15 +19,15 @@ abstract class IWalletConnectCubit extends Cubit<WalletConnectState>
   getConnectRequest(List<String> chainIds);
 
   @override
-  getPersonalSign(
+  Future<String> getPersonalSign(
     String data,
   );
 
   @override
-  getEthSign(String data);
+  Future<String> getEthSign(String data);
 
   @override
-  getEthSignTypedData(String data);
+  Future<String> getEthSignTypedData(String data);
 
   @override
   getEthSignTransaction(EthereumTransaction transaction);

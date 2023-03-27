@@ -82,7 +82,7 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
   }
 
   @override
-  getPersonalSign(
+  Future<String> getPersonalSign(
     String data,
   ) async {
     if (state.activeSession != null) {
@@ -101,7 +101,7 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
   }
 
   @override
-  getEthSign(String data) async {
+  Future<String> getEthSign(String data) async {
     if (state.activeSession != null) {
       SessionRequestParams params = Eip155Data.getRequestParams(
         topic: state.activeSession!.topic,
@@ -119,7 +119,7 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
   }
 
   @override
-  getEthSignTypedData(String data) async {
+  Future<String> getEthSignTypedData(String data) async {
     if (state.activeSession != null) {
       SessionRequestParams params = Eip155Data.getRequestParams(
         topic: state.activeSession!.topic,
