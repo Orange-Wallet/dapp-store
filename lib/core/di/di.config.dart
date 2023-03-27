@@ -10,64 +10,66 @@ import 'package:dappstore/core/application/i_app_handler.dart' as _i6;
 import 'package:dappstore/core/error/error_logger.dart' as _i11;
 import 'package:dappstore/core/error/i_error_logger.dart' as _i10;
 import 'package:dappstore/core/installed_apps/i_installed_apps_cubit.dart'
-    as _i14;
+    as _i12;
 import 'package:dappstore/core/installed_apps/installed_apps_cubit.dart'
-    as _i15;
-import 'package:dappstore/core/localisation/i_localisation_cubit.dart' as _i38;
-import 'package:dappstore/core/localisation/localisation_cubit.dart' as _i39;
+    as _i13;
+import 'package:dappstore/core/localisation/i_localisation_cubit.dart' as _i39;
+import 'package:dappstore/core/localisation/localisation_cubit.dart' as _i40;
 import 'package:dappstore/core/localisation/store/i_localisation_store.dart'
-    as _i18;
+    as _i16;
 import 'package:dappstore/core/localisation/store/localisation_store.dart'
-    as _i19;
-import 'package:dappstore/core/permissions/i_permissions_cubit.dart' as _i20;
-import 'package:dappstore/core/permissions/permissions_cubit.dart' as _i21;
+    as _i17;
+import 'package:dappstore/core/permissions/i_permissions_cubit.dart' as _i18;
+import 'package:dappstore/core/permissions/permissions_cubit.dart' as _i19;
 import 'package:dappstore/core/platform_channel/i_platform_channel_cubit.dart'
-    as _i22;
+    as _i20;
 import 'package:dappstore/core/platform_channel/platform_channel_cubit.dart'
-    as _i23;
+    as _i21;
 import 'package:dappstore/core/router/custom_route_observer.dart' as _i3;
-import 'package:dappstore/core/theme/i_theme_cubit.dart' as _i42;
-import 'package:dappstore/core/theme/store/i_theme_store.dart' as _i30;
-import 'package:dappstore/core/theme/store/theme_store.dart' as _i31;
-import 'package:dappstore/core/theme/theme_cubit.dart' as _i43;
+import 'package:dappstore/core/theme/i_theme_cubit.dart' as _i43;
+import 'package:dappstore/core/theme/store/i_theme_store.dart' as _i28;
+import 'package:dappstore/core/theme/store/theme_store.dart' as _i29;
+import 'package:dappstore/core/theme/theme_cubit.dart' as _i44;
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart'
-    as _i28;
+    as _i26;
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/store_cubit.dart'
-    as _i29;
+    as _i27;
 import 'package:dappstore/features/dapp_store_home/domain/repositories/i_dapp_list_repository.dart'
     as _i8;
 import 'package:dappstore/features/dapp_store_home/infrastructure/repositories/dapp_list_repository_impl.dart'
     as _i9;
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/downloader/downloader_cubit.dart'
-    as _i35;
-import 'package:dappstore/features/download_and_installer/infrastructure/repositories/downloader/i_downloader_cubit.dart'
     as _i34;
-import 'package:dappstore/features/download_and_installer/infrastructure/repositories/foreground_service/foreground_service_cubit.dart'
-    as _i37;
-import 'package:dappstore/features/download_and_installer/infrastructure/repositories/foreground_service/i_foreground_service_cubit.dart'
-    as _i36;
-import 'package:dappstore/features/download_and_installer/infrastructure/repositories/installer/i_installer_cubit.dart'
-    as _i16;
-import 'package:dappstore/features/download_and_installer/infrastructure/repositories/installer/installer_cubit.dart'
-    as _i17;
-import 'package:dappstore/features/download_and_installer/infrastructure/repositories/package_manager.dart/i_package_manager.dart'
-    as _i40;
-import 'package:dappstore/features/download_and_installer/infrastructure/repositories/package_manager.dart/package_manager_cubit.dart'
-    as _i41;
-import 'package:dappstore/features/pwa_webwiew/application/handler/i_pwa_webview_handler.dart'
-    as _i26;
-import 'package:dappstore/features/pwa_webwiew/application/handler/pwa_webview_handler.dart'
-    as _i27;
-import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/i_injected_web3_cubit.dart'
-    as _i12;
-import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/injected_web3_cubit.dart'
-    as _i13;
-import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/i_pwa_webview_cubit.dart'
-    as _i24;
-import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/pwa_webview_cubit.dart'
-    as _i25;
-import 'package:dappstore/features/wallet_connect/infrastructure/cubit/wallet_connect_cubit.dart'
+import 'package:dappstore/features/download_and_installer/infrastructure/repositories/downloader/i_downloader_cubit.dart'
     as _i33;
+import 'package:dappstore/features/download_and_installer/infrastructure/repositories/foreground_service/foreground_service_cubit.dart'
+    as _i36;
+import 'package:dappstore/features/download_and_installer/infrastructure/repositories/foreground_service/i_foreground_service_cubit.dart'
+    as _i35;
+import 'package:dappstore/features/download_and_installer/infrastructure/repositories/installer/i_installer_cubit.dart'
+    as _i14;
+import 'package:dappstore/features/download_and_installer/infrastructure/repositories/installer/installer_cubit.dart'
+    as _i15;
+import 'package:dappstore/features/download_and_installer/infrastructure/repositories/package_manager.dart/i_package_manager.dart'
+    as _i41;
+import 'package:dappstore/features/download_and_installer/infrastructure/repositories/package_manager.dart/package_manager_cubit.dart'
+    as _i42;
+import 'package:dappstore/features/pwa_webwiew/application/handler/i_pwa_webview_handler.dart'
+    as _i24;
+import 'package:dappstore/features/pwa_webwiew/application/handler/pwa_webview_handler.dart'
+    as _i25;
+import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/i_injected_web3_cubit.dart'
+    as _i37;
+import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/injected_web3_cubit.dart'
+    as _i38;
+import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/i_pwa_webview_cubit.dart'
+    as _i22;
+import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/pwa_webview_cubit.dart'
+    as _i23;
+import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart'
+    as _i30;
+import 'package:dappstore/features/wallet_connect/infrastructure/cubit/wallet_connect_cubit.dart'
+    as _i31;
 import 'package:dappstore/features/wallet_connect/infrastructure/wallet_connect.dart'
     as _i32;
 import 'package:dappstore/widgets/buttons/app_button_handler/app_button_handler.dart'
@@ -95,35 +97,36 @@ _i1.GetIt $initGetIt(
   gh.lazySingleton<_i6.IAppHandler>(() => _i7.AppHandler());
   gh.lazySingleton<_i8.IDappListRepo>(() => _i9.DappListRepoImpl());
   gh.lazySingleton<_i10.IErrorLogger>(() => _i11.ErrorLogger());
-  gh.lazySingleton<_i12.IInjectedWeb3Cubit>(() => _i13.InjectedWeb3Cubit());
-  gh.lazySingleton<_i14.IInstalledAppsCubit>(() => _i15.InstalledAppsCubit());
-  gh.lazySingleton<_i16.IInstallerCubit>(() => _i17.InstallerCubit());
-  gh.lazySingleton<_i18.ILocalisationStore>(() => _i19.LocalisationStore());
-  gh.lazySingleton<_i20.IPermissions>(() => _i21.Permissions());
-  gh.lazySingleton<_i22.IPlatformChannelCubit>(
-      () => _i23.PlatformChannelCubit());
-  gh.lazySingleton<_i24.IPwaWebviewCubit>(() => _i25.PwaWebviewCubit());
-  gh.lazySingleton<_i26.IPwaWebviewHandler>(() => _i27.PwaWebviewHandler());
-  gh.lazySingleton<_i28.IStoreCubit>(
-      () => _i29.StoreCubit(dappListRepo: gh<_i8.IDappListRepo>()));
-  gh.lazySingleton<_i30.IThemeStore>(() => _i31.ThemeStore());
+  gh.lazySingleton<_i12.IInstalledAppsCubit>(() => _i13.InstalledAppsCubit());
+  gh.lazySingleton<_i14.IInstallerCubit>(() => _i15.InstallerCubit());
+  gh.lazySingleton<_i16.ILocalisationStore>(() => _i17.LocalisationStore());
+  gh.lazySingleton<_i18.IPermissions>(() => _i19.Permissions());
+  gh.lazySingleton<_i20.IPlatformChannelCubit>(
+      () => _i21.PlatformChannelCubit());
+  gh.lazySingleton<_i22.IPwaWebviewCubit>(() => _i23.PwaWebviewCubit());
+  gh.lazySingleton<_i24.IPwaWebviewHandler>(() => _i25.PwaWebviewHandler());
+  gh.lazySingleton<_i26.IStoreCubit>(
+      () => _i27.StoreCubit(dappListRepo: gh<_i8.IDappListRepo>()));
+  gh.lazySingleton<_i28.IThemeStore>(() => _i29.ThemeStore());
+  gh.lazySingleton<_i30.IWalletConnectCubit>(() => _i31.WalletConnectCubit());
   gh.lazySingleton<_i32.WalletConnect>(() => _i32.WalletConnect());
-  gh.lazySingleton<_i33.WalletConnectCubit>(() => _i33.WalletConnectCubit());
-  gh.lazySingleton<_i34.IDownloader>(() => _i35.DownloaderCubit(
-        permissionsCubit: gh<_i20.IPermissions>(),
-        installerCubit: gh<_i16.IInstallerCubit>(),
+  gh.lazySingleton<_i33.IDownloader>(() => _i34.DownloaderCubit(
+        permissionsCubit: gh<_i18.IPermissions>(),
+        installerCubit: gh<_i14.IInstallerCubit>(),
       ));
-  gh.lazySingleton<_i36.IForegroundService>(() => _i37.ForegroundService(
-      platformChannelCubit: gh<_i22.IPlatformChannelCubit>()));
-  gh.lazySingleton<_i38.ILocaleCubit>(
-      () => _i39.LocaleCubit(localisationStore: gh<_i18.ILocalisationStore>()));
-  gh.lazySingleton<_i40.IPackageManager>(() => _i41.PackageManager(
-        gh<_i16.IInstallerCubit>(),
-        gh<_i34.IDownloader>(),
-        gh<_i36.IForegroundService>(),
-        gh<_i14.IInstalledAppsCubit>(),
+  gh.lazySingleton<_i35.IForegroundService>(() => _i36.ForegroundService(
+      platformChannelCubit: gh<_i20.IPlatformChannelCubit>()));
+  gh.lazySingleton<_i37.IInjectedWeb3Cubit>(
+      () => _i38.InjectedWeb3Cubit(signer: gh<_i30.IWalletConnectCubit>()));
+  gh.lazySingleton<_i39.ILocaleCubit>(
+      () => _i40.LocaleCubit(localisationStore: gh<_i16.ILocalisationStore>()));
+  gh.lazySingleton<_i41.IPackageManager>(() => _i42.PackageManager(
+        gh<_i14.IInstallerCubit>(),
+        gh<_i33.IDownloader>(),
+        gh<_i35.IForegroundService>(),
+        gh<_i12.IInstalledAppsCubit>(),
       ));
-  gh.lazySingleton<_i42.IThemeCubit>(
-      () => _i43.ThemeCubit(themeStore: gh<_i30.IThemeStore>()));
+  gh.lazySingleton<_i43.IThemeCubit>(
+      () => _i44.ThemeCubit(themeStore: gh<_i28.IThemeStore>()));
   return getIt;
 }

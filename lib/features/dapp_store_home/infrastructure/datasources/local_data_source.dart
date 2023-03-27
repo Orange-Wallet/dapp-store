@@ -30,7 +30,7 @@ class LocalDataSource implements IDataSource {
           "name": "Axie Infinity",
           "description":
               "Axie Infinity is a Pokemon-inspired digital pet universe where players use their cute characters called Axies in various games. The Axie Infinity Universe highlights the benefits of blockchain technology through \"Free to Play to Earn\" gameplay and a player-owned economy.",
-          "appUrl": "https://axieinfinity.com/",
+          "appUrl": "https://app.aave.com/",
           "images": {
             "logo":
                 "https://dashboard-assets.dappradar.com/document/9495/axieinfinity-dapp-games-ronin-logo_1ec806d57fd80ab68d351658cb8d146a.png",
@@ -72,7 +72,7 @@ class LocalDataSource implements IDataSource {
       "name": "Axie Infinity",
       "description":
           "Axie Infinity is a Pokemon-inspired digital pet universe where players use their cute characters called Axies in various games. The Axie Infinity Universe highlights the benefits of blockchain technology through \"Free to Play to Earn\" gameplay and a player-owned economy.",
-      "appUrl": "https://axieinfinity.com/",
+      "appUrl": "https://app.aave.com/",
       "images": {
         "logo":
             "https://dashboard-assets.dappradar.com/document/9495/axieinfinity-dapp-games-ronin-logo_1ec806d57fd80ab68d351658cb8d146a.png",

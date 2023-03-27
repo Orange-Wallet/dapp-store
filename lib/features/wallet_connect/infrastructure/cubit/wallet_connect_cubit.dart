@@ -17,7 +17,7 @@ part '../../../../generated/features/wallet_connect/infrastructure/cubit/wallet_
 part '../../../../generated/features/wallet_connect/infrastructure/cubit/wallet_connect_cubit.g.dart';
 part 'wallet_connect_state.dart';
 
-@lazySingleton
+@LazySingleton(as: IWalletConnectCubit)
 class WalletConnectCubit extends Cubit<WalletConnectState>
     implements IWalletConnectCubit {
   @override

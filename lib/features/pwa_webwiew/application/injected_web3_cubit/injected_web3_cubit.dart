@@ -1,3 +1,5 @@
+import 'package:dappstore/core/signer/i_signer.dart';
+import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_injected_web3/flutter_injected_web3.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -11,7 +13,9 @@ part 'injected_web3_state.dart';
 @LazySingleton(as: IInjectedWeb3Cubit)
 class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
     implements IInjectedWeb3Cubit {
-  InjectedWeb3Cubit() : super(InjectedWeb3State.initial());
+  final IWalletConnectCubit signer;
+  InjectedWeb3Cubit({required this.signer})
+      : super(InjectedWeb3State.initial());
 
   @override
   started() {

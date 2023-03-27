@@ -1,4 +1,6 @@
 import 'package:dappstore/core/di/di.dart';
+import 'package:dappstore/core/theme/i_theme_cubit.dart';
+import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:dappstore/features/pwa_webwiew/application/handler/i_pwa_webview_handler.dart';
 import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/i_injected_web3_cubit.dart';
 import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/i_pwa_webview_cubit.dart';
@@ -10,48 +12,58 @@ import 'package:injectable/injectable.dart';
 @LazySingleton(as: IPwaWebviewHandler)
 class PwaWebviewHandler implements IPwaWebviewHandler {
   @override
-  IPwaWebviewCubit getWebViewCubit() {
-    return getIt<IPwaWebviewCubit>();
-  }
+  IPwaWebviewCubit get webViewCubit => getIt<IPwaWebviewCubit>();
 
   @override
-  IInjectedWeb3Cubit getInjectedWebViewCubit() {
-    return getIt<IInjectedWeb3Cubit>();
-  }
+  IInjectedWeb3Cubit get injectedWeb3Cubit => getIt<IInjectedWeb3Cubit>();
+
+  @override
+  IThemeCubit get themeCubit => getIt<IThemeCubit>();
 
   @override
   void unfocus() {
     WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
-    getWebViewCubit().hideUrlField();
+    webViewCubit.hideUrlField();
   }
 
   @override
-  void onBackPressed() {
+  void onBackPressed() async {
+    debugPrint("On Back pressed");
     WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
-    getWebViewCubit().webViewController?.goBack();
+    if ((await webViewCubit.webViewController?.canGoBack()) ?? false) {
+      webViewCubit.webViewController?.goBack();
+    }
+  }
+
+  @override
+  void onForwardPressed() async {
+    WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
+    if ((await webViewCubit.webViewController?.canGoForward()) ?? false) {
+      webViewCubit.webViewController?.goForward();
+    }
   }
 
   @override
   void initWebViewCubit(InAppWebViewController controller) {
-    getWebViewCubit().initWebViewController(controller);
+    webViewCubit.initWebViewController(controller);
   }
 
   @override
   void clearCookies() {
-    getWebViewCubit().webViewController?.clearCache();
+    webViewCubit.webViewController?.clearCache();
   }
 
   @override
   void onProgressChanged(InAppWebViewController controller, int progress) {
     debugPrint('PROGRESS $progress');
-    getWebViewCubit().updateProgress(progress);
+    webViewCubit.updateProgress(progress);
   }
 
   @override
   void onLoadStart(InAppWebViewController controller, Uri? uri) {
     debugPrint('onLoadStart $uri');
-    getWebViewCubit().setLoading(true);
-    getWebViewCubit().updateButtonsState(loadStart: true);
+    webViewCubit.setLoading(true);
+    webViewCubit.updateButtonsState(loadStart: true);
   }
 
   @override
@@ -62,8 +74,8 @@ class PwaWebviewHandler implements IPwaWebviewHandler {
 
   @override
   void loadStop() {
-    getWebViewCubit().setLoading(false);
-    getWebViewCubit().updateButtonsState();
+    webViewCubit.setLoading(false);
+    webViewCubit.updateButtonsState();
   }
 
   @override
@@ -121,7 +133,7 @@ class PwaWebviewHandler implements IPwaWebviewHandler {
   Future<NavigationActionPolicy> shouldOverrideUrlLoading(
       InAppWebViewController controller,
       NavigationAction navigationAction) async {
-    final navUrl = getWebViewCubit().webViewController?.getUrl().toString();
+    final navUrl = webViewCubit.webViewController?.getUrl().toString();
     debugPrint('Browser URL: $navUrl');
     if (navUrl == "") {
       return NavigationActionPolicy.ALLOW;
