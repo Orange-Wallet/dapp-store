@@ -23,6 +23,7 @@ abstract class IThemeSpec {
   Color get errorRed;
   Color get blue;
   Color get greyBlue;
+  Color get black;
 
   TextStyle get secondaryTextStyle1;
   TextStyle get headingTextStyle;
@@ -31,8 +32,12 @@ abstract class IThemeSpec {
   TextStyle get titleTextStyle;
   TextStyle get whiteBoldTextStyle;
   TextStyle get normalTextStyle;
+  TextStyle get normalTextStyle2;
   TextStyle get secondaryTextStyle2;
   TextStyle get smallButtonTextStyle;
+  TextStyle get whiteButtonTextStyle;
+  TextStyle get secondaryWhiteTextStyle3;
+  TextStyle get secondaryGreenTextStyle4;
 
   double get cardRadius;
   RoundedRectangleBorder get cardShape;
