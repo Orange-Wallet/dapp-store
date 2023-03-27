@@ -51,7 +51,9 @@ class LightTheme implements IThemeSpec {
   @override
   Color get blue => const Color.fromARGB(255, 60, 152, 194);
   @override
-  Color get greyBlue => Color.fromARGB(255, 46, 93, 115);
+  Color get greyBlue => const Color.fromARGB(255, 46, 93, 115);
+  @override
+  Color get black => const Color.fromARGB(255, 0, 0, 0);
 
   @override
   TextStyle get headingTextStyle => TextStyle(
@@ -127,6 +129,36 @@ class LightTheme implements IThemeSpec {
         color: whiteColor,
         fontWeight: FontWeight.w700,
       );
+  @override
+  TextStyle get normalTextStyle2 => TextStyle(
+        // h5 -> headline
+        fontFamily: fontName,
+        fontSize: 14,
+        color: whiteColor,
+        fontWeight: FontWeight.w500,
+      );
+  @override
+  TextStyle get whiteButtonTextStyle => TextStyle(
+        fontFamily: fontName,
+        fontSize: 14,
+        color: black,
+        fontWeight: FontWeight.w600,
+      );
+
+  @override
+  TextStyle get secondaryWhiteTextStyle3 => TextStyle(
+      // h5 -> headline
+      fontFamily: fontName,
+      fontSize: 10,
+      color: whiteColor,
+      fontWeight: FontWeight.w400);
+  @override
+  TextStyle get secondaryGreenTextStyle4 => TextStyle(
+      // h5 -> headline
+      fontFamily: fontName,
+      fontSize: 10,
+      color: appGreen,
+      fontWeight: FontWeight.w400);
   @override
   double get imageBorderRadius => 20;
   @override

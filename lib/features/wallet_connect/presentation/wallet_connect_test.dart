@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/wallet_connect_cubit.dart';
+import 'package:dappstore/features/wallet_connect/models/eth/ethereum_transaction.dart';
 import 'package:eth_sig_util/eth_sig_util.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -17,16 +18,21 @@ class WCTestWidget extends StatelessWidget {
             onPressed: () async {
               var cubit = getIt<WalletConnectCubit>();
               await cubit.initialize();
-              cubit.getConnectRequest(["eip155:137", "eip155:1"]);
+            },
+            child: const Text("WC init")),
+        ElevatedButton(
+            onPressed: () async {
+              var cubit = getIt<WalletConnectCubit>();
+              cubit.getConnectRequest(["eip155:137"]);
             },
             child: const Text("Connecet")),
         ElevatedButton(
             onPressed: () async {
               var cubit = getIt<WalletConnectCubit>();
-              var res = await cubit.getPersonalSign("Testing");
-              log(res.toString());
+              var res = await cubit.getPersonalSign("Testing ");
+              log((res.runtimeType.toString()));
               var add = EthSigUtil.ecRecover(
-                  message: Uint8List.fromList("Testing".codeUnits),
+                  message: Uint8List.fromList("Testing ".codeUnits),
                   signature: res);
               // var add = EthSigUtil.ecRecover(
               //   signature:
@@ -36,6 +42,16 @@ class WCTestWidget extends StatelessWidget {
               log(add.toString());
             },
             child: const Text("personal Sign")),
+        ElevatedButton(
+            onPressed: () async {
+              var cubit = getIt<WalletConnectCubit>();
+              var res = await cubit.getEthSignTransaction(EthereumTransaction(
+                  from: cubit.state.activeAddress!,
+                  to: cubit.state.activeAddress!,
+                  value: "0x01"));
+              log(res.toString());
+            },
+            child: const Text(" Sign TrX")),
         ElevatedButton(
             onPressed: () {
               var cubit = getIt<WalletConnectCubit>();

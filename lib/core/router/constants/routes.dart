@@ -8,4 +8,5 @@ class Routes {
   static const exploreCategories = '/exploreCategories';
 
   static const category = '/category';
+  static const walletConnectScreen = '/walletConnectScreen';
 }

@@ -47,5 +47,20 @@
   "save": "Save",
   "categories": "Categoreis",
   "explore": "Explore",
-  "all": "All"
+  "all": "All",
+  "signUpTo":"Sign up to HTC Store",
+  "useWalletConnect":"Use Wallet Connect",
+  "dontHaveAWallet":"Don’t have a wallet? Create a Vive wallet",
+  "byContinuing":"By continuing you agree to HTC dApp Store’s",
+  "and":"and",
+  "connectWith":"Connect with",
+  "firstName":"First Name",
+  "lastName":"Last Name",
+  "profile":"Profile",
+  "wallets":"Wallets",
+  "edit":"Edit",
+  "addWallet":"Add Wallet",
+  "settings":"Settings",
+  "privacyPolicy":"Privacy Policy",
+  "connectWithOthers":"Connect with other wallet"
 }

@@ -36,6 +36,21 @@
     "save",
     "categories",
     "explore",
-    "all"
+    "all",
+    "signUpTo",
+    "useWalletConnect",
+    "dontHaveAWallet",
+    "byContinuing",
+    "and",
+    "connectWith",
+    "firstName",
+    "lastName",
+    "profile",
+    "wallets",
+    "edit",
+    "addWallet",
+    "settings",
+    "privacyPolicy",
+    "connectWithOthers"
   ]
 }
