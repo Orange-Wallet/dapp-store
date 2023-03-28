@@ -18,6 +18,10 @@ abstract class IWalletConnectCubit extends Cubit<WalletConnectState>
 
   getConnectRequest(List<String> chainIds);
 
+  String? getActiveAdddress();
+
+  String? getChain();
+
   @override
   Future<String> getPersonalSign(
     String data,

@@ -37,6 +37,7 @@ class _PwaWebViewState extends State<PwaWebView> {
     handler = getIt<IPwaWebviewHandler>();
     pwaWebviewCubit = handler.webViewCubit;
     injectedWeb3Cubit = handler.injectedWeb3Cubit;
+    handler.initInjectedWeb3(context);
     themeCubit = handler.themeCubit;
     _dappName = widget.dappName;
     appBar = PwaAppBar(

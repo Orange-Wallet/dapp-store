@@ -13,7 +13,9 @@ part 'pwa_webview_state.dart';
 class PwaWebviewCubit extends Cubit<PwaWebviewState>
     implements IPwaWebviewCubit {
   PwaWebviewCubit() : super(PwaWebviewState.initial());
+
   InAppWebViewController? _webViewController;
+
   @override
   InAppWebViewController? get webViewController => _webViewController;
 

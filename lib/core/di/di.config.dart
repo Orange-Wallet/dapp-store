@@ -116,8 +116,10 @@ _i1.GetIt $initGetIt(
       ));
   gh.lazySingleton<_i35.IForegroundService>(() => _i36.ForegroundService(
       platformChannelCubit: gh<_i20.IPlatformChannelCubit>()));
-  gh.lazySingleton<_i37.IInjectedWeb3Cubit>(
-      () => _i38.InjectedWeb3Cubit(signer: gh<_i30.IWalletConnectCubit>()));
+  gh.lazySingleton<_i37.IInjectedWeb3Cubit>(() => _i38.InjectedWeb3Cubit(
+        signer: gh<_i30.IWalletConnectCubit>(),
+        errorLogger: gh<_i10.IErrorLogger>(),
+      ));
   gh.lazySingleton<_i39.ILocaleCubit>(
       () => _i40.LocaleCubit(localisationStore: gh<_i16.ILocalisationStore>()));
   gh.lazySingleton<_i41.IPackageManager>(() => _i42.PackageManager(

@@ -59,6 +59,16 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
   }
 
   @override
+  String? getChain() {
+    return state.activeChainId;
+  }
+
+  @override
+  String? getActiveAdddress() {
+    return state.activeAddress;
+  }
+
+  @override
   getConnectRequest(List<String> chainIds) async {
     EngineConnection? res =
         await signClient?.connect(Eip155Data.getSessionConnectParams(chainIds));

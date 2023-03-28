@@ -1,6 +1,7 @@
 import 'package:dappstore/core/theme/i_theme_cubit.dart';
 import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/i_injected_web3_cubit.dart';
 import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/i_pwa_webview_cubit.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_injected_web3/flutter_injected_web3.dart';
 
@@ -11,6 +12,7 @@ abstract class IPwaWebviewHandler {
   void onBackPressed();
   void onForwardPressed();
   void initWebViewCubit(InAppWebViewController controller);
+  initInjectedWeb3(BuildContext context);
   void clearCookies();
   void onLoadStop(InAppWebViewController controller, Uri? uri);
 

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dappstore/core/di/di.dart';
+import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/wallet_connect_cubit.dart';
 import 'package:dappstore/features/wallet_connect/models/eth/ethereum_transaction.dart';
 import 'package:eth_sig_util/eth_sig_util.dart';
@@ -16,13 +17,13 @@ class WCTestWidget extends StatelessWidget {
       children: [
         ElevatedButton(
             onPressed: () async {
-              var cubit = getIt<WalletConnectCubit>();
+              var cubit = getIt<IWalletConnectCubit>();
               await cubit.initialize();
             },
             child: const Text("WC init")),
         ElevatedButton(
             onPressed: () async {
-              var cubit = getIt<WalletConnectCubit>();
+              var cubit = getIt<IWalletConnectCubit>();
               cubit.getConnectRequest(["eip155:137"]);
             },
             child: const Text("Connecet")),
@@ -44,17 +45,18 @@ class WCTestWidget extends StatelessWidget {
             child: const Text("personal Sign")),
         ElevatedButton(
             onPressed: () async {
-              var cubit = getIt<WalletConnectCubit>();
-              var res = await cubit.getEthSignTransaction(EthereumTransaction(
+              var cubit = getIt<IWalletConnectCubit>();
+              var res = await cubit.getEthSendTransaction(EthereumTransaction(
                   from: cubit.state.activeAddress!,
                   to: cubit.state.activeAddress!,
+                  data: "",
                   value: "0x01"));
               log(res.toString());
             },
             child: const Text(" Sign TrX")),
         ElevatedButton(
             onPressed: () {
-              var cubit = getIt<WalletConnectCubit>();
+              var cubit = getIt<IWalletConnectCubit>();
               cubit.disconnectAll();
             },
             child: const Text("delete all"))

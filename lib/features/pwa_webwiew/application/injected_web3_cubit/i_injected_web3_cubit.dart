@@ -6,13 +6,15 @@ import 'injected_web3_cubit.dart';
 abstract class IInjectedWeb3Cubit extends Cubit<InjectedWeb3State> {
   IInjectedWeb3Cubit(super.initialState);
 
-  started();
+  started(ShowError callback);
 
   connect(int chainId, String originalUrl);
 
   changeChains(int chainId);
 
-  String getAccounts();
+  String? get account;
+
+  String? get chainId;
 
   Future<String> sendTransaction(JsTransactionObject jsTransactionObject);
 
@@ -20,9 +22,9 @@ abstract class IInjectedWeb3Cubit extends Cubit<InjectedWeb3State> {
 
   Future<String> ecRecover(JsEcRecoverObject ecRecoverObject);
 
-  String signPersonalMessage(String data);
+  Future<String> signPersonalMessage(String data);
 
-  String signMessage(String data);
+  Future<String> signMessage(String data);
 
-  String signTypedData(JsEthSignTypedData data);
+  Future<String> signTypedData(JsEthSignTypedData data);
 }
