@@ -135,6 +135,7 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                   buildViveButton(onPressed: () {}, isVive: true),
                 buildViveButton(
                     onPressed: () {
+                      context.popRoute();
                       context.replaceRoute(const HomePage());
                     },
                     isVive: false),

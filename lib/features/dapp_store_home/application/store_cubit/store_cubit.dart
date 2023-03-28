@@ -85,8 +85,20 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
   }
 
   @override
-  DappInfo? get getActiveDappInfo => state.dappList?.response
-      ?.firstWhere((element) => element?.dappId == state.activeDappId);
+  DappInfo? get getActiveDappInfo {
+    return state.dappList?.response?.firstWhere(
+        (element) => element?.dappId == state.activeDappId, orElse: () {
+      return state.searchResult?.response?.firstWhere(
+          (element) => element?.dappId == state.activeDappId, orElse: () {
+        return state.selectedCategoryDappList?.response?.firstWhere(
+            (element) => element?.dappId == state.activeDappId, orElse: () {
+          return state.featuredDappList?.response?.firstWhere(
+            (element) => element?.dappId == state.activeDappId,
+          );
+        });
+      });
+    });
+  }
 
   @override
   getCuratedList() async {
