@@ -27,14 +27,14 @@ class DappListRepoImpl implements IDappListRepo {
 
   @override
   Future<DappList> getDappList({GetDappQueryDto? queryParams}) async {
-    final DappListDto dappList = await _localDataSource.getDappList(
+    final DappListDto dappList = await _dataSource.getDappList(
         queryParams: queryParams); // from remote data source
     return dappList.toDomain();
   }
 
   @override
   Future<DappInfo?> getDappInfo({GetDappInfoQueryDto? queryParams}) async {
-    final DappInfoDto? dappInfo = await _localDataSource.getDappInfo(
+    final DappInfoDto? dappInfo = await _dataSource.getDappInfo(
         queryParams: queryParams); // from remote data source
     return dappInfo?.toDomain();
   }

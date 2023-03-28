@@ -13,6 +13,10 @@ import 'package:dappstore/features/dapp_info/presentation/widgets/dapp_title_til
 import 'package:dappstore/features/dapp_info/presentation/widgets/description_box.dart';
 import 'package:dappstore/features/dapp_info/presentation/widgets/image_carousel.dart';
 import 'package:dappstore/features/dapp_info/presentation/widgets/similar_apps.dart';
+import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';
+import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
+import 'package:dappstore/features/dapp_store_home/application/store_cubit/store_cubit.dart';
+import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/in_screen_appbar.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/scaffold_with_background.dart';
 import 'package:dappstore/widgets/cards/default_card.dart';
@@ -50,6 +54,10 @@ class _DappInfoPageState extends State<DappInfoPage> {
         return BlocBuilder<IDappInfoCubit, DappInfoState>(
             bloc: dappInfoHandler.dappInfoCubit,
             builder: (context, dappState) {
+              final storeHandler = DappStoreHandler();
+              storeHandler.getSelectedCategoryDappList(
+                  queryParams: GetDappQueryDto(
+                      categories: [dappState.dappInfo?.category]));
               return ScaffoldWithBackground(
                 backgroundColor: theme.backgroundColor,
                 themeSpec: theme,
@@ -67,7 +75,8 @@ class _DappInfoPageState extends State<DappInfoPage> {
                         12,
                       ),
                       child: ImageCarousel(
-                        imageUrls: dappState.dappInfo!.images!.screenshots!,
+                        imageUrls:
+                            (dappState.dappInfo?.images?.screenshots ?? []),
                         dappInfoHandler: dappInfoHandler,
                       ),
                     ),
@@ -126,12 +135,18 @@ class _DappInfoPageState extends State<DappInfoPage> {
                         ),
                       ),
                     ),
-                    SimilarApps(
-                      theme: theme,
-                      dappList: dappState.dappInfo != null
-                          ? [dappState.dappInfo!]
-                          : [],
-                    )
+                    BlocBuilder<IStoreCubit, StoreState>(
+                        buildWhen: (previous, current) =>
+                            previous.selectedCategoryDappList.hashCode !=
+                            current.selectedCategoryDappList.hashCode,
+                        bloc: storeHandler.getStoreCubit(),
+                        builder: (context, dappState) {
+                          return SimilarApps(
+                            theme: theme,
+                            dappList:
+                                dappState.selectedCategoryDappList?.response,
+                          );
+                        }),
                   ],
                 ),
               );

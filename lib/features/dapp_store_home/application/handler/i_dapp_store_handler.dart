@@ -32,4 +32,6 @@ abstract class IDappStoreHandler {
   getSelectedCategoryDappListNextPage();
 
   resetSelectedCategory();
+
+  setActiveDappId({required String dappId});
 }

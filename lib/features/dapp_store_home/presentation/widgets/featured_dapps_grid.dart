@@ -1,5 +1,6 @@
 import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/router/router.dart';
+import 'package:dappstore/features/dapp_info/presentation/screens/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
@@ -81,7 +82,8 @@ class _FeaturedDappsGridState extends State<FeaturedDappsGrid> {
       clipBehavior: Clip.hardEdge,
       child: InkWell(
         onTap: () {
-          //TODO add onclick redirection to dappinfo page
+          handler.setActiveDappId(dappId: dapp.dappId ?? "");
+          context.pushRoute(const DappInfoPage());
         },
         borderRadius: BorderRadius.circular(handler.theme.imageBorderRadius),
         child: ImageWidgetCached(

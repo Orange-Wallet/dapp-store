@@ -1,6 +1,8 @@
 import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/router/constants/routes.dart';
 import 'package:dappstore/core/router/interface/route.dart';
+import 'package:dappstore/core/router/router.dart';
+import 'package:dappstore/features/dapp_info/presentation/screens/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
@@ -147,10 +149,20 @@ class _CategoryScreenState extends State<CategoryScreen> {
           if (featuredCategoryList[widget.category]?.response?[index] == null) {
             return const SizedBox();
           }
-          return DappListHorizantal(
-            dapp: featuredCategoryList[widget.category]!.response![index]!,
-            handler: storeHandler,
-            tryBig: true,
+          return InkWell(
+            onTap: () {
+              storeHandler.setActiveDappId(
+                  dappId: featuredCategoryList[widget.category]!
+                          .response![index]!
+                          .dappId ??
+                      "");
+              context.pushRoute(const DappInfoPage());
+            },
+            child: DappListHorizantal(
+              dapp: featuredCategoryList[widget.category]!.response![index]!,
+              handler: storeHandler,
+              tryBig: true,
+            ),
           );
         },
       ),
@@ -185,10 +197,16 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: DappListTile(
-            dapp: list[index]!,
-            handler: storeHandler,
-            isThreeLines: true,
+          child: InkWell(
+            onTap: () {
+              storeHandler.setActiveDappId(dappId: list[index]!.dappId ?? "");
+              context.pushRoute(const DappInfoPage());
+            },
+            child: DappListTile(
+              dapp: list[index]!,
+              handler: storeHandler,
+              isThreeLines: true,
+            ),
           ),
         );
       },
