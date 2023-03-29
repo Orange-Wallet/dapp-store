@@ -1,4 +1,4 @@
-package com.example.dappstore
+package com.dappstore.htc
 
 import android.R
 import android.app.Notification
