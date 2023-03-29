@@ -82,4 +82,11 @@ class DappListRepoImpl implements IDappListRepo {
     }
     return null;
   }
+
+  @override
+  String getPwaRedirectionUrl(String dappId, String walletAddress) {
+    final String url =
+        _localDataSource.getPwaRedirectionUrl(dappId, walletAddress);
+    return url;
+  }
 }

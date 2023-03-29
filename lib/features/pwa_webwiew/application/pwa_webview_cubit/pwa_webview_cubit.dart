@@ -38,15 +38,15 @@ class PwaWebviewCubit extends Cubit<PwaWebviewState>
     final enableBack = await _webViewController!.canGoBack();
     final enableForward = await _webViewController!.canGoForward();
     final title = await _webViewController!.getTitle() ?? '';
-    final url = (await _webViewController!.getUrl()).toString();
-    if (url != 'about:blank' && url != state.url) {
-      emit(state.copyWith(url: url));
-      _urlController!
-        ..text = state.url
-        ..selection =
-            TextSelection.fromPosition(TextPosition(offset: state.url.length));
-      if (loadStart) {}
-    }
+    // final url = (await _webViewController!.getUrl()).toString();
+    // if (url != 'about:blank' && url != state.url) {
+    //   emit(state.copyWith(url: url));
+    //   _urlController!
+    //     ..text = state.url
+    //     ..selection =
+    //         TextSelection.fromPosition(TextPosition(offset: state.url.length));
+    //   if (loadStart) {}
+    // }
     emit(state.copyWith(
       enableBack: enableBack,
       enableForward: enableForward,

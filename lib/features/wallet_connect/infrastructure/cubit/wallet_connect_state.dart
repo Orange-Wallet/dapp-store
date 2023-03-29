@@ -10,6 +10,7 @@ class WalletConnectState with _$WalletConnectState {
     required String? activeAddress,
     required String? activeChainId,
     required List<PairingStruct> pairings,
+    required List<int> approvedChains,
   }) = _WalletConnectState;
 
   factory WalletConnectState.initial() => const WalletConnectState(
@@ -20,6 +21,7 @@ class WalletConnectState with _$WalletConnectState {
         activeSession: null,
         activeAddress: null,
         activeChainId: null,
+        approvedChains: [],
       );
 
   factory WalletConnectState.fromJson(Map<String, dynamic> json) =>

@@ -30,7 +30,6 @@ class _PwaWebViewState extends State<PwaWebView> {
   late IInjectedWeb3Cubit injectedWeb3Cubit;
   late IThemeCubit themeCubit;
   late String _dappName;
-  late PwaAppBar appBar;
 
   @override
   void initState() {
@@ -40,12 +39,6 @@ class _PwaWebViewState extends State<PwaWebView> {
     handler.initInjectedWeb3(context);
     themeCubit = handler.themeCubit;
     _dappName = widget.dappName;
-    appBar = PwaAppBar(
-      theme: themeCubit.theme,
-      title: _dappName,
-      backwards: handler.onBackPressed,
-      forward: handler.onForwardPressed,
-    );
     super.initState();
   }
 
@@ -60,14 +53,22 @@ class _PwaWebViewState extends State<PwaWebView> {
             return GestureDetector(
               onTap: handler.unfocus,
               child: Scaffold(
-                appBar: appBar,
+                appBar: PwaAppBar(
+                  theme: themeCubit.theme,
+                  title: _dappName,
+                  backwards: handler.onBackPressed,
+                  forward: handler.onForwardPressed,
+                  progress: webViewState.progress,
+                ),
                 body: Stack(
                   children: [
                     InjectedWebview(
+                      isDebug: true,
                       initialUrlRequest:
                           URLRequest(url: Uri.parse(webViewState.url)),
                       chainId: injectedWeb3State.connectedChainId ?? 1,
-                      rpc: injectedWeb3State.connectedChainRpc ?? "",
+                      rpc: injectedWeb3State.connectedChainRpc ??
+                          "https://rpc.ankr.com/polygon",
                       onWebViewCreated: handler.initWebViewCubit,
                       initialOptions: InAppWebViewGroupOptions(
                         crossPlatform: InAppWebViewOptions(

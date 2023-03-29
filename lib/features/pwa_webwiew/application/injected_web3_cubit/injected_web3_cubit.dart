@@ -1,6 +1,8 @@
 import 'package:dappstore/core/error/i_error_logger.dart';
+import 'package:dappstore/features/pwa_webwiew/infrastructure/models/rpc_mapping.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
 import 'package:dappstore/features/wallet_connect/models/eth/ethereum_transaction.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_injected_web3/flutter_injected_web3.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -13,7 +15,16 @@ part 'injected_web3_state.dart';
 
 typedef ShowError = Function(SigningFailures error);
 
-enum SigningFailures { SENDING_FAILED, SIGNING_FAILED, METHOD_NOT_SUPPORTED }
+enum SigningFailures {
+  // ignore: constant_identifier_names
+  SENDING_FAILED,
+  // ignore: constant_identifier_names
+  SIGNING_FAILED,
+  // ignore: constant_identifier_names
+  METHOD_NOT_SUPPORTED,
+  // ignore: constant_identifier_names
+  CHAIN_NOT_SUPPORTED,
+}
 
 @LazySingleton(as: IInjectedWeb3Cubit)
 class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
@@ -35,9 +46,15 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
 
   @override
   connect(int chainId, String originalUrl) async {
+    final supported = signer.approvedChains!.first;
+    final rpc = RpcMapping.networks[supported];
     emit(
       state.copyWith(
-        connectedChainId: chainId,
+        //connectedChainId: int.parse(signer.getChain()!),
+        //connectedChainId: 137,
+        //connectedChainRpc: "https://rpc.ankr.com/polygon",
+        connectedChainId: supported,
+        connectedChainRpc: rpc,
         connected: true,
         originalUrl: originalUrl,
       ),
@@ -53,24 +70,37 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
 
   @override
   changeChains(int chainId) {
-    emit(
-      state.copyWith(
-        connectedChainId: chainId,
-      ),
-    );
-    return account;
+    final approvedChains = signer.approvedChains;
+    final rpcEndpoint = RpcMapping.networks[chainId];
+    if (approvedChains!.contains(chainId) && rpcEndpoint != null) {
+      debugPrint("chain id $chainId");
+      emit(
+        state.copyWith(
+          connectedChainId: chainId,
+          connectedChainRpc: rpcEndpoint,
+        ),
+      );
+      return rpcEndpoint;
+    } else {
+      errorCallBack!.call(SigningFailures.SENDING_FAILED);
+
+      return "";
+    }
   }
 
   @override
   Future<String> sendTransaction(
       JsTransactionObject jsTransactionObject) async {
     try {
-      final txHash = await signer.getEthSendTransaction(EthereumTransaction(
-        from: jsTransactionObject.from!,
-        to: jsTransactionObject.to!,
-        value: jsTransactionObject.value ?? "0",
-        data: jsTransactionObject.data,
-      ));
+      debugPrint("transaction callback ${jsTransactionObject.toString()}");
+      final txHash = await signer.getEthSendTransaction(
+          EthereumTransaction(
+            from: jsTransactionObject.from!,
+            to: jsTransactionObject.to!,
+            value: jsTransactionObject.value ?? "0",
+            data: jsTransactionObject.data ?? "",
+          ),
+          state.connectedChainId!);
       return txHash;
     } catch (e) {
       errorLogger.logError(e);
@@ -83,12 +113,14 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
   Future<String> signTransaction(
       JsTransactionObject jsTransactionObject) async {
     try {
-      final signedTx = await signer.getEthSignTransaction(EthereumTransaction(
-        from: jsTransactionObject.from!,
-        to: jsTransactionObject.to!,
-        value: jsTransactionObject.value ?? "0",
-        data: jsTransactionObject.data,
-      ));
+      final signedTx = await signer.getEthSignTransaction(
+          EthereumTransaction(
+            from: jsTransactionObject.from!,
+            to: jsTransactionObject.to!,
+            value: jsTransactionObject.value ?? "0",
+            data: jsTransactionObject.data ?? "",
+          ),
+          state.connectedChainId!);
       return signedTx;
     } catch (e) {
       errorLogger.logError(e);

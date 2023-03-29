@@ -11,7 +11,7 @@ abstract class ISigner {
 
   getEthSignTypedData(String data);
 
-  getEthSignTransaction(EthereumTransaction transaction);
+  getEthSignTransaction(EthereumTransaction transaction, int chainId);
 
-  getEthSendTransaction(EthereumTransaction transaction);
+  getEthSendTransaction(EthereumTransaction transaction, int chainId);
 }

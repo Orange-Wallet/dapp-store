@@ -24,7 +24,7 @@ class WCTestWidget extends StatelessWidget {
         ElevatedButton(
             onPressed: () async {
               var cubit = getIt<IWalletConnectCubit>();
-              cubit.getConnectRequest(["eip155:137"]);
+              cubit.getConnectRequest(["eip155:137", "eip155:1"]);
             },
             child: const Text("Connecet")),
         ElevatedButton(
@@ -46,11 +46,13 @@ class WCTestWidget extends StatelessWidget {
         ElevatedButton(
             onPressed: () async {
               var cubit = getIt<IWalletConnectCubit>();
-              var res = await cubit.getEthSendTransaction(EthereumTransaction(
-                  from: cubit.state.activeAddress!,
-                  to: cubit.state.activeAddress!,
-                  data: "",
-                  value: "0x01"));
+              var res = await cubit.getEthSendTransaction(
+                  EthereumTransaction(
+                      from: cubit.state.activeAddress!,
+                      to: cubit.state.activeAddress!,
+                      data: "",
+                      value: "0x01"),
+                  137);
               log(res.toString());
             },
             child: const Text(" Sign TrX")),

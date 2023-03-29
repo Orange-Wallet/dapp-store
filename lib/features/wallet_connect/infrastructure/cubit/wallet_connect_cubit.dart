@@ -1,11 +1,13 @@
 import 'dart:developer';
 
+import 'package:dappstore/core/error/i_error_logger.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
 import 'package:dappstore/features/wallet_connect/models/chain_metadata.dart';
 import 'package:dappstore/features/wallet_connect/models/connected_account.dart';
 import 'package:dappstore/features/wallet_connect/models/eth/ethereum_transaction.dart';
 import 'package:dappstore/features/wallet_connect/utils/eip155.dart';
 import 'package:dappstore/features/wallet_connect/utils/helpers.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -22,7 +24,9 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
     implements IWalletConnectCubit {
   @override
   SignClient? signClient;
-  WalletConnectCubit() : super(WalletConnectState.initial());
+  IErrorLogger errorLogger;
+  WalletConnectCubit({required this.errorLogger})
+      : super(WalletConnectState.initial());
 
   @override
   started() async {
@@ -64,6 +68,9 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
   }
 
   @override
+  List<int>? get approvedChains => state.approvedChains;
+
+  @override
   String? getActiveAdddress() {
     return state.activeAddress;
   }
@@ -82,10 +89,15 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
         activeAddress: WCHelper.getAddressFromAccountStr(
             value.namespaces[ChainType.eip155.name]!.accounts.first),
         connected: true,
+        approvedChains: value.namespaces[ChainType.eip155.name]!.accounts
+            .map((e) =>
+                int.parse(WCHelper.getChainIdFromAccountStr(e).split(":")[1]))
+            .toList(),
       ));
       getSessionAndPairings();
       log("connected");
-    }).catchError((_) {
+    }).catchError((e) {
+      debugPrint("Connection error $e");
       log("failed");
     });
     launchUrlString(res!.uri!);
@@ -147,12 +159,12 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
   }
 
   @override
-  getEthSignTransaction(EthereumTransaction transaction) async {
+  getEthSignTransaction(EthereumTransaction transaction, int chainId) async {
     if (state.activeSession != null) {
       SessionRequestParams params = Eip155Data.getRequestParams(
         topic: state.activeSession!.topic,
         method: Eip155Methods.ETH_SIGN_TRANSACTION,
-        chainId: state.activeChainId!,
+        chainId: chainId.toString(),
         address: state.activeAddress!,
         transaction: transaction,
       );
@@ -165,12 +177,12 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
   }
 
   @override
-  getEthSendTransaction(EthereumTransaction transaction) async {
+  getEthSendTransaction(EthereumTransaction transaction, int chainId) async {
     if (state.activeSession != null) {
       SessionRequestParams params = Eip155Data.getRequestParams(
         topic: state.activeSession!.topic,
         method: Eip155Methods.ETH_SEND_TRANSACTION,
-        chainId: state.activeChainId!,
+        chainId: "eip155:${chainId.toString()}",
         address: state.activeAddress!,
         transaction: transaction,
       );

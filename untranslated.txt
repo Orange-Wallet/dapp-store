@@ -54,6 +54,7 @@
     "connectWithOthers",
     "sendingTxFail",
     "signingFailed",
-    "methodNotSupported"
+    "methodNotSupported",
+    "chainNotSupported"
   ]
 }

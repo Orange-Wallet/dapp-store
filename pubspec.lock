@@ -378,14 +378,16 @@ packages:
       name: flutter_inappwebview
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.7.2+3"
+    version: "5.7.1"
   flutter_injected_web3:
     dependency: "direct main"
     description:
-      name: flutter_injected_web3
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
+      path: "."
+      ref: f7e9605abaa472560f6fda2ec15eb729664af3e3
+      resolved-ref: f7e9605abaa472560f6fda2ec15eb729664af3e3
+      url: "https://github.com/Orange-Wallet/flutter_injected_web3"
+    source: git
+    version: "1.0.0"
   flutter_lints:
     dependency: "direct dev"
     description:

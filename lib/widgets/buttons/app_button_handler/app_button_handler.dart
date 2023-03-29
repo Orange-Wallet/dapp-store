@@ -6,6 +6,7 @@ import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dar
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/package_manager.dart/i_package_manager.dart';
 import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/i_pwa_webview_cubit.dart';
 import 'package:dappstore/features/pwa_webwiew/presentation/screens/pwa_webview_screen.dart';
+import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
 import 'package:dappstore/widgets/buttons/app_button_handler/i_app_button_handler.dart';
 import 'package:dappstore/widgets/snacbar/snacbar_context_extension.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,8 @@ class AppButtonHandler implements IAppButtonHandler {
   @override
   IStoreCubit get storeCubit => getIt<IStoreCubit>();
   @override
+  IWalletConnectCubit get walletConnectCubit => getIt<IWalletConnectCubit>();
+  @override
   startDownload(DappInfo dappInfo, BuildContext context) async {
     final url = await storeCubit.getBuildUrl(dappInfo.dappId!);
     if (url != null) {
@@ -32,10 +35,17 @@ class AppButtonHandler implements IAppButtonHandler {
 
   @override
   openPwaApp(BuildContext context, DappInfo dappInfo) async {
-    pwaWebviewCubit.setUrl(dappInfo.appUrl!);
-    context.pushRoute(PwaWebView(
-      dappName: dappInfo.name!,
-    ));
+    if (walletConnectCubit.signClient?.session.keys.isNotEmpty ?? false) {
+      String url = storeCubit.getPwaRedirectionUrl(
+          dappInfo.dappId!, walletConnectCubit.getActiveAdddress()!);
+      debugPrint(url);
+      pwaWebviewCubit.setUrl(url);
+      context.pushRoute(PwaWebView(
+        dappName: dappInfo.name!,
+      ));
+    } else {
+      //todo: show popup
+    }
   }
 
   @override

@@ -22,6 +22,8 @@ abstract class IWalletConnectCubit extends Cubit<WalletConnectState>
 
   String? getChain();
 
+  List<int>? get approvedChains;
+
   @override
   Future<String> getPersonalSign(
     String data,
@@ -34,10 +36,10 @@ abstract class IWalletConnectCubit extends Cubit<WalletConnectState>
   Future<String> getEthSignTypedData(String data);
 
   @override
-  getEthSignTransaction(EthereumTransaction transaction);
+  getEthSignTransaction(EthereumTransaction transaction, int chainId);
 
   @override
-  getEthSendTransaction(EthereumTransaction transaction);
+  getEthSendTransaction(EthereumTransaction transaction, int chainId);
 
   Future<void> disconnect(String topic);
 

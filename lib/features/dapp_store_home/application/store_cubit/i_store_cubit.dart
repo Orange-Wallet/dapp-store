@@ -45,4 +45,6 @@ abstract class IStoreCubit extends Cubit<StoreState> {
   DappInfo? get getActiveDappInfo;
 
   getBuildUrl(String dappId);
+
+  String getPwaRedirectionUrl(String dappId, String walletAddress);
 }

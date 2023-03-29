@@ -108,7 +108,8 @@ _i1.GetIt $initGetIt(
   gh.lazySingleton<_i26.IStoreCubit>(
       () => _i27.StoreCubit(dappListRepo: gh<_i8.IDappListRepo>()));
   gh.lazySingleton<_i28.IThemeStore>(() => _i29.ThemeStore());
-  gh.lazySingleton<_i30.IWalletConnectCubit>(() => _i31.WalletConnectCubit());
+  gh.lazySingleton<_i30.IWalletConnectCubit>(
+      () => _i31.WalletConnectCubit(errorLogger: gh<_i10.IErrorLogger>()));
   gh.lazySingleton<_i32.WalletConnect>(() => _i32.WalletConnect());
   gh.lazySingleton<_i33.IDownloader>(() => _i34.DownloaderCubit(
         permissionsCubit: gh<_i18.IPermissions>(),

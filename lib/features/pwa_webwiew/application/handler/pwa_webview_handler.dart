@@ -70,6 +70,11 @@ class PwaWebviewHandler implements IPwaWebviewHandler {
             errorString = context.getLocale!.sendingTxFail;
             break;
           }
+        case SigningFailures.CHAIN_NOT_SUPPORTED:
+          {
+            errorString = context.getLocale!.sendingTxFail;
+            break;
+          }
       }
       context.showMsgBar(errorString);
     });
@@ -124,7 +129,8 @@ class PwaWebviewHandler implements IPwaWebviewHandler {
   @override
   Future<String> signTransaction(InAppWebViewController controller,
       JsTransactionObject data, chainId) async {
-    return injectedWeb3Cubit.signTransaction(data);
+    debugPrint("tx callback ${data.toString()}");
+    return injectedWeb3Cubit.sendTransaction(data);
   }
 
   @override
@@ -142,7 +148,8 @@ class PwaWebviewHandler implements IPwaWebviewHandler {
   @override
   Future<String> addEthereumChain(InAppWebViewController controller,
       JsAddEthereumChain data, chainId) async {
-    return "";
+    return injectedWeb3Cubit
+        .changeChains(int.tryParse(data.chainId ?? "1") ?? 1);
   }
 
   @override

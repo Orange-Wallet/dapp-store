@@ -85,4 +85,9 @@ class RemoteDataSource implements IDataSource {
 
     return BuildUrlDto.fromJson(res.data);
   }
+
+  @override
+  String getPwaRedirectionUrl(String dappId, String walletAddress) {
+    return "${Config.registryApiBaseUrl}/o/view/$dappId?userAddress=$walletAddress";
+  }
 }

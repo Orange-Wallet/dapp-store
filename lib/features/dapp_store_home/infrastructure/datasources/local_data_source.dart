@@ -51,9 +51,9 @@ class LocalDataSource implements IDataSource {
           "availableOnPlatform": ["web"],
           "category": "games",
           "chains": [1],
-          "dappId": "com.axieinfinity.dapp",
+          "dappId": "com.aave.app.dapp",
           "metrics": {
-            "dappId": "com.axieinfinity.dapp",
+            "dappId": "com.aave.app.dapp",
             "downloads": 0,
             "installs": 0,
             "uninstalls": 0,
@@ -95,9 +95,9 @@ class LocalDataSource implements IDataSource {
       "availableOnPlatform": ["web"],
       "category": "games",
       "chains": [1],
-      "dappId": "com.axieinfinity.dap",
+      "dappId": "com.aave.app.dapp",
       "metrics": {
-        "dappId": "com.axieinfinity.dap",
+        "dappId": "com.aave.app.dapp",
         "downloads": 0,
         "installs": 0,
         "uninstalls": 0,
@@ -191,5 +191,10 @@ class LocalDataSource implements IDataSource {
           "https://github.com/bartekpacia/spitfire/releases/download/v1.2.0/spitfire.apk",
       "success": true
     });
+  }
+
+  @override
+  String getPwaRedirectionUrl(String dappId, String walletAddress) {
+    return "${Config.registryApiBaseUrl}/o/view/$dappId?userAddress=$walletAddress";
   }
 }

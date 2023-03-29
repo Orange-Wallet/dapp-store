@@ -65,5 +65,6 @@
   "connectWithOthers": "Connect with other wallet",
   "sendingTxFail": "Sending transaction failed.",
   "signingFailed": "Signing Failed.",
-  "methodNotSupported": "Method not supported."
+  "methodNotSupported": "Method not supported.",
+  "chainNotSupported": "Chain not supported."
 }

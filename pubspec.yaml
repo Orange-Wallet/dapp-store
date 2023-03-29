@@ -20,8 +20,11 @@ dependencies:
   dio: ^5.0.3
   flutter_bloc: ^8.1.2
   freezed_annotation: ^2.2.0
-  flutter_injected_web3: ^1.0.1
-  flutter_inappwebview: ^5.7.2+3
+  flutter_injected_web3:
+    git:
+      url: https://github.com/Orange-Wallet/flutter_injected_web3
+      ref: f7e9605abaa472560f6fda2ec15eb729664af3e3
+  flutter_inappwebview: ^5.7.1
   injectable: ^2.1.0
   dio_cache_interceptor: ^3.4.0
   get_it: ^7.2.0

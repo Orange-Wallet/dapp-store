@@ -210,4 +210,10 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
     String? build = await dappListRepo.getBuildUrl(dappId);
     return build;
   }
+
+  @override
+  String getPwaRedirectionUrl(String dappId, String walletAddress) {
+    String? url = dappListRepo.getPwaRedirectionUrl(dappId, walletAddress);
+    return url;
+  }
 }
