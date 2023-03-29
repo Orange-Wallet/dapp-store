@@ -51,9 +51,9 @@ class LocalDataSource implements IDataSource {
           "availableOnPlatform": ["web"],
           "category": "games",
           "chains": [1],
-          "dappId": "com.aave.app.dapp",
+          "dappId": "io.opensea.dapp",
           "metrics": {
-            "dappId": "com.aave.app.dapp",
+            "dappId": "io.opensea.dapp",
             "downloads": 0,
             "installs": 0,
             "uninstalls": 0,
@@ -95,9 +95,9 @@ class LocalDataSource implements IDataSource {
       "availableOnPlatform": ["web"],
       "category": "games",
       "chains": [1],
-      "dappId": "com.aave.app.dapp",
+      "dappId": "io.opensea.dapp",
       "metrics": {
-        "dappId": "com.aave.app.dapp",
+        "dappId": "io.opensea.dapp",
         "downloads": 0,
         "installs": 0,
         "uninstalls": 0,

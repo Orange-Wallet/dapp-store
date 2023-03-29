@@ -40,4 +40,11 @@ class ThemeStore implements IThemeStore {
 
     return themeStorage?.shouldFollowSystem ?? false;
   }
+
+  @override
+  clearBox() async {
+    Box<ThemeStorage> box =
+        await Hive.openBox<ThemeStorage>(themeStoageBoxName);
+    return box.deleteFromDisk();
+  }
 }

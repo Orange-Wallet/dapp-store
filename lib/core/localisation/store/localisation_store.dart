@@ -43,4 +43,11 @@ class LocalisationStore implements ILocalisationStore {
 
     return localeStorage?.shouldFollowSystem ?? false;
   }
+
+  @override
+  clearBox() async {
+    Box<LocalisationStorage> box =
+        await Hive.openBox<LocalisationStorage>(localisationStorageBox);
+    return box.deleteFromDisk();
+  }
 }

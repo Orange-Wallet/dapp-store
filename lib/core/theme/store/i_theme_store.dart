@@ -3,4 +3,5 @@ abstract class IThemeStore {
   setShouldFollowSystem(bool shouldFollowSystem);
   Future<bool> isDarkThemeEnabled();
   Future<bool> isShouldFollowSystem();
+  Future<void> clearBox();
 }
