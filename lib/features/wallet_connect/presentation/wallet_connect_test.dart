@@ -29,7 +29,7 @@ class WCTestWidget extends StatelessWidget {
         ElevatedButton(
             onPressed: () async {
               var cubit = getIt<IWalletConnectCubit>();
-              var res = await cubit.getPersonalSign("Testing ");
+              var res = await cubit.getPersonalSign("Testing");
               log((res.runtimeType.toString()));
               var add = EthSigUtil.ecRecover(
                   message: Uint8List.fromList("Testing ".codeUnits),

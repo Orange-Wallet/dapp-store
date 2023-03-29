@@ -48,7 +48,7 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
             'https://1000logos.net/wp-content/uploads/2021/05/HTC-logo.png'
           ],
         ),
-        database: 'memory',
+        database: ':memory:',
         logger: Logger(level: Level.error),
       );
       log(signClient?.name ?? "error");
@@ -97,10 +97,13 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
             .toList(),
       ));
       getSessionAndPairings();
+      // await getEthSign("Testing");
       log("connected");
+      return true;
     }).catchError((e) {
       debugPrint("Connection error $e");
       log("failed");
+      return false;
     });
     return await launchUrlString(res!.uri!);
   }

@@ -11,6 +11,7 @@ import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/screen/homepage.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/wallet_connect_cubit.dart';
+import 'package:dappstore/features/wallet_connect/models/eth/ethereum_transaction.dart';
 import 'package:dappstore/features/wallet_connect/presentation/widget/terms_and_condition.dart';
 import 'package:dappstore/utils/constants.dart';
 import 'package:dappstore/utils/image_constants.dart';
@@ -59,19 +60,7 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
         listenWhen: (previous, current) =>
             previous.connected != current.connected,
         listener: (context, state) async {
-          if (state.connected) {
-            try {
-              context.showMsgBar(
-                  "Go back to the wallet and sign the message to continue login");
-              String? res = await cubit.getPersonalSign(
-                  "I allow my wallet to connect to dapp store");
-              if (res != null) {
-                context.replaceRoute(const HomePage());
-              }
-            } catch (e, trace) {
-              log("$e : ${trace}");
-            }
-          }
+          if (state.connected) {}
         },
         builder: (context, state) {
           return Scaffold(
@@ -98,30 +87,55 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                           style: theme.headingTextStyle,
                         ),
                       ),
-                      Container(
-                        width: double.maxFinite,
-                        padding: const EdgeInsets.symmetric(horizontal: 33),
-                        child: TextButton(
-                          onPressed: () {
-                            cubit.getConnectRequest([
-                              "eip155:137",
-                              "eip155:1"
-                            ]).then(
-                                (value) => !value ? context.popRoute() : null);
-                          },
-                          style: TextButton.styleFrom(
-                            backgroundColor: theme.whiteColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.circular(theme.cardRadius),
+                      if (state.connected != true)
+                        Container(
+                          width: double.maxFinite,
+                          padding: const EdgeInsets.symmetric(horizontal: 33),
+                          child: TextButton(
+                            onPressed: () {
+                              cubit.getConnectRequest([
+                                "eip155:137",
+
+                                /// "eip155:1"
+                              ]).then((value) =>
+                                  !value ? context.popRoute() : null);
+                            },
+                            style: TextButton.styleFrom(
+                              backgroundColor: theme.whiteColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.circular(theme.cardRadius),
+                              ),
+                            ),
+                            child: Text(
+                              context.getLocale!.useWalletConnect,
+                              style: theme.whiteButtonTextStyle,
                             ),
                           ),
-                          child: Text(
-                            context.getLocale!.useWalletConnect,
-                            style: theme.whiteButtonTextStyle,
+                        ),
+                      if (state.connected == true)
+                        Container(
+                          width: double.maxFinite,
+                          padding: const EdgeInsets.symmetric(horizontal: 33),
+                          child: TextButton(
+                            onPressed: () {
+                              cubit.getEthSign("Testing").then((value) {
+                                context.replaceRoute(const HomePage());
+                              });
+                            },
+                            style: TextButton.styleFrom(
+                              backgroundColor: theme.whiteColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.circular(theme.cardRadius),
+                              ),
+                            ),
+                            child: Text(
+                              "Sign message",
+                              style: theme.whiteButtonTextStyle,
+                            ),
                           ),
                         ),
-                      ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 26, horizontal: 12),
@@ -165,14 +179,27 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                     style: theme.headingTextStyle,
                   ),
                 ),
-                if (viveInstalled)
-                  buildViveButton(onPressed: () {}, isVive: true),
-                buildViveButton(
-                    onPressed: () {
-                      cubit.getConnectRequest(["eip155:137", "eip155:1"]).then(
-                          (value) => context.popRoute());
-                    },
-                    isVive: false),
+                // if (viveInstalled)
+                //   buildViveButton(onPressed: () {}, isVive: true),
+                // if(w)
+                // buildViveButton(
+                //     onPressed: () async {
+                //       final status =
+                //           await cubit.getConnectRequest(["eip155:137"]);
+                //       if (status) {
+                //         try {
+                //           context.showMsgBar(
+                //               "Go back to the wallet and sign the message to continue login");
+                //           String? res = await cubit.getEthSign("Testing");
+                //           if (res != null) {
+                //             context.replaceRoute(const HomePage());
+                //           }
+                //         } catch (e, trace) {
+                //           log("$e : ${trace}");
+                //         }
+                //       }
+                //     },
+                //     isVive: false),
                 const SizedBox(
                   height: 20,
                 )
