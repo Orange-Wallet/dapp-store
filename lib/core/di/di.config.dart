@@ -26,10 +26,10 @@ import 'package:dappstore/core/platform_channel/i_platform_channel_cubit.dart'
 import 'package:dappstore/core/platform_channel/platform_channel_cubit.dart'
     as _i21;
 import 'package:dappstore/core/router/custom_route_observer.dart' as _i3;
-import 'package:dappstore/core/theme/i_theme_cubit.dart' as _i45;
+import 'package:dappstore/core/theme/i_theme_cubit.dart' as _i47;
 import 'package:dappstore/core/theme/store/i_theme_store.dart' as _i30;
 import 'package:dappstore/core/theme/store/theme_store.dart' as _i31;
-import 'package:dappstore/core/theme/theme_cubit.dart' as _i46;
+import 'package:dappstore/core/theme/theme_cubit.dart' as _i48;
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart'
     as _i28;
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/store_cubit.dart'
@@ -66,6 +66,10 @@ import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/i_p
     as _i22;
 import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/pwa_webview_cubit.dart'
     as _i23;
+import 'package:dappstore/features/saved_pwa/application/i_saved_pwa_cubit.dart'
+    as _i45;
+import 'package:dappstore/features/saved_pwa/application/saved_pwa_cubit.dart'
+    as _i46;
 import 'package:dappstore/features/saved_pwa/infrastructure/store/i_saved_pwa_store.dart'
     as _i26;
 import 'package:dappstore/features/saved_pwa/infrastructure/store/saved_pwa_store.dart'
@@ -109,7 +113,8 @@ _i1.GetIt $initGetIt(
       () => _i21.PlatformChannelCubit());
   gh.lazySingleton<_i22.IPwaWebviewCubit>(() => _i23.PwaWebviewCubit());
   gh.lazySingleton<_i24.IPwaWebviewHandler>(() => _i25.PwaWebviewHandler());
-  gh.lazySingleton<_i26.ISavedPwaStore>(() => _i27.SavedPwaStore());
+  gh.lazySingleton<_i26.ISavedPwaStore>(
+      () => _i27.SavedPwaStore(errorLogger: gh<_i10.IErrorLogger>()));
   gh.lazySingleton<_i28.IStoreCubit>(
       () => _i29.StoreCubit(dappListRepo: gh<_i8.IDappListRepo>()));
   gh.lazySingleton<_i30.IThemeStore>(() => _i31.ThemeStore());
@@ -134,7 +139,9 @@ _i1.GetIt $initGetIt(
         gh<_i37.IForegroundService>(),
         gh<_i12.IInstalledAppsCubit>(),
       ));
-  gh.lazySingleton<_i45.IThemeCubit>(
-      () => _i46.ThemeCubit(themeStore: gh<_i30.IThemeStore>()));
+  gh.lazySingleton<_i45.ISavedPwaCubit>(
+      () => _i46.SavedPwaCubit(savedPwaStore: gh<_i26.ISavedPwaStore>()));
+  gh.lazySingleton<_i47.IThemeCubit>(
+      () => _i48.ThemeCubit(themeStore: gh<_i30.IThemeStore>()));
   return getIt;
 }

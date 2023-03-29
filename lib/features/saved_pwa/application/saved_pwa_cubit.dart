@@ -9,7 +9,7 @@ part '../../../generated/features/saved_pwa/application/saved_pwa_cubit.freezed.
 
 part 'saved_pwa_state.dart';
 
-@LazySingleton(as: ISavedPwaStore)
+@LazySingleton(as: ISavedPwaCubit)
 class SavedPwaCubit extends Cubit<SavedPwaState> implements ISavedPwaCubit {
   @override
   final ISavedPwaStore savedPwaStore;
@@ -17,9 +17,13 @@ class SavedPwaCubit extends Cubit<SavedPwaState> implements ISavedPwaCubit {
 
   @override
   initialise() async {
-    final savedPwas =
-        (await savedPwaStore.getSavedDapps()) as Map<String, SavedPwaModel>;
-    emit(state.copyWith(savedDapps: savedPwas));
+    final data = await savedPwaStore.getSavedDapps();
+    if (data != null) {
+      final savedPwas = Map<String, SavedPwaModel>.from(data);
+      emit(state.copyWith(savedDapps: savedPwas));
+    } else {
+      emit(state.copyWith(savedDapps: {}));
+    }
   }
 
   @override
