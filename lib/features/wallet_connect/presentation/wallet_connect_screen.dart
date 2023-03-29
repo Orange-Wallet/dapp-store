@@ -97,8 +97,7 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                                 "eip155:137",
 
                                 /// "eip155:1"
-                              ]).then((value) =>
-                                  !value ? context.popRoute() : null);
+                              ]);
                             },
                             style: TextButton.styleFrom(
                               backgroundColor: theme.whiteColor,
@@ -122,7 +121,7 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                               context
                                   .showMsgBar("Open wallet and sign message");
                               cubit.getEthSign("Testing").then((value) {
-                                context.replaceRoute(const HomePage());
+                                context.pushRoute(const HomePage());
                               });
                             },
                             style: TextButton.styleFrom(
