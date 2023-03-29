@@ -1,5 +1,6 @@
 import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/router/router.dart';
+import 'package:dappstore/features/dapp_info/presentation/screens/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
@@ -151,9 +152,16 @@ class _TopCategoriesListState extends State<TopCategoriesList> {
           if (list?.response?[index] == null) {
             return const SizedBox();
           }
-          return DappListHorizantal(
-            dapp: list!.response![index]!,
-            handler: handler,
+          return InkWell(
+            onTap: () {
+              handler.setActiveDappId(
+                  dappId: list.response![index]!.dappId ?? "");
+              context.pushRoute(const DappInfoPage());
+            },
+            child: DappListHorizantal(
+              dapp: list!.response![index]!,
+              handler: handler,
+            ),
           );
         },
       ),
@@ -174,10 +182,17 @@ class _TopCategoriesListState extends State<TopCategoriesList> {
         if (list?.response?[index] == null) {
           return const SizedBox();
         }
-        return DappListTile(
-          dapp: list!.response![index]!,
-          handler: handler,
-          isThreeLines: widget.isInExploreCategory,
+        return InkWell(
+          onTap: () {
+            handler.setActiveDappId(
+                dappId: list.response![index]!.dappId ?? "");
+            context.pushRoute(const DappInfoPage());
+          },
+          child: DappListTile(
+            dapp: list!.response![index]!,
+            handler: handler,
+            isThreeLines: widget.isInExploreCategory,
+          ),
         );
       },
     );

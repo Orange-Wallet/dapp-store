@@ -1,3 +1,5 @@
+import 'package:dappstore/core/router/router.dart';
+import 'package:dappstore/features/dapp_info/presentation/screens/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/store_cubit.dart';
@@ -88,18 +90,32 @@ class _SearchResultState extends State<SearchResult> {
                   return Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 20),
-                    child: BigDappCard(
-                      dapp: list[index]!,
-                      handler: widget.handler,
+                    child: InkWell(
+                      onTap: () {
+                        widget.handler
+                            .setActiveDappId(dappId: list[index]!.dappId ?? "");
+                        context.pushRoute(const DappInfoPage());
+                      },
+                      child: BigDappCard(
+                        dapp: list[index]!,
+                        handler: widget.handler,
+                      ),
                     ),
                   );
                 }
 
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: DappListTile(
-                    dapp: list[index]!,
-                    handler: widget.handler,
+                  child: InkWell(
+                    onTap: () {
+                      widget.handler
+                          .setActiveDappId(dappId: list[index]!.dappId ?? "");
+                      context.pushRoute(const DappInfoPage());
+                    },
+                    child: DappListTile(
+                      dapp: list[index]!,
+                      handler: widget.handler,
+                    ),
                   ),
                 );
               },

@@ -79,4 +79,9 @@ class DappStoreHandler implements IDappStoreHandler {
   resetSelectedCategory() {
     getStoreCubit().resetSelectedCategory();
   }
+
+  @override
+  setActiveDappId({required String dappId}) {
+    getStoreCubit().setActiveDappId(dappId: dappId);
+  }
 }

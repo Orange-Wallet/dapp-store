@@ -3,8 +3,10 @@ import 'package:dappstore/core/installed_apps/i_installed_apps_cubit.dart';
 import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/router/constants/routes.dart';
 import 'package:dappstore/core/router/interface/route.dart';
+import 'package:dappstore/core/router/router.dart';
 import 'package:dappstore/core/theme/i_theme_cubit.dart';
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
+import 'package:dappstore/features/dapp_store_home/presentation/screen/homepage.dart';
 import 'package:dappstore/features/wallet_connect/presentation/widget/terms_and_condition.dart';
 import 'package:dappstore/utils/constants.dart';
 import 'package:dappstore/utils/image_constants.dart';
@@ -131,7 +133,12 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                 ),
                 if (viveInstalled)
                   buildViveButton(onPressed: () {}, isVive: true),
-                buildViveButton(onPressed: () {}, isVive: false),
+                buildViveButton(
+                    onPressed: () {
+                      context.popRoute();
+                      context.replaceRoute(const HomePage());
+                    },
+                    isVive: false),
                 const SizedBox(
                   height: 20,
                 )

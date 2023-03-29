@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 class SimilarApps extends StatelessWidget {
   final IThemeSpec theme;
-  final List<DappInfo> dappList;
+  final List<DappInfo?>? dappList;
   const SimilarApps({super.key, required this.theme, required this.dappList});
   final divider = const Padding(
     padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10),
@@ -17,19 +17,27 @@ class SimilarApps extends StatelessWidget {
   );
   @override
   Widget build(BuildContext context) {
-    final widgets = dappList.map((e) => Column(
-          children: [
-            SizedBox(
-              width: double.infinity,
-              child: DappTitleTile(
-                theme: theme,
-                dappInfo: e,
-                primaryTile: false,
-              ),
+    final widgets = dappList?.map((e) {
+      if (e == null) {
+        return const SizedBox();
+      }
+      return Column(
+        children: [
+          SizedBox(
+            width: double.infinity,
+            child: DappTitleTile(
+              theme: theme,
+              dappInfo: e,
+              primaryTile: false,
             ),
-            divider,
-          ],
-        ));
+          ),
+          divider,
+        ],
+      );
+    });
+    if (dappList == null || widgets == null) {
+      return const SizedBox();
+    }
     return DefaultCard(
         theme: theme,
         child: Column(
