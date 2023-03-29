@@ -119,6 +119,8 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                           padding: const EdgeInsets.symmetric(horizontal: 33),
                           child: TextButton(
                             onPressed: () {
+                              context
+                                  .showMsgBar("Open wallet and sign message");
                               cubit.getEthSign("Testing").then((value) {
                                 context.replaceRoute(const HomePage());
                               });
