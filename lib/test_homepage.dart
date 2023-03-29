@@ -68,13 +68,7 @@ class _TestHomePageState extends State<TestHomePage> {
                   onPressed: () async {
                     await getIt<IStoreCubit>().getDappList();
                     await getIt<IStoreCubit>().setActiveDappId(
-                      dappId: getIt<IStoreCubit>()
-                              .state
-                              .dappList
-                              ?.response
-                              ?.first
-                              ?.dappId ??
-                          "",
+                      dappId: "io.opensea.dapp",
                     );
                     context.pushRoute(DappInfoPage());
                   },
@@ -93,8 +87,8 @@ class _TestHomePageState extends State<TestHomePage> {
                   child: const Text("getDappInfo"),
                   onPressed: () {
                     storeHandler.getDappInfo(
-                        queryParams: GetDappInfoQueryDto(
-                            dappId: "com.crypteriors.dapp"));
+                        queryParams:
+                            GetDappInfoQueryDto(dappId: "io.opensea.dapp"));
                   },
                 ),
               ),
