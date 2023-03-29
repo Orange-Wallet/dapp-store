@@ -43,10 +43,12 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
         metadata: const AppMetadata(
           name: 'DappStore_test',
           description: 'Dapp Store by HTC',
-          url: 'https://orangewallet.app/',
-          icons: ['https://avatars.githubusercontent.com/u/82613752'],
+          url: 'https://htc.com/',
+          icons: [
+            'https://1000logos.net/wp-content/uploads/2021/05/HTC-logo.png'
+          ],
         ),
-        database: ':memory:',
+        database: 'memory',
         logger: Logger(level: Level.error),
       );
       log(signClient?.name ?? "error");
@@ -76,7 +78,7 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
   }
 
   @override
-  getConnectRequest(List<String> chainIds) async {
+  Future<bool> getConnectRequest(List<String> chainIds) async {
     EngineConnection? res =
         await signClient?.connect(Eip155Data.getSessionConnectParams(chainIds));
     res?.approval?.then((value) {
@@ -100,7 +102,7 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
       debugPrint("Connection error $e");
       log("failed");
     });
-    launchUrlString(res!.uri!);
+    return await launchUrlString(res!.uri!);
   }
 
   @override

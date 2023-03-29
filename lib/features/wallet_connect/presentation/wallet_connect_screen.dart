@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/core/installed_apps/i_installed_apps_cubit.dart';
 import 'package:dappstore/core/localisation/localisation_extension.dart';
@@ -7,10 +9,14 @@ import 'package:dappstore/core/router/router.dart';
 import 'package:dappstore/core/theme/i_theme_cubit.dart';
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/screen/homepage.dart';
+import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
+import 'package:dappstore/features/wallet_connect/infrastructure/cubit/wallet_connect_cubit.dart';
 import 'package:dappstore/features/wallet_connect/presentation/widget/terms_and_condition.dart';
 import 'package:dappstore/utils/constants.dart';
 import 'package:dappstore/utils/image_constants.dart';
+import 'package:dappstore/widgets/snacbar/snacbar_context_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WalletConnectScreen extends StatefulScreen {
   const WalletConnectScreen({super.key});
@@ -25,10 +31,12 @@ class WalletConnectScreen extends StatefulScreen {
 class _WalletConnectScreenState extends State<WalletConnectScreen> {
   late final IThemeSpec theme;
   late final bool viveInstalled;
+  late final IWalletConnectCubit cubit;
   @override
   void initState() {
     super.initState();
     theme = getIt<IThemeCubit>().theme;
+    cubit = getIt<IWalletConnectCubit>();
   }
 
   @override
@@ -46,66 +54,92 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: theme.backgroundColor,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image.asset(ImageConstants.htcLogo),
-              ),
-            ),
-          ),
-          Expanded(
-            child: Column(
+    return BlocConsumer<IWalletConnectCubit, WalletConnectState>(
+        bloc: cubit,
+        listenWhen: (previous, current) =>
+            previous.connected != current.connected,
+        listener: (context, state) async {
+          if (state.connected) {
+            try {
+              context.showMsgBar(
+                  "Go back to the wallet and sign the message to continue login");
+              String? res = await cubit.getPersonalSign(
+                  "I allow my wallet to connect to dapp store");
+              if (res != null) {
+                context.replaceRoute(const HomePage());
+              }
+            } catch (e, trace) {
+              log("$e : ${trace}");
+            }
+          }
+        },
+        builder: (context, state) {
+          return Scaffold(
+            backgroundColor: theme.backgroundColor,
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 30, horizontal: 12),
-                  child: Text(
-                    context.getLocale!.signUpTo,
-                    style: theme.headingTextStyle,
+                Expanded(
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image.asset(ImageConstants.htcLogo),
+                    ),
                   ),
                 ),
-                Container(
-                  width: double.maxFinite,
-                  padding: const EdgeInsets.symmetric(horizontal: 33),
-                  child: TextButton(
-                    onPressed: () {
-                      showBottom();
-                    },
-                    style: TextButton.styleFrom(
-                      backgroundColor: theme.whiteColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(theme.cardRadius),
+                Expanded(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 30, horizontal: 12),
+                        child: Text(
+                          context.getLocale!.signUpTo,
+                          style: theme.headingTextStyle,
+                        ),
                       ),
-                    ),
-                    child: Text(
-                      context.getLocale!.useWalletConnect,
-                      style: theme.whiteButtonTextStyle,
-                    ),
+                      Container(
+                        width: double.maxFinite,
+                        padding: const EdgeInsets.symmetric(horizontal: 33),
+                        child: TextButton(
+                          onPressed: () {
+                            cubit.getConnectRequest([
+                              "eip155:137",
+                              "eip155:1"
+                            ]).then(
+                                (value) => !value ? context.popRoute() : null);
+                          },
+                          style: TextButton.styleFrom(
+                            backgroundColor: theme.whiteColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(theme.cardRadius),
+                            ),
+                          ),
+                          child: Text(
+                            context.getLocale!.useWalletConnect,
+                            style: theme.whiteButtonTextStyle,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 26, horizontal: 12),
+                        child: Text(
+                          context.getLocale!.dontHaveAWallet,
+                          style: theme.normalTextStyle2,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 26, horizontal: 12),
-                  child: Text(
-                    context.getLocale!.dontHaveAWallet,
-                    style: theme.normalTextStyle2,
-                  ),
-                ),
+                TermsAndConditions(
+                  theme: theme,
+                )
               ],
             ),
-          ),
-          TermsAndConditions(
-            theme: theme,
-          )
-        ],
-      ),
-    );
+          );
+        });
   }
 
   showBottom() {
@@ -135,8 +169,8 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                   buildViveButton(onPressed: () {}, isVive: true),
                 buildViveButton(
                     onPressed: () {
-                      context.popRoute();
-                      context.replaceRoute(const HomePage());
+                      cubit.getConnectRequest(["eip155:137", "eip155:1"]).then(
+                          (value) => context.popRoute());
                     },
                     isVive: false),
                 const SizedBox(

@@ -16,7 +16,7 @@ abstract class IWalletConnectCubit extends Cubit<WalletConnectState>
 
   getSessionAndPairings();
 
-  getConnectRequest(List<String> chainIds);
+  Future<bool> getConnectRequest(List<String> chainIds);
 
   String? getActiveAdddress();
 

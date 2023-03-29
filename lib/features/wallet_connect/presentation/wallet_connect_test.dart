@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
-import 'package:dappstore/features/wallet_connect/infrastructure/cubit/wallet_connect_cubit.dart';
 import 'package:dappstore/features/wallet_connect/models/eth/ethereum_transaction.dart';
 import 'package:eth_sig_util/eth_sig_util.dart';
 import 'package:flutter/foundation.dart';
@@ -26,10 +25,10 @@ class WCTestWidget extends StatelessWidget {
               var cubit = getIt<IWalletConnectCubit>();
               cubit.getConnectRequest(["eip155:137", "eip155:1"]);
             },
-            child: const Text("Connecet")),
+            child: const Text("Connect")),
         ElevatedButton(
             onPressed: () async {
-              var cubit = getIt<WalletConnectCubit>();
+              var cubit = getIt<IWalletConnectCubit>();
               var res = await cubit.getPersonalSign("Testing ");
               log((res.runtimeType.toString()));
               var add = EthSigUtil.ecRecover(

@@ -9,7 +9,6 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 part '../../../generated/features/dapp_info/application/dapp_info_cubit.freezed.dart';
 part '../../../generated/features/dapp_info/application/dapp_info_cubit.g.dart';
-
 part 'dapp_info_state.dart';
 
 class DappInfoCubit extends Cubit<DappInfoState> implements IDappInfoCubit {
