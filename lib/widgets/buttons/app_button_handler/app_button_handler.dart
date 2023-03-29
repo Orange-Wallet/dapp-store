@@ -6,6 +6,7 @@ import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dar
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/package_manager.dart/i_package_manager.dart';
 import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/i_pwa_webview_cubit.dart';
 import 'package:dappstore/features/pwa_webwiew/presentation/screens/pwa_webview_screen.dart';
+import 'package:dappstore/features/saved_pwa/application/i_saved_pwa_cubit.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
 import 'package:dappstore/widgets/buttons/app_button_handler/i_app_button_handler.dart';
 import 'package:dappstore/widgets/snacbar/snacbar_context_extension.dart';
@@ -22,6 +23,8 @@ class AppButtonHandler implements IAppButtonHandler {
   IStoreCubit get storeCubit => getIt<IStoreCubit>();
   @override
   IWalletConnectCubit get walletConnectCubit => getIt<IWalletConnectCubit>();
+  @override
+  ISavedPwaCubit get savedPwaCubit => getIt<ISavedPwaCubit>();
   @override
   startDownload(DappInfo dappInfo, BuildContext context) async {
     final url = await storeCubit.getBuildUrl(dappInfo.dappId!);
@@ -51,6 +54,21 @@ class AppButtonHandler implements IAppButtonHandler {
   @override
   openApp(DappInfo dappInfo) async {
     await packageManager.openApp(dappInfo);
+  }
+
+  @override
+  saveDapp(DappInfo dappInfo) async {
+    await savedPwaCubit.savePwa(dappInfo);
+  }
+
+  @override
+  isDappSaved(DappInfo dappInfo) {
+    savedPwaCubit.isPwaSaved(dappInfo.dappId!);
+  }
+
+  @override
+  unsaveDapp(DappInfo dappInfo) async {
+    await savedPwaCubit.removePwa(dappInfo.dappId!);
   }
 
   @override

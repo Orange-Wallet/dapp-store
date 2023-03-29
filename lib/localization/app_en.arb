@@ -66,5 +66,6 @@
   "sendingTxFail": "Sending transaction failed.",
   "signingFailed": "Signing Failed.",
   "methodNotSupported": "Method not supported.",
-  "chainNotSupported": "Chain not supported."
+  "chainNotSupported": "Chain not supported.",
+  "remove": "Remove"
 }

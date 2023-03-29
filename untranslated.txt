@@ -55,6 +55,7 @@
     "sendingTxFail",
     "signingFailed",
     "methodNotSupported",
-    "chainNotSupported"
+    "chainNotSupported",
+    "remove"
   ]
 }

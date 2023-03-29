@@ -14,6 +14,8 @@ abstract class ISavedPwaCubit extends Cubit<SavedPwaState> {
 
   Map<String, SavedPwaModel> get savedPwas;
 
+  bool isPwaSaved(String dappId);
+
   savePwa(DappInfo dappInfo);
 
   removePwa(String dappId);

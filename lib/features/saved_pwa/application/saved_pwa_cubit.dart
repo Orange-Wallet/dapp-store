@@ -28,6 +28,10 @@ class SavedPwaCubit extends Cubit<SavedPwaState> implements ISavedPwaCubit {
 
   @override
   Map<String, SavedPwaModel> get savedPwas => state.savedDapps;
+
+  @override
+  bool isPwaSaved(String dappId) => savedPwas.containsKey(dappId);
+
   @override
   savePwa(DappInfo dappInfo) async {
     final pwas = savedPwas;

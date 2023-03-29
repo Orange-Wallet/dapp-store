@@ -1,3 +1,5 @@
+import 'package:dappstore/features/saved_pwa/application/i_saved_pwa_cubit.dart';
+import 'package:dappstore/features/saved_pwa/application/saved_pwa_cubit.dart';
 import 'package:dappstore/widgets/buttons/app_button_handler/i_app_button_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,152 +40,176 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<IPackageManager, PackageManagerState>(
-      bloc: packageManager,
-      buildWhen: (previous, current) {
-        return (previous.packageMapping![dappInfo.androidPackage!] !=
-                current.packageMapping![dappInfo.androidPackage!] ||
-            previous.packageMapping![dappInfo.androidPackage!]?.status !=
-                current.packageMapping![dappInfo.androidPackage!]?.status);
-      },
-      builder: (context, state) {
-        final packageInfo =
-            state.packageMapping![dappInfo.androidPackage ?? dappInfo.dappId];
-        if (packageInfo == null &&
-            (dappInfo.availableOnPlatform?.contains("android") ?? false) &&
-            (dappInfo.androidPackage != null)) {
-          return CustomElevatedButton(
-            onTap: () {
-              appButtonHandler.startDownload(dappInfo, context);
-            },
-            color: theme.appGreen,
-            radius: radius,
-            width: width,
-            height: height,
-            child: Text(
-              context.getLocale!.download,
-              style: theme.whiteBoldTextStyle,
-            ),
-          );
-        } else if (!(dappInfo.availableOnPlatform?.contains("android") ??
-            false)) {
-          return SizedBox(
-            width: 200,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                if (showSecondary)
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CustomElevatedButton(
+    return BlocBuilder<ISavedPwaCubit, SavedPwaState>(
+        buildWhen: (previous, current) {
+      return previous.savedDapps[dappInfo.dappId!] !=
+          current.savedDapps[dappInfo.dappId!];
+    }, builder: (BuildContext context, savedPwaState) {
+      final savedDapp = savedPwaState.savedDapps[dappInfo.dappId];
+      return BlocBuilder<IPackageManager, PackageManagerState>(
+        bloc: packageManager,
+        buildWhen: (previous, current) {
+          return (previous.packageMapping![dappInfo.androidPackage!] !=
+                  current.packageMapping![dappInfo.androidPackage!] ||
+              previous.packageMapping![dappInfo.androidPackage!]?.status !=
+                  current.packageMapping![dappInfo.androidPackage!]?.status);
+        },
+        builder: (context, state) {
+          final packageInfo =
+              state.packageMapping![dappInfo.androidPackage ?? dappInfo.dappId];
+          if (packageInfo == null &&
+              (dappInfo.availableOnPlatform?.contains("android") ?? false) &&
+              (dappInfo.androidPackage != null)) {
+            return CustomElevatedButton(
+              onTap: () {
+                appButtonHandler.startDownload(dappInfo, context);
+              },
+              color: theme.appGreen,
+              radius: radius,
+              width: width,
+              height: height,
+              child: Text(
+                context.getLocale!.download,
+                style: theme.whiteBoldTextStyle,
+              ),
+            );
+          } else if (!(dappInfo.availableOnPlatform?.contains("android") ??
+              false)) {
+            return SizedBox(
+              width: 200,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  if (showSecondary)
+                    savedDapp == null
+                        ? Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: CustomElevatedButton(
+                              onTap: () {
+                                appButtonHandler.saveDapp(dappInfo);
+                              },
+                              color: theme.blue,
+                              radius: radius,
+                              width: 50,
+                              height: height,
+                              child: Text(
+                                context.getLocale!.save,
+                                style: theme.whiteBoldTextStyle,
+                              ),
+                            ),
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: CustomElevatedButton(
+                              onTap: () {
+                                appButtonHandler.unsaveDapp(dappInfo);
+                              },
+                              color: theme.errorRed,
+                              radius: radius,
+                              width: 50,
+                              height: height,
+                              child: Text(
+                                context.getLocale!.remove,
+                                style: theme.whiteBoldTextStyle,
+                              ),
+                            ),
+                          ),
+                  if (showPrimary)
+                    CustomElevatedButton(
                       onTap: () {
-                        //todo: add to my dapps
+                        appButtonHandler.openPwaApp(context, dappInfo);
                       },
-                      color: theme.blue,
+                      color: theme.appGreen,
                       radius: radius,
-                      width: 50,
+                      width: width,
                       height: height,
                       child: Text(
-                        context.getLocale!.save,
+                        context.getLocale!.openDapp,
+                        style: theme.whiteBoldTextStyle,
+                      ),
+                    )
+                ],
+              ),
+            );
+          } else if (packageInfo?.status == DownloadTaskStatus.running ||
+              packageInfo?.status == DownloadTaskStatus.enqueued) {
+            return CircularProgressIndicator.adaptive(
+              backgroundColor: theme.greyBlue,
+              valueColor: AlwaysStoppedAnimation<Color>(theme.blue),
+            );
+          } else if (packageInfo?.status == DownloadTaskStatus.complete &&
+              (packageInfo?.installing ?? false)) {
+            return CustomElevatedButton(
+              onTap: () {},
+              color: theme.ratingGrey,
+              radius: radius,
+              width: width,
+              height: height,
+              child: Text(
+                context.getLocale!.installing,
+                style: theme.whiteBoldTextStyle,
+              ),
+            );
+          } else if ((packageInfo?.installed ?? false) &&
+              (packageInfo?.versionCode ?? 0) <
+                  (double.tryParse(dappInfo.version ?? "0") ?? 0)) {
+            return SizedBox(
+              width: 200,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  if (showSecondary)
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CustomElevatedButton(
+                        onTap: () {
+                          appButtonHandler.openApp(dappInfo);
+                        },
+                        color: theme.blue,
+                        radius: radius,
+                        width: 50,
+                        height: height,
+                        child: Text(
+                          context.getLocale!.open,
+                          style: theme.whiteBoldTextStyle,
+                        ),
+                      ),
+                    ),
+                  if (showPrimary)
+                    CustomElevatedButton(
+                      onTap: () {
+                        appButtonHandler.startDownload(dappInfo, context);
+                      },
+                      color: theme.appGreen,
+                      radius: radius,
+                      width: width,
+                      height: height,
+                      child: Text(
+                        context.getLocale!.update,
                         style: theme.whiteBoldTextStyle,
                       ),
                     ),
-                  ),
-                if (showPrimary)
-                  CustomElevatedButton(
-                    onTap: () {
-                      appButtonHandler.openPwaApp(context, dappInfo);
-                    },
-                    color: theme.appGreen,
-                    radius: radius,
-                    width: width,
-                    height: height,
-                    child: Text(
-                      context.getLocale!.openDapp,
-                      style: theme.whiteBoldTextStyle,
-                    ),
-                  )
-              ],
-            ),
-          );
-        } else if (packageInfo?.status == DownloadTaskStatus.running ||
-            packageInfo?.status == DownloadTaskStatus.enqueued) {
-          return CircularProgressIndicator.adaptive(
-            backgroundColor: theme.greyBlue,
-            valueColor: AlwaysStoppedAnimation<Color>(theme.blue),
-          );
-        } else if (packageInfo?.status == DownloadTaskStatus.complete &&
-            (packageInfo?.installing ?? false)) {
-          return CustomElevatedButton(
-            onTap: () {},
-            color: theme.ratingGrey,
-            radius: radius,
-            width: width,
-            height: height,
-            child: Text(
-              context.getLocale!.installing,
-              style: theme.whiteBoldTextStyle,
-            ),
-          );
-        } else if ((packageInfo?.installed ?? false) &&
-            (packageInfo?.versionCode ?? 0) <
-                (double.tryParse(dappInfo.version ?? "0") ?? 0)) {
-          return SizedBox(
-            width: 200,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                if (showSecondary)
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CustomElevatedButton(
-                      onTap: () {
-                        appButtonHandler.openApp(dappInfo);
-                      },
-                      color: theme.blue,
-                      radius: radius,
-                      width: 50,
-                      height: height,
-                      child: Text(
-                        context.getLocale!.open,
-                        style: theme.whiteBoldTextStyle,
-                      ),
-                    ),
-                  ),
-                if (showPrimary)
-                  CustomElevatedButton(
-                    onTap: () {
-                      appButtonHandler.startDownload(dappInfo, context);
-                    },
-                    color: theme.appGreen,
-                    radius: radius,
-                    width: width,
-                    height: height,
-                    child: Text(
-                      context.getLocale!.update,
-                      style: theme.whiteBoldTextStyle,
-                    ),
-                  ),
-              ],
-            ),
-          );
-        } else if (packageInfo?.installed ?? false) {
-          return CustomElevatedButton(
-            onTap: () {
-              appButtonHandler.openApp(dappInfo);
-            },
-            color: theme.blue,
-            radius: radius,
-            width: width,
-            height: height,
-            child: Text(
-              context.getLocale!.openDapp,
-              style: theme.whiteBoldTextStyle,
-            ),
-          );
-        }
-        return const SizedBox();
-      },
-    );
+                ],
+              ),
+            );
+          } else if (packageInfo?.installed ?? false) {
+            return CustomElevatedButton(
+              onTap: () {
+                appButtonHandler.openApp(dappInfo);
+              },
+              color: theme.blue,
+              radius: radius,
+              width: width,
+              height: height,
+              child: Text(
+                context.getLocale!.openDapp,
+                style: theme.whiteBoldTextStyle,
+              ),
+            );
+          }
+          return const SizedBox();
+        },
+      );
+    });
   }
 }
