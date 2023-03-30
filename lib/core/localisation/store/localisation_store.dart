@@ -9,8 +9,8 @@ class LocalisationStore implements ILocalisationStore {
   static const defaultLocale = 'en';
   @override
   setLocale(String locale) async {
-    Box<LocalisationStorage> box =
-        await Hive.openBox<LocalisationStorage>(localisationStorageBox);
+    Box<LocalisationStorage> box = await _getBox();
+
     final LocalisationStorage localeStorage =
         box.get(0) ?? LocalisationStorage();
     localeStorage.locale = locale;
@@ -19,8 +19,8 @@ class LocalisationStore implements ILocalisationStore {
 
   @override
   setShouldFollowSystem(bool shouldFollowSystem) async {
-    Box<LocalisationStorage> box =
-        await Hive.openBox<LocalisationStorage>(localisationStorageBox);
+    Box<LocalisationStorage> box = await _getBox();
+
     final LocalisationStorage localeStorage =
         box.get(0) ?? LocalisationStorage();
     localeStorage.shouldFollowSystem = shouldFollowSystem;
@@ -29,16 +29,16 @@ class LocalisationStore implements ILocalisationStore {
 
   @override
   Future<String> locale() async {
-    Box<LocalisationStorage> box =
-        await Hive.openBox<LocalisationStorage>(localisationStorageBox);
+    Box<LocalisationStorage> box = await _getBox();
+
     final LocalisationStorage? localeStorage = box.get(0);
     return localeStorage?.locale ?? defaultLocale;
   }
 
   @override
   Future<bool> isShouldFollowSystem() async {
-    Box<LocalisationStorage> box =
-        await Hive.openBox<LocalisationStorage>(localisationStorageBox);
+    Box<LocalisationStorage> box = await _getBox();
+
     final LocalisationStorage? localeStorage = box.get(0);
 
     return localeStorage?.shouldFollowSystem ?? false;
@@ -46,8 +46,18 @@ class LocalisationStore implements ILocalisationStore {
 
   @override
   clearBox() async {
-    Box<LocalisationStorage> box =
-        await Hive.openBox<LocalisationStorage>(localisationStorageBox);
+    Box<LocalisationStorage> box = await _getBox();
+
     return box.deleteFromDisk();
+  }
+
+  Future<Box<LocalisationStorage>> _getBox() async {
+    Box<LocalisationStorage> box;
+    if (Hive.isBoxOpen(localisationStorageBox)) {
+      box = Hive.box(localisationStorageBox);
+    } else {
+      box = await Hive.openBox<LocalisationStorage>(localisationStorageBox);
+    }
+    return box;
   }
 }

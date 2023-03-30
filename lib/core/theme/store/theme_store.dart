@@ -8,8 +8,8 @@ class ThemeStore implements IThemeStore {
   static const themeStoageBoxName = "ThemeStorageBox";
   @override
   setCurrentTheme(bool isDarkEnabled) async {
-    Box<ThemeStorage> box =
-        await Hive.openBox<ThemeStorage>(themeStoageBoxName);
+    Box<ThemeStorage> box = await _getBox();
+
     final ThemeStorage themeStorage = box.get(0) ?? ThemeStorage();
     themeStorage.isDarkEnabled = isDarkEnabled;
     await box.put(0, themeStorage);
@@ -17,8 +17,8 @@ class ThemeStore implements IThemeStore {
 
   @override
   setShouldFollowSystem(bool shouldFollowSystem) async {
-    Box<ThemeStorage> box =
-        await Hive.openBox<ThemeStorage>(themeStoageBoxName);
+    Box<ThemeStorage> box = await _getBox();
+
     final ThemeStorage themeStorage = box.get(0) ?? ThemeStorage();
     themeStorage.shouldFollowSystem = shouldFollowSystem;
     await box.put(0, themeStorage);
@@ -26,16 +26,16 @@ class ThemeStore implements IThemeStore {
 
   @override
   Future<bool> isDarkThemeEnabled() async {
-    Box<ThemeStorage> box =
-        await Hive.openBox<ThemeStorage>(themeStoageBoxName);
+    Box<ThemeStorage> box = await _getBox();
+
     final ThemeStorage? themeStorage = box.get(0);
     return themeStorage?.isDarkEnabled ?? false;
   }
 
   @override
   Future<bool> isShouldFollowSystem() async {
-    Box<ThemeStorage> box =
-        await Hive.openBox<ThemeStorage>(themeStoageBoxName);
+    Box<ThemeStorage> box = await _getBox();
+
     final ThemeStorage? themeStorage = box.get(0);
 
     return themeStorage?.shouldFollowSystem ?? false;
@@ -43,8 +43,17 @@ class ThemeStore implements IThemeStore {
 
   @override
   clearBox() async {
-    Box<ThemeStorage> box =
-        await Hive.openBox<ThemeStorage>(themeStoageBoxName);
+    Box<ThemeStorage> box = await _getBox();
     return box.deleteFromDisk();
+  }
+
+  Future<Box<ThemeStorage>> _getBox() async {
+    Box<ThemeStorage> box;
+    if (Hive.isBoxOpen(themeStoageBoxName)) {
+      box = Hive.box(themeStoageBoxName);
+    } else {
+      box = await Hive.openBox<ThemeStorage>(themeStoageBoxName);
+    }
+    return box;
   }
 }

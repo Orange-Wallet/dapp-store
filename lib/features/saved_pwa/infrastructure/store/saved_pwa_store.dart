@@ -15,8 +15,7 @@ class SavedPwaStore implements ISavedPwaStore {
   @override
   Future<SavedPwaModel?> addDapp(DappInfo dappInfo) async {
     try {
-      //TODO @Abhimayu121 add conditions for if box is already open and close the box after reading check wcStore
-      Box box = await Hive.openBox(savedPwaStoreBox);
+      Box<SavedPwaModel> box = await _getBox();
       final SavedPwaModel savedPwa = SavedPwaModel(
         name: dappInfo.name!,
         dappId: dappInfo.dappId!,
@@ -34,7 +33,8 @@ class SavedPwaStore implements ISavedPwaStore {
   @override
   Future<bool> removeDapp(String dappId) async {
     try {
-      final Box box = await Hive.openBox(savedPwaStoreBox);
+      Box<SavedPwaModel> box = await _getBox();
+
       await box.delete(dappId);
       return true;
     } catch (e) {
@@ -46,7 +46,7 @@ class SavedPwaStore implements ISavedPwaStore {
   @override
   Future<Map<dynamic, SavedPwaModel>?> getSavedDapps() async {
     try {
-      final Box<SavedPwaModel> box = await Hive.openBox(savedPwaStoreBox);
+      Box<SavedPwaModel> box = await _getBox();
       return box.toMap();
     } catch (e) {
       errorLogger.logError(e);
@@ -57,12 +57,22 @@ class SavedPwaStore implements ISavedPwaStore {
   @override
   Future<bool> clearBox() async {
     try {
-      final Box box = await Hive.openBox(savedPwaStoreBox);
+      Box<SavedPwaModel> box = await _getBox();
       await box.deleteFromDisk();
       return true;
     } catch (e) {
       errorLogger.logError(e);
       return false;
     }
+  }
+
+  Future<Box<SavedPwaModel>> _getBox() async {
+    Box<SavedPwaModel> box;
+    if (Hive.isBoxOpen(savedPwaStoreBox)) {
+      box = Hive.box(savedPwaStoreBox);
+    } else {
+      box = await Hive.openBox<SavedPwaModel>(savedPwaStoreBox);
+    }
+    return box;
   }
 }
