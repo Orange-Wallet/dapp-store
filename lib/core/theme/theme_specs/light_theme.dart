@@ -3,6 +3,19 @@ import 'package:flutter/material.dart';
 import 'i_theme_spec.dart';
 
 class LightTheme implements IThemeSpec {
+  final double height;
+  final double width;
+  const LightTheme({
+    required this.height,
+    required this.width,
+  });
+
+  @override
+  double get themeHeight => 844;
+
+  @override
+  double get themeWidth => 360;
+
   @override
   bool get isDarkTheme => true;
 
@@ -37,7 +50,7 @@ class LightTheme implements IThemeSpec {
   Color get backgroundCardColor => const Color.fromARGB(255, 26, 26, 26);
 
   @override
-  Color get cardColor => const Color.fromARGB(255, 42, 42, 42);
+  Color get cardColor => const Color.fromARGB(255, 21, 27, 37);
 
   @override
   Color get ratingGrey => const Color.fromARGB(255, 178, 178, 178);
@@ -59,7 +72,7 @@ class LightTheme implements IThemeSpec {
   TextStyle get headingTextStyle => TextStyle(
         // h5 -> headline
         fontFamily: fontName,
-        fontSize: 24,
+        fontSize: relativeTextSize(24),
         color: whiteColor,
         fontWeight: FontWeight.w600,
       );
@@ -68,7 +81,7 @@ class LightTheme implements IThemeSpec {
   TextStyle get secondaryTextStyle1 => TextStyle(
         // h5 -> headline
         fontFamily: fontName,
-        fontSize: 10,
+        fontSize: relativeTextSize(10),
         color: secondaryTextColor,
       );
 
@@ -76,8 +89,26 @@ class LightTheme implements IThemeSpec {
   TextStyle get titleTextStyle => TextStyle(
         // h5 -> headline
         fontFamily: fontName,
-        fontSize: 16,
-        fontWeight: FontWeight.w500,
+        fontSize: relativeTextSize(14),
+        fontWeight: FontWeight.w600,
+        color: whiteColor,
+      );
+
+  @override
+  TextStyle get titleTextExtraBold => TextStyle(
+        // h5 -> headline
+        fontFamily: fontName,
+        fontSize: relativeTextSize(14),
+        fontWeight: FontWeight.w700,
+        color: whiteColor,
+      );
+
+  @override
+  TextStyle get secondaryTitleTextStyle => TextStyle(
+        // h5 -> headline
+        fontFamily: fontName,
+        fontSize: relativeTextSize(12),
+        fontWeight: FontWeight.w600,
         color: whiteColor,
       );
 
@@ -85,7 +116,7 @@ class LightTheme implements IThemeSpec {
   TextStyle get bodyTextStyle => TextStyle(
         // h5 -> headline
         fontFamily: fontName,
-        fontSize: 12,
+        fontSize: relativeTextSize(12),
         fontWeight: FontWeight.w400,
         color: bodyTextColor,
       );
@@ -94,14 +125,21 @@ class LightTheme implements IThemeSpec {
   TextStyle get buttonTextStyle => TextStyle(
         // h5 -> headline
         fontFamily: fontName,
-        fontSize: 14,
+        fontSize: relativeTextSize(14),
         color: whiteColor,
         fontWeight: FontWeight.w700,
       );
   @override
   TextStyle get whiteBoldTextStyle => TextStyle(
         fontFamily: fontName,
-        fontSize: 14,
+        fontSize: relativeTextSize(12),
+        color: whiteColor,
+        fontWeight: FontWeight.w600,
+      );
+  @override
+  TextStyle get greyHeading => TextStyle(
+        fontFamily: fontName,
+        fontSize: relativeTextSize(12),
         color: whiteColor,
         fontWeight: FontWeight.w400,
       );
@@ -109,7 +147,7 @@ class LightTheme implements IThemeSpec {
   TextStyle get normalTextStyle => TextStyle(
         // h5 -> headline
         fontFamily: fontName,
-        fontSize: 14,
+        fontSize: relativeTextSize(14),
         color: whiteColor,
         fontWeight: FontWeight.w500,
       );
@@ -117,7 +155,7 @@ class LightTheme implements IThemeSpec {
   TextStyle get secondaryTextStyle2 => TextStyle(
         // h5 -> headline
         fontFamily: fontName,
-        fontSize: 10,
+        fontSize: relativeTextSize(10),
         color: whiteColor,
         fontWeight: FontWeight.w500,
       );
@@ -125,7 +163,7 @@ class LightTheme implements IThemeSpec {
   TextStyle get smallButtonTextStyle => TextStyle(
         // h5 -> headline
         fontFamily: fontName,
-        fontSize: 12,
+        fontSize: relativeTextSize(12),
         color: whiteColor,
         fontWeight: FontWeight.w700,
       );
@@ -133,14 +171,14 @@ class LightTheme implements IThemeSpec {
   TextStyle get normalTextStyle2 => TextStyle(
         // h5 -> headline
         fontFamily: fontName,
-        fontSize: 14,
+        fontSize: relativeTextSize(14),
         color: whiteColor,
         fontWeight: FontWeight.w500,
       );
   @override
   TextStyle get whiteButtonTextStyle => TextStyle(
         fontFamily: fontName,
-        fontSize: 14,
+        fontSize: relativeTextSize(14),
         color: black,
         fontWeight: FontWeight.w600,
       );
@@ -149,14 +187,14 @@ class LightTheme implements IThemeSpec {
   TextStyle get secondaryWhiteTextStyle3 => TextStyle(
       // h5 -> headline
       fontFamily: fontName,
-      fontSize: 10,
+      fontSize: relativeTextSize(10),
       color: whiteColor,
       fontWeight: FontWeight.w400);
   @override
   TextStyle get secondaryGreenTextStyle4 => TextStyle(
       // h5 -> headline
       fontFamily: fontName,
-      fontSize: 10,
+      fontSize: relativeTextSize(10),
       color: appGreen,
       fontWeight: FontWeight.w400);
   @override
@@ -173,4 +211,13 @@ class LightTheme implements IThemeSpec {
           Radius.circular(16),
         ),
       );
+
+  @override
+  double relativeWidth(double w) => width * (w / themeWidth);
+
+  @override
+  double relativeHeight(double h) => height * (h / themeHeight);
+
+  @override
+  double relativeTextSize(double s) => width * (s / themeHeight);
 }

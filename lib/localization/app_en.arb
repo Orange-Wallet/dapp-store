@@ -67,5 +67,7 @@
   "signingFailed": "Signing Failed.",
   "methodNotSupported": "Method not supported.",
   "chainNotSupported": "Chain not supported.",
-  "remove": "Remove"
+  "remove": "Remove",
+  "showMore": "Show more",
+  "showLess": "Show less"
 }

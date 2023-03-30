@@ -7,6 +7,9 @@ abstract class IThemeSpec {
 
   double get imageBorderRadius => 20;
 
+  double get themeHeight;
+  double get themeWidth;
+
   Color get backgroundColor;
   Color get appBarBackgroundColor;
   Color get secondaryTextColor;
@@ -30,7 +33,9 @@ abstract class IThemeSpec {
   TextStyle get buttonTextStyle;
   TextStyle get bodyTextStyle;
   TextStyle get titleTextStyle;
+  TextStyle get secondaryTitleTextStyle;
   TextStyle get whiteBoldTextStyle;
+  TextStyle get titleTextExtraBold;
   TextStyle get normalTextStyle;
   TextStyle get normalTextStyle2;
   TextStyle get secondaryTextStyle2;
@@ -38,7 +43,12 @@ abstract class IThemeSpec {
   TextStyle get whiteButtonTextStyle;
   TextStyle get secondaryWhiteTextStyle3;
   TextStyle get secondaryGreenTextStyle4;
+  TextStyle get greyHeading;
 
   double get cardRadius;
   RoundedRectangleBorder get cardShape;
+
+  double relativeWidth(double w);
+  double relativeHeight(double h);
+  double relativeTextSize(double s);
 }

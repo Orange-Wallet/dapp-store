@@ -4,6 +4,7 @@ import 'package:dappstore/features/dapp_store_home/presentation/screen/homepage.
 import 'package:dappstore/features/wallet_connect/presentation/wallet_connect_screen.dart';
 import 'package:dappstore/test_homepage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class App extends StatefulWidget {
@@ -18,6 +19,8 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   @override
   void initState() {
     appHandler = getIt<IAppHandler>();
+    Size size = WidgetsBinding.instance.window.physicalSize;
+    appHandler.themeCubit.initialise(height: size.height, width: size.width);
     WidgetsBinding.instance.addObserver(this);
     final brightness = WidgetsBinding.instance.window.platformBrightness;
     if (brightness == Brightness.dark &&

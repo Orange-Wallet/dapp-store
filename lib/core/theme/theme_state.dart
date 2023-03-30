@@ -8,6 +8,8 @@ class ThemeState with _$ThemeState {
     bool? shouldFollowSystem,
   }) = _ThemeState;
 
-  factory ThemeState.initial() => ThemeState(
-      activeTheme: DarkTheme(), isDark: true, shouldFollowSystem: false);
+  factory ThemeState.initial(double height, double width) => ThemeState(
+      activeTheme: DarkTheme(height: height, width: width),
+      isDark: true,
+      shouldFollowSystem: false);
 }

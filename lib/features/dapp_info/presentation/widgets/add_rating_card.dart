@@ -23,13 +23,13 @@ class AddRatingCard extends StatelessWidget {
     return DefaultCard(
       theme: theme,
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(12.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               context.getLocale!.addRating,
-              style: theme.titleTextStyle,
+              style: theme.titleTextExtraBold,
             ),
             RatingBar(
               initialRating: rating,

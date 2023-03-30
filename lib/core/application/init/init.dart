@@ -14,7 +14,7 @@ Future<void> initialise() async {
   await getIt<IDownloader>().initialize();
   await getIt<IErrorLogger>().initialise();
   await initialiseStore().then((_) {
-    getIt<IThemeCubit>().initialise();
+    getIt<IThemeCubit>().initialise(height: 844, width: 360);
     getIt<ILocaleCubit>().initialise();
     getIt<ISavedPwaCubit>().initialise();
   });

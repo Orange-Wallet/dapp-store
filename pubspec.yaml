@@ -52,6 +52,7 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   eth_sig_util: 0.0.7
   sentry_flutter: ^7.3.0
+  readmore: ^2.1.0
 
 # dependency_overrides:
   # stream_channel: ^2.1.1 

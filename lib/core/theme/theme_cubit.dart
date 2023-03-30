@@ -12,15 +12,20 @@ part 'theme_state.dart';
 @LazySingleton(as: IThemeCubit)
 class ThemeCubit extends Cubit<ThemeState> implements IThemeCubit {
   final IThemeStore themeStore;
-  ThemeCubit({required this.themeStore}) : super(ThemeState.initial());
+  IThemeSpec? lightTheme;
+  IThemeSpec? darkTheme;
+
+  ThemeCubit({required this.themeStore}) : super(ThemeState.initial(844, 360));
   @override
-  initialise() async {
+  initialise({required double height, required double width}) async {
     final isDark = await _isDarkEnabledStorage();
     final shouldFollowSystem = await _shouldFollowSystem();
+    darkTheme = DarkTheme(height: height, width: width);
+    lightTheme = LightTheme(height: height, width: width);
     if (isDark == true) {
       emit(
         state.copyWith(
-          activeTheme: DarkTheme(),
+          activeTheme: darkTheme,
           isDark: true,
           shouldFollowSystem: shouldFollowSystem,
         ),
@@ -28,7 +33,7 @@ class ThemeCubit extends Cubit<ThemeState> implements IThemeCubit {
     } else {
       emit(
         state.copyWith(
-          activeTheme: LightTheme(),
+          activeTheme: lightTheme,
           isDark: false,
           shouldFollowSystem: shouldFollowSystem,
         ),
@@ -39,36 +44,36 @@ class ThemeCubit extends Cubit<ThemeState> implements IThemeCubit {
   @override
   toggleTheme() {
     if (state.isDark!) {
-      emit(state.copyWith(activeTheme: LightTheme(), isDark: false));
+      emit(state.copyWith(activeTheme: lightTheme, isDark: false));
       _updateTheme(false);
     } else {
-      emit(state.copyWith(activeTheme: DarkTheme(), isDark: true));
+      emit(state.copyWith(activeTheme: darkTheme, isDark: true));
       _updateTheme(true);
     }
   }
 
   @override
   setLightTheme() {
-    emit(state.copyWith(activeTheme: LightTheme(), isDark: false));
+    emit(state.copyWith(activeTheme: lightTheme, isDark: false));
     _updateTheme(false);
   }
 
   @override
   setDarkTheme() {
-    emit(state.copyWith(activeTheme: DarkTheme(), isDark: true));
+    emit(state.copyWith(activeTheme: darkTheme, isDark: true));
     _updateTheme(true);
   }
 
   @override
-  IThemeSpec get theme => state.activeTheme ?? DarkTheme();
+  IThemeSpec get theme => state.activeTheme ?? darkTheme!;
   @override
   toggleShouldFollowSystem(bool shouldFollowSystem) async {
     await _updateShouldFollowSystem(shouldFollowSystem);
     if (state.isDark!) {
-      emit(state.copyWith(activeTheme: LightTheme(), isDark: false));
+      emit(state.copyWith(activeTheme: lightTheme, isDark: false));
       _updateTheme(false);
     } else {
-      emit(state.copyWith(activeTheme: DarkTheme(), isDark: true));
+      emit(state.copyWith(activeTheme: darkTheme, isDark: true));
       _updateTheme(true);
     }
   }

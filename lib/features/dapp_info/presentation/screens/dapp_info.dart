@@ -10,6 +10,7 @@ import 'package:dappstore/features/dapp_info/application/i_dapp_info_cubit.dart'
 import 'package:dappstore/features/dapp_info/presentation/widgets/add_rating_card.dart';
 import 'package:dappstore/features/dapp_info/presentation/widgets/app_stats_card.dart';
 import 'package:dappstore/features/dapp_info/presentation/widgets/dapp_title_tile.dart';
+import 'package:dappstore/features/dapp_info/presentation/widgets/dashed_line.dart';
 import 'package:dappstore/features/dapp_info/presentation/widgets/description_box.dart';
 import 'package:dappstore/features/dapp_info/presentation/widgets/image_carousel.dart';
 import 'package:dappstore/features/dapp_info/presentation/widgets/similar_apps.dart';
@@ -37,11 +38,18 @@ class DappInfoPage extends StatefulScreen {
 class _DappInfoPageState extends State<DappInfoPage> {
   late final IDappInfoHandler dappInfoHandler;
   late final IThemeCubit themeCubit;
+  late Widget dashedLine;
   @override
   void initState() {
     super.initState();
     dappInfoHandler = DappInfoHandler();
     themeCubit = dappInfoHandler.themeCubit;
+    dashedLine = DashedLine(
+      color: dappInfoHandler.themeCubit.theme.whiteColor,
+      space: 10,
+      width: 30,
+      padding: 20,
+    );
   }
 
   @override
@@ -79,7 +87,7 @@ class _DappInfoPageState extends State<DappInfoPage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 20.0, bottom: 10),
+                      padding: const EdgeInsets.only(top: 20.0, bottom: 45),
                       child: DappTitleTile(
                         dappInfo: dappState.dappInfo!,
                         theme: theme,
@@ -87,18 +95,28 @@ class _DappInfoPageState extends State<DappInfoPage> {
                       ),
                     ),
                     Padding(
+                      padding: const EdgeInsets.only(bottom: 20.0),
+                      child: dashedLine,
+                    ),
+                    Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
                       child:
                           AppDescriptionBox(dappInfoHandler: dappInfoHandler),
                     ),
-                    AppStatsCard(
-                      dappInfoHandler: dappInfoHandler,
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 11.0),
+                      child: AppStatsCard(
+                        dappInfoHandler: dappInfoHandler,
+                      ),
                     ),
-                    AddRatingCard(
-                      theme: theme,
-                      callback: (rating) {
-                        //todo: implement this.
-                      },
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      child: AddRatingCard(
+                        theme: theme,
+                        callback: (rating) {
+                          //todo: implement this.
+                        },
+                      ),
                     ),
                     DefaultCard(
                       theme: theme,
