@@ -23,6 +23,12 @@ class WCTestWidget extends StatelessWidget {
         ElevatedButton(
             onPressed: () async {
               var cubit = getIt<IWalletConnectCubit>();
+              cubit.getPreviouslyConnectedSession();
+            },
+            child: const Text("reconnect")),
+        ElevatedButton(
+            onPressed: () async {
+              var cubit = getIt<IWalletConnectCubit>();
               cubit.getConnectRequest(["eip155:137", "eip155:1"]);
             },
             child: const Text("Connect")),

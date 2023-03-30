@@ -1,6 +1,10 @@
+import 'package:dappstore/core/di/di.dart';
+import 'package:dappstore/core/router/router.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/custom_search_delegate.dart';
+import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
+import 'package:dappstore/features/wallet_connect/presentation/wallet_connect_screen.dart';
 import 'package:dappstore/utils/image_constants.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +24,15 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
       ),
       // title: TextField(),
       actions: [
+        IconButton(
+            onPressed: () async {
+              await getIt<IWalletConnectCubit>().disconnectAll();
+              context.replaceRoute(const WalletConnectScreen());
+            },
+            icon: const Icon(
+              Icons.delete,
+              color: Colors.white,
+            )),
         IconButton(
             onPressed: () {
               showSearch(

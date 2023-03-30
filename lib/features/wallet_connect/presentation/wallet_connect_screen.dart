@@ -9,6 +9,10 @@ import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/screen/homepage.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/wallet_connect_cubit.dart';
+<<<<<<< HEAD
+=======
+import 'package:dappstore/features/wallet_connect/infrastructure/store/i_wallet_connect_store.dart';
+>>>>>>> 634426aeaf5bbbbdf9823ff61ba0fcca6c49e9eb
 import 'package:dappstore/features/wallet_connect/presentation/widget/terms_and_condition.dart';
 import 'package:dappstore/utils/constants.dart';
 import 'package:dappstore/utils/image_constants.dart';
@@ -30,23 +34,28 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
   late final IThemeSpec theme;
   late final bool viveInstalled;
   late final IWalletConnectCubit cubit;
+  late final IWalletConnectStore wcStore;
   @override
   void initState() {
     super.initState();
     theme = getIt<IThemeCubit>().theme;
     cubit = getIt<IWalletConnectCubit>();
+    wcStore = getIt<IWalletConnectStore>();
   }
 
   @override
   void didChangeDependencies() async {
-    IInstalledAppsCubit cubit = getIt<IInstalledAppsCubit>();
-    cubit.getAppInfo(packageName: Constants.vivePackageName).then((value) {
+    IInstalledAppsCubit installedCubit = getIt<IInstalledAppsCubit>();
+    installedCubit
+        .getAppInfo(packageName: Constants.vivePackageName)
+        .then((value) {
       if (value != null) {
         viveInstalled = true;
       } else {
         viveInstalled = false;
       }
     });
+    cubit.getPreviouslyConnectedSession();
     super.didChangeDependencies();
   }
 
@@ -55,9 +64,12 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
     return BlocConsumer<IWalletConnectCubit, WalletConnectState>(
         bloc: cubit,
         listenWhen: (previous, current) =>
-            previous.connected != current.connected,
+            previous.connected != current.connected ||
+            previous.signVerified != current.signVerified,
         listener: (context, state) async {
-          if (state.connected) {}
+          if (state.connected && state.signVerified) {
+            context.replaceRoute(const HomePage());
+          }
         },
         builder: (context, state) {
           return Scaffold(
@@ -90,11 +102,8 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                           padding: const EdgeInsets.symmetric(horizontal: 33),
                           child: TextButton(
                             onPressed: () {
-                              cubit.getConnectRequest([
-                                "eip155:137",
-
-                                /// "eip155:1"
-                              ]);
+                              cubit.getConnectRequest(
+                                  ["eip155:137", "eip155:1"]);
                             },
                             style: TextButton.styleFrom(
                               backgroundColor: theme.whiteColor,
@@ -118,7 +127,10 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                               context
                                   .showMsgBar("Open wallet and sign message");
                               cubit.getEthSign("Testing").then((value) {
-                                context.pushRoute(const HomePage());
+                                getIt<IWalletConnectStore>().addSignature(
+                                    topicID: state.activeSession!.topic,
+                                    signature: value);
+                                context.replaceRoute(const HomePage());
                               });
                             },
                             style: TextButton.styleFrom(
