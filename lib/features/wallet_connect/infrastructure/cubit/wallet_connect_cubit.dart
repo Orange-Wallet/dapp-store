@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dappstore/core/error/i_error_logger.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
+import 'package:dappstore/features/wallet_connect/infrastructure/store/i_wallet_connect_store.dart';
 import 'package:dappstore/features/wallet_connect/models/chain_metadata.dart';
 import 'package:dappstore/features/wallet_connect/models/connected_account.dart';
 import 'package:dappstore/features/wallet_connect/models/eth/ethereum_transaction.dart';
@@ -23,9 +24,11 @@ part 'wallet_connect_state.dart';
 class WalletConnectCubit extends Cubit<WalletConnectState>
     implements IWalletConnectCubit {
   @override
+  final IWalletConnectStore wcStore;
+  @override
   SignClient? signClient;
   IErrorLogger errorLogger;
-  WalletConnectCubit({required this.errorLogger})
+  WalletConnectCubit({required this.errorLogger, required this.wcStore})
       : super(WalletConnectState.initial());
 
   @override
@@ -48,12 +51,36 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
             'https://1000logos.net/wp-content/uploads/2021/05/HTC-logo.png'
           ],
         ),
-        database: ':memory:',
+        database: 'memory',
         logger: Logger(level: Level.error),
       );
       log(signClient?.name ?? "error");
     } catch (e, trace) {
       log("${e.toString()}: $trace");
+    }
+  }
+
+  @override
+  getPreviouslyConnectedSession() async {
+    if ((signClient?.session.values.isNotEmpty ?? false) &&
+        signClient?.session.values.last != null) {
+      var res = signClient?.session.values.last;
+      log("reconnected : ${res?.peer.metadata.name}");
+      emit(state.copyWith(
+        activeSession: res,
+        failure: false,
+        sessions: signClient!.session.getAll(),
+        activeChainId: WCHelper.getChainIdFromAccountStr(
+            res!.namespaces[ChainType.eip155.name]!.accounts.first),
+        activeAddress: WCHelper.getAddressFromAccountStr(
+            res.namespaces[ChainType.eip155.name]!.accounts.first),
+        connected: true,
+        approvedChains: res.namespaces[ChainType.eip155.name]!.accounts
+            .map((e) =>
+                int.parse(WCHelper.getChainIdFromAccountStr(e).split(":")[1]))
+            .toList(),
+        signVerified: await wcStore.doesSignExist(res.topic),
+      ));
     }
   }
 
@@ -205,6 +232,7 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
       topic: topic,
       reason: getSdkError(SdkErrorKey.USER_DISCONNECTED),
     );
+    wcStore.removeSignature(topic);
     getSessionAndPairings();
   }
 
@@ -217,6 +245,8 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
           topic: element.topic,
           reason: getSdkError(SdkErrorKey.USER_DISCONNECTED),
         );
+        wcStore.clearBox();
+        emit(WalletConnectState.initial());
       } catch (e, stackTrace) {
         log(" ${e.toString()}: $stackTrace");
       }

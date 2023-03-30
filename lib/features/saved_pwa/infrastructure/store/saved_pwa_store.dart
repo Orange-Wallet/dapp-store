@@ -15,6 +15,7 @@ class SavedPwaStore implements ISavedPwaStore {
   @override
   Future<SavedPwaModel?> addDapp(DappInfo dappInfo) async {
     try {
+      //TODO @Abhimayu121 add conditions for if box is already open and close the box after reading check wcStore
       Box box = await Hive.openBox(savedPwaStoreBox);
       final SavedPwaModel savedPwa = SavedPwaModel(
         name: dappInfo.name!,

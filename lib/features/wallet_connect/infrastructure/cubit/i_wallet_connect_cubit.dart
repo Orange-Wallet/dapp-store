@@ -1,5 +1,6 @@
 import 'package:dappstore/core/signer/i_signer.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/wallet_connect_cubit.dart';
+import 'package:dappstore/features/wallet_connect/infrastructure/store/i_wallet_connect_store.dart';
 import 'package:dappstore/features/wallet_connect/models/connected_account.dart';
 import 'package:dappstore/features/wallet_connect/models/eth/ethereum_transaction.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +9,9 @@ import 'package:wallet_connect_dart_v2/wallet_connect_dart_v2.dart';
 abstract class IWalletConnectCubit extends Cubit<WalletConnectState>
     implements ISigner {
   SignClient? signClient;
-  IWalletConnectCubit() : super(WalletConnectState.initial());
+  final IWalletConnectStore wcStore;
+  IWalletConnectCubit({required this.wcStore})
+      : super(WalletConnectState.initial());
 
   started();
 
@@ -44,6 +47,8 @@ abstract class IWalletConnectCubit extends Cubit<WalletConnectState>
   Future<void> disconnect(String topic);
 
   disconnectAll();
+
+  getPreviouslyConnectedSession();
 
 // returns topic->AccountList
   Map<String, List<ConnectedAccount>> getAllConnectedAccounts();
