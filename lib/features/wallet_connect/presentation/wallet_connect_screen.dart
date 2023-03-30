@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/core/installed_apps/i_installed_apps_cubit.dart';
 import 'package:dappstore/core/localisation/localisation_extension.dart';
@@ -11,7 +9,6 @@ import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/screen/homepage.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/wallet_connect_cubit.dart';
-import 'package:dappstore/features/wallet_connect/models/eth/ethereum_transaction.dart';
 import 'package:dappstore/features/wallet_connect/presentation/widget/terms_and_condition.dart';
 import 'package:dappstore/utils/constants.dart';
 import 'package:dappstore/utils/image_constants.dart';

@@ -9,7 +9,7 @@ class DarkTheme implements IThemeSpec {
   Color get appBarBackgroundColor => Colors.black;
 
   @override
-  Color get backgroundColor => const Color.fromRGBO(0, 0, 0, 0.2363);
+  Color get backgroundColor => const Color.fromARGB(255, 0, 0, 0);
 
   @override
   Color get secondaryTextColor => const Color.fromARGB(255, 114, 114, 114);

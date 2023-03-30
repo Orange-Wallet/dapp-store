@@ -19,12 +19,11 @@ class DappTitleTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final listTile = SizedBox(
-      height: 60,
-      width: MediaQuery.of(context).size.width * 0.8,
+      height: 42,
       child: ListTile(
         leading: SizedBox(
-          height: 55,
-          width: 55,
+          height: 42,
+          width: 42,
           child: Container(
             clipBehavior: Clip.hardEdge,
             decoration: const BoxDecoration(
@@ -45,15 +44,15 @@ class DappTitleTile extends StatelessWidget {
           "${dappInfo.developer} · ${dappInfo.category}",
           style: theme.bodyTextStyle,
         ),
-        trailing: AppButton(
-          theme: theme,
-          dappInfo: dappInfo,
-          showPrimary: true,
-          showSecondary: true,
-          radius: 6,
-          height: 34,
-          width: 103,
-        ),
+        // trailing: AppButton(
+        //   theme: theme,
+        //   dappInfo: dappInfo,
+        //   showPrimary: true,
+        //   showSecondary: true,
+        //   radius: 6,
+        //   height: 34,
+        //   width: 103,
+        // ),
       ),
     );
     return listTile;
