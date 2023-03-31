@@ -6,6 +6,7 @@ import 'package:dappstore/features/dapp_store_home/presentation/widgets/custom_s
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
 import 'package:dappstore/features/wallet_connect/presentation/wallet_connect_screen.dart';
 import 'package:dappstore/utils/image_constants.dart';
+import 'package:dappstore/widgets/white_gradient_line.dart';
 import 'package:flutter/material.dart';
 
 class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
@@ -20,7 +21,9 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: handler.theme.appBarBackgroundColor,
       leading: Padding(
         padding: const EdgeInsets.only(left: 20),
-        child: Image.asset(ImageConstants.htcLogo),
+        child: Image.asset(
+          ImageConstants.htcLogo,
+        ),
       ),
       // title: TextField(),
       actions: [
@@ -49,8 +52,9 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
             icon: const Icon(
               Icons.menu,
               color: Colors.white,
-            ))
+            )),
       ],
+      bottom: const WhiteGradientLine(),
     );
   }
 

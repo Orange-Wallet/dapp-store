@@ -1,18 +1,21 @@
 import 'package:dappstore/core/router/router.dart';
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';
-import 'package:dappstore/utils/image_constants.dart';
+import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
+import 'package:dappstore/features/dapp_store_home/presentation/widgets/custom_search_delegate.dart';
+import 'package:dappstore/widgets/white_gradient_line.dart';
 import 'package:flutter/material.dart';
 
 class InScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
   final IThemeSpec themeSpec;
-  final List<Widget> actions;
+  final String title;
   final emptyBox = const SizedBox();
   const InScreenAppBar(
-      {super.key, required this.themeSpec, required this.actions});
+      {super.key, required this.themeSpec, required this.title});
 
   @override
   Widget build(BuildContext context) {
+    IDappStoreHandler handler = DappStoreHandler();
     return AppBar(
       backgroundColor: themeSpec.appBarBackgroundColor,
       leading: InkWell(
@@ -30,15 +33,31 @@ class InScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           emptyBox,
-          Image.asset(
-            ImageConstants.htcLogo,
-            scale: 2.5,
+          Text(
+            title,
+            style: themeSpec.secondaryTitleTextStyle,
           ),
           emptyBox,
           emptyBox,
         ],
       ),
-      actions: [...actions],
+      actions: [
+        IconButton(
+            onPressed: () {
+              showSearch(
+                  context: context,
+                  delegate:
+                      CustomSearchDelegate(handler: handler, context: context));
+            },
+            icon: Icon(Icons.search, color: handler.theme.whiteColor)),
+        IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.menu,
+              color: handler.theme.whiteColor,
+            ))
+      ],
+      bottom: const WhiteGradientLine(),
     );
   }
 

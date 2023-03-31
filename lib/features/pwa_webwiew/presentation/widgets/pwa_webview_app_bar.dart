@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-
 import 'package:dappstore/core/router/router.dart';
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
+import 'package:dappstore/widgets/white_gradient_line.dart';
+import 'package:flutter/material.dart';
 
 typedef NavigationCallback = Function();
 
@@ -69,6 +69,7 @@ class PwaAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             )
           ],
+          bottom: const WhiteGradientLine(),
         ),
         if (progress != null && progress != 100)
           SizedBox(
