@@ -2,10 +2,13 @@ import 'package:dappstore/core/router/router.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/custom_search_delegate.dart';
+import 'package:dappstore/widgets/white_gradient_line.dart';
 import 'package:flutter/material.dart';
 
 class NormalAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  final emptyBox = const SizedBox();
+
   const NormalAppBar({super.key, required this.title});
 
   @override
@@ -20,9 +23,18 @@ class NormalAppBar extends StatelessWidget implements PreferredSizeWidget {
           color: handler.theme.whiteColor,
         ),
       ),
-      title: Text(
-        title,
-        style: handler.theme.headingTextStyle,
+      centerTitle: true,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          emptyBox,
+          Text(
+            title,
+            style: handler.theme.secondaryTitleTextStyle,
+          ),
+          emptyBox,
+          emptyBox,
+        ],
       ),
       actions: [
         IconButton(
@@ -40,6 +52,7 @@ class NormalAppBar extends StatelessWidget implements PreferredSizeWidget {
               color: handler.theme.whiteColor,
             ))
       ],
+      bottom: const WhiteGradientLine(),
     );
   }
 
