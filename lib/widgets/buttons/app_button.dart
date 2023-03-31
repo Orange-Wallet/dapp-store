@@ -24,6 +24,7 @@ class AppButton extends StatelessWidget {
   final double width;
   final bool showPrimary;
   final bool showSecondary;
+
   AppButton({
     Key? key,
     required this.theme,
@@ -88,33 +89,49 @@ class AppButton extends StatelessWidget {
                         savedDapp == null
                             ? Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: CustomElevatedButton(
-                                  onTap: () {
-                                    appButtonHandler.saveDapp(dappInfo);
-                                  },
-                                  color: theme.blue,
-                                  radius: radius,
-                                  width: 50,
+                                child: SizedBox(
+                                  width: width,
                                   height: height,
-                                  child: Text(
-                                    context.getLocale!.save,
-                                    style: theme.whiteBoldTextStyle,
+                                  child: OutlinedButton(
+                                    onPressed: () {
+                                      appButtonHandler.saveDapp(dappInfo);
+                                    },
+                                    style: OutlinedButton.styleFrom(
+                                      foregroundColor: theme.buttonRed,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          radius,
+                                        ),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      context.getLocale!.save,
+                                      style: theme.redButtonText,
+                                    ),
                                   ),
                                 ),
                               )
                             : Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: CustomElevatedButton(
-                                  onTap: () {
-                                    appButtonHandler.unsaveDapp(dappInfo);
-                                  },
-                                  color: theme.errorRed,
-                                  radius: radius,
-                                  width: 50,
+                                child: SizedBox(
+                                  width: width,
                                   height: height,
-                                  child: Text(
-                                    context.getLocale!.remove,
-                                    style: theme.whiteBoldTextStyle,
+                                  child: OutlinedButton(
+                                    onPressed: () {
+                                      appButtonHandler.unsaveDapp(dappInfo);
+                                    },
+                                    style: OutlinedButton.styleFrom(
+                                      foregroundColor: theme.buttonRed,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          radius,
+                                        ),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      context.getLocale!.remove,
+                                      style: theme.redButtonText,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -171,7 +188,7 @@ class AppButton extends StatelessWidget {
                             },
                             color: theme.blue,
                             radius: radius,
-                            width: 50,
+                            width: width,
                             height: height,
                             child: Text(
                               context.getLocale!.open,
@@ -184,7 +201,7 @@ class AppButton extends StatelessWidget {
                           onTap: () {
                             appButtonHandler.startDownload(dappInfo, context);
                           },
-                          color: theme.appGreen,
+                          color: theme.buttonBlue,
                           radius: radius,
                           width: width,
                           height: height,

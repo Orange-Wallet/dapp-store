@@ -5,6 +5,7 @@ import 'package:dappstore/features/wallet_connect/presentation/wallet_connect_sc
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -53,6 +54,18 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // builder: (context, child) => ResponsiveWrapper.builder(
+      //   child,
+      //   maxWidth: 3240,
+      //   minWidth: 360,
+      //   defaultScale: true,
+      //   breakpoints: [
+      //     const ResponsiveBreakpoint.autoScale(480, name: MOBILE),
+      //     const ResponsiveBreakpoint.autoScale(1080, name: MOBILE),
+      //     const ResponsiveBreakpoint.autoScale(2160, name: MOBILE),
+      //     const ResponsiveBreakpoint.autoScale(3240, name: MOBILE),
+      //   ],
+      // ),
       title: "Test",
       theme: ThemeData(
         primarySwatch: Colors.blue,

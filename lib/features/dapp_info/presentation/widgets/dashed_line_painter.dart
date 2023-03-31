@@ -16,7 +16,7 @@ class DashedLinePainter extends CustomPainter {
     final paint = Paint()
       ..color = dashColor
       ..strokeWidth = 1;
-    while (startX < size.width - padding) {
+    while (startX < size.width - padding * 2) {
       canvas.drawLine(Offset(startX, 0), Offset(startX + dashWidth, 0), paint);
       startX += dashWidth + dashSpace;
     }

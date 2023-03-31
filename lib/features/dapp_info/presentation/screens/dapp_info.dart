@@ -73,26 +73,42 @@ class _DappInfoPageState extends State<DappInfoPage> {
                 ),
                 body: ListView(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(
-                        10,
-                        32.0,
-                        10,
-                        12,
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: RadialGradient(
+                          center: Alignment.topLeft,
+                          radius: 1,
+                          focalRadius: 10,
+                          // focal: Alignment.topLeft,
+                          colors: [
+                            theme.gradientBlue,
+                            theme.gradientBlue2,
+                          ],
+                        ),
                       ),
-                      child: ImageCarousel(
-                        imageUrls:
-                            (dappState.dappInfo?.images?.screenshots ?? []),
-                        dappInfoHandler: dappInfoHandler,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20.0, bottom: 45),
-                      child: DappTitleTile(
-                        dappInfo: dappState.dappInfo!,
-                        theme: theme,
-                        primaryTile: true,
-                      ),
+                      child: Column(children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(
+                            10,
+                            32.0,
+                            10,
+                            12,
+                          ),
+                          child: ImageCarousel(
+                            imageUrls:
+                                (dappState.dappInfo?.images?.screenshots ?? []),
+                            dappInfoHandler: dappInfoHandler,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20.0, bottom: 45),
+                          child: DappTitleTile(
+                            dappInfo: dappState.dappInfo!,
+                            theme: theme,
+                            primaryTile: true,
+                          ),
+                        ),
+                      ]),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 20.0),
@@ -118,51 +134,60 @@ class _DappInfoPageState extends State<DappInfoPage> {
                         },
                       ),
                     ),
-                    DefaultCard(
-                      theme: theme,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              context.getLocale!.contactSupport,
-                              style: theme.whiteBoldTextStyle,
-                            ),
-                            InkWell(
-                                onTap: () {
-                                  if (dappState.dappInfo?.developer?.support
-                                          ?.email !=
-                                      null) {
-                                    canLaunchUrl(
-                                      Uri.parse(
-                                          "mailto://${dappState.dappInfo?.developer?.support?.email}"),
-                                    );
-                                  } else {
-                                    context.showMsgBar(
-                                        context.getLocale!.noContactInfo);
-                                  }
-                                },
-                                child: Icon(
-                                  Icons.arrow_forward,
-                                  color: theme.whiteColor,
-                                ))
-                          ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      child: DefaultCard(
+                        theme: theme,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                context.getLocale!.contactSupport,
+                                style: theme.titleTextExtraBold,
+                              ),
+                              InkWell(
+                                  onTap: () {
+                                    if (dappState.dappInfo?.developer?.support
+                                            ?.email !=
+                                        null) {
+                                      canLaunchUrl(
+                                        Uri.parse(
+                                            "mailto://${dappState.dappInfo?.developer?.support?.email}"),
+                                      );
+                                    } else {
+                                      context.showMsgBar(
+                                          context.getLocale!.noContactInfo);
+                                    }
+                                  },
+                                  child: Icon(
+                                    Icons.arrow_forward,
+                                    color: theme.whiteColor,
+                                  ))
+                            ],
+                          ),
                         ),
                       ),
                     ),
                     BlocBuilder<IStoreCubit, StoreState>(
-                        buildWhen: (previous, current) =>
-                            previous.selectedCategoryDappList.hashCode !=
-                            current.selectedCategoryDappList.hashCode,
-                        bloc: storeHandler.getStoreCubit(),
-                        builder: (context, dappState) {
-                          return SimilarApps(
-                            theme: theme,
-                            dappList:
-                                dappState.selectedCategoryDappList?.response,
-                          );
-                        }),
+                      buildWhen: (previous, current) =>
+                          previous.selectedCategoryDappList.hashCode !=
+                          current.selectedCategoryDappList.hashCode,
+                      bloc: dappInfoHandler.storeCubit,
+                      builder: (context, dappState) {
+                        return SimilarApps(
+                          dappInfoHandler: dappInfoHandler,
+                          length: 5,
+                          theme: theme,
+                          dappList:
+                              dappState.selectedCategoryDappList?.response,
+                        );
+                      },
+                    ),
+                    const SafeArea(
+                      child: SizedBox(),
+                    )
                   ],
                 ),
               );

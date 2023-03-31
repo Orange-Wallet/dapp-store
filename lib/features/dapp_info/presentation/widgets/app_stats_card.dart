@@ -76,7 +76,7 @@ class AppStatsCard extends StatelessWidget {
                 style: theme.greyHeading,
               ),
               Text(
-                (dappInfo?.metrics?.downloads ?? 0).toString(),
+                (dappInfo.metrics?.downloads ?? 0).toString(),
                 style: theme.secondaryTitleTextStyle,
               ),
             ],

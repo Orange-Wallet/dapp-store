@@ -69,6 +69,21 @@ class LightTheme implements IThemeSpec {
   Color get black => const Color.fromARGB(255, 0, 0, 0);
 
   @override
+  Color get greyArrowColor => const Color.fromARGB(255, 163, 163, 163);
+
+  @override
+  Color get gradientBlue => const Color.fromARGB(255, 0, 178, 227);
+
+  @override
+  Color get gradientBlue2 => const Color.fromARGB(0, 0, 179, 227);
+
+  @override
+  Color get buttonBlue => const Color.fromARGB(1, 0, 179, 227);
+
+  @override
+  Color get buttonRed => const Color.fromARGB(255, 249, 94, 94);
+
+  @override
   TextStyle get headingTextStyle => TextStyle(
         // h5 -> headline
         fontFamily: fontName,
@@ -89,8 +104,21 @@ class LightTheme implements IThemeSpec {
   TextStyle get titleTextStyle => TextStyle(
         // h5 -> headline
         fontFamily: fontName,
-        fontSize: relativeTextSize(14),
+        fontSize: relativeTextSize(16),
+        //  fontSize: 20,
+
         fontWeight: FontWeight.w600,
+        color: whiteColor,
+      );
+
+  @override
+  TextStyle get biggerTitleTextStyle => TextStyle(
+        // h5 -> headline
+        fontFamily: fontName,
+        fontSize: relativeTextSize(18),
+        //  fontSize: 20,
+
+        fontWeight: FontWeight.w500,
         color: whiteColor,
       );
 
@@ -98,8 +126,8 @@ class LightTheme implements IThemeSpec {
   TextStyle get titleTextExtraBold => TextStyle(
         // h5 -> headline
         fontFamily: fontName,
-        fontSize: relativeTextSize(14),
-        fontWeight: FontWeight.w700,
+        fontSize: relativeTextSize(16),
+        fontWeight: FontWeight.w600,
         color: whiteColor,
       );
 
@@ -107,7 +135,7 @@ class LightTheme implements IThemeSpec {
   TextStyle get secondaryTitleTextStyle => TextStyle(
         // h5 -> headline
         fontFamily: fontName,
-        fontSize: relativeTextSize(12),
+        fontSize: relativeTextSize(16),
         fontWeight: FontWeight.w600,
         color: whiteColor,
       );
@@ -116,7 +144,7 @@ class LightTheme implements IThemeSpec {
   TextStyle get bodyTextStyle => TextStyle(
         // h5 -> headline
         fontFamily: fontName,
-        fontSize: relativeTextSize(12),
+        fontSize: 14,
         fontWeight: FontWeight.w400,
         color: bodyTextColor,
       );
@@ -132,14 +160,14 @@ class LightTheme implements IThemeSpec {
   @override
   TextStyle get whiteBoldTextStyle => TextStyle(
         fontFamily: fontName,
-        fontSize: relativeTextSize(12),
+        fontSize: relativeTextSize(14),
         color: whiteColor,
         fontWeight: FontWeight.w600,
       );
   @override
   TextStyle get greyHeading => TextStyle(
         fontFamily: fontName,
-        fontSize: relativeTextSize(12),
+        fontSize: relativeTextSize(16),
         color: whiteColor,
         fontWeight: FontWeight.w400,
       );
@@ -155,7 +183,7 @@ class LightTheme implements IThemeSpec {
   TextStyle get secondaryTextStyle2 => TextStyle(
         // h5 -> headline
         fontFamily: fontName,
-        fontSize: relativeTextSize(10),
+        fontSize: relativeTextSize(12),
         color: whiteColor,
         fontWeight: FontWeight.w500,
       );
@@ -185,18 +213,27 @@ class LightTheme implements IThemeSpec {
 
   @override
   TextStyle get secondaryWhiteTextStyle3 => TextStyle(
-      // h5 -> headline
-      fontFamily: fontName,
-      fontSize: relativeTextSize(10),
-      color: whiteColor,
-      fontWeight: FontWeight.w400);
+        // h5 -> headline
+        fontFamily: fontName,
+        fontSize: relativeTextSize(12),
+        color: whiteColor,
+        fontWeight: FontWeight.w400,
+      );
   @override
   TextStyle get secondaryGreenTextStyle4 => TextStyle(
-      // h5 -> headline
-      fontFamily: fontName,
-      fontSize: relativeTextSize(10),
-      color: appGreen,
-      fontWeight: FontWeight.w400);
+        // h5 -> headline
+        fontFamily: fontName,
+        fontSize: relativeTextSize(12),
+        color: appGreen,
+        fontWeight: FontWeight.w400,
+      );
+  @override
+  TextStyle get redButtonText => TextStyle(
+        fontFamily: fontName,
+        fontSize: relativeTextSize(14),
+        color: buttonRed,
+        fontWeight: FontWeight.w500,
+      );
   @override
   double get imageBorderRadius => 20;
   @override
@@ -219,5 +256,5 @@ class LightTheme implements IThemeSpec {
   double relativeHeight(double h) => height * (h / themeHeight);
 
   @override
-  double relativeTextSize(double s) => width * (s / themeHeight);
+  double relativeTextSize(double s) => height * (s / height);
 }

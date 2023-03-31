@@ -29,7 +29,7 @@ class ImageCarousel extends StatelessWidget {
         .toList();
     return Center(
       child: SizedBox(
-        height: 354,
+        height: 311,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 6.0),
           child: PageView.builder(

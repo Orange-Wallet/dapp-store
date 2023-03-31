@@ -70,6 +70,21 @@ class DarkTheme implements IThemeSpec {
   Color get black => const Color.fromARGB(255, 0, 0, 0);
 
   @override
+  Color get greyArrowColor => const Color.fromARGB(255, 163, 163, 163);
+
+  @override
+  Color get gradientBlue => const Color.fromARGB(2, 0, 179, 227);
+
+  @override
+  Color get gradientBlue2 => const Color.fromARGB(0, 0, 179, 227);
+
+  @override
+  Color get buttonBlue => const Color.fromARGB(1, 0, 179, 227);
+
+  @override
+  Color get buttonRed => const Color.fromARGB(255, 249, 94, 94);
+
+  @override
   TextStyle get headingTextStyle => TextStyle(
         // h5 -> headline
         fontFamily: fontName,
@@ -114,6 +129,16 @@ class DarkTheme implements IThemeSpec {
         // h5 -> headline
         fontFamily: fontName,
         fontSize: relativeTextSize(16),
+        fontWeight: FontWeight.w500,
+        color: whiteColor,
+      );
+  @override
+  TextStyle get biggerTitleTextStyle => TextStyle(
+        // h5 -> headline
+        fontFamily: fontName,
+        fontSize: relativeTextSize(18),
+        //  fontSize: 20,
+
         fontWeight: FontWeight.w500,
         color: whiteColor,
       );
@@ -201,6 +226,14 @@ class DarkTheme implements IThemeSpec {
       );
 
   @override
+  TextStyle get redButtonText => TextStyle(
+        fontFamily: fontName,
+        fontSize: relativeTextSize(14),
+        color: buttonRed,
+        fontWeight: FontWeight.w500,
+      );
+
+  @override
   double get imageBorderRadius => 20;
 
   @override
@@ -222,5 +255,5 @@ class DarkTheme implements IThemeSpec {
   double relativeHeight(double h) => height * (h / themeHeight);
 
   @override
-  double relativeTextSize(double s) => height * (s / themeHeight);
+  double relativeTextSize(double s) => width * (s / themeHeight);
 }
