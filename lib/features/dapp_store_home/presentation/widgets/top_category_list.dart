@@ -49,12 +49,35 @@ class _TopCategoriesListState extends State<TopCategoriesList> {
             cacheExtent: 200,
             addAutomaticKeepAlives: true,
             itemBuilder: (BuildContext context, int index) {
-              return topCategoryListWidget(
-                  category: list.entries.elementAt(index).key,
-                  list: list.entries.elementAt(index).value,
-                  axis: widget.isInExploreCategory
-                      ? (index.isEven ? Axis.horizontal : Axis.vertical)
-                      : Axis.vertical);
+              return Stack(
+                children: [
+                  Positioned(
+                    top: -400,
+                    right: (index % 2 == 0) ? -400 : null,
+                    left: (index % 2 != 0) ? -400 : null,
+                    width: 800,
+                    height: 800,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: handler.theme.wcBlue,
+                          gradient: RadialGradient(
+                            colors: [
+                              handler.theme.wcBlue.withOpacity(0.2),
+                              handler.theme.wcBlue.withOpacity(0),
+                            ],
+                          )),
+                      height: 900,
+                    ),
+                  ),
+                  topCategoryListWidget(
+                      category: list.entries.elementAt(index).key,
+                      list: list.entries.elementAt(index).value,
+                      axis: widget.isInExploreCategory
+                          ? (index.isEven ? Axis.horizontal : Axis.vertical)
+                          : Axis.vertical),
+                ],
+              );
             },
           );
         });

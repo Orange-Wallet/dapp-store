@@ -44,9 +44,35 @@ class _HomePageState extends State<HomePage> {
         addAutomaticKeepAlives: true,
         cacheExtent: 20,
         children: [
-          const ExploreCard(),
+          Stack(
+            children: [
+              Positioned.fill(
+                right: -200,
+                top: -300,
+                child: Container(
+                  clipBehavior: Clip.antiAlias,
+                  alignment: Alignment.topCenter,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: storeHandler.theme.wcBlue,
+                      gradient: RadialGradient(
+                        colors: [
+                          storeHandler.theme.wcBlue.withOpacity(0.4),
+                          storeHandler.theme.wcBlue.withOpacity(0),
+                        ],
+                      )),
+                  height: 500,
+                ),
+              ),
+              Column(
+                children: const [
+                  ExploreCard(),
+                  FeaturedDappsList(),
+                ],
+              ),
+            ],
+          ),
           const SavedDappscard(),
-          const FeaturedDappsList(),
           const ExploreBycategories(),
           const UpdateAvailableCard(),
           const TopCategoriesList(),

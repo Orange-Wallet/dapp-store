@@ -1,3 +1,6 @@
+import 'dart:math';
+import 'dart:ui';
+
 import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';
 import 'package:dappstore/utils/image_constants.dart';
@@ -52,5 +55,34 @@ class ExploreCard extends StatelessWidget {
             ),
           ],
         ));
+  }
+}
+
+class CircleBlurPainter extends CustomPainter {
+  CircleBlurPainter(
+      {required this.circleWidth,
+      required this.blurSigma,
+      required this.color});
+
+  double circleWidth;
+  double blurSigma;
+  Color color;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint line = Paint()
+      ..color = color
+      ..strokeCap = StrokeCap.round
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = circleWidth
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, blurSigma);
+    Offset center = Offset(size.width / 2, size.height / 2);
+    double radius = min(size.width / 2, size.height / 2);
+    canvas.drawCircle(center, radius, line);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return true;
   }
 }
