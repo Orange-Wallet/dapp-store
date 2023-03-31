@@ -1,6 +1,7 @@
 import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/search_result.dart';
+import 'package:dappstore/widgets/white_gradient_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -16,7 +17,7 @@ class CustomSearchDelegate extends SearchDelegate {
   ThemeData appBarTheme(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return theme.copyWith(
-      backgroundColor: handler.theme.secondaryBackgroundColor,
+      backgroundColor: handler.theme.appBarBackgroundColor,
       appBarTheme: AppBarTheme(
         systemOverlayStyle: !handler.theme.isDarkTheme
             ? SystemUiOverlayStyle.dark
@@ -30,8 +31,8 @@ class CustomSearchDelegate extends SearchDelegate {
         hintStyle: handler.theme.bodyTextStyle,
         isDense: true,
         border: InputBorder.none,
-        fillColor: handler.theme.secondaryBackgroundColor,
-        focusColor: handler.theme.secondaryBackgroundColor,
+        fillColor: handler.theme.appBarBackgroundColor,
+        focusColor: handler.theme.appBarBackgroundColor,
         filled: true,
       ),
     );
@@ -79,5 +80,10 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     return buildResults(context);
+  }
+
+  @override
+  PreferredSizeWidget? buildBottom(BuildContext context) {
+    return const WhiteGradientLine();
   }
 }

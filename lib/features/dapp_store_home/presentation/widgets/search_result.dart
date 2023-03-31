@@ -115,6 +115,7 @@ class _SearchResultState extends State<SearchResult> {
                     child: DappListTile(
                       dapp: list[index]!,
                       handler: widget.handler,
+                      isInSearchField: true,
                     ),
                   ),
                 );

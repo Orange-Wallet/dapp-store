@@ -88,6 +88,9 @@ class LightTheme implements IThemeSpec {
   Color get cardGreen => const Color.fromRGBO(10, 156, 85, 0.4);
 
   @override
+  Color get searchBigCardBG => const Color.fromRGBO(19, 27, 38, 1);
+
+  @override
   double get vSmallRadius => 2;
 
   @override

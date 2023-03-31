@@ -43,6 +43,7 @@ abstract class IThemeSpec {
   Color get cardGreen;
   Color get chipBlue;
   Color get cardGrey;
+  Color get searchBigCardBG;
 
   TextStyle get secondaryTextStyle1;
   TextStyle get headingTextStyle;

@@ -6,11 +6,13 @@ import 'package:flutter/material.dart';
 class DappListTile extends StatelessWidget {
   final DappInfo dapp;
   final IDappStoreHandler handler;
+  final bool isInSearchField;
   final bool isThreeLines;
 
   const DappListTile({
     required this.dapp,
     required this.handler,
+    this.isInSearchField = false,
     this.isThreeLines = false,
     super.key,
   });
@@ -50,13 +52,21 @@ class DappListTile extends StatelessWidget {
                   const SizedBox(
                     height: 8,
                   ),
-                  Text(
-                    dapp.description ?? "N/A",
-                    style: handler.theme.bodyTextStyle,
-                    maxLines: isThreeLines ? 1 : 2,
-                    softWrap: true,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                  isInSearchField
+                      ? Text(
+                          "${dapp.developer?.legalName ?? "N/A"} • ${dapp.category}",
+                          style: handler.theme.bodyTextStyle,
+                          maxLines: 1,
+                          softWrap: true,
+                          overflow: TextOverflow.ellipsis,
+                        )
+                      : Text(
+                          dapp.description ?? "N/A",
+                          style: handler.theme.bodyTextStyle,
+                          maxLines: isThreeLines ? 1 : 2,
+                          softWrap: true,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                   if (isThreeLines)
                     Row(
                       children: [

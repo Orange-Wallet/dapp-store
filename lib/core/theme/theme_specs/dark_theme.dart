@@ -103,6 +103,9 @@ class DarkTheme implements IThemeSpec {
   Color get cardGrey => const Color.fromRGBO(12, 53, 90, 1);
 
   @override
+  Color get searchBigCardBG => const Color.fromRGBO(19, 27, 38, 1);
+
+  @override
   TextStyle get headingTextStyle => TextStyle(
         // h5 -> headline
         fontFamily: fontName,
