@@ -48,14 +48,6 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
               Icons.search,
               color: Colors.white,
             )),
-        IconButton(
-            onPressed: () {
-              context.showBottomSheet(handler.theme);
-            },
-            icon: const Icon(
-              Icons.menu,
-              color: Colors.white,
-            )),
       ],
       bottom: const WhiteGradientLine(),
     );

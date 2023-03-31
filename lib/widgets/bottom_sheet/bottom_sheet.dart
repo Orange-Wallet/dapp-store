@@ -3,7 +3,7 @@ import 'package:dappstore/widgets/white_gradient_line.dart';
 import 'package:flutter/material.dart';
 
 extension BottomSheet on BuildContext {
-  showBottomSheet(IThemeSpec theme) {
+  showBottomSheet({required IThemeSpec theme, required Widget child}) {
     showModalBottomSheet(
       backgroundColor: Colors.transparent,
       context: this,
@@ -31,11 +31,14 @@ extension BottomSheet on BuildContext {
                             width: 88,
                             height: 4,
                             decoration: BoxDecoration(
-                                color: theme.ratingGrey,
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(10))),
+                              color: theme.ratingGrey,
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
                           ),
-                        )
+                        ),
+                        child,
                       ],
                     )),
               ),
