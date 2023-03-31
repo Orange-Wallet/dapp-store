@@ -11,10 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ExploreBycategories extends StatefulWidget {
-  final bool useSmallGrid;
   const ExploreBycategories({
     super.key,
-    this.useSmallGrid = false,
   });
 
   @override
@@ -59,25 +57,20 @@ class _ExploreBycategoriesState extends State<ExploreBycategories> {
                   shrinkWrap: true,
                   addAutomaticKeepAlives: true,
                   cacheExtent: 200,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: (widget.useSmallGrid) ? 2 : 3,
-                      crossAxisSpacing: 12,
-                      mainAxisSpacing: 12,
-                      childAspectRatio: ((widget.useSmallGrid) ? (3) : 1)),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 8,
+                    mainAxisSpacing: 8,
+                    childAspectRatio: 2.5,
+                  ),
                   itemCount: list.length,
                   itemBuilder: (BuildContext context, int index) {
                     if (list[index] == null) {
                       return const SizedBox();
                     }
-                    if (widget.useSmallGrid) {
-                      return smallGridTile(list[index]);
-                    } else {
-                      return getGridTile(list[index]);
-                    }
+
+                    return smallGridTile(list[index]);
                   },
-                ),
-                const SizedBox(
-                  height: 12,
                 ),
               ],
             ),
@@ -125,45 +118,27 @@ class _ExploreBycategoriesState extends State<ExploreBycategories> {
   }
 
   Widget smallGridTile(CuratedCategoryList? curatedCategory) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(handler.theme.imageBorderRadius),
-      ),
-      clipBehavior: Clip.hardEdge,
-      height: 50,
-      width: double.maxFinite,
-      child: InkWell(
-        onTap: () {
-          context
-              .pushRoute(CategoryScreen(category: curatedCategory!.category!));
-        },
-        borderRadius: BorderRadius.circular(handler.theme.imageBorderRadius),
-        child: Stack(
-          children: [
-            ImageWidgetCached(
-              curatedCategory?.image ?? "",
-              fit: BoxFit.cover,
-              width: double.maxFinite,
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                color: handler.theme.secondaryBackgroundColor.withOpacity(0.7),
-                width: double.maxFinite,
-                height: double.maxFinite,
-                child: Center(
-                  child: Text(
-                    curatedCategory?.category?.toUpperCase() ?? "",
-                    style: handler.theme.buttonTextStyle,
-                    overflow: TextOverflow.fade,
-                    maxLines: 1,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-            )
-          ],
+    return InkWell(
+      onTap: () {
+        context.pushRoute(CategoryScreen(category: curatedCategory!.category!));
+      },
+      borderRadius: BorderRadius.circular(handler.theme.smallRadius),
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(handler.theme.smallRadius),
+            color: handler.theme.chipBlue,
+            border: Border.all(
+              color: handler.theme.cardBlue,
+            )),
+        clipBehavior: Clip.hardEdge,
+        child: Center(
+          child: Text(
+            curatedCategory?.category?.toUpperCase() ?? "",
+            style: handler.theme.secondaryWhiteTextStyle3,
+            overflow: TextOverflow.fade,
+            maxLines: 1,
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );

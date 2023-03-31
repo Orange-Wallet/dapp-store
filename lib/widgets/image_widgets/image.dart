@@ -294,6 +294,7 @@ class ImageWidgetCached extends StatelessWidget {
       width: width, fit: fit, alignment: alignment ?? Alignment.center,
       color: color,
       placeholder: ((context, url) => const LoadingIndicator()),
+      errorWidget: (context, url, error) => const LoadingIndicator(),
       // enableNetworkCache: true,
       // placeholderType: PlaceholderType.nftItemSymbol,
     );

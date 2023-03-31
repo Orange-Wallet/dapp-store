@@ -5,7 +5,8 @@
     "description": "Hello world"
   },
   "htcDappStore": "HTC DAPP STORE",
-  "exploreTheBestDapps": "Explore the best dApps created by community.",
+  "exploreTheBestDapps": "Explore the best dApps",
+  "createdByCommunity": "created by community.",
   "connectWallet": "Connect Wallet",
   "featuredDapps": "FEATURED DAPPS",
   "exploreMore": "Explore More",
@@ -74,5 +75,9 @@
   "welcomeToHTC": "Welcome to HTC dApp Store",
   "signMessage": "Sign Message",
   "savedPwa": "Saved dApps",
-  "noDappsSaved": "No dApps saved"
+  "noDappsSaved": "No dApps saved",
+  "dappsReadyToUpdate":"dApps are ready to update.",
+  "updateYourDapps":"Update your dApps to enjoy all the latest features.",
+  "youHave": "You Have",
+  "webDapps":"web dApps"
 }

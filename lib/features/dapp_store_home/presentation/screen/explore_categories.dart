@@ -40,9 +40,7 @@ class _ExploreCategoriesState extends State<ExploreCategories> {
         physics: const BouncingScrollPhysics(),
         cacheExtent: 20,
         children: const [
-          ExploreBycategories(
-            useSmallGrid: true,
-          ),
+          ExploreBycategories(),
           TopCategoriesList(isInExploreCategory: true),
         ],
       ),

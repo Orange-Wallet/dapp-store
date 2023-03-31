@@ -82,6 +82,22 @@ class LightTheme implements IThemeSpec {
 
   @override
   Color get buttonRed => const Color.fromARGB(255, 249, 94, 94);
+  @override
+  Color get cardBlue => const Color.fromRGBO(0, 118, 226, 0.4);
+  @override
+  Color get cardGreen => const Color.fromRGBO(10, 156, 85, 0.4);
+
+  @override
+  double get vSmallRadius => 2;
+
+  @override
+  double get smallRadius => 4;
+
+  @override
+  Color get chipBlue => const Color.fromRGBO(0, 132, 255, 0.2);
+
+  @override
+  Color get cardGrey => const Color.fromRGBO(12, 53, 90, 1);
 
   @override
   Color get sheetBackgroundColor => const Color.fromARGB(255, 21, 27, 37);
@@ -242,6 +258,24 @@ class LightTheme implements IThemeSpec {
         color: buttonRed,
         fontWeight: FontWeight.w500,
       );
+  @override
+  TextStyle get exploreCardTitle => TextStyle(
+        // h5 -> headline
+        fontFamily: fontName,
+        fontSize: relativeTextSize(20),
+        color: whiteColor,
+        fontWeight: FontWeight.w300,
+      );
+
+  @override
+  TextStyle get exploreCardTitleBold => TextStyle(
+        // h5 -> headline
+        fontFamily: fontName,
+        fontSize: relativeTextSize(20),
+        color: whiteColor,
+        fontWeight: FontWeight.w700,
+      );
+
   @override
   double get imageBorderRadius => 20;
   @override

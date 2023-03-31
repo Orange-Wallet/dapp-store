@@ -9,6 +9,8 @@ abstract class IThemeSpec {
   double get cardRadius;
   double get buttonRadius;
   double get wcIconSize;
+  double get vSmallRadius;
+  double get smallRadius;
 
   double get themeHeight;
   double get themeWidth;
@@ -37,6 +39,10 @@ abstract class IThemeSpec {
   Color get buttonRed;
   Color get wcBlue;
   Color get sheetBackgroundColor;
+  Color get cardBlue;
+  Color get cardGreen;
+  Color get chipBlue;
+  Color get cardGrey;
 
   TextStyle get secondaryTextStyle1;
   TextStyle get headingTextStyle;
@@ -56,6 +62,8 @@ abstract class IThemeSpec {
   TextStyle get secondaryGreenTextStyle4;
   TextStyle get greyHeading;
   TextStyle get redButtonText;
+  TextStyle get exploreCardTitle;
+  TextStyle get exploreCardTitleBold;
 
   RoundedRectangleBorder get cardShape;
   RoundedRectangleBorder get sheetCardShape;

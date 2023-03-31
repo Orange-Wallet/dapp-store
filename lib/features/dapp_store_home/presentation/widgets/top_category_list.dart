@@ -7,7 +7,6 @@ import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_sto
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_list.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/screen/category_screen.dart';
-import 'package:dappstore/widgets/chip.dart';
 import 'package:dappstore/widgets/dapp/dapp_list_horizantal_tile.dart';
 import 'package:dappstore/widgets/dapp/dapp_list_tile.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +37,6 @@ class _TopCategoriesListState extends State<TopCategoriesList> {
             current.featuredDappsByCategory.hashCode,
         bloc: handler.getStoreCubit(),
         builder: (context, state) {
-          // TODO currently using dapplist instead of curated list
           Map<String, DappList?>? list = state.featuredDappsByCategory;
           if (list == null || list.isEmpty) {
             return Container();
@@ -47,7 +45,7 @@ class _TopCategoriesListState extends State<TopCategoriesList> {
             physics: const NeverScrollableScrollPhysics(),
             padding: const EdgeInsets.symmetric(vertical: 12),
             shrinkWrap: true,
-            itemCount: list.entries.length,
+            itemCount: 3,
             cacheExtent: 200,
             addAutomaticKeepAlives: true,
             itemBuilder: (BuildContext context, int index) {
@@ -94,21 +92,23 @@ class _TopCategoriesListState extends State<TopCategoriesList> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        (widget.isInExploreCategory)
-            ? Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4),
-                  child: CustomChip(
-                      handler: handler,
-                      title:
-                          "${context.getLocale!.top} ${category.toUpperCase()}"),
-                ),
-              )
-            : Text(
-                "${context.getLocale!.top} ${category.toUpperCase()}",
-                style: handler.theme.buttonTextStyle,
+        Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(
+                handler.theme.vSmallRadius,
               ),
+              border:
+                  Border.all(color: handler.theme.whiteColor.withOpacity(0.08)),
+              gradient: LinearGradient(colors: [
+                handler.theme.whiteColor.withOpacity(0),
+                handler.theme.whiteColor.withOpacity(0.08)
+              ])),
+          child: Text(
+            "${context.getLocale!.top} ${category.toUpperCase()}",
+            style: handler.theme.secondaryTextStyle2,
+          ),
+        ),
         TextButton(
             onPressed: () {
               context.pushRoute(CategoryScreen(category: category));
@@ -173,8 +173,8 @@ class _TopCategoriesListState extends State<TopCategoriesList> {
       physics: const NeverScrollableScrollPhysics(),
       padding: const EdgeInsets.symmetric(vertical: 12),
       shrinkWrap: true,
-      itemCount: ((list?.response?.length ?? 0) > 4)
-          ? 4
+      itemCount: ((list?.response?.length ?? 0) > 3)
+          ? 3
           : (list?.response?.length ?? 0),
       addAutomaticKeepAlives: true,
       cacheExtent: 200,

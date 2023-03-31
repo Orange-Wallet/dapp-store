@@ -1,4 +1,3 @@
-import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/widgets/image_widgets/image.dart';
@@ -19,26 +18,27 @@ class DappListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.only(bottom: 20),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             decoration: BoxDecoration(
-              borderRadius:
-                  BorderRadius.circular(handler.theme.imageBorderRadius),
+              borderRadius: BorderRadius.circular(handler.theme.buttonRadius),
             ),
             clipBehavior: Clip.antiAlias,
             child: ImageWidgetCached(
               dapp.images!.logo!,
               key: ValueKey(dapp.images!.logo!),
-              height: 60,
-              width: 60,
+              height: 64,
+              width: 64,
             ),
           ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -46,6 +46,9 @@ class DappListTile extends StatelessWidget {
                     style: handler.theme.titleTextStyle,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(
+                    height: 8,
                   ),
                   Text(
                     dapp.description ?? "N/A",
@@ -72,20 +75,11 @@ class DappListTile extends StatelessWidget {
               ),
             ),
           ),
-          InkWell(
-            onTap: () {
-              //TODO add install logic
-            },
-            child: Container(
-              height: 30,
-              width: 50,
-              color: handler.theme.secondaryBackgroundColor,
-              child: Center(
-                child: Text(
-                  context.getLocale!.add,
-                  style: handler.theme.smallButtonTextStyle,
-                ),
-              ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: Icon(
+              Icons.arrow_forward,
+              color: handler.theme.whiteColor,
             ),
           )
         ],

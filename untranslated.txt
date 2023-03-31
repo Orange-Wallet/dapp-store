@@ -2,6 +2,7 @@
   "es": [
     "htcDappStore",
     "exploreTheBestDapps",
+    "createdByCommunity",
     "connectWallet",
     "featuredDapps",
     "exploreMore",
@@ -63,6 +64,10 @@
     "welcomeToHTC",
     "signMessage",
     "savedPwa",
-    "noDappsSaved"
+    "noDappsSaved",
+    "dappsReadyToUpdate",
+    "updateYourDapps",
+    "youHave",
+    "webDapps"
   ]
 }
