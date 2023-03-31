@@ -40,6 +40,7 @@
     "signUpTo",
     "useWalletConnect",
     "dontHaveAWallet",
+    "viveWallet",
     "byContinuing",
     "and",
     "connectWith",
@@ -58,6 +59,8 @@
     "chainNotSupported",
     "remove",
     "showMore",
-    "showLess"
+    "showLess",
+    "welcomeToHTC",
+    "signMessage"
   ]
 }

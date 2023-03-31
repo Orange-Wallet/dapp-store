@@ -5,7 +5,10 @@ abstract class IThemeSpec {
 
   bool get isDarkTheme;
 
-  double get imageBorderRadius => 20;
+  double get imageBorderRadius;
+  double get cardRadius;
+  double get buttonRadius;
+  double get wcIconSize;
 
   double get themeHeight;
   double get themeWidth;
@@ -32,6 +35,7 @@ abstract class IThemeSpec {
   Color get gradientBlue2;
   Color get buttonBlue;
   Color get buttonRed;
+  Color get wcBlue;
 
   TextStyle get secondaryTextStyle1;
   TextStyle get headingTextStyle;
@@ -52,7 +56,6 @@ abstract class IThemeSpec {
   TextStyle get greyHeading;
   TextStyle get redButtonText;
 
-  double get cardRadius;
   RoundedRectangleBorder get cardShape;
 
   double relativeWidth(double w);

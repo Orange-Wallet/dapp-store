@@ -85,6 +85,9 @@ class DarkTheme implements IThemeSpec {
   Color get buttonRed => const Color.fromARGB(255, 249, 94, 94);
 
   @override
+  Color get wcBlue => const Color(0xFF00B3E3);
+
+  @override
   TextStyle get headingTextStyle => TextStyle(
         // h5 -> headline
         fontFamily: fontName,
@@ -113,14 +116,14 @@ class DarkTheme implements IThemeSpec {
   TextStyle get secondaryWhiteTextStyle3 => TextStyle(
       // h5 -> headline
       fontFamily: fontName,
-      fontSize: relativeTextSize(10),
+      fontSize: relativeTextSize(12),
       color: whiteColor,
       fontWeight: FontWeight.w400);
   @override
   TextStyle get secondaryGreenTextStyle4 => TextStyle(
       // h5 -> headline
       fontFamily: fontName,
-      fontSize: relativeTextSize(10),
+      fontSize: relativeTextSize(12),
       color: appGreen,
       fontWeight: FontWeight.w400);
 
@@ -243,6 +246,12 @@ class DarkTheme implements IThemeSpec {
   double get cardRadius => 16;
 
   @override
+  double get buttonRadius => 12;
+
+  @override
+  double get wcIconSize => 20;
+
+  @override
   RoundedRectangleBorder get cardShape => const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(16),
@@ -255,5 +264,5 @@ class DarkTheme implements IThemeSpec {
   double relativeHeight(double h) => height * (h / themeHeight);
 
   @override
-  double relativeTextSize(double s) => width * (s / themeHeight);
+  double relativeTextSize(double s) => height * (s / height);
 }

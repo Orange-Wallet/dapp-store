@@ -141,6 +141,11 @@ class LightTheme implements IThemeSpec {
       );
 
   @override
+  double get buttonRadius => 12;
+
+  @override
+  Color get wcBlue => const Color(0xFF00B3E3);
+  @override
   TextStyle get bodyTextStyle => TextStyle(
         // h5 -> headline
         fontFamily: fontName,
@@ -248,6 +253,9 @@ class LightTheme implements IThemeSpec {
           Radius.circular(16),
         ),
       );
+
+  @override
+  double get wcIconSize => 20;
 
   @override
   double relativeWidth(double w) => width * (w / themeWidth);
