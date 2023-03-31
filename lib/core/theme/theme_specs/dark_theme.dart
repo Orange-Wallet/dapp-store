@@ -88,6 +88,9 @@ class DarkTheme implements IThemeSpec {
   Color get wcBlue => const Color(0xFF00B3E3);
 
   @override
+  Color get sheetBackgroundColor => Color.fromARGB(255, 21, 27, 37);
+
+  @override
   TextStyle get headingTextStyle => TextStyle(
         // h5 -> headline
         fontFamily: fontName,
@@ -255,6 +258,13 @@ class DarkTheme implements IThemeSpec {
   RoundedRectangleBorder get cardShape => const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(16),
+        ),
+      );
+
+  @override
+  RoundedRectangleBorder get sheetCardShape => const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(24),
         ),
       );
   @override

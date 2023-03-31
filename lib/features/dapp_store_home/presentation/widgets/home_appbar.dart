@@ -6,6 +6,7 @@ import 'package:dappstore/features/dapp_store_home/presentation/widgets/custom_s
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
 import 'package:dappstore/features/wallet_connect/presentation/wallet_connect_screen.dart';
 import 'package:dappstore/utils/image_constants.dart';
+import 'package:dappstore/widgets/bottom_sheet/bottom_sheet.dart';
 import 'package:dappstore/widgets/white_gradient_line.dart';
 import 'package:flutter/material.dart';
 
@@ -48,7 +49,9 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
               color: Colors.white,
             )),
         IconButton(
-            onPressed: () {},
+            onPressed: () {
+              context.showBottomSheet(handler.theme);
+            },
             icon: const Icon(
               Icons.menu,
               color: Colors.white,

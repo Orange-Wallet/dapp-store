@@ -82,7 +82,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
       localizationsDelegates: AppLocalizations.localizationsDelegates.toList(),
       supportedLocales: AppLocalizations.supportedLocales,
       locale: appHandler.localeCubit.getLocaleToUse(),
-      home: const SavedDappsPage(),
+      home: const HomePage(),
     );
   }
 

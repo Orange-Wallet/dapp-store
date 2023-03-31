@@ -84,6 +84,9 @@ class LightTheme implements IThemeSpec {
   Color get buttonRed => const Color.fromARGB(255, 249, 94, 94);
 
   @override
+  Color get sheetBackgroundColor => const Color.fromARGB(255, 21, 27, 37);
+
+  @override
   TextStyle get headingTextStyle => TextStyle(
         // h5 -> headline
         fontFamily: fontName,
@@ -251,6 +254,13 @@ class LightTheme implements IThemeSpec {
   RoundedRectangleBorder get cardShape => const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(16),
+        ),
+      );
+
+  @override
+  RoundedRectangleBorder get sheetCardShape => const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(24),
         ),
       );
 

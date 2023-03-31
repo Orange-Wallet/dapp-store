@@ -36,6 +36,7 @@ abstract class IThemeSpec {
   Color get buttonBlue;
   Color get buttonRed;
   Color get wcBlue;
+  Color get sheetBackgroundColor;
 
   TextStyle get secondaryTextStyle1;
   TextStyle get headingTextStyle;
@@ -57,6 +58,7 @@ abstract class IThemeSpec {
   TextStyle get redButtonText;
 
   RoundedRectangleBorder get cardShape;
+  RoundedRectangleBorder get sheetCardShape;
 
   double relativeWidth(double w);
   double relativeHeight(double h);
