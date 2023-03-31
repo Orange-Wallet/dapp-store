@@ -21,6 +21,7 @@ class SavedPwaStore implements ISavedPwaStore {
         dappId: dappInfo.dappId!,
         logo: dappInfo.images?.logo,
         banner: dappInfo.images?.banner,
+        subtitle: "${dappInfo.developer} · ${dappInfo.category}",
       );
       await box.put(dappInfo.dappId!, savedPwa);
       return savedPwa;

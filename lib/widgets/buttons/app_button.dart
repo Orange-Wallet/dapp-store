@@ -187,14 +187,12 @@ class _AppButtonState extends State<AppButton> {
                                             foregroundColor:
                                                 widget.theme.buttonRed,
                                             backgroundColor: Colors.black,
-                                            shadowColor: widget.theme.buttonRed,
                                             surfaceTintColor:
                                                 widget.theme.buttonRed,
                                             shape: RoundedRectangleBorder(
                                               side: BorderSide(
-                                                  color: widget.theme.buttonRed,
-                                                  width: 10,
-                                                  style: BorderStyle.solid),
+                                                color: widget.theme.buttonRed,
+                                              ),
                                               borderRadius:
                                                   BorderRadius.circular(
                                                 widget.radius,

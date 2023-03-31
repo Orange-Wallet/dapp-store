@@ -72,5 +72,7 @@
   "showMore": "Show more",
   "showLess": "Show less",
   "welcomeToHTC": "Welcome to HTC dApp Store",
-  "signMessage": "Sign Message"
+  "signMessage": "Sign Message",
+  "savedPwa": "Saved dApps",
+  "noDappsSaved": "No dApps saved"
 }

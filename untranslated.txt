@@ -61,6 +61,8 @@
     "showMore",
     "showLess",
     "welcomeToHTC",
-    "signMessage"
+    "signMessage",
+    "savedPwa",
+    "noDappsSaved"
   ]
 }

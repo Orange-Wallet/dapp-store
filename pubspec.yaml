@@ -54,6 +54,8 @@ dependencies:
   sentry_flutter: ^7.3.0
   readmore: ^2.1.0
   responsive_framework: ^0.2.0
+  flutter_spinkit: ^5.1.0
+
 
 # dependency_overrides:
   # stream_channel: ^2.1.1 

@@ -150,7 +150,7 @@ class DarkTheme implements IThemeSpec {
   TextStyle get secondaryTitleTextStyle => TextStyle(
         // h5 -> headline
         fontFamily: fontName,
-        fontSize: relativeTextSize(12),
+        fontSize: relativeTextSize(16),
         fontWeight: FontWeight.w600,
         color: whiteColor,
       );

@@ -41,22 +41,6 @@ class InScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
           emptyBox,
         ],
       ),
-      actions: [
-        IconButton(
-            onPressed: () {
-              showSearch(
-                  context: context,
-                  delegate:
-                      CustomSearchDelegate(handler: handler, context: context));
-            },
-            icon: Icon(Icons.search, color: handler.theme.whiteColor)),
-        IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.menu,
-              color: handler.theme.whiteColor,
-            ))
-      ],
       bottom: const WhiteGradientLine(),
     );
   }

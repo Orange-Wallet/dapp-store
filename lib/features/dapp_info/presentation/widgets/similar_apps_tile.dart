@@ -25,38 +25,39 @@ class SimilarAppsTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final listTile = SizedBox(
       height: biggerTile ? 64 : 48,
-      child: ListTile(
-        leading: SizedBox(
-          height: biggerTile ? 64 : 48,
-          width: biggerTile ? 64 : 48,
-          child: Container(
-            clipBehavior: Clip.hardEdge,
-            decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10))),
-            child: ImageWidgetCached(
-              dappInfo.images?.logo! ?? "",
-              fit: BoxFit.fill,
-              height: biggerTile ? 64 : 48,
-              width: biggerTile ? 64 : 48,
+      child: GestureDetector(
+        onTap: () {
+          dappInfoHandler.storeCubit.setActiveDappId(
+            dappId: dappInfo.dappId!,
+          );
+          context.pushRoute(const DappInfoPage());
+        },
+        child: ListTile(
+          leading: SizedBox(
+            height: biggerTile ? 64 : 48,
+            width: biggerTile ? 64 : 48,
+            child: Container(
+              clipBehavior: Clip.hardEdge,
+              decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              child: ImageWidgetCached(
+                dappInfo.images?.logo! ?? "",
+                fit: BoxFit.fill,
+                height: biggerTile ? 64 : 48,
+                width: biggerTile ? 64 : 48,
+              ),
             ),
           ),
-        ),
-        title: Text(
-          dappInfo.name!,
-          style: biggerTile ? theme.biggerTitleTextStyle : theme.titleTextStyle,
-        ),
-        subtitle: Text(
-          "${dappInfo.developer} · ${dappInfo.category}",
-          style: biggerTile ? theme.bodyTextStyle : theme.secondaryTextStyle2,
-        ),
-        trailing: InkWell(
-          onTap: () {
-            dappInfoHandler.storeCubit.setActiveDappId(
-              dappId: dappInfo.dappId!,
-            );
-            context.pushRoute(const DappInfoPage());
-          },
-          child: Icon(
+          title: Text(
+            dappInfo.name!,
+            style:
+                biggerTile ? theme.biggerTitleTextStyle : theme.titleTextStyle,
+          ),
+          subtitle: Text(
+            "${dappInfo.developer} · ${dappInfo.category}",
+            style: biggerTile ? theme.bodyTextStyle : theme.secondaryTextStyle2,
+          ),
+          trailing: Icon(
             Icons.arrow_forward,
             color: theme.greyArrowColor,
           ),

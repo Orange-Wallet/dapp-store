@@ -11,6 +11,7 @@ class SavedPwaModel with _$SavedPwaModel {
     @HiveField(2) required String name,
     @HiveField(3) String? logo,
     @HiveField(4) String? banner,
+    @HiveField(5) String? subtitle,
   }) = _SavedPwaModel;
   factory SavedPwaModel.fromJson(Map<String, Object?> json) =>
       _$SavedPwaModelFromJson(json);
