@@ -25,7 +25,7 @@ Future<void> initialise() async {
   await getIt<IPermissions>().requestNotificationPermission();
   await getIt<IPermissions>().requestStoragePermission();
   await getIt<IPermissions>().requestAppInstallationPermission();
-
+  await getIt<IDownloader>().initializeStorageDir();
   // await getIt<WalletConnectCubit>().initialize();
   // Initialize the app dependencies
 }

@@ -1,6 +1,7 @@
 import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/router/router.dart';
+import 'package:dappstore/features/dapp_info/application/i_dapp_info_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/package_manager.dart/i_package_manager.dart';
@@ -25,6 +26,8 @@ class AppButtonHandler implements IAppButtonHandler {
   IWalletConnectCubit get walletConnectCubit => getIt<IWalletConnectCubit>();
   @override
   ISavedPwaCubit get savedPwaCubit => getIt<ISavedPwaCubit>();
+  @override
+  IDappInfoCubit get dappInfoCubit => getIt<IDappInfoCubit>();
   @override
   startDownload(DappInfo dappInfo, BuildContext context) async {
     final url = await storeCubit.getBuildUrl(dappInfo.dappId!);

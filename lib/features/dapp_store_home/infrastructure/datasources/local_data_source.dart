@@ -46,9 +46,10 @@ class LocalDataSource implements IDataSource {
           "isSelfModerated": true,
           "language": "en",
           "version": "unknown",
+          "androidPackage": "com.trellis.OpenWallet",
           "isListed": true,
           "listDate": "2023-01-30",
-          "availableOnPlatform": ["web"],
+          "availableOnPlatform": ["web", "android"],
           "category": "games",
           "chains": [1],
           "dappId": "exchange.quickswap.dapp",
@@ -86,13 +87,12 @@ class LocalDataSource implements IDataSource {
       "minAge": 13,
       "isForMatureAudience": false,
       "isSelfModerated": true,
-      //"androidPackage": "pl.baftek.spitfire",
-      //"androidPackage": "com.htc.vivewallet",
+      "androidPackage": "com.trellis.OpenWallet",
       "language": "en",
       "version": "unknown",
       "isListed": true,
       "listDate": "2023-01-30",
-      "availableOnPlatform": ["web"],
+      "availableOnPlatform": ["web", "android"],
       "category": "games",
       "chains": [1],
       "dappId": "exchange.quickswap.dapp",
@@ -188,7 +188,7 @@ class LocalDataSource implements IDataSource {
   Future<BuildUrlDto> getBuildUrl(String dappId) async {
     return BuildUrlDto.fromJson({
       "url":
-          "https://github.com/bartekpacia/spitfire/releases/download/v1.2.0/spitfire.apk",
+          "https://github.com/Abhimanyu121/OpenWallet/releases/download/Alpha2/app-release.apk",
       "success": true
     });
   }

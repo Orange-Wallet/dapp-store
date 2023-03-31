@@ -54,20 +54,91 @@ class DappTitleTile extends StatelessWidget {
     return BlocBuilder<IPackageManager, PackageManagerState>(
       bloc: getIt<IPackageManager>(),
       builder: (context, state) {
-        if (!(dappInfo.availableOnPlatform?.contains("android") ?? false)) {
-          return listWithoutTrailing;
+        if ((dappInfo.availableOnPlatform?.contains("web") ?? false) &&
+            !(dappInfo.availableOnPlatform?.contains("android") ?? false)) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 23.0),
+                child: listWithoutTrailing,
+              ),
+              AppButton(
+                key: Key(dappInfo.dappId!),
+                height: 32,
+                width: MediaQuery.of(context).size.width * 0.456,
+                showPrimary: true,
+                showSecondary: true,
+                radius: 4,
+                dappInfo: dappInfo,
+                theme: theme,
+              ),
+            ],
+          );
         }
         if (dappInfo.availableOnPlatform?.contains("android") ?? false) {
-          if (state.packageMapping![dappInfo.androidPackage] == null) {
+          if (!(state.packageMapping![dappInfo.androidPackage]?.installed ??
+              false)) {
+            return SizedBox(
+              height: 42,
+              child: ListTile(
+                leading: leading,
+                title: title,
+                subtitle: subtitle,
+                trailing: AppButton(
+                  key: Key(dappInfo.dappId!),
+                  height: 30,
+                  width: 100,
+                  showPrimary: true,
+                  showSecondary: false,
+                  radius: 4,
+                  dappInfo: dappInfo,
+                  theme: theme,
+                ),
+              ),
+            );
           } else {
             if ((state.packageMapping![dappInfo.androidPackage]?.versionCode ??
                     0) <
-                double.parse(dappInfo.version ?? "0")) {
-              return Container();
-            } else {}
+                (double.tryParse(dappInfo.version ?? "0") ?? 0)) {
+              return Column(
+                children: [
+                  listWithoutTrailing,
+                  AppButton(
+                    key: Key(dappInfo.dappId!),
+                    height: 32,
+                    width: MediaQuery.of(context).size.width * 0.456,
+                    showPrimary: true,
+                    showSecondary: true,
+                    radius: 4,
+                    dappInfo: dappInfo,
+                    theme: theme,
+                  ),
+                ],
+              );
+            } else {
+              SizedBox(
+                height: 42,
+                child: ListTile(
+                  leading: leading,
+                  title: title,
+                  subtitle: subtitle,
+                  trailing: AppButton(
+                    key: Key(dappInfo.dappId!),
+                    height: 30,
+                    width: 100,
+                    showPrimary: true,
+                    showSecondary: false,
+                    radius: 4,
+                    dappInfo: dappInfo,
+                    theme: theme,
+                  ),
+                ),
+              );
+            }
           }
         }
-        return Container();
+        return listWithoutTrailing;
       },
     );
   }

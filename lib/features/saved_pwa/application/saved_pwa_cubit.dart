@@ -52,7 +52,7 @@ class SavedPwaCubit extends Cubit<SavedPwaState> implements ISavedPwaCubit {
   @override
   removePwa(String dappId) async {
     final pwas = savedPwas;
-    if (!pwas.containsKey(dappId)) {
+    if (pwas.containsKey(dappId)) {
       final status = await savedPwaStore.removeDapp(dappId);
       if (status) {
         final updatedPwas = {...pwas};
