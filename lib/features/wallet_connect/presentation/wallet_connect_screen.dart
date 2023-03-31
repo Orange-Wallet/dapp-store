@@ -12,10 +12,13 @@ import 'package:dappstore/features/wallet_connect/infrastructure/cubit/wallet_co
 import 'package:dappstore/features/wallet_connect/infrastructure/store/i_wallet_connect_store.dart';
 import 'package:dappstore/features/wallet_connect/presentation/widget/terms_and_condition.dart';
 import 'package:dappstore/utils/constants.dart';
+import 'package:dappstore/utils/icon_constants.dart';
 import 'package:dappstore/utils/image_constants.dart';
 import 'package:dappstore/widgets/snacbar/snacbar_context_extension.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class WalletConnectScreen extends StatefulScreen {
   const WalletConnectScreen({super.key});
@@ -74,27 +77,32 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
             body: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                const SizedBox(
+                  height: 60,
+                ),
                 Expanded(
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.asset(ImageConstants.htcLogo),
-                    ),
-                  ),
+                  child: Image.asset(ImageConstants.htcStore),
+                ),
+                const SizedBox(
+                  height: 60,
                 ),
                 Expanded(
                   child: Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 30, horizontal: 12),
-                        child: Text(
-                          context.getLocale!.signUpTo,
-                          style: theme.headingTextStyle,
-                        ),
+                      Text(
+                        context.getLocale!.signUpTo,
+                        style: theme.headingTextStyle,
+                      ),
+                      Text(
+                        context.getLocale!.welcomeToHTC,
+                        style: theme.bodyTextStyle,
+                      ),
+                      const SizedBox(
+                        height: 30,
                       ),
                       if (state.connected != true)
                         Container(
+                          height: 44,
                           width: double.maxFinite,
                           padding: const EdgeInsets.symmetric(horizontal: 33),
                           child: TextButton(
@@ -103,20 +111,31 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                                   ["eip155:137", "eip155:1"]);
                             },
                             style: TextButton.styleFrom(
-                              backgroundColor: theme.whiteColor,
+                              backgroundColor: theme.wcBlue,
                               shape: RoundedRectangleBorder(
                                 borderRadius:
-                                    BorderRadius.circular(theme.cardRadius),
+                                    BorderRadius.circular(theme.buttonRadius),
                               ),
                             ),
-                            child: Text(
-                              context.getLocale!.useWalletConnect,
-                              style: theme.whiteButtonTextStyle,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(IconConstants.walletConnectLogo,
+                                    height: theme.wcIconSize),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                Text(
+                                  context.getLocale!.useWalletConnect,
+                                  style: theme.buttonTextStyle,
+                                ),
+                              ],
                             ),
                           ),
                         ),
                       if (state.connected == true)
                         Container(
+                          height: 44,
                           width: double.maxFinite,
                           padding: const EdgeInsets.symmetric(horizontal: 33),
                           child: TextButton(
@@ -131,31 +150,58 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                               });
                             },
                             style: TextButton.styleFrom(
-                              backgroundColor: theme.whiteColor,
+                              backgroundColor: theme.wcBlue,
                               shape: RoundedRectangleBorder(
                                 borderRadius:
-                                    BorderRadius.circular(theme.cardRadius),
+                                    BorderRadius.circular(theme.buttonRadius),
                               ),
                             ),
-                            child: Text(
-                              "Sign message",
-                              style: theme.whiteButtonTextStyle,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(IconConstants.walletConnectLogo,
+                                    height: theme.wcIconSize),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                Text(
+                                  context.getLocale!.signMessage,
+                                  style: theme.buttonTextStyle,
+                                ),
+                              ],
                             ),
                           ),
                         ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 26, horizontal: 12),
-                        child: Text(
-                          context.getLocale!.dontHaveAWallet,
-                          style: theme.normalTextStyle2,
+                        child: Text.rich(
+                          TextSpan(
+                            text: "${context.getLocale!.dontHaveAWallet} ",
+                            style: theme.secondaryWhiteTextStyle3,
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: "${context.getLocale!.viveWallet} ",
+                                  style: theme.secondaryGreenTextStyle4,
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () async {
+                                      await launchUrlString(
+                                          "https://slickwallet.xyz");
+                                    }),
+                            ],
+                          ),
+                          textAlign: TextAlign.center,
                         ),
                       ),
                     ],
                   ),
                 ),
-                TermsAndConditions(
-                  theme: theme,
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                  child: TermsAndConditions(
+                    theme: theme,
+                  ),
                 )
               ],
             ),

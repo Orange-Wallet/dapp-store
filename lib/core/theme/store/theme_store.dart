@@ -29,7 +29,7 @@ class ThemeStore implements IThemeStore {
     Box<ThemeStorage> box = await _getBox();
 
     final ThemeStorage? themeStorage = box.get(0);
-    return themeStorage?.isDarkEnabled ?? false;
+    return themeStorage?.isDarkEnabled ?? true;
   }
 
   @override

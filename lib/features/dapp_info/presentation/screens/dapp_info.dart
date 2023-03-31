@@ -68,8 +68,8 @@ class _DappInfoPageState extends State<DappInfoPage> {
               return Scaffold(
                 backgroundColor: theme.backgroundColor,
                 appBar: InScreenAppBar(
+                  title: dappState.dappInfo?.name ?? "",
                   themeSpec: theme,
-                  actions: const [],
                 ),
                 body: ListView(
                   children: [

@@ -45,12 +45,13 @@
   "apkFetchFail": "Failed to Fetch APK",
   "open": "Open",
   "save": "Save",
-  "categories": "Categoreis",
+  "categories": "Categories",
   "explore": "Explore",
   "all": "All",
   "signUpTo": "Sign up to HTC Store",
   "useWalletConnect": "Use Wallet Connect",
-  "dontHaveAWallet": "Don’t have a wallet? Create a Vive wallet",
+  "dontHaveAWallet": "Don’t have a wallet? Create a",
+  "viveWallet": "Vive Wallet",
   "byContinuing": "By continuing you agree to HTC dApp Store’s",
   "and": "and",
   "connectWith": "Connect with",
@@ -69,5 +70,7 @@
   "chainNotSupported": "Chain not supported.",
   "remove": "Remove",
   "showMore": "Show more",
-  "showLess": "Show less"
+  "showLess": "Show less",
+  "welcomeToHTC": "Welcome to HTC dApp Store",
+  "signMessage": "Sign Message"
 }
