@@ -197,4 +197,52 @@ class LocalDataSource implements IDataSource {
   String getPwaRedirectionUrl(String dappId, String walletAddress) {
     return "${Config.registryApiBaseUrl}/o/view/$dappId?userAddress=$walletAddress";
   }
+
+  @override
+  Future<DappInfoDto> getDappsByPackageId(List<String> packageIds) async {
+    return DappInfoDto.fromJson({
+      "page": 0,
+      "pageCount": 1,
+      "limit": 10,
+      "response": [
+        {
+          "name": "Axie Infinity",
+          "description":
+              "Axie Infinity is a Pokemon-inspired digital pet universe where players use their cute characters called Axies in various games. The Axie Infinity Universe highlights the benefits of blockchain technology through \"Free to Play to Earn\" gameplay and a player-owned economy.",
+          "appUrl": "https://app.aave.com/",
+          "images": {
+            "logo":
+                "https://dashboard-assets.dappradar.com/document/9495/axieinfinity-dapp-games-ronin-logo_1ec806d57fd80ab68d351658cb8d146a.png",
+            "screenshots": [
+              "https://dummyimage.com/200x800.png",
+              "https://dummyimage.com/200x800.png",
+              "https://dummyimage.com/200x800.png",
+              "https://dummyimage.com/200x800.png",
+            ]
+          },
+          "minAge": 13,
+          "isForMatureAudience": false,
+          "isSelfModerated": true,
+          "language": "en",
+          "version": "100",
+          "androidPackage": "com.trellis.OpenWallet",
+          "isListed": true,
+          "listDate": "2023-01-30",
+          "availableOnPlatform": ["web", "android"],
+          "category": "games",
+          "chains": [1],
+          "dappId": "exchange.quickswap.dapp",
+          "metrics": {
+            "dappId": "exchange.quickswap.dapp",
+            "downloads": 0,
+            "installs": 0,
+            "uninstalls": 0,
+            "ratingsCount": 0,
+            "visits": 0,
+            "rating": null
+          }
+        }
+      ]
+    });
+  }
 }

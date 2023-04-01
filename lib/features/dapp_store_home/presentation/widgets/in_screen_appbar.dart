@@ -10,8 +10,12 @@ class InScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
   final IThemeSpec themeSpec;
   final String title;
   final emptyBox = const SizedBox();
+  final actionWidgets;
   const InScreenAppBar(
-      {super.key, required this.themeSpec, required this.title});
+      {super.key,
+      required this.themeSpec,
+      required this.title,
+      this.actionWidgets = const []});
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +45,7 @@ class InScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
           emptyBox,
         ],
       ),
+      actions: [...actionWidgets],
       bottom: const WhiteGradientLine(),
     );
   }

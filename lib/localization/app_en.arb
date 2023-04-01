@@ -76,8 +76,9 @@
   "signMessage": "Sign Message",
   "savedPwa": "Saved dApps",
   "noDappsSaved": "No dApps saved",
-  "dappsReadyToUpdate":"dApps are ready to update.",
-  "updateYourDapps":"Update your dApps to enjoy all the latest features.",
+  "dappsReadyToUpdate": "dApps are ready to update.",
+  "updateYourDapps": "Update your dApps to enjoy all the latest features.",
   "youHave": "You Have",
-  "webDapps":"web dApps"
+  "webDapps": "web dApps",
+  "manageDapps": "Manage dApps"
 }

@@ -264,6 +264,17 @@ class PackageManager extends Cubit<PackageManagerState>
     }
   }
 
+  @override
+  Map<String, PackageInfo> installedAppsList() {
+    Map<String, PackageInfo> installedApps = {};
+    state.packageMapping?.forEach((key, value) {
+      if ((value.installed ?? false)) {
+        installedApps[key] = value;
+      }
+    });
+    return installedApps;
+  }
+
   void _unbindBackgroundIsolate() {
     IsolateNameServer.removePortNameMapping('downloader_sendstate.port');
   }

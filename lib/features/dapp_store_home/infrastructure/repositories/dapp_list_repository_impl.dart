@@ -89,4 +89,12 @@ class DappListRepoImpl implements IDappListRepo {
         _localDataSource.getPwaRedirectionUrl(dappId, walletAddress);
     return url;
   }
+
+  @override
+  Future<DappList> queryWithPackageId(
+      {required List<String> pacakgeIds}) async {
+    final DappInfoDto dappListDto =
+        await _localDataSource.getDappsByPackageId(pacakgeIds);
+    return dappListDto.toDomain();
+  }
 }

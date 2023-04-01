@@ -9,4 +9,6 @@ class Routes {
 
   static const category = '/category';
   static const walletConnectScreen = '/walletConnectScreen';
+
+  static const savedDappsPage = '/savedDappsPage';
 }

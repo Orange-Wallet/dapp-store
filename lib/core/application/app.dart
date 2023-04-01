@@ -1,7 +1,7 @@
 import 'package:dappstore/core/application/i_app_handler.dart';
 import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/screen/homepage.dart';
-import 'package:dappstore/features/saved_pwa/presentation/pages/saved_dapps_page.dart';
+import 'package:dappstore/features/saved_pwa/presentation/widgets/saved_dapps_page.dart';
 import 'package:dappstore/features/wallet_connect/presentation/wallet_connect_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -90,6 +90,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       appHandler.reloadPackages();
+      appHandler.checkUpdates();
     }
     super.didChangeAppLifecycleState(state);
   }

@@ -77,6 +77,7 @@ class RemoteDataSource implements IDataSource {
     return DappListDto.fromJson(res.data);
   }
 
+  //todo: add address here
   @override
   Future<BuildUrlDto> getBuildUrl(String dappId) async {
     Response res = await _network.get(
@@ -84,6 +85,15 @@ class RemoteDataSource implements IDataSource {
     );
 
     return BuildUrlDto.fromJson(res.data);
+  }
+
+  //todo: implement this
+  @override
+  Future<DappInfoDto> getDappsByPackageId(List<String> packageIds) async {
+    Response res = await _network.get(
+        path: "${Config.registryApiBaseUrl}/dapp/searchByPackageId",
+        queryParams: {"packageId": packageIds});
+    return DappInfoDto.fromJson(res.data[0]);
   }
 
   @override

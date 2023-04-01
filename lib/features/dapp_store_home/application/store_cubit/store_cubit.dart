@@ -228,4 +228,12 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
     String? url = dappListRepo.getPwaRedirectionUrl(dappId, walletAddress);
     return url;
   }
+
+  @override
+  Future<DappList> queryWithPackageId(
+      {required List<String> pacakgeIds}) async {
+    final DappList dappList =
+        await dappListRepo.queryWithPackageId(pacakgeIds: pacakgeIds);
+    return dappList;
+  }
 }
