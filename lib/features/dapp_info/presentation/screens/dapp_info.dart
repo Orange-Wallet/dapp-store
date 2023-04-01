@@ -95,23 +95,28 @@ class _DappInfoPageState extends State<DappInfoPage> {
                               ),
                             ),
                             child: Column(children: [
-                              if (dappState.dappInfo?.images?.screenshots
-                                      ?.isNotEmpty ??
-                                  false)
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                    10,
-                                    32.0,
-                                    10,
-                                    12,
-                                  ),
-                                  child: ImageCarousel(
-                                    imageUrls: (dappState
-                                            .dappInfo?.images?.screenshots ??
-                                        []),
-                                    dappInfoHandler: dappInfoHandler,
-                                  ),
+                              // if (dappState.dappInfo?.images?.screenshots
+                              //         ?.isNotEmpty ??
+                              //     false)
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(
+                                  10,
+                                  32.0,
+                                  10,
+                                  12,
                                 ),
+                                child: ImageCarousel(
+                                  imageUrls: (dappState
+                                          .dappInfo?.images?.screenshots ??
+                                      [
+                                        "https://dummyimage.com/200x800.png",
+                                        "https://dummyimage.com/200x800.png",
+                                        "https://dummyimage.com/200x800.png",
+                                        "https://dummyimage.com/200x800.png",
+                                      ]),
+                                  dappInfoHandler: dappInfoHandler,
+                                ),
+                              ),
                               Padding(
                                 padding: const EdgeInsets.only(
                                     top: 20.0, bottom: 25),
