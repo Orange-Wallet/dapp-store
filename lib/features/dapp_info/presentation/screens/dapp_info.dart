@@ -95,6 +95,7 @@ class _DappInfoPageState extends State<DappInfoPage> {
                               ),
                             ),
                             child: Column(children: [
+                              //todo: remove this
                               // if (dappState.dappInfo?.images?.screenshots
                               //         ?.isNotEmpty ??
                               //     false)
