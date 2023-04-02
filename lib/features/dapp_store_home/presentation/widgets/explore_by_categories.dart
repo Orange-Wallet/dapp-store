@@ -40,7 +40,7 @@ class _ExploreBycategoriesState extends State<ExploreBycategories> {
             return Container();
           }
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 21, vertical: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 21, vertical: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -49,7 +49,7 @@ class _ExploreBycategoriesState extends State<ExploreBycategories> {
                   style: handler.theme.buttonTextStyle,
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 4,
                 ),
                 GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),

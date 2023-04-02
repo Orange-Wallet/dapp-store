@@ -67,7 +67,7 @@ class _TopCategoriesListState extends State<TopCategoriesList> {
                               handler.theme.wcBlue.withOpacity(0),
                             ],
                           )),
-                      height: 900,
+                      height: 800,
                     ),
                   ),
                   topCategoryListWidget(
@@ -91,14 +91,14 @@ class _TopCategoriesListState extends State<TopCategoriesList> {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: 21,
-        vertical: widget.isInExploreCategory ? 0 : 20,
+        vertical: widget.isInExploreCategory ? 0 : 10,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           buildTitleAndSeeAll(category),
           const SizedBox(
-            height: 20,
+            height: 10,
           ),
           axis == Axis.horizontal
               ? buildHorizontalList(axis: axis, list: list)

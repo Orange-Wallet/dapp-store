@@ -17,6 +17,7 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:installed_apps/app_info.dart';
+
 part '../../../../../generated/features/download_and_installer/infrastructure/repositories/package_manager.dart/package_manager_cubit.freezed.dart';
 part 'package_manager_state.dart';
 
@@ -126,7 +127,9 @@ class PackageManager extends Cubit<PackageManagerState>
     bool autoInstall,
   ) async {
     TaskInfo downloadRequest = TaskInfo(
-        fileName: "${dappInfo.packageId}.apk", name: dappInfo.name, link: link);
+        fileName: "${dappInfo.packageId}.apk",
+        name: dappInfo.name,
+        link: "$link?filename=${dappInfo.packageId}.apk");
     final queuedTaskInfo = await downloader.requestDownload(downloadRequest);
     if (queuedTaskInfo != null) {
       foregroundService.startForegroundService();

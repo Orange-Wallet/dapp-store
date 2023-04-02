@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
           const TopCategoriesList(),
           const FeaturedDappInfiniteScroll(),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Image.asset(
               ImageConstants.htcLogo,
               scale: 2,

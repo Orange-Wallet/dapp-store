@@ -28,11 +28,15 @@ class DappTitleTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final openButton = CustomElevatedButton(
       onTap: () {
-        dappTitleTileHandler.openPwaApp(context, dappInfo);
+        if (dappInfo.availableOnPlatform?.contains("android") ?? false) {
+          dappTitleTileHandler.openApp(dappInfo);
+        } else {
+          dappTitleTileHandler.openPwaApp(context, dappInfo);
+        }
       },
       color: theme.blue,
       radius: 4,
-      width: 64,
+      width: 90,
       height: 28,
       child: Text(
         context.getLocale!.openDapp,
@@ -45,7 +49,7 @@ class DappTitleTile extends StatelessWidget {
       },
       color: theme.blue,
       radius: 4,
-      width: 84,
+      width: 90,
       height: 28,
       child: Text(
         context.getLocale!.download,
@@ -57,7 +61,7 @@ class DappTitleTile extends StatelessWidget {
       onTap: () {},
       color: theme.ratingGrey,
       radius: 4,
-      width: 64,
+      width: 90,
       height: 28,
       child: Text(
         context.getLocale!.installing,
@@ -182,7 +186,7 @@ class DappTitleTile extends StatelessWidget {
                 ],
               );
             } else {
-              SizedBox(
+              return SizedBox(
                 height: 42,
                 child: ListTile(
                   leading: leading,

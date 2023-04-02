@@ -18,7 +18,7 @@ class UpdateAvailableCard extends StatelessWidget {
       },
       child: Container(
           width: double.maxFinite,
-          margin: const EdgeInsets.all(16),
+          margin: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(handler.theme.buttonRadius),
               color: handler.theme.cardBlue.withOpacity(1)),
