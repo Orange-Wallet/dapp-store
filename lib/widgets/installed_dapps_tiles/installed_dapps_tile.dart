@@ -63,11 +63,13 @@ class InstalledDappsTile extends StatelessWidget {
         ),
       ),
       child: SizedBox(
-        width: 73,
+        width: 80,
         height: 28,
-        child: Text(
-          context.getLocale!.update,
-          style: theme.bodyTextStyle,
+        child: Center(
+          child: Text(
+            context.getLocale!.update,
+            style: theme.whiteBodyTextStyle,
+          ),
         ),
       ),
     );
@@ -97,24 +99,26 @@ class InstalledDappsTile extends StatelessWidget {
         ),
       ),
     );
-    final greyInstallingButton = TextButton(
-      onPressed: () {},
-      style: OutlinedButton.styleFrom(
-        backgroundColor: Colors.transparent,
-        foregroundColor: theme.greyBlue,
-        shape: RoundedRectangleBorder(
-          side: BorderSide(
-            color: theme.appGreen,
+    final greyInstallingButton = Center(
+      child: TextButton(
+        onPressed: () {},
+        style: OutlinedButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          foregroundColor: theme.greyBlue,
+          shape: RoundedRectangleBorder(
+            side: BorderSide(
+              color: theme.appGreen,
+            ),
+            borderRadius: BorderRadius.circular(36),
           ),
-          borderRadius: BorderRadius.circular(36),
         ),
-      ),
-      child: SizedBox(
-        width: 73,
-        height: 28,
-        child: Text(
-          context.getLocale!.installing,
-          style: theme.greyHeading,
+        child: SizedBox(
+          width: 73,
+          height: 28,
+          child: Text(
+            context.getLocale!.installing,
+            style: theme.greyHeading,
+          ),
         ),
       ),
     );
@@ -127,7 +131,7 @@ class InstalledDappsTile extends StatelessWidget {
       bloc: handler.packageManager,
       builder: (context, packageManagerState) {
         final packageMapping = packageManagerState.packageMapping;
-        final package = packageMapping![dappInfo.dappId];
+        final package = packageMapping![dappInfo.packageId];
 
         if (packageMapping[dappInfo.dappId]?.installing ?? false) {
           return SizedBox(

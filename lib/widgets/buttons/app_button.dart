@@ -64,31 +64,22 @@ class _AppButtonState extends State<AppButton> {
                 return BlocBuilder<IPackageManager, PackageManagerState>(
                   bloc: widget.packageManager,
                   buildWhen: (previous, current) {
-                    return (previous.packageMapping![
-                                widget.dappInfo.androidPackage!] !=
-                            current.packageMapping![
-                                widget.dappInfo.androidPackage!] ||
-                        previous
-                                .packageMapping![
-                                    widget.dappInfo.androidPackage!]
+                    return (previous
+                                .packageMapping![widget.dappInfo.packageId!] !=
+                            current
+                                .packageMapping![widget.dappInfo.packageId!] ||
+                        previous.packageMapping![widget.dappInfo.packageId!]
                                 ?.status !=
-                            current
-                                .packageMapping![
-                                    widget.dappInfo.androidPackage!]
+                            current.packageMapping![widget.dappInfo.packageId!]
                                 ?.status ||
-                        previous
-                                .packageMapping![
-                                    widget.dappInfo.androidPackage!]
+                        previous.packageMapping![widget.dappInfo.packageId!]
                                 ?.progress !=
-                            current
-                                .packageMapping![
-                                    widget.dappInfo.androidPackage!]
+                            current.packageMapping![widget.dappInfo.packageId!]
                                 ?.progress);
                   },
                   builder: (context, state) {
                     final packageInfo = state.packageMapping![
-                        widget.dappInfo.androidPackage ??
-                            widget.dappInfo.dappId];
+                        widget.dappInfo.packageId ?? widget.dappInfo.dappId];
                     if (packageInfo?.status == DownloadTaskStatus.running ||
                         packageInfo?.status == DownloadTaskStatus.enqueued) {
                       return CircularProgressIndicator.adaptive(
@@ -114,7 +105,7 @@ class _AppButtonState extends State<AppButton> {
                         (widget.dappInfo.availableOnPlatform
                                 ?.contains("android") ??
                             false) &&
-                        (widget.dappInfo.androidPackage != null)) {
+                        (widget.dappInfo.packageId != null)) {
                       return CustomElevatedButton(
                         onTap: () {
                           widget.appButtonHandler

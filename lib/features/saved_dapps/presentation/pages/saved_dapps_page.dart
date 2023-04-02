@@ -28,7 +28,7 @@ class _SavedDappsPageState extends State<SavedDappsPage> {
   void initState() {
     handler = getIt<ISavedDappsHandler>();
     themeCubit = getIt<IThemeCubit>();
-    theme = getIt<IThemeSpec>();
+    theme = themeCubit.theme;
 
     super.initState();
   }

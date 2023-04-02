@@ -49,6 +49,7 @@ abstract class IThemeSpec {
   TextStyle get headingTextStyle;
   TextStyle get buttonTextStyle;
   TextStyle get bodyTextStyle;
+  TextStyle get whiteBodyTextStyle;
   TextStyle get titleTextStyle;
   TextStyle get biggerTitleTextStyle;
   TextStyle get secondaryTitleTextStyle;

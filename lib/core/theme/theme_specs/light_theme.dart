@@ -177,6 +177,15 @@ class LightTheme implements IThemeSpec {
       );
 
   @override
+  TextStyle get whiteBodyTextStyle => TextStyle(
+        // h5 -> headline
+        fontFamily: fontName,
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        color: whiteColor,
+      );
+
+  @override
   TextStyle get buttonTextStyle => TextStyle(
         // h5 -> headline
         fontFamily: fontName,

@@ -1,18 +1,24 @@
 import 'package:dappstore/core/di/di.dart';
+import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
+import 'package:dappstore/features/dapp_info/application/handler/i_dapp_title_tile_handler.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/package_manager.dart/i_package_manager.dart';
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/package_manager.dart/package_manager_cubit.dart';
 import 'package:dappstore/widgets/buttons/app_button.dart';
+import 'package:dappstore/widgets/buttons/elevated_button.dart';
 import 'package:dappstore/widgets/image_widgets/image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 
+// ignore: must_be_immutable
 class DappTitleTile extends StatelessWidget {
   final DappInfo dappInfo;
   final IThemeSpec theme;
   final bool primaryTile;
-  const DappTitleTile(
+  IDappTitleTileHandler dappTitleTileHandler = getIt<IDappTitleTileHandler>();
+  DappTitleTile(
       {super.key,
       required this.theme,
       required this.dappInfo,
@@ -20,6 +26,49 @@ class DappTitleTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final openButton = CustomElevatedButton(
+      onTap: () {
+        dappTitleTileHandler.openPwaApp(context, dappInfo);
+      },
+      color: theme.blue,
+      radius: 4,
+      width: 64,
+      height: 28,
+      child: Text(
+        context.getLocale!.openDapp,
+        style: theme.normalTextStyle,
+      ),
+    );
+    final installButton = CustomElevatedButton(
+      onTap: () {
+        dappTitleTileHandler.startDownload(dappInfo, context);
+      },
+      color: theme.blue,
+      radius: 4,
+      width: 84,
+      height: 28,
+      child: Text(
+        context.getLocale!.download,
+        style: theme.normalTextStyle,
+      ),
+    );
+
+    final installingButton = CustomElevatedButton(
+      onTap: () {},
+      color: theme.ratingGrey,
+      radius: 4,
+      width: 64,
+      height: 28,
+      child: Text(
+        context.getLocale!.installing,
+        style: theme.normalTextStyle,
+      ),
+    );
+    final circularProgressIndicator = CircularProgressIndicator.adaptive(
+      backgroundColor: theme.greyBlue,
+      valueColor: AlwaysStoppedAnimation<Color>(theme.blue),
+    );
+
     final leading = SizedBox(
       height: 42,
       width: 42,
@@ -40,7 +89,7 @@ class DappTitleTile extends StatelessWidget {
       style: theme.titleTextStyle,
     );
     final subtitle = Text(
-      "${dappInfo.developer} · ${dappInfo.category}",
+      "${dappInfo.developer?.legalName ?? ""} · ${dappInfo.category}",
       style: theme.bodyTextStyle,
     );
     final listWithoutTrailing = SizedBox(
@@ -54,6 +103,7 @@ class DappTitleTile extends StatelessWidget {
     return BlocBuilder<IPackageManager, PackageManagerState>(
       bloc: getIt<IPackageManager>(),
       builder: (context, state) {
+        final package = state.packageMapping![dappInfo.packageId];
         if ((dappInfo.availableOnPlatform?.contains("web") ?? false) &&
             !(dappInfo.availableOnPlatform?.contains("android") ?? false)) {
           return Column(
@@ -77,29 +127,44 @@ class DappTitleTile extends StatelessWidget {
           );
         }
         if (dappInfo.availableOnPlatform?.contains("android") ?? false) {
-          if (!(state.packageMapping![dappInfo.androidPackage]?.installed ??
+          if (!(state.packageMapping![dappInfo.packageId]?.installed ??
               false)) {
-            return SizedBox(
-              height: 42,
-              child: ListTile(
-                leading: leading,
-                title: title,
-                subtitle: subtitle,
-                trailing: AppButton(
-                  key: Key(dappInfo.dappId!),
-                  height: 30,
-                  width: 100,
-                  showPrimary: true,
-                  showSecondary: false,
-                  radius: 4,
-                  dappInfo: dappInfo,
-                  theme: theme,
+            if (((package?.status == DownloadTaskStatus.enqueued) ||
+                    (package?.status == DownloadTaskStatus.running) ||
+                    (package?.progress != 100 && package?.progress != null)) &&
+                (package?.status != DownloadTaskStatus.failed)) {
+              return SizedBox(
+                height: 42,
+                child: ListTile(
+                  leading: leading,
+                  title: title,
+                  subtitle: subtitle,
+                  trailing: circularProgressIndicator,
                 ),
-              ),
-            );
+              );
+            } else if ((package?.installing ?? false)) {
+              return SizedBox(
+                height: 42,
+                child: ListTile(
+                  leading: leading,
+                  title: title,
+                  subtitle: subtitle,
+                  trailing: installingButton,
+                ),
+              );
+            } else {
+              return SizedBox(
+                height: 42,
+                child: ListTile(
+                  leading: leading,
+                  title: title,
+                  subtitle: subtitle,
+                  trailing: installButton,
+                ),
+              );
+            }
           } else {
-            if ((state.packageMapping![dappInfo.androidPackage]?.versionCode ??
-                    0) <
+            if ((state.packageMapping![dappInfo.packageId]?.versionCode ?? 0) <
                 (double.tryParse(dappInfo.version ?? "0") ?? 0)) {
               return Column(
                 children: [
@@ -123,16 +188,7 @@ class DappTitleTile extends StatelessWidget {
                   leading: leading,
                   title: title,
                   subtitle: subtitle,
-                  trailing: AppButton(
-                    key: Key(dappInfo.dappId!),
-                    height: 30,
-                    width: 100,
-                    showPrimary: true,
-                    showSecondary: false,
-                    radius: 4,
-                    dappInfo: dappInfo,
-                    theme: theme,
-                  ),
+                  trailing: openButton,
                 ),
               );
             }

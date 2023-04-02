@@ -25,14 +25,14 @@ class SavedDappsCubit extends Cubit<SavedDappsState>
     final installedApps = packageManager.installedAppsList();
     final dappList = await storeCubit.queryWithPackageId(
         pacakgeIds: installedApps.values.map((e) => e.packageName!).toList());
-    final nonNullDappInfo = dappList.response?.where((e) => e != null).toList()
-            as List<DappInfo>? ??
-        [];
+    final nonNullDappInfo =
+        dappList.response?.where((e) => e != null).map((e) => e!).toList() ??
+            [];
     final List<DappInfo> toUpdate = [];
     final List<DappInfo> notToUpdate = [];
     for (var element in nonNullDappInfo) {
       double deviceVersion =
-          installedApps[element.androidPackage!]?.versionCode ?? 0;
+          installedApps[element.packageId!]?.versionCode ?? 0;
       double availableVersion = double.tryParse(element.version ?? "0") ?? 0;
       if (deviceVersion < availableVersion) {
         toUpdate.add(element);

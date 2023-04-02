@@ -21,5 +21,5 @@ abstract class IDataSource {
   Future<DappListDto> getFeaturedDappsByCategory({required String category});
   Future<BuildUrlDto> getBuildUrl(String dappId);
   String getPwaRedirectionUrl(String dappId, String walletAddress);
-  Future<DappInfoDto> getDappsByPackageId(List<String> packageIds);
+  Future<DappListDto> getDappsByPackageId(List<String> packageIds);
 }

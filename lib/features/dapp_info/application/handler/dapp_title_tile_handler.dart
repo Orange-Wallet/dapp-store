@@ -1,6 +1,7 @@
 import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/router/router.dart';
+import 'package:dappstore/features/dapp_info/application/handler/i_dapp_title_tile_handler.dart';
 import 'package:dappstore/features/dapp_info/application/i_dapp_info_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
@@ -9,13 +10,12 @@ import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/i_p
 import 'package:dappstore/features/pwa_webwiew/presentation/screens/pwa_webview_screen.dart';
 import 'package:dappstore/features/saved_pwa/application/i_saved_pwa_cubit.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
-import 'package:dappstore/widgets/buttons/app_button_handler/i_app_button_handler.dart';
 import 'package:dappstore/widgets/snacbar/snacbar_context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
-@LazySingleton(as: IAppButtonHandler)
-class AppButtonHandler implements IAppButtonHandler {
+@LazySingleton(as: IDappTitleTileHandler)
+class DappTitleTileHandler implements IDappTitleTileHandler {
   @override
   IPackageManager get packageManager => getIt<IPackageManager>();
   @override

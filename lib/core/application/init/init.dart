@@ -6,6 +6,7 @@ import 'package:dappstore/core/permissions/i_permissions_cubit.dart';
 import 'package:dappstore/core/theme/i_theme_cubit.dart';
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/downloader/i_downloader_cubit.dart';
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/package_manager.dart/i_package_manager.dart';
+import 'package:dappstore/features/saved_dapps/application/i_saved_dapps_cubit.dart';
 import 'package:dappstore/features/saved_pwa/application/i_saved_pwa_cubit.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
 
@@ -26,6 +27,7 @@ Future<void> initialise() async {
   await getIt<IPermissions>().requestStoragePermission();
   await getIt<IPermissions>().requestAppInstallationPermission();
   await getIt<IDownloader>().initializeStorageDir();
+  await getIt<ISavedDappsCubit>().initialise();
   // await getIt<WalletConnectCubit>().initialize();
   // Initialize the app dependencies
 }

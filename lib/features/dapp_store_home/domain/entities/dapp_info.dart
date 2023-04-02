@@ -15,7 +15,7 @@ class DappInfo with _$DappInfo {
     int? minAge,
     bool? isForMatureAudience,
     bool? isSelfModerated,
-    String? androidPackage,
+    String? packageId,
     String? language,
     String? version,
     bool? isListed,

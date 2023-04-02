@@ -66,7 +66,8 @@ class SimilarApps extends StatelessWidget {
         SizedBox(
           height: length * 90,
           child: Column(
-            children: widgets.toList().sublist(0, 5),
+            children: widgets.toList().sublist(
+                0, widgets.toList().length > 5 ? 5 : widgets.toList().length),
           ),
         ),
         const SafeArea(child: SizedBox())

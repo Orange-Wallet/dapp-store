@@ -45,7 +45,6 @@ class Downloader {
       final taskId = await FlutterDownloader.enqueue(
         url: task.link!,
         fileName: task.fileName,
-        headers: {'auth': 'test_for_sql_encoding'},
         savedDir: localPath,
         saveInPublicStorage: true,
       );

@@ -126,9 +126,7 @@ class PackageManager extends Cubit<PackageManagerState>
     bool autoInstall,
   ) async {
     TaskInfo downloadRequest = TaskInfo(
-        fileName: "${dappInfo.androidPackage}.apk",
-        name: dappInfo.name,
-        link: link);
+        fileName: "${dappInfo.packageId}.apk", name: dappInfo.name, link: link);
     final queuedTaskInfo = await downloader.requestDownload(downloadRequest);
     if (queuedTaskInfo != null) {
       foregroundService.startForegroundService();
@@ -186,14 +184,14 @@ class PackageManager extends Cubit<PackageManagerState>
   @override
   Future<bool?> openSettings(DappInfo dappInfo) async {
     bool? status =
-        await installedApps.openSettings(packageName: dappInfo.androidPackage!);
+        await installedApps.openSettings(packageName: dappInfo.packageId!);
     return status;
   }
 
   @override
   Future<bool?> openApp(DappInfo dappInfo) async {
     bool? status =
-        await installedApps.startApp(packageName: dappInfo.androidPackage!);
+        await installedApps.startApp(packageName: dappInfo.packageId!);
     return status;
   }
 

@@ -46,7 +46,7 @@ class LocalDataSource implements IDataSource {
           "isSelfModerated": true,
           "language": "en",
           "version": "unknown",
-          "androidPackage": "com.trellis.OpenWallet",
+          "packageId": "com.trellis.OpenWallet",
           "isListed": true,
           "listDate": "2023-01-30",
           "availableOnPlatform": ["web", "android"],
@@ -87,7 +87,7 @@ class LocalDataSource implements IDataSource {
       "minAge": 13,
       "isForMatureAudience": false,
       "isSelfModerated": true,
-      "androidPackage": "com.trellis.OpenWallet",
+      "packageId": "com.trellis.OpenWallet",
       "language": "en",
       "version": "unknown",
       "isListed": true,
@@ -199,8 +199,8 @@ class LocalDataSource implements IDataSource {
   }
 
   @override
-  Future<DappInfoDto> getDappsByPackageId(List<String> packageIds) async {
-    return DappInfoDto.fromJson({
+  Future<DappListDto> getDappsByPackageId(List<String> packageIds) async {
+    return DappListDto.fromJson({
       "page": 0,
       "pageCount": 1,
       "limit": 10,
@@ -225,7 +225,7 @@ class LocalDataSource implements IDataSource {
           "isSelfModerated": true,
           "language": "en",
           "version": "100",
-          "androidPackage": "com.trellis.OpenWallet",
+          "packageId": "com.trellis.OpenWallet",
           "isListed": true,
           "listDate": "2023-01-30",
           "availableOnPlatform": ["web", "android"],

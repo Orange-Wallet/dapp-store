@@ -89,11 +89,11 @@ class RemoteDataSource implements IDataSource {
 
   //todo: implement this
   @override
-  Future<DappInfoDto> getDappsByPackageId(List<String> packageIds) async {
+  Future<DappListDto> getDappsByPackageId(List<String> packageIds) async {
     Response res = await _network.get(
         path: "${Config.registryApiBaseUrl}/dapp/searchByPackageId",
         queryParams: {"packageId": packageIds});
-    return DappInfoDto.fromJson(res.data[0]);
+    return DappListDto.fromJson(res.data[0]);
   }
 
   @override

@@ -120,7 +120,7 @@ class _DappInfoPageState extends State<DappInfoPage> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    top: 20.0, bottom: 25),
+                                    top: 20.0, bottom: 40),
                                 child: DappTitleTile(
                                   dappInfo: dappState.dappInfo!,
                                   theme: theme,
