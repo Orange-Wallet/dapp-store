@@ -161,18 +161,39 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
   Future<String> getPersonalSign(
     String data,
   ) async {
-    if (state.activeSession != null) {
-      SessionRequestParams params = Eip155Data.getRequestParams(
-        topic: state.activeSession!.topic,
-        method: Eip155Methods.PERSONAL_SIGN,
-        chainId: state.activeChainId!,
-        address: state.activeAddress!,
-        data: data,
-      );
-      var res = await signClient?.request(params);
-      return res;
-    } else {
-      throw Exception("No active Session");
+    try {
+      emit(state.copyWith(
+        txLoading: true,
+        txSucesess: false,
+        txFailure: false,
+      ));
+      if (state.activeSession != null) {
+        emit(state.copyWith(txLoading: true));
+        SessionRequestParams params = Eip155Data.getRequestParams(
+          topic: state.activeSession!.topic,
+          method: Eip155Methods.PERSONAL_SIGN,
+          chainId: state.activeChainId!,
+          address: state.activeAddress!,
+          data: data,
+        );
+        var res = await signClient?.request(params);
+        emit(state.copyWith(
+          txLoading: false,
+          txSucesess: true,
+          txFailure: false,
+        ));
+
+        return res;
+      } else {
+        throw Exception("No active Session");
+      }
+    } catch (e) {
+      emit(state.copyWith(
+        txLoading: false,
+        txSucesess: false,
+        txFailure: true,
+      ));
+      return "";
     }
   }
 
@@ -193,6 +214,9 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
           failureSign: false,
           loadingSign: true,
           signVerified: false,
+          txLoading: true,
+          txSucesess: false,
+          txFailure: false,
         ));
 
         var res = await signClient?.request(params);
@@ -201,6 +225,9 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
           failureSign: false,
           loadingSign: false,
           signVerified: true,
+          txLoading: false,
+          txSucesess: true,
+          txFailure: false,
         ));
         return res;
       } catch (e, stack) {
@@ -209,6 +236,9 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
           failureSign: true,
           loadingSign: false,
           signVerified: false,
+          txLoading: false,
+          txSucesess: false,
+          txFailure: true,
         ));
         debugPrint(e.toString());
         debugPrint(stack.toString());
@@ -220,6 +250,9 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
         failureSign: true,
         loadingSign: false,
         signVerified: false,
+        txLoading: false,
+        txSucesess: false,
+        txFailure: true,
       ));
       throw Exception("No active Session");
     }
@@ -227,55 +260,126 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
 
   @override
   Future<String> getEthSignTypedData(String data) async {
-    if (state.activeSession != null) {
-      SessionRequestParams params = Eip155Data.getRequestParams(
-        topic: state.activeSession!.topic,
-        method: Eip155Methods.ETH_SIGN_TYPED_DATA,
-        chainId: state.activeChainId!,
-        address: state.activeAddress!,
-        data: data,
-      );
+    try {
+      emit(state.copyWith(
+        txLoading: true,
+        txSucesess: false,
+        txFailure: false,
+      ));
+      if (state.activeSession != null) {
+        SessionRequestParams params = Eip155Data.getRequestParams(
+          topic: state.activeSession!.topic,
+          method: Eip155Methods.ETH_SIGN_TYPED_DATA,
+          chainId: state.activeChainId!,
+          address: state.activeAddress!,
+          data: data,
+        );
 
-      var res = await signClient?.request(params);
-      return res;
-    } else {
-      throw Exception("No active Session");
+        var res = await signClient?.request(params);
+        emit(state.copyWith(
+          txLoading: false,
+          txSucesess: true,
+          txFailure: false,
+        ));
+        return res;
+      } else {
+        emit(state.copyWith(
+          txLoading: false,
+          txSucesess: false,
+          txFailure: true,
+        ));
+        throw Exception("No active Session");
+      }
+    } catch (e) {
+      emit(state.copyWith(
+        txLoading: false,
+        txSucesess: false,
+        txFailure: true,
+      ));
+      return "";
     }
   }
 
   @override
   getEthSignTransaction(EthereumTransaction transaction, int chainId) async {
-    if (state.activeSession != null) {
-      SessionRequestParams params = Eip155Data.getRequestParams(
-        topic: state.activeSession!.topic,
-        method: Eip155Methods.ETH_SIGN_TRANSACTION,
-        chainId: chainId.toString(),
-        address: state.activeAddress!,
-        transaction: transaction,
-      );
+    try {
+      emit(state.copyWith(
+        txLoading: true,
+        txSucesess: false,
+        txFailure: false,
+      ));
+      if (state.activeSession != null) {
+        SessionRequestParams params = Eip155Data.getRequestParams(
+          topic: state.activeSession!.topic,
+          method: Eip155Methods.ETH_SIGN_TRANSACTION,
+          chainId: chainId.toString(),
+          address: state.activeAddress!,
+          transaction: transaction,
+        );
 
-      var res = await signClient?.request(params);
-      return res;
-    } else {
-      throw Exception("No active Session");
+        var res = await signClient?.request(params);
+        emit(state.copyWith(
+          txLoading: false,
+          txSucesess: true,
+          txFailure: false,
+        ));
+        return res;
+      } else {
+        emit(state.copyWith(
+          txLoading: false,
+          txSucesess: false,
+          txFailure: true,
+        ));
+        throw Exception("No active Session");
+      }
+    } catch (e) {
+      emit(state.copyWith(
+        txLoading: false,
+        txSucesess: false,
+        txFailure: true,
+      ));
     }
   }
 
   @override
   getEthSendTransaction(EthereumTransaction transaction, int chainId) async {
-    if (state.activeSession != null) {
-      SessionRequestParams params = Eip155Data.getRequestParams(
-        topic: state.activeSession!.topic,
-        method: Eip155Methods.ETH_SEND_TRANSACTION,
-        chainId: "eip155:${chainId.toString()}",
-        address: state.activeAddress!,
-        transaction: transaction,
-      );
+    try {
+      emit(state.copyWith(
+        txLoading: true,
+        txSucesess: false,
+        txFailure: false,
+      ));
+      if (state.activeSession != null) {
+        SessionRequestParams params = Eip155Data.getRequestParams(
+          topic: state.activeSession!.topic,
+          method: Eip155Methods.ETH_SEND_TRANSACTION,
+          chainId: "eip155:${chainId.toString()}",
+          address: state.activeAddress!,
+          transaction: transaction,
+        );
 
-      var res = await signClient?.request(params);
-      return res;
-    } else {
-      throw Exception("No active Session");
+        var res = await signClient?.request(params);
+        emit(state.copyWith(
+          txLoading: false,
+          txSucesess: true,
+          txFailure: false,
+        ));
+        return res;
+      } else {
+        emit(state.copyWith(
+          txLoading: false,
+          txSucesess: false,
+          txFailure: true,
+        ));
+        throw Exception("No active Session");
+      }
+    } catch (e) {
+      emit(state.copyWith(
+        txLoading: false,
+        txSucesess: false,
+        txFailure: true,
+      ));
+      return "";
     }
   }
 

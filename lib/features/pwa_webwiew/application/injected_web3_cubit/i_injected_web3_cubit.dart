@@ -16,15 +16,32 @@ abstract class IInjectedWeb3Cubit extends Cubit<InjectedWeb3State> {
 
   String? get chainId;
 
-  Future<String> sendTransaction(JsTransactionObject jsTransactionObject);
+  Future<String> sendTransaction(
+    JsTransactionObject jsTransactionObject,
+    UiPopup uiPopup,
+  );
 
-  Future<String> signTransaction(JsTransactionObject jsTransactionObject);
+  Future<String> signTransaction(
+    JsTransactionObject jsTransactionObject,
+    UiPopup uiPopup,
+  );
 
-  Future<String> ecRecover(JsEcRecoverObject ecRecoverObject);
+  Future<String> ecRecover(
+    JsEcRecoverObject ecRecoverObject,
+  );
 
-  Future<String> signPersonalMessage(String data);
+  Future<String> signPersonalMessage(
+    String data,
+    UiPopup uiPopup,
+  );
 
-  Future<String> signMessage(String data);
+  Future<String> signMessage(
+    String data,
+    UiPopup uiPopup,
+  );
 
-  Future<String> signTypedData(JsEthSignTypedData data);
+  Future<String> signTypedData(
+    JsEthSignTypedData data,
+    UiPopup uiPopup,
+  );
 }

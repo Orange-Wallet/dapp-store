@@ -376,8 +376,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "3aa04ec625f6c79779ee49edf24ecb483d8a2fcc"
-      resolved-ref: "3aa04ec625f6c79779ee49edf24ecb483d8a2fcc"
+      ref: "95fb7943b9b41d1185b699fa95a9236df2ca3756"
+      resolved-ref: "95fb7943b9b41d1185b699fa95a9236df2ca3756"
       url: "https://github.com/Abhimanyu121/flutter_downloader"
     source: git
     version: "1.10.2"

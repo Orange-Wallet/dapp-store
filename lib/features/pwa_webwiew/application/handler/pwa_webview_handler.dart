@@ -130,19 +130,19 @@ class PwaWebviewHandler implements IPwaWebviewHandler {
   Future<String> signTransaction(InAppWebViewController controller,
       JsTransactionObject data, chainId) async {
     debugPrint("tx callback ${data.toString()}");
-    return injectedWeb3Cubit.sendTransaction(data);
+    return injectedWeb3Cubit.sendTransaction(data, () {});
   }
 
   @override
   Future<String> signTypedMessage(InAppWebViewController controller,
       JsEthSignTypedData data, chainId) async {
-    return injectedWeb3Cubit.signTypedData(data);
+    return injectedWeb3Cubit.signTypedData(data, () {});
   }
 
   @override
   Future<String> signPersonalMessage(
       InAppWebViewController controller, data, chainId) async {
-    return injectedWeb3Cubit.signPersonalMessage(data);
+    return injectedWeb3Cubit.signPersonalMessage(data, () {});
   }
 
   @override

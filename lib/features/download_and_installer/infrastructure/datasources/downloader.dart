@@ -41,12 +41,16 @@ class Downloader {
     bool isStorageInitialized,
     String localPath,
   ) async {
+    // try {
+    //   await Downloader.delete(task);
+    //   // ignore: empty_catches
+    // } catch (e) {}
     try {
       final taskId = await FlutterDownloader.enqueue(
         url: task.link!,
         fileName: task.fileName,
         savedDir: localPath,
-        saveInPublicStorage: true,
+        saveInPublicStorage: false,
         timeout: 15000000,
         headers: {
           "connection": "close",

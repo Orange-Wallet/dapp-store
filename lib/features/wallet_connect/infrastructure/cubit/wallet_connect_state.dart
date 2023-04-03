@@ -9,6 +9,9 @@ class WalletConnectState with _$WalletConnectState {
     required bool signVerified,
     required bool loadingSign,
     required bool failureSign,
+    required bool txLoading,
+    required bool txSucesess,
+    required bool txFailure,
     required bool failure,
     required List<SessionStruct> sessions,
     required SessionStruct? activeSession,
@@ -32,6 +35,9 @@ class WalletConnectState with _$WalletConnectState {
         failureConnection: false,
         loadingSign: false,
         failureSign: false,
+        txLoading: false,
+        txFailure: false,
+        txSucesess: false,
       );
 
   factory WalletConnectState.fromJson(Map<String, dynamic> json) =>

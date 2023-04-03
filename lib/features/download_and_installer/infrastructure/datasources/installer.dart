@@ -8,7 +8,7 @@ class Installer {
   static Future<bool> installPackage(String apkPath) async {
     try {
       debugPrint(apkPath);
-      await AppInstaller.installApk(apkPath, actionRequired: false);
+      await AppInstaller.installApk(apkPath, actionRequired: true);
       return true;
     } catch (e) {
       errorLogger.logError(e);
