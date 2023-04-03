@@ -375,9 +375,11 @@ packages:
   flutter_downloader:
     dependency: "direct main"
     description:
-      name: flutter_downloader
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: "3aa04ec625f6c79779ee49edf24ecb483d8a2fcc"
+      resolved-ref: "3aa04ec625f6c79779ee49edf24ecb483d8a2fcc"
+      url: "https://github.com/Abhimanyu121/flutter_downloader"
+    source: git
     version: "1.10.2"
   flutter_inappwebview:
     dependency: "direct main"
