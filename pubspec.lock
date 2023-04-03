@@ -346,8 +346,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: HEAD
-      resolved-ref: "05a89d52227f62cdeb3803da22a24c9a8fe210c8"
+      ref: "052cb4e0760771a4c900e10930eb42c2abbaa372"
+      resolved-ref: "052cb4e0760771a4c900e10930eb42c2abbaa372"
       url: "https://github.com/Abhimanyu121/flutter-app-installer"
     source: git
     version: "1.2.0"

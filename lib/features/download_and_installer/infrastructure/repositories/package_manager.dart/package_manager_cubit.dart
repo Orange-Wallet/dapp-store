@@ -128,9 +128,10 @@ class PackageManager extends Cubit<PackageManagerState>
     bool autoInstall,
   ) async {
     TaskInfo downloadRequest = TaskInfo(
-        fileName: "${dappInfo.packageId}.apk",
-        name: dappInfo.name,
-        link: "$link?filename=${dappInfo.packageId}.apk");
+      fileName: "${dappInfo.packageId}.apk",
+      name: dappInfo.name,
+      link: "$link?filename=${dappInfo.packageId}.apk",
+    );
     final queuedTaskInfo = await downloader.requestDownload(downloadRequest);
     if (queuedTaskInfo != null) {
       foregroundService.startForegroundService();
@@ -139,7 +140,7 @@ class PackageManager extends Cubit<PackageManagerState>
       if (package != null) {
         package = package.copyWith(
           progress: queuedTaskInfo.progress,
-          status: queuedTaskInfo.status,
+          status: DownloadTaskStatus.enqueued,
           taskId: queuedTaskInfo.taskId,
           url: queuedTaskInfo.link,
           fileName: queuedTaskInfo.fileName,

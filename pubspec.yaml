@@ -46,6 +46,7 @@ dependencies:
   flutter_app_installer:
     git:
       url: https://github.com/Abhimanyu121/flutter-app-installer
+      ref: 052cb4e0760771a4c900e10930eb42c2abbaa372
   cached_network_image: ^3.2.3
   shimmer_animation: ^2.1.0+1
   jovial_svg: 1.1.9

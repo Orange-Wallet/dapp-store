@@ -47,6 +47,7 @@ class Downloader {
         fileName: task.fileName,
         savedDir: localPath,
         saveInPublicStorage: true,
+        headers: {"connection": "close"},
       );
 
       return task.copyWith(taskId: taskId, saveDir: localPath);

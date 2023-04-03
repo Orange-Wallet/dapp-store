@@ -136,7 +136,8 @@ class DappTitleTile extends StatelessWidget {
             if (((package?.status == DownloadTaskStatus.enqueued) ||
                     (package?.status == DownloadTaskStatus.running) ||
                     (package?.progress != 100 && package?.progress != null)) &&
-                (package?.status != DownloadTaskStatus.failed)) {
+                !(package?.status == DownloadTaskStatus.failed ||
+                    package?.status == DownloadTaskStatus.undefined)) {
               return SizedBox(
                 height: 42,
                 child: ListTile(
