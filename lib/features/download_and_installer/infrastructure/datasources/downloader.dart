@@ -47,6 +47,7 @@ class Downloader {
         fileName: task.fileName,
         savedDir: localPath,
         saveInPublicStorage: true,
+        timeout: 15000000,
         headers: {
           "connection": "close",
         },
