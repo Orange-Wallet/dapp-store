@@ -73,6 +73,7 @@
     "installedDapps",
     "pwas",
     "installedDappWithNumber",
-    "savedPwasWithNumber"
+    "savedPwasWithNumber",
+    "noDappsInstalled"
   ]
 }

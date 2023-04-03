@@ -1,4 +1,6 @@
 import 'package:dappstore/core/localisation/localisation_extension.dart';
+import 'package:dappstore/core/router/router.dart';
+import 'package:dappstore/features/dapp_info/presentation/screens/dapp_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,35 +32,55 @@ class _InstalledDappsListState extends State<InstalledDappsList> {
         bloc: widget.handler.savedDappsCubit,
         builder: (context, state) {
           List<DappInfo> dappsList = [...state.needUpdate!, ...state.noUpdate!];
-          return Column(
-            children: [
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text(
-                      context.getLocale!
-                          .installedDappWithNumber(dappsList.length),
-                      style: theme.secondaryTitleTextStyle,
-                    ),
-                  )
-                ],
+          if (dappsList.isEmpty) {
+            return Center(
+              child: Text(
+                context.getLocale!.noDappsSaved,
+                style: theme.secondaryWhiteTextStyle3,
               ),
-              Expanded(
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: dappsList.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 8.0, horizontal: 2),
-                        child: InstalledDappsTile(
-                            dappInfo: dappsList[0], theme: theme),
-                      );
-                    }),
-              ),
-            ],
-          );
+            );
+          } else {
+            return Column(
+              children: [
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        context.getLocale!
+                            .installedDappWithNumber(dappsList.length),
+                        style: theme.secondaryTitleTextStyle,
+                      ),
+                    )
+                  ],
+                ),
+                Expanded(
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: dappsList.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 8.0,
+                            horizontal: 2,
+                          ),
+                          child: GestureDetector(
+                            onTap: () {
+                              widget.handler.storeCubit.setActiveDappId(
+                                  dappId: dappsList[index].dappId!);
+                              context.pushRoute(const DappInfoPage());
+                            },
+                            child: InstalledDappsTile(
+                              dappInfo: dappsList[index],
+                              theme: theme,
+                            ),
+                          ),
+                        );
+                      }),
+                ),
+              ],
+            );
+          }
         });
   }
 }

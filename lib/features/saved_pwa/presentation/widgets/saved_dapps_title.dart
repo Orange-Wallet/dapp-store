@@ -1,3 +1,4 @@
+import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/router/router.dart';
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:dappstore/features/dapp_info/presentation/screens/dapp_info.dart';
@@ -24,40 +25,54 @@ class SavedDappsTile extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        handler.storeCubit.setActiveDappId(
-          dappId: dappId!,
-        );
-        context.pushRoute(const DappInfoPage());
-      },
-      child: ListTile(
-        leading: SizedBox(
-          height: 48,
-          width: 48,
-          child: Container(
-            clipBehavior: Clip.hardEdge,
-            decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10))),
-            child: ImageWidgetCached(
-              image ?? "",
-              fit: BoxFit.fill,
-              height: 48,
-              width: 48,
-            ),
+    return ListTile(
+      leading: SizedBox(
+        height: 48,
+        width: 48,
+        child: Container(
+          clipBehavior: Clip.hardEdge,
+          decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+          child: ImageWidgetCached(
+            image ?? "",
+            fit: BoxFit.fill,
+            height: 48,
+            width: 48,
           ),
         ),
-        title: Text(
-          name!,
-          style: theme.titleTextStyle,
+      ),
+      title: Text(
+        name!,
+        style: theme.titleTextStyle,
+      ),
+      subtitle: Text(
+        subtitle ?? "",
+        style: theme.secondaryTextStyle2,
+      ),
+      trailing: TextButton(
+        onPressed: () async {
+          handler.storeCubit.setActiveDappId(dappId: dappId!);
+          context.pushRoute(const DappInfoPage());
+        },
+        style: OutlinedButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          foregroundColor: theme.appGreen,
+          shape: RoundedRectangleBorder(
+            side: BorderSide(
+              color: theme.appGreen,
+            ),
+            borderRadius: BorderRadius.circular(36),
+          ),
         ),
-        subtitle: Text(
-          subtitle ?? "",
-          style: theme.secondaryTextStyle2,
-        ),
-        trailing: Icon(
-          Icons.arrow_forward,
-          color: theme.greyArrowColor,
+        child: SizedBox(
+          width: 80,
+          height: 28,
+          child: Center(
+            child: Text(
+              context.getLocale!.open,
+              style: theme.whiteBodyTextStyle,
+            ),
+          ),
         ),
       ),
     );

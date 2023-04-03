@@ -52,18 +52,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // builder: (context, child) => ResponsiveWrapper.builder(
-      //   child,
-      //   maxWidth: 3240,
-      //   minWidth: 360,
-      //   defaultScale: true,
-      //   breakpoints: [
-      //     const ResponsiveBreakpoint.autoScale(480, name: MOBILE),
-      //     const ResponsiveBreakpoint.autoScale(1080, name: MOBILE),
-      //     const ResponsiveBreakpoint.autoScale(2160, name: MOBILE),
-      //     const ResponsiveBreakpoint.autoScale(3240, name: MOBILE),
-      //   ],
-      // ),
+      debugShowCheckedModeBanner: false,
       title: "Test",
       theme: ThemeData(
         primarySwatch: Colors.blue,
