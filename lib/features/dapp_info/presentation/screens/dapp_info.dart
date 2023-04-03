@@ -81,53 +81,83 @@ class _DappInfoPageState extends State<DappInfoPage> {
                       )
                     : ListView(
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              gradient: RadialGradient(
-                                center: Alignment.topLeft,
-                                radius: 1,
-                                focalRadius: 10,
-                                // focal: Alignment.topLeft,
-                                colors: [
-                                  theme.gradientBlue,
-                                  theme.gradientBlue2,
+                          Stack(
+                            children: [
+                              Positioned(
+                                top: 50,
+                                left: -250,
+                                width: 400,
+                                height: 400,
+                                child: Container(
+                                  clipBehavior: Clip.antiAlias,
+                                  alignment: Alignment.topCenter,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: storeHandler.theme.wcBlue,
+                                      gradient: RadialGradient(
+                                        colors: [
+                                          storeHandler.theme.wcBlue
+                                              .withOpacity(0.4),
+                                          storeHandler.theme.wcBlue
+                                              .withOpacity(0),
+                                        ],
+                                      )),
+                                  height: 500,
+                                ),
+                              ),
+                              Positioned.fill(
+                                right: -200,
+                                top: -300,
+                                child: Container(
+                                  clipBehavior: Clip.antiAlias,
+                                  alignment: Alignment.topCenter,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: storeHandler.theme.wcBlue,
+                                      gradient: RadialGradient(
+                                        colors: [
+                                          storeHandler.theme.wcBlue
+                                              .withOpacity(0.4),
+                                          storeHandler.theme.wcBlue
+                                              .withOpacity(0),
+                                        ],
+                                      )),
+                                  height: 500,
+                                ),
+                              ),
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                      10,
+                                      32.0,
+                                      10,
+                                      12,
+                                    ),
+                                    child: ImageCarousel(
+                                      imageUrls: (dappState
+                                              .dappInfo?.images?.screenshots ??
+                                          [
+                                            "https://dummyimage.com/200x800.png",
+                                            "https://dummyimage.com/200x800.png",
+                                            "https://dummyimage.com/200x800.png",
+                                            "https://dummyimage.com/200x800.png",
+                                          ]),
+                                      dappInfoHandler: dappInfoHandler,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 20.0, bottom: 40),
+                                    child: DappTitleTile(
+                                      dappInfo: dappState.dappInfo!,
+                                      theme: theme,
+                                      primaryTile: true,
+                                    ),
+                                  ),
                                 ],
                               ),
-                            ),
-                            child: Column(children: [
-                              //todo: remove this
-                              // if (dappState.dappInfo?.images?.screenshots
-                              //         ?.isNotEmpty ??
-                              //     false)
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                  10,
-                                  32.0,
-                                  10,
-                                  12,
-                                ),
-                                child: ImageCarousel(
-                                  imageUrls: (dappState
-                                          .dappInfo?.images?.screenshots ??
-                                      [
-                                        "https://dummyimage.com/200x800.png",
-                                        "https://dummyimage.com/200x800.png",
-                                        "https://dummyimage.com/200x800.png",
-                                        "https://dummyimage.com/200x800.png",
-                                      ]),
-                                  dappInfoHandler: dappInfoHandler,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 20.0, bottom: 40),
-                                child: DappTitleTile(
-                                  dappInfo: dappState.dappInfo!,
-                                  theme: theme,
-                                  primaryTile: true,
-                                ),
-                              ),
-                            ]),
+                            ],
                           ),
                           Padding(
                             padding: const EdgeInsets.only(bottom: 20.0),

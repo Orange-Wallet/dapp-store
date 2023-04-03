@@ -82,7 +82,7 @@ class SettingsDialog extends StatelessWidget {
             height: 12,
           ),
           Row(
-            children: const [Icon(Icons.apps), Text("Manage Dapps")],
+            children: const [Icon(Icons.apps), Text("Settings")],
           )
         ],
       ),
