@@ -74,6 +74,10 @@
     "pwas",
     "installedDappWithNumber",
     "savedPwasWithNumber",
-    "noDappsInstalled"
+    "noDappsInstalled",
+    "youWillReceivetwo",
+    "confirmThatYouAreOwner",
+    "connectUsignAnyWalletConnect",
+    "goBackToWallet"
   ]
 }

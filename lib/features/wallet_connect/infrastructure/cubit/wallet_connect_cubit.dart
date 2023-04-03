@@ -9,6 +9,7 @@ import 'package:dappstore/features/wallet_connect/models/eth/ethereum_transactio
 import 'package:dappstore/features/wallet_connect/utils/eip155.dart';
 import 'package:dappstore/features/wallet_connect/utils/helpers.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -75,6 +76,8 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
         activeAddress: WCHelper.getAddressFromAccountStr(
             res.namespaces[ChainType.eip155.name]!.accounts.first),
         connected: true,
+        loadingConnection: false,
+        failureConnection: false,
         approvedChains: res.namespaces[ChainType.eip155.name]!.accounts
             .map((e) =>
                 int.parse(WCHelper.getChainIdFromAccountStr(e).split(":")[1]))
@@ -108,7 +111,15 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
   Future<bool> getConnectRequest(List<String> chainIds) async {
     EngineConnection? res =
         await signClient?.connect(Eip155Data.getSessionConnectParams(chainIds));
-    res?.approval?.then((value) {
+    emit(state.copyWith(
+      failure: false,
+      failureConnection: false,
+      connected: false,
+      loadingConnection: true,
+    ));
+    res?.approval?.then((value) async {
+      await signClient!.ping(value.topic);
+      getSessionAndPairings();
       emit(state.copyWith(
         activeSession: value,
         failure: false,
@@ -118,17 +129,29 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
         activeAddress: WCHelper.getAddressFromAccountStr(
             value.namespaces[ChainType.eip155.name]!.accounts.first),
         connected: true,
+        failureConnection: false,
+        loadingConnection: false,
         approvedChains: value.namespaces[ChainType.eip155.name]!.accounts
             .map((e) =>
                 int.parse(WCHelper.getChainIdFromAccountStr(e).split(":")[1]))
             .toList(),
       ));
-      getSessionAndPairings();
-      // await getEthSign("Testing");
+      // getEthSign("Testing").then((value) {
+      //   if (value.isNotEmpty || value != "") {
+      //     getIt<IWalletConnectStore>().addSignature(
+      //         topicID: state.activeSession!.topic, signature: value);
+      //   }
+      // });
       log("connected");
       return true;
     }).catchError((e) {
       debugPrint("Connection error $e");
+      emit(state.copyWith(
+        failure: false,
+        failureConnection: true,
+        connected: false,
+        loadingConnection: false,
+      ));
       log("failed");
       return false;
     });
@@ -157,17 +180,48 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
   @override
   Future<String> getEthSign(String data) async {
     if (state.activeSession != null) {
-      SessionRequestParams params = Eip155Data.getRequestParams(
-        topic: state.activeSession!.topic,
-        method: Eip155Methods.ETH_SIGN,
-        chainId: state.activeChainId!,
-        address: state.activeAddress!,
-        data: data,
-      );
+      try {
+        SessionRequestParams params = Eip155Data.getRequestParams(
+          topic: state.activeSession!.topic,
+          method: Eip155Methods.ETH_SIGN,
+          chainId: state.activeChainId!,
+          address: state.activeAddress!,
+          data: data,
+        );
+        log("getEthSign");
+        emit(state.copyWith(
+          failure: false,
+          failureSign: false,
+          loadingSign: true,
+          signVerified: false,
+        ));
 
-      var res = await signClient?.request(params);
-      return res;
+        var res = await signClient?.request(params);
+        emit(state.copyWith(
+          failure: false,
+          failureSign: false,
+          loadingSign: false,
+          signVerified: true,
+        ));
+        return res;
+      } catch (e, stack) {
+        emit(state.copyWith(
+          failure: false,
+          failureSign: true,
+          loadingSign: false,
+          signVerified: false,
+        ));
+        debugPrint(e.toString());
+        debugPrint(stack.toString());
+        return "";
+      }
     } else {
+      emit(state.copyWith(
+        failure: false,
+        failureSign: true,
+        loadingSign: false,
+        signVerified: false,
+      ));
       throw Exception("No active Session");
     }
   }

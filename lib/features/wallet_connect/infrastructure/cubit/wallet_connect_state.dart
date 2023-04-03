@@ -4,7 +4,11 @@ part of 'wallet_connect_cubit.dart';
 class WalletConnectState with _$WalletConnectState {
   const factory WalletConnectState({
     required bool connected,
+    required bool loadingConnection,
+    required bool failureConnection,
     required bool signVerified,
+    required bool loadingSign,
+    required bool failureSign,
     required bool failure,
     required List<SessionStruct> sessions,
     required SessionStruct? activeSession,
@@ -24,6 +28,10 @@ class WalletConnectState with _$WalletConnectState {
         activeChainId: null,
         approvedChains: [],
         signVerified: false,
+        loadingConnection: false,
+        failureConnection: false,
+        loadingSign: false,
+        failureSign: false,
       );
 
   factory WalletConnectState.fromJson(Map<String, dynamic> json) =>

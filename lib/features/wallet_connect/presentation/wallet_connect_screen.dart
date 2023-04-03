@@ -14,6 +14,7 @@ import 'package:dappstore/features/wallet_connect/presentation/widget/terms_and_
 import 'package:dappstore/utils/constants.dart';
 import 'package:dappstore/utils/icon_constants.dart';
 import 'package:dappstore/utils/image_constants.dart';
+import 'package:dappstore/widgets/bottom_sheet/bottom_sheet.dart';
 import 'package:dappstore/widgets/snacbar/snacbar_context_extension.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -65,7 +66,11 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
         bloc: cubit,
         listenWhen: (previous, current) =>
             previous.connected != current.connected ||
-            previous.signVerified != current.signVerified,
+            previous.signVerified != current.signVerified ||
+            previous.failureConnection != current.failureConnection ||
+            previous.loadingConnection != current.loadingConnection ||
+            previous.loadingSign != current.loadingSign ||
+            previous.failureSign != current.failureSign,
         listener: (context, state) async {
           if (state.connected && state.signVerified) {
             context.replaceRoute(const HomePage());
@@ -100,78 +105,77 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                       const SizedBox(
                         height: 30,
                       ),
-                      if (state.connected != true)
-                        Container(
-                          height: 44,
-                          width: double.maxFinite,
-                          padding: const EdgeInsets.symmetric(horizontal: 33),
-                          child: TextButton(
-                            onPressed: () {
-                              cubit.getConnectRequest(
-                                  ["eip155:137", "eip155:1"]);
-                            },
-                            style: TextButton.styleFrom(
-                              backgroundColor: theme.wcBlue,
-                              shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(theme.buttonRadius),
-                              ),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(IconConstants.walletConnectLogo,
-                                    height: theme.wcIconSize),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                Text(
-                                  context.getLocale!.useWalletConnect,
-                                  style: theme.buttonTextStyle,
-                                ),
-                              ],
+                      Container(
+                        height: 44,
+                        width: double.maxFinite,
+                        padding: const EdgeInsets.symmetric(horizontal: 33),
+                        child: TextButton(
+                          onPressed: () {
+                            context.showBottomSheet(
+                                theme: theme, child: dialog());
+                          },
+                          style: TextButton.styleFrom(
+                            backgroundColor: theme.wcBlue,
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(theme.buttonRadius),
                             ),
                           ),
-                        ),
-                      if (state.connected == true)
-                        Container(
-                          height: 44,
-                          width: double.maxFinite,
-                          padding: const EdgeInsets.symmetric(horizontal: 33),
-                          child: TextButton(
-                            onPressed: () {
-                              context
-                                  .showMsgBar("Open wallet and sign message");
-                              cubit.getEthSign("Testing").then((value) {
-                                getIt<IWalletConnectStore>().addSignature(
-                                    topicID: state.activeSession!.topic,
-                                    signature: value);
-                                context.replaceRoute(const HomePage());
-                              });
-                            },
-                            style: TextButton.styleFrom(
-                              backgroundColor: theme.wcBlue,
-                              shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(theme.buttonRadius),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(IconConstants.walletConnectLogo,
+                                  height: theme.wcIconSize),
+                              const SizedBox(
+                                width: 8,
                               ),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(IconConstants.walletConnectLogo,
-                                    height: theme.wcIconSize),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                Text(
-                                  context.getLocale!.signMessage,
-                                  style: theme.buttonTextStyle,
-                                ),
-                              ],
-                            ),
+                              Text(
+                                context.getLocale!.useWalletConnect,
+                                style: theme.buttonTextStyle,
+                              ),
+                            ],
                           ),
                         ),
+                      ),
+                      // if (state.connected == true)
+                      //   Container(
+                      //     height: 44,
+                      //     width: double.maxFinite,
+                      //     padding: const EdgeInsets.symmetric(horizontal: 33),
+                      //     child: TextButton(
+                      //       onPressed: () {
+                      //         context
+                      //             .showMsgBar("Open wallet and sign message");
+                      //         cubit.getEthSign("Testing").then((value) {
+                      //           getIt<IWalletConnectStore>().addSignature(
+                      //               topicID: state.activeSession!.topic,
+                      //               signature: value);
+                      //           context.replaceRoute(const HomePage());
+                      //         });
+                      //       },
+                      //       style: TextButton.styleFrom(
+                      //         backgroundColor: theme.wcBlue,
+                      //         shape: RoundedRectangleBorder(
+                      //           borderRadius:
+                      //               BorderRadius.circular(theme.buttonRadius),
+                      //         ),
+                      //       ),
+                      //       child: Row(
+                      //         mainAxisAlignment: MainAxisAlignment.center,
+                      //         children: [
+                      //           Image.asset(IconConstants.walletConnectLogo,
+                      //               height: theme.wcIconSize),
+                      //           const SizedBox(
+                      //             width: 8,
+                      //           ),
+                      //           Text(
+                      //             context.getLocale!.signMessage,
+                      //             style: theme.buttonTextStyle,
+                      //           ),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //   ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 26, horizontal: 12),
@@ -205,6 +209,118 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                 )
               ],
             ),
+          );
+        });
+  }
+
+  dialog() {
+    return BlocConsumer<IWalletConnectCubit, WalletConnectState>(
+        bloc: cubit,
+        buildWhen: (previous, current) =>
+            previous.connected != current.connected ||
+            previous.signVerified != current.signVerified ||
+            previous.failureConnection != current.failureConnection ||
+            previous.loadingConnection != current.loadingConnection ||
+            previous.loadingSign != current.loadingSign ||
+            previous.failureSign != current.failureSign,
+        listenWhen: (previous, current) =>
+            previous.connected != current.connected ||
+            previous.signVerified != current.signVerified ||
+            previous.failureConnection != current.failureConnection ||
+            previous.loadingConnection != current.loadingConnection ||
+            previous.loadingSign != current.loadingSign ||
+            previous.failureSign != current.failureSign,
+        listener: (context, state) async {
+          if (state.connected &&
+              !state.signVerified &&
+              !state.loadingSign &&
+              !state.failureSign) {
+            await Future.delayed(const Duration(seconds: 1), () async {
+              cubit.getEthSign("Testing").then((value) {
+                if (value.isNotEmpty || value != "") {
+                  getIt<IWalletConnectStore>().addSignature(
+                      topicID: state.activeSession!.topic, signature: value);
+                }
+              });
+            });
+          }
+        },
+        builder: (context, state) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Text(
+                  context.getLocale!.youWillReceivetwo,
+                  style: theme.titleTextStyle.copyWith(fontSize: 14.0),
+                ),
+              ),
+              const SizedBox(height: 16.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                child: _DialogTileItem(
+                  leading: '1',
+                  title: context.getLocale!.connectWallet,
+                  subtitle: context.getLocale!.connectUsignAnyWalletConnect,
+                  theme: theme,
+                  loading: state.loadingConnection,
+                  success: state.connected,
+                  error: state.failureConnection,
+                ),
+              ),
+              const SizedBox(height: 16.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                child: _DialogTileItem(
+                  leading: '2',
+                  title: context.getLocale!.signMessage,
+                  subtitle: context.getLocale!.confirmThatYouAreOwner,
+                  theme: theme,
+                  loading: state.loadingSign,
+                  success: state.signVerified,
+                  error: state.failureSign,
+                ),
+              ),
+              if (state.loadingSign)
+                Container(
+                    width: double.maxFinite,
+                    margin: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16.0),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(theme.buttonRadius),
+                        color: theme.cardGrey),
+                    child: Text(
+                      "${context.getLocale!.goBackToWallet} ",
+                      style: theme.normalTextStyle,
+                      textAlign: TextAlign.center,
+                    )),
+              if (!state.loadingSign &&
+                  (!state.connected ||
+                      state.failureSign ||
+                      state.failureConnection ||
+                      !state.signVerified))
+                TextButton(
+                  onPressed: () {
+                    if (!state.connected || state.failureConnection) {
+                      cubit.getConnectRequest(["eip155:137", "eip155:1"]);
+                    } else {
+                      context.showMsgBar("Open wallet and sign message");
+                      cubit.getEthSign("Testing").then((value) {
+                        if (value.isNotEmpty || value != "") {
+                          getIt<IWalletConnectStore>().addSignature(
+                              topicID: state.activeSession!.topic,
+                              signature: value);
+                        }
+                      });
+                    }
+                  },
+                  child: Text(
+                    'Send requests',
+                    style: theme.buttonTextStyle,
+                  ),
+                ),
+            ],
           );
         });
   }
@@ -300,6 +416,98 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _DialogTileItem extends StatelessWidget {
+  final String leading;
+  final String title;
+  final String subtitle;
+  final bool loading;
+  final bool success;
+  final bool error;
+  final IThemeSpec theme;
+  const _DialogTileItem({
+    Key? key,
+    required this.leading,
+    required this.title,
+    required this.subtitle,
+    this.loading = false,
+    this.success = false,
+    this.error = false,
+    required this.theme,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 50.0,
+            width: 50.0,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: theme.backgroundColor,
+            ),
+            child: loading
+                ? SizedBox(
+                    height: 18.0,
+                    width: 18.0,
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: theme.whiteColor,
+                        strokeWidth: 2.5,
+                      ),
+                    ),
+                  )
+                : success
+                    ? Icon(
+                        Icons.check_rounded,
+                        size: 24.0,
+                        color: theme.appGreen,
+                      )
+                    : error
+                        ? Icon(
+                            Icons.close_rounded,
+                            size: 24.0,
+                            color: theme.errorRed,
+                          )
+                        : Text(
+                            leading,
+                            style: theme.buttonTextStyle.copyWith(
+                              fontSize: 24.0,
+                            ),
+                          ),
+          ),
+          const SizedBox(width: 24.0),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: theme.buttonTextStyle.copyWith(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 8.0),
+                Text(
+                  subtitle,
+                  style: theme.bodyTextStyle.copyWith(
+                    fontSize: 15.0,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

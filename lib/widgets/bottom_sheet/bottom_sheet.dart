@@ -11,17 +11,20 @@ extension BottomSheet on BuildContext {
         return Container(
           color: Colors.transparent,
           margin: const EdgeInsets.all(16),
-          alignment: Alignment.center,
-          child: Stack(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Card(
                 shape: theme.sheetCardShape,
                 color: theme.sheetBackgroundColor,
                 child: SizedBox(
                     width: double.infinity,
-                    height: MediaQuery.of(context).size.height * 0.6,
                     child: Column(
                       children: [
+                        const Padding(
+                          padding: EdgeInsets.only(top: 2.0),
+                          child: WhiteGradientLine(),
+                        ),
                         const SizedBox(
                           height: 15,
                         ),
@@ -39,12 +42,11 @@ extension BottomSheet on BuildContext {
                           ),
                         ),
                         child,
+                        const SizedBox(
+                          height: 15,
+                        ),
                       ],
                     )),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(top: 7.0),
-                child: WhiteGradientLine(),
               ),
             ],
           ),

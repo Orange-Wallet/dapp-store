@@ -99,5 +99,9 @@
       }
     }
   },
-  "noDappsInstalled": "No dApps installed."
+  "noDappsInstalled": "No dApps installed.",
+  "youWillReceivetwo":"You will receive two requests in wallet. One to connect wallet and another to sign a messsage, Signing is free and will not send a transaction.",
+  "confirmThatYouAreOwner":"Go back to wallet and Sign a message to confirm that you are the owner of this wallet.",
+  "connectUsignAnyWalletConnect":"Connect using any Wallet Connect supported wallet",
+  "goBackToWallet":"Go back to wallet to sign a message"
 }
