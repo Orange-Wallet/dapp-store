@@ -45,7 +45,7 @@ class _TopCategoriesListState extends State<TopCategoriesList> {
             physics: const NeverScrollableScrollPhysics(),
             padding: const EdgeInsets.symmetric(vertical: 12),
             shrinkWrap: true,
-            itemCount: 3,
+            itemCount: (list.entries.length >= 3) ? 3 : list.entries.length,
             cacheExtent: 200,
             addAutomaticKeepAlives: true,
             itemBuilder: (BuildContext context, int index) {
