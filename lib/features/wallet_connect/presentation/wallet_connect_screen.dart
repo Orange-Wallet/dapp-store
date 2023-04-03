@@ -15,7 +15,6 @@ import 'package:dappstore/utils/constants.dart';
 import 'package:dappstore/utils/icon_constants.dart';
 import 'package:dappstore/utils/image_constants.dart';
 import 'package:dappstore/widgets/bottom_sheet/bottom_sheet.dart';
-import 'package:dappstore/widgets/snacbar/snacbar_context_extension.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -266,7 +265,6 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                     if (!state.connected || state.failureConnection) {
                       cubit.getConnectRequest(["eip155:137", "eip155:1"]);
                     } else {
-                      context.showMsgBar("Open wallet and sign message");
                       cubit.getEthSign("Testing").then((value) {
                         if (value.isNotEmpty || value != "") {
                           getIt<IWalletConnectStore>().addSignature(
@@ -277,7 +275,7 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                     }
                   },
                   child: Text(
-                    'Send requests',
+                    'Send request',
                     style: theme.buttonTextStyle,
                   ),
                 ),
