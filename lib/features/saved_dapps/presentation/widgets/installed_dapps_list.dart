@@ -1,3 +1,4 @@
+import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -29,16 +30,35 @@ class _InstalledDappsListState extends State<InstalledDappsList> {
         bloc: widget.handler.savedDappsCubit,
         builder: (context, state) {
           List<DappInfo> dappsList = [...state.needUpdate!, ...state.noUpdate!];
-          return ListView.builder(
-              itemCount: dappsList.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 8.0, horizontal: 2),
-                  child: InstalledDappsTile(
-                      dappInfo: dappsList[index], theme: theme),
-                );
-              });
+          return Column(
+            children: [
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      context.getLocale!
+                          .installedDappWithNumber(dappsList.length),
+                      style: theme.secondaryTitleTextStyle,
+                    ),
+                  )
+                ],
+              ),
+              Expanded(
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: dappsList.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 2),
+                        child: InstalledDappsTile(
+                            dappInfo: dappsList[0], theme: theme),
+                      );
+                    }),
+              ),
+            ],
+          );
         });
   }
 }

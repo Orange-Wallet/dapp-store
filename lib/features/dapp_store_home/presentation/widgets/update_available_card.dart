@@ -14,7 +14,7 @@ class UpdateAvailableCard extends StatelessWidget {
     IDappStoreHandler handler = DappStoreHandler();
     return GestureDetector(
       onTap: () {
-        context.pushRoute(const SavedDappsPage());
+        context.pushRoute(SavedDappsPage());
       },
       child: Container(
           width: double.maxFinite,

@@ -80,5 +80,23 @@
   "updateYourDapps": "Update your dApps to enjoy all the latest features.",
   "youHave": "You Have",
   "webDapps": "web dApps",
-  "manageDapps": "Manage dApps"
+  "manageDapps": "Manage dApps",
+  "installedDapps": "Installed",
+  "pwas": "PWAs",
+  "installedDappWithNumber": "Installed dApps({number})",
+  "@installedDappWithNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "savedPwasWithNumber": "PWA dApps({number})",
+  "@savedPwasWithNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  }
 }

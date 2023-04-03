@@ -34,23 +34,40 @@ class SavedPwas extends StatelessWidget {
             ),
           );
         } else {
-          return ListView.builder(
-            itemCount: dapps.length,
-            itemBuilder: (context, index) {
-              final dapp = dapps[index];
-              return Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 5.0, vertical: 12),
-                child: SavedDappsTile(
-                  dappId: dapp.dappId,
-                  name: dapp.name,
-                  image: dapp.logo,
-                  subtitle: dapp.subtitle,
-                  theme: theme,
-                  handler: savedPwaPageHandler,
+          return Column(
+            children: [
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      context.getLocale!.savedPwasWithNumber(dapps.length),
+                      style: theme.secondaryTitleTextStyle,
+                    ),
+                  )
+                ],
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: dapps.length,
+                  itemBuilder: (context, index) {
+                    final dapp = dapps[index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5.0, vertical: 12),
+                      child: SavedDappsTile(
+                        dappId: dapp.dappId,
+                        name: dapp.name,
+                        image: dapp.logo,
+                        subtitle: dapp.subtitle,
+                        theme: theme,
+                        handler: savedPwaPageHandler,
+                      ),
+                    );
+                  },
                 ),
-              );
-            },
+              ),
+            ],
           );
         }
       },

@@ -54,7 +54,7 @@ class SimilarAppsTile extends StatelessWidget {
                 biggerTile ? theme.biggerTitleTextStyle : theme.titleTextStyle,
           ),
           subtitle: Text(
-            "${dappInfo.developer} · ${dappInfo.category}",
+            "${dappInfo.developer?.legalName ?? ""} · ${dappInfo.category}",
             style: biggerTile ? theme.bodyTextStyle : theme.secondaryTextStyle2,
           ),
           trailing: Icon(

@@ -92,12 +92,13 @@ class PackageManager extends Cubit<PackageManagerState>
     final List<AppInfo>? appInfo = await installedApps.getInstalledApps(
         excludeSystemApps: true, withIcon: true, packageNamePrefix: "");
     Map<String, PackageInfo> packageMapping = {...state.packageMapping!};
+    Map<String, PackageInfo> updatedMapping = {};
 
     for (var element in appInfo!) {
       if (element.packageName != null) {
         final package = packageMapping[element.packageName!];
         if (package != null) {
-          packageMapping[element.packageName!] = package.copyWith(
+          updatedMapping[element.packageName!] = package.copyWith(
             name: element.name,
             icon: element.icon,
             versionCode: element.versionCode?.toDouble() ?? 0,
@@ -106,7 +107,7 @@ class PackageManager extends Cubit<PackageManagerState>
             installed: true,
           );
         } else {
-          packageMapping[element.packageName!] = PackageInfo(
+          updatedMapping[element.packageName!] = PackageInfo(
             name: element.name,
             icon: element.icon,
             versionCode: element.versionCode?.toDouble() ?? 0,
@@ -117,7 +118,7 @@ class PackageManager extends Cubit<PackageManagerState>
         }
       }
     }
-    emit(state.copyWith(packageMapping: packageMapping));
+    emit(state.copyWith(packageMapping: updatedMapping));
   }
 
   @override

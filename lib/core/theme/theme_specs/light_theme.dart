@@ -104,6 +104,8 @@ class LightTheme implements IThemeSpec {
 
   @override
   Color get sheetBackgroundColor => const Color.fromARGB(255, 21, 27, 37);
+  @override
+  Color get tabGrey => const Color.fromARGB(255, 41, 41, 41);
 
   @override
   TextStyle get headingTextStyle => TextStyle(
@@ -207,6 +209,7 @@ class LightTheme implements IThemeSpec {
         color: whiteColor,
         fontWeight: FontWeight.w400,
       );
+
   @override
   TextStyle get normalTextStyle => TextStyle(
         // h5 -> headline
