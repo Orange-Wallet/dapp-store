@@ -137,45 +137,6 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                           ),
                         ),
                       ),
-                      // if (state.connected == true)
-                      //   Container(
-                      //     height: 44,
-                      //     width: double.maxFinite,
-                      //     padding: const EdgeInsets.symmetric(horizontal: 33),
-                      //     child: TextButton(
-                      //       onPressed: () {
-                      //         context
-                      //             .showMsgBar("Open wallet and sign message");
-                      //         cubit.getEthSign("Testing").then((value) {
-                      //           getIt<IWalletConnectStore>().addSignature(
-                      //               topicID: state.activeSession!.topic,
-                      //               signature: value);
-                      //           context.replaceRoute(const HomePage());
-                      //         });
-                      //       },
-                      //       style: TextButton.styleFrom(
-                      //         backgroundColor: theme.wcBlue,
-                      //         shape: RoundedRectangleBorder(
-                      //           borderRadius:
-                      //               BorderRadius.circular(theme.buttonRadius),
-                      //         ),
-                      //       ),
-                      //       child: Row(
-                      //         mainAxisAlignment: MainAxisAlignment.center,
-                      //         children: [
-                      //           Image.asset(IconConstants.walletConnectLogo,
-                      //               height: theme.wcIconSize),
-                      //           const SizedBox(
-                      //             width: 8,
-                      //           ),
-                      //           Text(
-                      //             context.getLocale!.signMessage,
-                      //             style: theme.buttonTextStyle,
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     ),
-                      //   ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 26, horizontal: 12),
@@ -325,6 +286,7 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
         });
   }
 
+// not used
   showBottom() {
     return showModalBottomSheet(
         context: context,
@@ -376,6 +338,7 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
         }));
   }
 
+// not used
   Widget buildViveButton(
       {required void Function()? onPressed, required bool isVive}) {
     return Container(

@@ -9,7 +9,6 @@ import 'package:dappstore/features/wallet_connect/models/eth/ethereum_transactio
 import 'package:dappstore/features/wallet_connect/utils/eip155.dart';
 import 'package:dappstore/features/wallet_connect/utils/helpers.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
