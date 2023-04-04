@@ -82,6 +82,9 @@
     "approveRequest",
     "approveRequestSubtitle",
     "ohno",
-    "chainNotSupportedPopup"
+    "chainNotSupportedPopup",
+    "about",
+    "helpAndFeedback",
+    "logout"
   ]
 }
