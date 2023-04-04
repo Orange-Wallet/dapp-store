@@ -78,7 +78,7 @@ class LightTheme implements IThemeSpec {
   Color get gradientBlue2 => const Color.fromARGB(0, 0, 179, 227);
 
   @override
-  Color get buttonBlue => const Color.fromARGB(1, 0, 179, 227);
+  Color get buttonBlue => const Color.fromARGB(255, 0, 178, 227);
 
   @override
   Color get buttonRed => const Color.fromARGB(255, 249, 94, 94);

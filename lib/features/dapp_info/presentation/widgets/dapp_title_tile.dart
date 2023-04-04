@@ -174,15 +174,18 @@ class DappTitleTile extends StatelessWidget {
               return Column(
                 children: [
                   listWithoutTrailing,
-                  AppButton(
-                    key: Key(dappInfo.dappId!),
-                    height: 32,
-                    width: MediaQuery.of(context).size.width * 0.456,
-                    showPrimary: true,
-                    showSecondary: true,
-                    radius: 4,
-                    dappInfo: dappInfo,
-                    theme: theme,
+                  Padding(
+                    padding: const EdgeInsets.only(top: 25.0),
+                    child: AppButton(
+                      key: Key(dappInfo.dappId!),
+                      height: 32,
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      showPrimary: true,
+                      showSecondary: true,
+                      radius: 4,
+                      dappInfo: dappInfo,
+                      theme: theme,
+                    ),
                   ),
                 ],
               );

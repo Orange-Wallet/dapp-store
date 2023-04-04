@@ -226,11 +226,40 @@ class _AppButtonState extends State<AppButton> {
                             (double.tryParse(widget.dappInfo.version ?? "0") ??
                                 0)) {
                       return SizedBox(
-                        width: 200,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             if (widget.showSecondary)
+                              SizedBox(
+                                width: widget.width,
+                                height: widget.height,
+                                child: TextButton(
+                                    onPressed: () {
+                                      widget.appButtonHandler.startDownload(
+                                          widget.dappInfo, context);
+                                    },
+                                    style: TextButton.styleFrom(
+                                      foregroundColor: widget.theme.buttonBlue,
+                                      backgroundColor: Colors.transparent,
+                                      shape: RoundedRectangleBorder(
+                                        side: BorderSide(
+                                            color: widget.theme.buttonBlue),
+                                        borderRadius: BorderRadius.circular(
+                                          widget.radius,
+                                        ),
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        context.getLocale!.update,
+                                        style: widget.theme.normalTextStyle
+                                            .copyWith(
+                                          color: widget.theme.buttonBlue,
+                                        ),
+                                      ),
+                                    )),
+                              ),
+                            if (widget.showPrimary)
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: CustomElevatedButton(
@@ -246,21 +275,6 @@ class _AppButtonState extends State<AppButton> {
                                     context.getLocale!.open,
                                     style: widget.theme.normalTextStyle,
                                   ),
-                                ),
-                              ),
-                            if (widget.showPrimary)
-                              CustomElevatedButton(
-                                onTap: () {
-                                  widget.appButtonHandler
-                                      .startDownload(widget.dappInfo, context);
-                                },
-                                color: widget.theme.buttonBlue,
-                                radius: widget.radius,
-                                width: widget.width,
-                                height: widget.height,
-                                child: Text(
-                                  context.getLocale!.update,
-                                  style: widget.theme.normalTextStyle,
                                 ),
                               ),
                           ],
