@@ -1,19 +1,45 @@
+import 'package:dappstore/core/router/router.dart';
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
+import 'package:dappstore/features/download_and_installer/infrastructure/repositories/package_manager.dart/i_package_manager.dart';
+import 'package:dappstore/features/download_and_installer/infrastructure/repositories/package_manager.dart/package_manager_cubit.dart';
+import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
+import 'package:dappstore/features/wallet_connect/infrastructure/cubit/wallet_connect_cubit.dart';
+import 'package:dappstore/utils/icon_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TxPopup extends StatelessWidget {
-  const TxPopup({super.key});
+  final IThemeSpec theme;
+  const TxPopup({
+    super.key,
+    required this.theme,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Center(
       //   child: BlocCo(
-      child: Container(
-        child: Column(
-          children: [],
-        ),
-        //      ),
-      ),
+      child: BlocConsumer<IWalletConnectCubit, WalletConnectState>(
+          listener: (context, state) {
+        if (state.txSucesess) {
+          context.popRoute();
+        }
+      }, builder: (context, state) {
+        return Container(
+          child: Column(
+            children: [
+              Image.asset(IconConstants.walletConnectLogo,
+                  height: theme.wcIconSize),
+              // _DialogTileItem(
+              //     // leading: leading,
+              //     // title: title,
+              //     // subtitle: subtitle,
+              //     theme: theme)
+            ],
+          ),
+          //      ),
+        );
+      }),
     );
   }
 }
