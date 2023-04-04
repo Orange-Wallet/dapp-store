@@ -178,7 +178,7 @@ class DappTitleTile extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 25.0),
                     child: AppButton(
                       key: Key(dappInfo.dappId!),
-                      height: 32,
+                      height: 40,
                       width: MediaQuery.of(context).size.width * 0.45,
                       showPrimary: true,
                       showSecondary: true,

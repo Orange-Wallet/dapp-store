@@ -1,6 +1,8 @@
 import 'package:dappstore/core/localisation/localisation_extension.dart';
+import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
+import 'package:dappstore/widgets/buttons/customizable_app_button.dart';
 import 'package:dappstore/widgets/image_widgets/image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -17,10 +19,87 @@ class BigDappCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final IThemeSpec theme = handler.theme;
+    final installButton = Container(
+      height: 30,
+      width: 84,
+      decoration: BoxDecoration(
+        color: theme.appGreen,
+        shape: BoxShape.rectangle,
+        borderRadius: BorderRadius.all(
+          Radius.circular(
+            theme.smallRadius,
+          ),
+        ),
+      ),
+      child: Center(
+        child: Text(
+          context.getLocale!.install,
+          style: handler.theme.smallButtonTextStyle,
+        ),
+      ),
+    );
+    final updateButton = Container(
+      height: 30,
+      width: 84,
+      decoration: BoxDecoration(
+        color: theme.blue,
+        shape: BoxShape.rectangle,
+        borderRadius: BorderRadius.all(
+          Radius.circular(
+            theme.smallRadius,
+          ),
+        ),
+      ),
+      child: Center(
+        child: Text(
+          context.getLocale!.update,
+          style: handler.theme.smallButtonTextStyle,
+        ),
+      ),
+    );
+    final openButton = Container(
+      height: 30,
+      width: 84,
+      decoration: BoxDecoration(
+        color: theme.blue,
+        shape: BoxShape.rectangle,
+        borderRadius: BorderRadius.all(
+          Radius.circular(
+            theme.smallRadius,
+          ),
+        ),
+      ),
+      child: Center(
+        child: Text(
+          context.getLocale!.open,
+          style: handler.theme.smallButtonTextStyle,
+        ),
+      ),
+    );
+    final installingButton = Container(
+      height: 30,
+      width: 84,
+      decoration: BoxDecoration(
+        color: theme.greyBlue,
+        shape: BoxShape.rectangle,
+        borderRadius: BorderRadius.all(
+          Radius.circular(
+            theme.smallRadius,
+          ),
+        ),
+      ),
+      child: Center(
+        child: Text(
+          context.getLocale!.installing,
+          style: handler.theme.smallButtonTextStyle,
+        ),
+      ),
+    );
     return Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(handler.theme.buttonRadius),
+          borderRadius: BorderRadius.circular(handler.theme.smallRadius),
           color: handler.theme.searchBigCardBG,
         ),
         child: Column(
@@ -33,7 +112,7 @@ class BigDappCard extends StatelessWidget {
                     Container(
                       decoration: BoxDecoration(
                         borderRadius:
-                            BorderRadius.circular(handler.theme.buttonRadius),
+                            BorderRadius.circular(handler.theme.smallRadius),
                       ),
                       clipBehavior: Clip.antiAlias,
                       child: ImageWidgetCached(
@@ -70,22 +149,14 @@ class BigDappCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                TextButton(
-                    onPressed: () {
-                      // TODO install implementation
-                    },
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        const RoundedRectangleBorder(),
-                      ),
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                        handler.theme.secondaryBackgroundColor,
-                      ),
-                    ),
-                    child: Text(
-                      context.getLocale!.install,
-                      style: handler.theme.smallButtonTextStyle,
-                    )),
+                CustomizableAppButton(
+                  theme: theme,
+                  dappInfo: dapp,
+                  updateWidget: updateButton,
+                  openWidget: openButton,
+                  installWidget: installButton,
+                  installingWidget: installingButton,
+                ),
               ],
             ),
             const SizedBox(
