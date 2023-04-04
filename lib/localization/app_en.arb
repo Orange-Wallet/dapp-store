@@ -107,5 +107,11 @@
   "approveRequest": "Approve Request",
   "approveRequestSubtitle": "Please open your wallet and sign the request after checking all the details.",
   "ohno": "Oh no!",
-  "chainNotSupportedPopup": "Requested chain is not supported at the moment."
+  "chainNotSupportedPopup": "Requested chain is not supported at the moment.",
+  "seeInstalledDapps": "See all the installed dapps.",
+  "deepDive": "Deep dive into the world of Web3.",
+  "noWallet": "No wallet",
+  "connectDappstore": "Please connect dappstore with a wallet.",
+  "somethingWentWrong": "Something went wrong.",
+  "tryAgain": "Please try again."
 }

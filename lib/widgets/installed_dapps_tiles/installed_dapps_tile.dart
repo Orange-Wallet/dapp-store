@@ -1,3 +1,4 @@
+import 'package:dappstore/widgets/buttons/customizable_app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -99,85 +100,12 @@ class InstalledDappsTile extends StatelessWidget {
         ),
       ),
     );
-    final greyInstallingButton = Center(
-      child: TextButton(
-        onPressed: () {},
-        style: OutlinedButton.styleFrom(
-          backgroundColor: Colors.transparent,
-          foregroundColor: theme.greyBlue,
-          shape: RoundedRectangleBorder(
-            side: BorderSide(
-              color: theme.appGreen,
-            ),
-            borderRadius: BorderRadius.circular(36),
-          ),
-        ),
-        child: SizedBox(
-          width: 73,
-          height: 28,
-          child: Text(
-            context.getLocale!.installing,
-            style: theme.greyHeading,
-          ),
-        ),
-      ),
-    );
-    final circularProgressIndicator = CircularProgressIndicator.adaptive(
-      backgroundColor: theme.greyBlue,
-      valueColor: AlwaysStoppedAnimation<Color>(theme.blue),
-    );
 
-    return BlocBuilder<IPackageManager, PackageManagerState>(
-      bloc: handler.packageManager,
-      builder: (context, packageManagerState) {
-        final packageMapping = packageManagerState.packageMapping;
-        final package = packageMapping![dappInfo.packageId];
-
-        if (packageMapping[dappInfo.dappId]?.installing ?? false) {
-          return SizedBox(
-            height: 50,
-            child: ListTile(
-              leading: leading,
-              title: title,
-              subtitle: subtitle,
-              trailing: greyInstallingButton,
-            ),
-          );
-        } else if ((package?.status == DownloadTaskStatus.enqueued ||
-                package?.status == DownloadTaskStatus.running) &&
-            (package?.progress != null && package?.progress != 100)) {
-          return SizedBox(
-            height: 50,
-            child: ListTile(
-              leading: leading,
-              title: title,
-              subtitle: subtitle,
-              trailing: circularProgressIndicator,
-            ),
-          );
-        } else if (((double.tryParse(dappInfo.version ?? "0") ?? 0) >
-            (package?.versionCode ?? 0))) {
-          return SizedBox(
-            height: 50,
-            child: ListTile(
-              leading: leading,
-              title: title,
-              subtitle: subtitle,
-              trailing: updateButton,
-            ),
-          );
-        } else {
-          return SizedBox(
-            height: 50,
-            child: ListTile(
-              leading: leading,
-              title: title,
-              subtitle: subtitle,
-              trailing: openButton,
-            ),
-          );
-        }
-      },
+    return ListTile(
+      leading: leading,
+      title: title,
+      subtitle: subtitle,
+      //  trailing: CustomizableAppButton(dappInfo: dappInfo, theme: theme,updateWidget: updateButton,),
     );
   }
 }

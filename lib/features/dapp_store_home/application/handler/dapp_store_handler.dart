@@ -5,8 +5,11 @@ import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_st
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_info_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
+import 'package:dappstore/features/saved_dapps/application/i_saved_dapps_cubit.dart';
 
 class DappStoreHandler implements IDappStoreHandler {
+  @override
+  ISavedDappsCubit get savedDappsCubit => getIt<ISavedDappsCubit>();
   @override
   IStoreCubit getStoreCubit() {
     return getIt<IStoreCubit>();

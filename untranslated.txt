@@ -82,6 +82,12 @@
     "approveRequest",
     "approveRequestSubtitle",
     "ohno",
-    "chainNotSupportedPopup"
+    "chainNotSupportedPopup",
+    "seeInstalledDapps",
+    "deepDive",
+    "noWallet",
+    "connectDappstore",
+    "somethingWentWrong",
+    "tryAgain"
   ]
 }
