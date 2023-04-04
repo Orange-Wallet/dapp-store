@@ -5,6 +5,9 @@ import 'package:dappstore/features/pwa_webwiew/application/handler/i_pwa_webview
 import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/i_injected_web3_cubit.dart';
 import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/injected_web3_cubit.dart';
 import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/i_pwa_webview_cubit.dart';
+import 'package:dappstore/features/pwa_webwiew/infrastructure/models/rpc_mapping.dart';
+import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
+import 'package:dappstore/features/wallet_connect/infrastructure/cubit/wallet_connect_cubit.dart';
 import 'package:dappstore/widgets/snacbar/snacbar_context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -13,6 +16,7 @@ import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: IPwaWebviewHandler)
 class PwaWebviewHandler implements IPwaWebviewHandler {
+  TxPopupCallback? txPopupCallback;
   @override
   IPwaWebviewCubit get webViewCubit => getIt<IPwaWebviewCubit>();
 
@@ -21,6 +25,14 @@ class PwaWebviewHandler implements IPwaWebviewHandler {
 
   @override
   IThemeCubit get themeCubit => getIt<IThemeCubit>();
+
+  @override
+  IWalletConnectCubit get walletConnectCubit => getIt<IWalletConnectCubit>();
+
+  @override
+  void initialise(TxPopupCallback callback) {
+    txPopupCallback = callback;
+  }
 
   @override
   void unfocus() {
@@ -113,7 +125,8 @@ class PwaWebviewHandler implements IPwaWebviewHandler {
   @override
   Future<String> signMessage(
       InAppWebViewController controller, String data, int chainId) async {
-    return "";
+    txPopupCallback?.call();
+    return injectedWeb3Cubit.signMessage(data);
   }
 
   @override
@@ -130,24 +143,39 @@ class PwaWebviewHandler implements IPwaWebviewHandler {
   Future<String> signTransaction(InAppWebViewController controller,
       JsTransactionObject data, chainId) async {
     debugPrint("tx callback ${data.toString()}");
-    return injectedWeb3Cubit.sendTransaction(data, () {});
+    txPopupCallback?.call();
+    return injectedWeb3Cubit.sendTransaction(
+      data,
+    );
   }
 
   @override
   Future<String> signTypedMessage(InAppWebViewController controller,
       JsEthSignTypedData data, chainId) async {
-    return injectedWeb3Cubit.signTypedData(data, () {});
+    txPopupCallback?.call();
+
+    return injectedWeb3Cubit.signTypedData(
+      data,
+    );
   }
 
   @override
   Future<String> signPersonalMessage(
       InAppWebViewController controller, data, chainId) async {
-    return injectedWeb3Cubit.signPersonalMessage(data, () {});
+    txPopupCallback?.call();
+
+    return injectedWeb3Cubit.signPersonalMessage(
+      data,
+    );
   }
 
   @override
   Future<String> addEthereumChain(InAppWebViewController controller,
       JsAddEthereumChain data, chainId) async {
+    if (RpcMapping.networks[chainId] == null) {
+      //todo: show popup for chain not supported
+      return "";
+    }
     return injectedWeb3Cubit
         .changeChains(int.tryParse(data.chainId ?? "1") ?? 1);
   }

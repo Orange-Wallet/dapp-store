@@ -18,12 +18,10 @@ abstract class IInjectedWeb3Cubit extends Cubit<InjectedWeb3State> {
 
   Future<String> sendTransaction(
     JsTransactionObject jsTransactionObject,
-    UiPopup uiPopup,
   );
 
   Future<String> signTransaction(
     JsTransactionObject jsTransactionObject,
-    UiPopup uiPopup,
   );
 
   Future<String> ecRecover(
@@ -32,16 +30,13 @@ abstract class IInjectedWeb3Cubit extends Cubit<InjectedWeb3State> {
 
   Future<String> signPersonalMessage(
     String data,
-    UiPopup uiPopup,
   );
 
   Future<String> signMessage(
     String data,
-    UiPopup uiPopup,
   );
 
   Future<String> signTypedData(
     JsEthSignTypedData data,
-    UiPopup uiPopup,
   );
 }

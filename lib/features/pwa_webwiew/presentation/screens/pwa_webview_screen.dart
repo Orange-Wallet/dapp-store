@@ -8,6 +8,7 @@ import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/i
 import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/i_pwa_webview_cubit.dart';
 import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/pwa_webview_cubit.dart';
 import 'package:dappstore/features/pwa_webwiew/presentation/widgets/pwa_webview_app_bar.dart';
+import 'package:dappstore/features/pwa_webwiew/presentation/widgets/tx_pop_up.dart';
 import 'package:dappstore/widgets/bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,6 +36,7 @@ class _PwaWebViewState extends State<PwaWebView> {
   @override
   void initState() {
     handler = getIt<IPwaWebviewHandler>();
+    handler.initialise(showPopup);
     pwaWebviewCubit = handler.webViewCubit;
     injectedWeb3Cubit = handler.injectedWeb3Cubit;
     handler.initInjectedWeb3(context);
@@ -99,6 +101,16 @@ class _PwaWebViewState extends State<PwaWebView> {
           },
         );
       },
+    );
+  }
+
+  showPopup() {
+    context.showBottomSheet(
+      theme: themeCubit.theme,
+      child: TxPopup(
+        walletConnectCubit: handler.walletConnectCubit,
+        theme: themeCubit.theme,
+      ),
     );
   }
 }

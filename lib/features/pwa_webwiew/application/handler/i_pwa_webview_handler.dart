@@ -1,13 +1,18 @@
 import 'package:dappstore/core/theme/i_theme_cubit.dart';
 import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/i_injected_web3_cubit.dart';
 import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/i_pwa_webview_cubit.dart';
+import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_injected_web3/flutter_injected_web3.dart';
 
+typedef TxPopupCallback = Function();
+
 abstract class IPwaWebviewHandler {
   IPwaWebviewCubit get webViewCubit;
   IInjectedWeb3Cubit get injectedWeb3Cubit;
+  IWalletConnectCubit get walletConnectCubit;
+  void initialise(TxPopupCallback callback);
   void unfocus();
   void onBackPressed();
   void onForwardPressed();

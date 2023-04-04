@@ -1,7 +1,6 @@
+import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/router/router.dart';
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
-import 'package:dappstore/features/download_and_installer/infrastructure/repositories/package_manager.dart/i_package_manager.dart';
-import 'package:dappstore/features/download_and_installer/infrastructure/repositories/package_manager.dart/package_manager_cubit.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/wallet_connect_cubit.dart';
 import 'package:dappstore/utils/icon_constants.dart';
@@ -10,42 +9,39 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TxPopup extends StatelessWidget {
   final IThemeSpec theme;
-  const TxPopup({
-    super.key,
-    required this.theme,
-  });
+  final IWalletConnectCubit walletConnectCubit;
+  const TxPopup(
+      {super.key, required this.theme, required this.walletConnectCubit});
 
   @override
   Widget build(BuildContext context) {
     return Center(
       //   child: BlocCo(
       child: BlocConsumer<IWalletConnectCubit, WalletConnectState>(
+          bloc: walletConnectCubit,
           listener: (context, state) {
-        if (state.txSucesess) {
-          context.popRoute();
-        }
-      }, builder: (context, state) {
-        return Container(
-          child: Column(
-            children: [
-              Image.asset(IconConstants.walletConnectLogo,
+            if (state.txSucesess) {
+              context.popRoute();
+            }
+          },
+          builder: (context, state) {
+            return _DialogTileItem(
+              title: context.getLocale!.approveRequest,
+              subtitle: context.getLocale!.approveRequestSubtitle,
+              theme: theme,
+              leading: Image.asset(IconConstants.walletConnectLogo,
                   height: theme.wcIconSize),
-              // _DialogTileItem(
-              //     // leading: leading,
-              //     // title: title,
-              //     // subtitle: subtitle,
-              //     theme: theme)
-            ],
-          ),
-          //      ),
-        );
-      }),
+              success: state.txSucesess,
+              loading: state.txLoading,
+              error: state.txFailure,
+            );
+          }),
     );
   }
 }
 
 class _DialogTileItem extends StatelessWidget {
-  final String leading;
+  final Widget? leading;
   final String title;
   final String subtitle;
   final bool loading;
@@ -54,7 +50,7 @@ class _DialogTileItem extends StatelessWidget {
   final IThemeSpec theme;
   const _DialogTileItem({
     Key? key,
-    required this.leading,
+    this.leading,
     required this.title,
     required this.subtitle,
     this.loading = false,
@@ -66,9 +62,10 @@ class _DialogTileItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
             height: 50.0,
@@ -101,12 +98,13 @@ class _DialogTileItem extends StatelessWidget {
                             size: 24.0,
                             color: theme.errorRed,
                           )
-                        : Text(
-                            leading,
-                            style: theme.buttonTextStyle.copyWith(
-                              fontSize: 24.0,
+                        : leading ??
+                            Text(
+                              "",
+                              style: theme.buttonTextStyle.copyWith(
+                                fontSize: 24.0,
+                              ),
                             ),
-                          ),
           ),
           const SizedBox(width: 24.0),
           Expanded(

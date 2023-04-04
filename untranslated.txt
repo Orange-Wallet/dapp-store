@@ -78,6 +78,8 @@
     "youWillReceivetwo",
     "confirmThatYouAreOwner",
     "connectUsignAnyWalletConnect",
-    "goBackToWallet"
+    "goBackToWallet",
+    "approveRequest",
+    "approveRequestSubtitle"
   ]
 }

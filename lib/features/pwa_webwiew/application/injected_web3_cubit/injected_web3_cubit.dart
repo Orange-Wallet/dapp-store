@@ -15,8 +15,6 @@ part 'injected_web3_state.dart';
 
 typedef ShowError = Function(SigningFailures error);
 
-typedef UiPopup = Function();
-
 enum SigningFailures {
   // ignore: constant_identifier_names
   SENDING_FAILED,
@@ -93,7 +91,6 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
   @override
   Future<String> sendTransaction(
     JsTransactionObject jsTransactionObject,
-    UiPopup uiPopup,
   ) async {
     try {
       debugPrint("transaction callback ${jsTransactionObject.toString()}");
@@ -116,7 +113,6 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
   @override
   Future<String> signTransaction(
     JsTransactionObject jsTransactionObject,
-    UiPopup uiPopup,
   ) async {
     try {
       final signedTx = await signer.getEthSignTransaction(
@@ -144,7 +140,6 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
   @override
   Future<String> signPersonalMessage(
     String data,
-    UiPopup uiPopup,
   ) async {
     try {
       final signedMessage = await signer.getPersonalSign(data);
@@ -159,7 +154,6 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
   @override
   Future<String> signMessage(
     String data,
-    UiPopup uiPopup,
   ) async {
     try {
       final signedMessage = await signer.getEthSign(data);
@@ -174,7 +168,6 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
   @override
   Future<String> signTypedData(
     JsEthSignTypedData data,
-    UiPopup uiPopup,
   ) async {
     try {
       final signedMessage = await signer.getEthSignTypedData(data.data!);
