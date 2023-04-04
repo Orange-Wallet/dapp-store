@@ -2,6 +2,7 @@ import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/router/router.dart';
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
+import 'package:dappstore/features/profile/random_name.dart';
 import 'package:dappstore/features/saved_dapps/presentation/pages/saved_dapps_page.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
 import 'package:dappstore/features/wallet_connect/presentation/wallet_connect_screen.dart';
@@ -9,10 +10,31 @@ import 'package:dappstore/features/wallet_connect/presentation/widget/terms_and_
 import 'package:dappstore/utils/address_util.dart';
 import 'package:dappstore/utils/icon_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
-class SettingsDialog extends StatelessWidget {
+class SettingsDialog extends StatefulWidget {
   final IThemeSpec theme;
   const SettingsDialog({super.key, required this.theme});
+
+  @override
+  State<SettingsDialog> createState() => _SettingsDialogState();
+}
+
+class _SettingsDialogState extends State<SettingsDialog> {
+  PackageInfo? package;
+
+  @override
+  void didChangeDependencies() async {
+    package = await PackageInfo.fromPlatform();
+    setState(() {});
+    super.didChangeDependencies();
+  }
+
+  @override
+  void didUpdateWidget(covariant SettingsDialog oldWidget) {
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +50,8 @@ class SettingsDialog extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "KungFu-Panda",
-                    style: theme.secondaryTitleTextStyle,
+                    RandomName().generateName(),
+                    style: widget.theme.secondaryTitleTextStyle,
                   ),
                   const SizedBox(
                     height: 8,
@@ -38,7 +60,7 @@ class SettingsDialog extends StatelessWidget {
                     AddressUtil.getClippedAddress(getIt<IWalletConnectCubit>()
                         .getActiveAdddress()
                         .toString()),
-                    style: theme.bodyTextStyle,
+                    style: widget.theme.bodyTextStyle,
                   ),
                 ],
               ),
@@ -52,16 +74,16 @@ class SettingsDialog extends StatelessWidget {
                     backgroundColor: Colors.transparent,
                     shape: RoundedRectangleBorder(
                       side: BorderSide(
-                        color: theme.buttonRed,
+                        color: widget.theme.buttonRed,
                       ),
                       borderRadius: BorderRadius.circular(
-                        theme.buttonRadius,
+                        widget.theme.buttonRadius,
                       ),
                     ),
                   ),
                   child: Text(
                     context.getLocale!.logout,
-                    style: theme.redButtonText,
+                    style: widget.theme.redButtonText,
                   )),
             ],
           ),
@@ -69,7 +91,7 @@ class SettingsDialog extends StatelessWidget {
             height: 12,
           ),
           Divider(
-            color: theme.whiteColor.withOpacity(0.08),
+            color: widget.theme.whiteColor.withOpacity(0.08),
             height: 1,
           ),
           buildTile(
@@ -77,7 +99,7 @@ class SettingsDialog extends StatelessWidget {
               text: context.getLocale!.manageDapps,
               onTap: () => context.pushRoute(SavedDappsPage())),
           Divider(
-            color: theme.whiteColor.withOpacity(0.08),
+            color: widget.theme.whiteColor.withOpacity(0.08),
             height: 1,
           ),
           buildTile(
@@ -85,19 +107,19 @@ class SettingsDialog extends StatelessWidget {
               text: context.getLocale!.helpAndFeedback,
               onTap: () => {}),
           Divider(
-            color: theme.whiteColor.withOpacity(0.08),
+            color: widget.theme.whiteColor.withOpacity(0.08),
             height: 1,
           ),
           const SizedBox(
             height: 30,
           ),
           TermsAndConditions(
-            theme: theme,
+            theme: widget.theme,
             insideSettings: true,
           ),
           Text(
-            "v1.0.0",
-            style: theme.bodyTextStyle,
+            "v${package?.version ?? ''} +${package?.buildNumber ?? ''}",
+            style: widget.theme.bodyTextStyle,
           ),
         ],
       ),
@@ -125,7 +147,7 @@ class SettingsDialog extends StatelessWidget {
             ),
             Text(
               text,
-              style: theme.normalTextStyle2,
+              style: widget.theme.normalTextStyle2,
             )
           ],
         ),
