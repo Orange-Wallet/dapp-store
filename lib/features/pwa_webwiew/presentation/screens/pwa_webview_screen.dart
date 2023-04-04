@@ -36,7 +36,7 @@ class _PwaWebViewState extends State<PwaWebView> {
   @override
   void initState() {
     handler = getIt<IPwaWebviewHandler>();
-    handler.initialise(showPopup);
+    handler.initialise(showPopup, showChainNotSupportedPopup);
     pwaWebviewCubit = handler.webViewCubit;
     injectedWeb3Cubit = handler.injectedWeb3Cubit;
     handler.initInjectedWeb3(context);
@@ -108,6 +108,16 @@ class _PwaWebViewState extends State<PwaWebView> {
     context.showBottomSheet(
       theme: themeCubit.theme,
       child: TxPopup(
+        walletConnectCubit: handler.walletConnectCubit,
+        theme: themeCubit.theme,
+      ),
+    );
+  }
+
+  showChainNotSupportedPopup() {
+    context.showBottomSheet(
+      theme: themeCubit.theme,
+      child: ChainNotSupportedPopup(
         walletConnectCubit: handler.walletConnectCubit,
         theme: themeCubit.theme,
       ),

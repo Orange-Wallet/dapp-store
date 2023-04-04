@@ -40,6 +40,27 @@ class TxPopup extends StatelessWidget {
   }
 }
 
+class ChainNotSupportedPopup extends StatelessWidget {
+  final IThemeSpec theme;
+  final IWalletConnectCubit walletConnectCubit;
+  const ChainNotSupportedPopup(
+      {super.key, required this.theme, required this.walletConnectCubit});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: _DialogTileItem(
+        title: context.getLocale!.ohno,
+        subtitle: context.getLocale!.chainNotSupportedPopup,
+        theme: theme,
+        leading: Image.asset(IconConstants.walletConnectLogo,
+            height: theme.wcIconSize),
+        error: true,
+      ),
+    );
+  }
+}
+
 class _DialogTileItem extends StatelessWidget {
   final Widget? leading;
   final String title;

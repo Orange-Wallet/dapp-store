@@ -12,7 +12,10 @@ abstract class IPwaWebviewHandler {
   IPwaWebviewCubit get webViewCubit;
   IInjectedWeb3Cubit get injectedWeb3Cubit;
   IWalletConnectCubit get walletConnectCubit;
-  void initialise(TxPopupCallback callback);
+  void initialise(
+    TxPopupCallback callback,
+    TxPopupCallback chainNotSupportedCallback,
+  );
   void unfocus();
   void onBackPressed();
   void onForwardPressed();

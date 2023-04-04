@@ -105,5 +105,7 @@
   "connectUsignAnyWalletConnect": "Connect using any Wallet Connect supported wallet",
   "goBackToWallet": "Go back to wallet to sign a message",
   "approveRequest": "Approve Request",
-  "approveRequestSubtitle": "Please open your wallet and sign the request after checking all the details."
+  "approveRequestSubtitle": "Please open your wallet and sign the request after checking all the details.",
+  "ohno": "Oh no!",
+  "chainNotSupportedPopup": "Requested chain is not supported at the moment."
 }

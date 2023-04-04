@@ -80,6 +80,8 @@
     "connectUsignAnyWalletConnect",
     "goBackToWallet",
     "approveRequest",
-    "approveRequestSubtitle"
+    "approveRequestSubtitle",
+    "ohno",
+    "chainNotSupportedPopup"
   ]
 }

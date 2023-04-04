@@ -82,7 +82,7 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
       );
       return rpcEndpoint;
     } else {
-      errorCallBack!.call(SigningFailures.SENDING_FAILED);
+      //errorCallBack!.call(SigningFailures.SENDING_FAILED);
 
       return "";
     }
@@ -105,7 +105,7 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
       return txHash;
     } catch (e) {
       errorLogger.logError(e);
-      errorCallBack!.call(SigningFailures.SENDING_FAILED);
+      // errorCallBack!.call(SigningFailures.SENDING_FAILED);
       return "";
     }
   }
@@ -126,14 +126,14 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
       return signedTx;
     } catch (e) {
       errorLogger.logError(e);
-      errorCallBack!.call(SigningFailures.SIGNING_FAILED);
+      //errorCallBack!.call(SigningFailures.SIGNING_FAILED);
       return "";
     }
   }
 
   @override
   Future<String> ecRecover(JsEcRecoverObject ecRecoverObject) async {
-    errorCallBack!.call(SigningFailures.METHOD_NOT_SUPPORTED);
+    //errorCallBack!.call(SigningFailures.METHOD_NOT_SUPPORTED);
     return "";
   }
 
@@ -146,7 +146,7 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
       return signedMessage;
     } catch (e) {
       errorLogger.logError(e);
-      errorCallBack!.call(SigningFailures.SIGNING_FAILED);
+      //  errorCallBack!.call(SigningFailures.SIGNING_FAILED);
       return "";
     }
   }
@@ -160,7 +160,7 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
       return signedMessage;
     } catch (e) {
       errorLogger.logError(e);
-      errorCallBack!.call(SigningFailures.SIGNING_FAILED);
+      // errorCallBack!.call(SigningFailures.SIGNING_FAILED);
       return "";
     }
   }
@@ -174,7 +174,7 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
       return signedMessage;
     } catch (e) {
       errorLogger.logError(e);
-      errorCallBack!.call(SigningFailures.SIGNING_FAILED);
+      // errorCallBack!.call(SigningFailures.SIGNING_FAILED);
       return "";
     }
   }
