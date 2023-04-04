@@ -30,9 +30,7 @@ class AppButtonHandler implements IAppButtonHandler {
   IDappInfoCubit get dappInfoCubit => getIt<IDappInfoCubit>();
   @override
   startDownload(DappInfo dappInfo, BuildContext context) async {
-    // final url = await storeCubit.getBuildUrl(dappInfo.dappId!);
-    final url =
-        "https://github.com/Abhimanyu121/OpenWallet/releases/download/Alpha2/app-release.apk";
+    final url = await storeCubit.getBuildUrl(dappInfo.dappId!);
     if (url != null) {
       await packageManager.startDownload(dappInfo, url, true);
     } else {

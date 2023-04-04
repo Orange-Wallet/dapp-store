@@ -130,44 +130,44 @@ class DappTitleTile extends StatelessWidget {
             ],
           );
         }
+        if (((package?.status == DownloadTaskStatus.enqueued) ||
+                (package?.status == DownloadTaskStatus.running) ||
+                (package?.progress != 100 && package?.progress != null)) &&
+            !(package?.status == DownloadTaskStatus.failed ||
+                package?.status == DownloadTaskStatus.undefined)) {
+          return SizedBox(
+            height: 42,
+            child: ListTile(
+              leading: leading,
+              title: title,
+              subtitle: subtitle,
+              trailing: circularProgressIndicator,
+            ),
+          );
+        }
+        if ((package?.installing ?? false)) {
+          return SizedBox(
+            height: 42,
+            child: ListTile(
+              leading: leading,
+              title: title,
+              subtitle: subtitle,
+              trailing: installingButton,
+            ),
+          );
+        }
         if (dappInfo.availableOnPlatform?.contains("android") ?? false) {
           if (!(state.packageMapping![dappInfo.packageId]?.installed ??
               false)) {
-            if (((package?.status == DownloadTaskStatus.enqueued) ||
-                    (package?.status == DownloadTaskStatus.running) ||
-                    (package?.progress != 100 && package?.progress != null)) &&
-                !(package?.status == DownloadTaskStatus.failed ||
-                    package?.status == DownloadTaskStatus.undefined)) {
-              return SizedBox(
-                height: 42,
-                child: ListTile(
-                  leading: leading,
-                  title: title,
-                  subtitle: subtitle,
-                  trailing: circularProgressIndicator,
-                ),
-              );
-            } else if ((package?.installing ?? false)) {
-              return SizedBox(
-                height: 42,
-                child: ListTile(
-                  leading: leading,
-                  title: title,
-                  subtitle: subtitle,
-                  trailing: installingButton,
-                ),
-              );
-            } else {
-              return SizedBox(
-                height: 42,
-                child: ListTile(
-                  leading: leading,
-                  title: title,
-                  subtitle: subtitle,
-                  trailing: installButton,
-                ),
-              );
-            }
+            return SizedBox(
+              height: 42,
+              child: ListTile(
+                leading: leading,
+                title: title,
+                subtitle: subtitle,
+                trailing: installButton,
+              ),
+            );
           } else {
             if ((state.packageMapping![dappInfo.packageId]?.versionCode ?? 0) <
                 (double.tryParse(dappInfo.version ?? "0") ?? 0)) {

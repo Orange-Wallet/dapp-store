@@ -80,8 +80,14 @@ class _AppButtonState extends State<AppButton> {
                   builder: (context, state) {
                     final packageInfo = state.packageMapping![
                         widget.dappInfo.packageId ?? widget.dappInfo.dappId];
-                    if (packageInfo?.status == DownloadTaskStatus.running ||
-                        packageInfo?.status == DownloadTaskStatus.enqueued) {
+                    if (((packageInfo?.status == DownloadTaskStatus.enqueued) ||
+                            (packageInfo?.status ==
+                                DownloadTaskStatus.running) ||
+                            (packageInfo?.progress != 100 &&
+                                packageInfo?.progress != null)) &&
+                        !(packageInfo?.status == DownloadTaskStatus.failed ||
+                            packageInfo?.status ==
+                                DownloadTaskStatus.undefined)) {
                       return CircularProgressIndicator.adaptive(
                         backgroundColor: widget.theme.greyBlue,
                         valueColor:
