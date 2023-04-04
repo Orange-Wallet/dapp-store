@@ -2,6 +2,7 @@ import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/router/router.dart';
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
+import 'package:dappstore/features/saved_dapps/presentation/pages/saved_dapps_page.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
 import 'package:dappstore/features/wallet_connect/presentation/wallet_connect_screen.dart';
 import 'package:dappstore/features/wallet_connect/presentation/widget/terms_and_condition.dart';
@@ -74,7 +75,7 @@ class SettingsDialog extends StatelessWidget {
           buildTile(
               iconAsset: IconConstants.categoryIcon,
               text: context.getLocale!.manageDapps,
-              onTap: () => {}),
+              onTap: () => context.pushRoute(SavedDappsPage())),
           Divider(
             color: theme.whiteColor.withOpacity(0.08),
             height: 1,
