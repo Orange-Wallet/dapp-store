@@ -113,5 +113,8 @@
   "noWallet": "No wallet",
   "connectDappstore": "Please connect dappstore with a wallet.",
   "somethingWentWrong": "Something went wrong.",
-  "tryAgain": "Please try again."
+  "tryAgain": "Please try again.",
+  "about": "About",
+  "helpAndFeedback": "Help and Feedback",
+  "logout": "Logout"
 }

@@ -98,7 +98,7 @@ class _SavedDappsPageState extends State<SavedDappsPage>
                               ),
                             ),
                           )
-                        : GestureDetector(
+                        : InkWell(
                             onTap: () => tabController.animateTo(0),
                             child: SizedBox(
                               width: tabWidth,
@@ -134,7 +134,7 @@ class _SavedDappsPageState extends State<SavedDappsPage>
                               ),
                             ),
                           )
-                        : GestureDetector(
+                        : InkWell(
                             onTap: () => tabController.animateTo(1),
                             child: SizedBox(
                               width: tabWidth,

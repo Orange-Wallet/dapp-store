@@ -6,10 +6,10 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 class TermsAndConditions extends StatelessWidget {
   final IThemeSpec theme;
-  const TermsAndConditions({
-    Key? key,
-    required this.theme,
-  }) : super(key: key);
+  final bool insideSettings;
+  const TermsAndConditions(
+      {Key? key, required this.theme, this.insideSettings = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class TermsAndConditions extends StatelessWidget {
       child: Center(
         child: Text.rich(
           TextSpan(
-            text: "${context.getLocale!.byContinuing} ",
+            text: insideSettings ? "" : "${context.getLocale!.byContinuing} ",
             style: theme.secondaryWhiteTextStyle3,
             children: <TextSpan>[
               TextSpan(

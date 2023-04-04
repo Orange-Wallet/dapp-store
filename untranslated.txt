@@ -89,5 +89,8 @@
     "connectDappstore",
     "somethingWentWrong",
     "tryAgain"
+    "about",
+    "helpAndFeedback",
+    "logout"
   ]
 }
