@@ -48,20 +48,14 @@ class InstalledDappsTile extends StatelessWidget {
       "${dappInfo.developer} · ${dappInfo.category}",
       style: theme.bodyTextStyle,
     );
-    final updateButton = TextButton(
-      onPressed: () async {
-        //todo: trigger ui update
-        handler.updateDapp(dappInfo);
-      },
-      style: OutlinedButton.styleFrom(
-        backgroundColor: Colors.transparent,
-        foregroundColor: theme.appGreen,
-        shape: RoundedRectangleBorder(
-          side: BorderSide(
-            color: theme.appGreen,
-          ),
-          borderRadius: BorderRadius.circular(36),
+    final updateButton = Container(
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        shape: BoxShape.rectangle,
+        border: Border.all(
+          color: theme.appGreen,
         ),
+        borderRadius: BorderRadius.circular(36),
       ),
       child: SizedBox(
         width: 80,
@@ -74,29 +68,65 @@ class InstalledDappsTile extends StatelessWidget {
         ),
       ),
     );
-    final openButton = TextButton(
-      onPressed: () {
-        handler.openDapp(
-          context,
-          dappInfo.dappId!,
-        );
-      },
-      style: OutlinedButton.styleFrom(
-        backgroundColor: Colors.transparent,
-        foregroundColor: theme.appGreen,
-        shape: RoundedRectangleBorder(
-          side: BorderSide(
-            color: theme.appGreen,
-          ),
-          borderRadius: BorderRadius.circular(36),
+    final openButton = Container(
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        shape: BoxShape.rectangle,
+        border: Border.all(
+          color: theme.blue,
         ),
+        borderRadius: BorderRadius.circular(36),
       ),
       child: SizedBox(
-        width: 73,
+        width: 80,
         height: 28,
-        child: Text(
-          context.getLocale!.update,
-          style: theme.bodyTextStyle,
+        child: Center(
+          child: Text(
+            context.getLocale!.open,
+            style: theme.whiteBodyTextStyle,
+          ),
+        ),
+      ),
+    );
+
+    final installButton = Container(
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        shape: BoxShape.rectangle,
+        border: Border.all(
+          color: theme.blue,
+        ),
+        borderRadius: BorderRadius.circular(36),
+      ),
+      child: SizedBox(
+        width: 80,
+        height: 28,
+        child: Center(
+          child: Text(
+            context.getLocale!.install,
+            style: theme.whiteBodyTextStyle,
+          ),
+        ),
+      ),
+    );
+
+    final installingButton = Container(
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        shape: BoxShape.rectangle,
+        border: Border.all(
+          color: theme.greyBlue,
+        ),
+        borderRadius: BorderRadius.circular(36),
+      ),
+      child: SizedBox(
+        width: 80,
+        height: 28,
+        child: Center(
+          child: Text(
+            context.getLocale!.installing,
+            style: theme.whiteBodyTextStyle,
+          ),
         ),
       ),
     );
@@ -105,7 +135,14 @@ class InstalledDappsTile extends StatelessWidget {
       leading: leading,
       title: title,
       subtitle: subtitle,
-      //  trailing: CustomizableAppButton(dappInfo: dappInfo, theme: theme,updateWidget: updateButton,),
+      trailing: CustomizableAppButton(
+        dappInfo: dappInfo,
+        theme: theme,
+        updateWidget: updateButton,
+        openWidget: openButton,
+        installWidget: installButton,
+        installingWidget: installingButton,
+      ),
     );
   }
 }

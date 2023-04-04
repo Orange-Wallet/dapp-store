@@ -101,29 +101,28 @@ class _CustomizableAppButtonState extends State<CustomizableAppButton> {
                     }
                     if (dappInfo.availableOnPlatform?.contains("android") ??
                         false) {
+                      if (((package?.status == DownloadTaskStatus.enqueued) ||
+                              (package?.status == DownloadTaskStatus.running) ||
+                              (package?.progress != 100 &&
+                                  package?.progress != null)) &&
+                          !(package?.status == DownloadTaskStatus.failed ||
+                              package?.status ==
+                                  DownloadTaskStatus.undefined)) {
+                        return circularProgressIndicator;
+                      }
+                      if ((package?.installing ?? false)) {
+                        return widget.installingWidget;
+                      }
                       if (!(state
                               .packageMapping![dappInfo.packageId]?.installed ??
                           false)) {
-                        if (((package?.status == DownloadTaskStatus.enqueued) ||
-                                (package?.status ==
-                                    DownloadTaskStatus.running) ||
-                                (package?.progress != 100 &&
-                                    package?.progress != null)) &&
-                            !(package?.status == DownloadTaskStatus.failed ||
-                                package?.status ==
-                                    DownloadTaskStatus.undefined)) {
-                          return circularProgressIndicator;
-                        } else if ((package?.installing ?? false)) {
-                          return widget.installingWidget;
-                        } else {
-                          return InkWell(
-                            onTap: () {
-                              widget.appButtonHandler
-                                  .startDownload(widget.dappInfo, context);
-                            },
-                            child: widget.installWidget,
-                          );
-                        }
+                        return InkWell(
+                          onTap: () {
+                            widget.appButtonHandler
+                                .startDownload(widget.dappInfo, context);
+                          },
+                          child: widget.installWidget,
+                        );
                       } else {
                         if ((state.packageMapping![dappInfo.packageId]
                                     ?.versionCode ??

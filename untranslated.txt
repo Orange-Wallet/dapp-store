@@ -88,7 +88,7 @@
     "noWallet",
     "connectDappstore",
     "somethingWentWrong",
-    "tryAgain"
+    "tryAgain",
     "about",
     "helpAndFeedback",
     "logout"
