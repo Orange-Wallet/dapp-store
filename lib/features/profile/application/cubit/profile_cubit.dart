@@ -8,6 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
+part '../../../../generated/features/profile/application/cubit/profile_cubit.freezed.dart';
+part '../../../../generated/features/profile/application/cubit/profile_cubit.g.dart';
 part 'profile_state.dart';
 
 @LazySingleton(as: IProfileCubit)

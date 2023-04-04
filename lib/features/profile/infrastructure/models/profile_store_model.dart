@@ -1,6 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+part '../../../../generated/features/profile/infrastructure/models/profile_store_model.freezed.dart';
+part '../../../../generated/features/profile/infrastructure/models/profile_store_model.g.dart';
+
 @freezed
 @HiveType(typeId: 5)
 class ProfileStoreModel with _$ProfileStoreModel {
