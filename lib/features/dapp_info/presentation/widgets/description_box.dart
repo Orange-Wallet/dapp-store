@@ -26,7 +26,7 @@ class _AppDescriptionBoxState extends State<AppDescriptionBox> {
             style: theme.secondaryTitleTextStyle,
           ),
           ReadMoreText(
-            dappInfo.description!,
+            dappInfo.description!.replaceAll(r'\n', '\n'),
             trimLines: 2,
             colorClickableText: theme.appGreen,
             trimMode: TrimMode.Line,
