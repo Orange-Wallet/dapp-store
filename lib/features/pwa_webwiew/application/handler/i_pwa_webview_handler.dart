@@ -22,6 +22,7 @@ abstract class IPwaWebviewHandler {
   void initWebViewCubit(InAppWebViewController controller);
   initInjectedWeb3(BuildContext context);
   void clearCookies();
+  void reload();
   void onLoadStop(InAppWebViewController controller, Uri? uri);
 
   IThemeCubit get themeCubit;

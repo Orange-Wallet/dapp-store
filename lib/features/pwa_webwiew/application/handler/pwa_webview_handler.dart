@@ -103,6 +103,11 @@ class PwaWebviewHandler implements IPwaWebviewHandler {
   }
 
   @override
+  void reload() {
+    webViewCubit.webViewController?.reload();
+  }
+
+  @override
   void onProgressChanged(InAppWebViewController controller, int progress) {
     debugPrint('PROGRESS $progress');
     webViewCubit.updateProgress(progress);

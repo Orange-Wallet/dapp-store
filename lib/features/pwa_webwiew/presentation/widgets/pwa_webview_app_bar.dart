@@ -1,16 +1,22 @@
+import 'package:flutter/material.dart';
+
 import 'package:dappstore/core/router/router.dart';
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
+import 'package:dappstore/features/pwa_webwiew/application/handler/i_pwa_webview_handler.dart';
+import 'package:dappstore/features/pwa_webwiew/presentation/widgets/pop_up_menu.dart';
 import 'package:dappstore/widgets/white_gradient_line.dart';
-import 'package:flutter/material.dart';
 
 typedef NavigationCallback = Function();
 
 // ignore: must_be_immutable
-class PwaAppBar extends StatelessWidget implements PreferredSizeWidget {
+class PwaAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String title;
   final IThemeSpec theme;
   NavigationCallback forward;
   NavigationCallback backwards;
+  NavigationCallback reload;
+  NavigationCallback clearCache;
+  IPwaWebviewHandler handler;
   int? progress;
   PwaAppBar({
     Key? key,
@@ -18,57 +24,99 @@ class PwaAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.theme,
     required this.forward,
     required this.backwards,
+    required this.reload,
+    required this.clearCache,
+    required this.handler,
     this.progress,
   }) : super(key: key);
 
   @override
+  State<PwaAppBar> createState() => _PwaAppBarState();
+  @override
+  final Size preferredSize = const Size.fromHeight(64.0);
+}
+
+class _PwaAppBarState extends State<PwaAppBar> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: theme.appBarBackgroundColor,
+      centerTitle: true,
+      backgroundColor: widget.theme.appBarBackgroundColor,
       leading: InkWell(
         onTap: context.popRoute,
         child: Icon(
           Icons.close,
-          color: theme.whiteColor,
+          color: widget.theme.whiteColor,
         ),
       ),
-      title: Text(
-        title,
-        style: theme.headingTextStyle,
+      title: Center(
+        child: Container(
+          decoration: BoxDecoration(
+              color: widget.theme.backgroundCardColor,
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+              border: Border.all(color: widget.theme.whiteColor)),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 10,
+              horizontal: 10,
+            ),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.6,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  (widget.progress != 0 &&
+                          widget.progress != 100 &&
+                          widget.progress != null)
+                      ? SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator.adaptive(
+                            // value: controller.value,
+                            valueColor:
+                                AlwaysStoppedAnimation(widget.theme.blue),
+                            backgroundColor: widget.theme.greyBlue,
+                          ),
+                        )
+                      : const SizedBox(
+                          height: 20,
+                          width: 20,
+                        ),
+                  Text(
+                    widget.title,
+                    style: widget.theme.titleTextExtraBold,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      widget.reload();
+                    },
+                    child: Icon(
+                      Icons.replay_outlined,
+                      color: widget.theme.whiteColor,
+                      size: 20,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
       actions: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: InkWell(
-            onTap: backwards,
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Icon(
-                  Icons.arrow_back_ios,
-                  color: theme.whiteColor,
-                ),
-              ),
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: InkWell(
-            onTap: forward,
-            child: Center(
-              child: Icon(
-                Icons.arrow_forward_ios,
-                color: theme.whiteColor,
-              ),
-            ),
-          ),
+        PwaWebViewPopupMenu(
+          theme: widget.theme,
+          forward: widget.forward,
+          backwards: widget.backwards,
+          reload: widget.reload,
+          clearCache: widget.clearCache,
         )
       ],
       bottom: const WhiteGradientLine(),
     );
   }
-
-  @override
-  final Size preferredSize = const Size.fromHeight(72.0);
 }

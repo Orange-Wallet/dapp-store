@@ -1,7 +1,6 @@
 import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/core/router/interface/route.dart';
 import 'package:dappstore/core/theme/i_theme_cubit.dart';
-import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:dappstore/features/pwa_webwiew/application/handler/i_pwa_webview_handler.dart';
 import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/i_injected_web3_cubit.dart';
 import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/injected_web3_cubit.dart';
@@ -57,6 +56,9 @@ class _PwaWebViewState extends State<PwaWebView> {
               onTap: handler.unfocus,
               child: Scaffold(
                 appBar: PwaAppBar(
+                  handler: handler,
+                  clearCache: handler.clearCookies,
+                  reload: handler.reload,
                   theme: themeCubit.theme,
                   title: _dappName,
                   backwards: handler.onBackPressed,
