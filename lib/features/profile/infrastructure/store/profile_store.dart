@@ -13,8 +13,8 @@ class ProfileStore implements IProfileStore {
   ProfileStore({required this.errorLogger});
 
   @override
-  Future<ProfileStoreModel?> addSignature(
-      {required String topicID, required String signature}) async {
+  Future<ProfileStoreModel?> addProfile(
+      {required ProfileStoreModel model}) async {
     try {
       Box box;
       if (Hive.isBoxOpen(savedProfileStoreBox)) {
@@ -22,13 +22,10 @@ class ProfileStore implements IProfileStore {
       } else {
         box = await Hive.openBox(savedProfileStoreBox);
       }
-      final ProfileStoreModel wcStore = ProfileStoreModel(
-        topidID: topicID,
-        signature: signature,
-      );
-      await box.put(topicID, wcStore);
+
+      await box.put(model.address, model);
       await box.close();
-      return wcStore;
+      return model;
     } catch (e) {
       errorLogger.logError(e);
       return null;
@@ -36,7 +33,7 @@ class ProfileStore implements IProfileStore {
   }
 
   @override
-  Future<bool> removeSignature(String topicID) async {
+  Future<bool> removeProfile(String address) async {
     try {
       Box box;
       if (Hive.isBoxOpen(savedProfileStoreBox)) {
@@ -44,7 +41,7 @@ class ProfileStore implements IProfileStore {
       } else {
         box = await Hive.openBox(savedProfileStoreBox);
       }
-      await box.delete(topicID);
+      await box.delete(address);
       await box.close();
       return true;
     } catch (e) {
@@ -54,7 +51,7 @@ class ProfileStore implements IProfileStore {
   }
 
   @override
-  Future<Map<dynamic, ProfileStoreModel>?> getSignatureMap() async {
+  Future<ProfileStoreModel?> getProfile(String address) async {
     try {
       final Box<ProfileStoreModel> box;
       if (Hive.isBoxOpen(savedProfileStoreBox)) {
@@ -63,7 +60,7 @@ class ProfileStore implements IProfileStore {
         box = await Hive.openBox(savedProfileStoreBox);
       }
       await box.close();
-      return box.toMap();
+      return box.toMap()[address];
     } catch (e) {
       errorLogger.logError(e);
       return null;
@@ -71,14 +68,10 @@ class ProfileStore implements IProfileStore {
   }
 
   @override
-  Future<bool> doesSignExist(String topicID) async {
-    Map<dynamic, ProfileStoreModel>? map = await getSignatureMap();
-    if (map == null) {
+  Future<bool> doesProfileExist(String address) async {
+    ProfileStoreModel? profile = await getProfile(address);
+    if (profile == null) {
       return false;
-    } else if (map[topicID] == null) {
-      return false;
-    } else if (map[topicID] != null) {
-      return true;
     } else {
       return false;
     }

@@ -2,7 +2,9 @@ import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/router/router.dart';
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
-import 'package:dappstore/features/profile/random_name.dart';
+import 'package:dappstore/features/profile/application/cubit/i_profile_cubit.dart';
+import 'package:dappstore/features/profile/application/cubit/profile_cubit.dart';
+import 'package:dappstore/features/profile/infrastructure/store/i_profile_store.dart';
 import 'package:dappstore/features/saved_dapps/presentation/pages/saved_dapps_page.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
 import 'package:dappstore/features/wallet_connect/presentation/wallet_connect_screen.dart';
@@ -10,6 +12,7 @@ import 'package:dappstore/features/wallet_connect/presentation/widget/terms_and_
 import 'package:dappstore/utils/address_util.dart';
 import 'package:dappstore/utils/icon_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class SettingsDialog extends StatefulWidget {
@@ -49,10 +52,14 @@ class _SettingsDialogState extends State<SettingsDialog> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    RandomName().generateName(),
-                    style: widget.theme.secondaryTitleTextStyle,
-                  ),
+                  BlocBuilder<IProfileCubit, ProfileState>(
+                      bloc: getIt<IProfileCubit>(),
+                      builder: (context, state) {
+                        return Text(
+                          state.name ?? "",
+                          style: widget.theme.secondaryTitleTextStyle,
+                        );
+                      }),
                   const SizedBox(
                     height: 8,
                   ),
@@ -67,6 +74,7 @@ class _SettingsDialogState extends State<SettingsDialog> {
               TextButton(
                   onPressed: () async {
                     await getIt<IWalletConnectCubit>().disconnectAll();
+                    await getIt<IProfileStore>().clearBox();
                     context.popRoute();
                     context.replaceRoute(const WalletConnectScreen());
                   },

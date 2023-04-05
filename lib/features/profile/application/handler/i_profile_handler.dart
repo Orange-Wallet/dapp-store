@@ -2,4 +2,8 @@ import 'package:dappstore/features/profile/application/cubit/i_profile_cubit.dar
 
 abstract class IProfileHandler {
   IProfileCubit getProfileCubit();
+
+  getProfile({required String address});
+
+  postProfile({required String address});
 }

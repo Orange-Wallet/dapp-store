@@ -7,6 +7,8 @@ import 'package:dappstore/core/router/router.dart';
 import 'package:dappstore/core/theme/i_theme_cubit.dart';
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/screen/homepage.dart';
+import 'package:dappstore/features/profile/application/handler/i_profile_handler.dart';
+import 'package:dappstore/features/profile/application/handler/profile_handler.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/wallet_connect_cubit.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/store/i_wallet_connect_store.dart';
@@ -35,12 +37,14 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
   late final bool viveInstalled;
   late final IWalletConnectCubit cubit;
   late final IWalletConnectStore wcStore;
+  late final IProfileHandler profileHandler;
   @override
   void initState() {
     super.initState();
     theme = getIt<IThemeCubit>().theme;
     cubit = getIt<IWalletConnectCubit>();
     wcStore = getIt<IWalletConnectStore>();
+    profileHandler = ProfileHandler();
   }
 
   @override
@@ -72,6 +76,7 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
             previous.failureSign != current.failureSign,
         listener: (context, state) async {
           if (state.connected && state.signVerified) {
+            profileHandler.getProfile(address: state.activeAddress!);
             context.replaceRoute(const HomePage());
           }
         },

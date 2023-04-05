@@ -12,7 +12,7 @@ import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_list.dar
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/normal_appbar.dart';
 import 'package:dappstore/widgets/chip.dart';
-import 'package:dappstore/widgets/dapp/dapp_list_horizantal_tile.dart';
+import 'package:dappstore/widgets/dapp/dapp_list_horizontal_green_blue_card.dart';
 import 'package:dappstore/widgets/dapp/dapp_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -135,7 +135,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
   Widget buildFeaturedList(
       {required Map<String, DappList?> featuredCategoryList}) {
     return SizedBox(
-      height: 210,
+      height: MediaQuery.of(context).size.height / 3,
       width: double.maxFinite,
       child: ListView.builder(
         itemCount: featuredCategoryList[widget.category]?.response?.length,
@@ -149,19 +149,27 @@ class _CategoryScreenState extends State<CategoryScreen> {
           if (featuredCategoryList[widget.category]?.response?[index] == null) {
             return const SizedBox();
           }
-          return InkWell(
-            onTap: () {
-              storeHandler.setActiveDappId(
-                  dappId: featuredCategoryList[widget.category]!
-                          .response![index]!
-                          .dappId ??
-                      "");
-              context.pushRoute(const DappInfoPage());
-            },
-            child: DappListHorizantal(
-              dapp: featuredCategoryList[widget.category]!.response![index]!,
-              handler: storeHandler,
-              tryBig: true,
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: InkWell(
+              onTap: () {
+                storeHandler.setActiveDappId(
+                    dappId: featuredCategoryList[widget.category]!
+                            .response![index]!
+                            .dappId ??
+                        "");
+                context.pushRoute(const DappInfoPage());
+              },
+              child: DappListHorizontalGreenBlueCard(
+                dapp: featuredCategoryList[widget.category]!.response![index]!,
+                handler: storeHandler,
+                green: index % 2 != 0,
+                key: ValueKey(
+                  featuredCategoryList[widget.category]!
+                      .response![index]!
+                      .dappId,
+                ),
+              ),
             ),
           );
         },
@@ -205,7 +213,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
             child: DappListTile(
               dapp: list[index]!,
               handler: storeHandler,
-              isThreeLines: true,
             ),
           ),
         );

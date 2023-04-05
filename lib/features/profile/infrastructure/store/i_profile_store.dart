@@ -1,10 +1,9 @@
 import 'package:dappstore/features/profile/infrastructure/models/profile_store_model.dart';
 
 abstract class IProfileStore {
-  Future<ProfileStoreModel?> addSignature(
-      {required String topicID, required String signature});
-  Future<bool> removeSignature(String topicID);
-  Future<Map<dynamic, ProfileStoreModel>?> getSignatureMap();
+  Future<ProfileStoreModel?> addProfile({required ProfileStoreModel model});
+  Future<bool> removeProfile(String address);
+  Future<ProfileStoreModel?> getProfile(String address);
   Future<bool> clearBox();
-  Future<bool> doesSignExist(String topicID);
+  Future<bool> doesProfileExist(String address);
 }
