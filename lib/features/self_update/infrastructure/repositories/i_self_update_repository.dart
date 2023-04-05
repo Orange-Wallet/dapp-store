@@ -1,11 +1,7 @@
-import 'package:dappstore/features/self_update/infrastructure/models/self_update_model.dart';
-import 'package:dappstore/features/self_update/infrastructure/store/i_self_update_store.dart';
+import 'package:dappstore/features/self_update/infrastructure/models/self_update_data_model.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 abstract class ISelfUpdateRepo {
-  final ISelfUpdateStore SelfUpdateStore;
-
-  ISelfUpdateRepo({required this.SelfUpdateStore});
-
-  Future<SelfUpdateModel?> getSelfUpdate({required String address});
-  Future<bool> postSelfUpdate({required SelfUpdateModel selfUpdateModel});
+  Future<SelfUpdateDataModel?> getLatestBuild();
+  Future<PackageInfo?> getAppVersion();
 }

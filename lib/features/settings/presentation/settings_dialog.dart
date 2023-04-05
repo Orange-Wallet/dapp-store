@@ -1,6 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/core/localisation/localisation_extension.dart';
+import 'package:dappstore/core/localisation/store/i_localisation_store.dart';
 import 'package:dappstore/core/router/router.dart';
+import 'package:dappstore/core/theme/store/i_theme_store.dart';
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:dappstore/features/profile/application/cubit/i_profile_cubit.dart';
 import 'package:dappstore/features/profile/application/cubit/profile_cubit.dart';
@@ -75,6 +79,9 @@ class _SettingsDialogState extends State<SettingsDialog> {
                   onPressed: () async {
                     await getIt<IWalletConnectCubit>().disconnectAll();
                     await getIt<IProfileStore>().clearBox();
+                    await getIt<ILocalisationStore>().clearBox();
+                    await getIt<IThemeStore>().clearBox();
+
                     context.popRoute();
                     context.replaceRoute(const WalletConnectScreen());
                   },

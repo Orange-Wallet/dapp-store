@@ -1,9 +1,9 @@
 import 'package:dappstore/features/self_update/application/cubit/i_self_update_cubit.dart';
 
 abstract class ISelfUpdateHandler {
-  ISelfUpdateCubit getSelfUpdateCubit();
+  ISelfUpdateCubit get selfUpdateCubit;
 
-  getSelfUpdate({required String address});
+  getLatestBuild();
 
-  postSelfUpdate({required String address});
+  triggerUpdate();
 }

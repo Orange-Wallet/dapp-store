@@ -109,16 +109,12 @@ import 'package:dappstore/features/saved_pwa/infrastructure/store/i_saved_pwa_st
 import 'package:dappstore/features/saved_pwa/infrastructure/store/saved_pwa_store.dart'
     as _i39;
 import 'package:dappstore/features/self_update/application/cubit/i_self_update_cubit.dart'
-    as _i74;
-import 'package:dappstore/features/self_update/application/cubit/self_update_cubit.dart'
-    as _i75;
-import 'package:dappstore/features/self_update/infrastructure/repositories/i_self_update_repository.dart'
     as _i64;
-import 'package:dappstore/features/self_update/infrastructure/repositories/self_update_repository.dart'
+import 'package:dappstore/features/self_update/application/cubit/self_update_cubit.dart'
     as _i65;
-import 'package:dappstore/features/self_update/infrastructure/store/i_self_update_store.dart'
+import 'package:dappstore/features/self_update/infrastructure/repositories/i_self_update_repository.dart'
     as _i40;
-import 'package:dappstore/features/self_update/infrastructure/store/self_update_store.dart'
+import 'package:dappstore/features/self_update/infrastructure/repositories/self_update_repository.dart'
     as _i41;
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart'
     as _i68;
@@ -177,8 +173,10 @@ _i1.GetIt $initGetIt(
   gh.lazySingleton<_i36.ISavedPwaPageHandler>(() => _i37.SavedPwaPageHandler());
   gh.lazySingleton<_i38.ISavedPwaStore>(
       () => _i39.SavedPwaStore(errorLogger: gh<_i14.IErrorLogger>()));
-  gh.lazySingleton<_i40.ISelfUpdateStore>(
-      () => _i41.SelfUpdateStore(errorLogger: gh<_i14.IErrorLogger>()));
+  gh.lazySingleton<_i40.ISelfUpdateRepo>(() => _i41.SelfUpdateRepoImpl(
+        cacheStore: gh<_i8.ICacheStore>(),
+        errorLogger: gh<_i14.IErrorLogger>(),
+      ));
   gh.lazySingleton<_i42.IStoreCubit>(
       () => _i43.StoreCubit(dappListRepo: gh<_i10.IDappListRepo>()));
   gh.lazySingleton<_i44.IThemeStore>(() => _i45.ThemeStore());
@@ -210,9 +208,9 @@ _i1.GetIt $initGetIt(
       ));
   gh.lazySingleton<_i62.ISavedPwaCubit>(
       () => _i63.SavedPwaCubit(savedPwaStore: gh<_i38.ISavedPwaStore>()));
-  gh.lazySingleton<_i64.ISelfUpdateRepo>(() => _i65.SelfUpdateRepoImpl(
-        SelfUpdateStore: gh<_i40.ISelfUpdateStore>(),
-        cacheStore: gh<_i8.ICacheStore>(),
+  gh.lazySingleton<_i64.ISelfUpdateCubit>(() => _i65.SelfUpdateCubit(
+        errorLogger: gh<_i14.IErrorLogger>(),
+        selfUpdateRepo: gh<_i40.ISelfUpdateRepo>(),
       ));
   gh.lazySingleton<_i66.IThemeCubit>(
       () => _i67.ThemeCubit(themeStore: gh<_i44.IThemeStore>()));
@@ -227,10 +225,6 @@ _i1.GetIt $initGetIt(
   gh.lazySingleton<_i72.IProfileCubit>(() => _i73.ProfileCubit(
         errorLogger: gh<_i14.IErrorLogger>(),
         profileRepo: gh<_i58.IProfileRepo>(),
-      ));
-  gh.lazySingleton<_i74.ISelfUpdateCubit>(() => _i75.SelfUpdateCubit(
-        errorLogger: gh<_i14.IErrorLogger>(),
-        selfUpdateRepo: gh<_i64.ISelfUpdateRepo>(),
       ));
   return getIt;
 }

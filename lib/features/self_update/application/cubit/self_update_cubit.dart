@@ -1,10 +1,11 @@
 import 'package:dappstore/core/error/i_error_logger.dart';
 import 'package:dappstore/features/self_update/application/cubit/i_self_update_cubit.dart';
-import 'package:dappstore/features/self_update/infrastructure/models/self_update_model.dart';
+import 'package:dappstore/features/self_update/infrastructure/models/self_update_data_model.dart';
 import 'package:dappstore/features/self_update/infrastructure/repositories/i_self_update_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 part '../../../../generated/features/self_update/application/cubit/self_update_cubit.freezed.dart';
 part '../../../../generated/features/self_update/application/cubit/self_update_cubit.g.dart';
@@ -23,11 +24,16 @@ class SelfUpdateCubit extends Cubit<SelfUpdateState>
   }) : super(SelfUpdateState.initial());
 
   @override
-  getSelfUpdate({required String address}) async {
-    SelfUpdateModel? model =
-        await selfUpdateRepo.getSelfUpdate(address: address);
+  getLatestBuild() async {
+    SelfUpdateDataModel? model = await selfUpdateRepo.getLatestBuild();
     if (model != null) {
-      emit(state.copyWith(name: model.name, address: model.address));
+      emit(
+        state.copyWith(
+          url: model.url,
+          latestVersion: model.latestVersion,
+          minimumSupportedVersion: model.minimumSupportedVersion,
+        ),
+      );
       return model;
     } else {
       return null;
@@ -35,11 +41,17 @@ class SelfUpdateCubit extends Cubit<SelfUpdateState>
   }
 
   @override
-  postSelfUpdate({required SelfUpdateModel model}) async {
-    bool res = await selfUpdateRepo.postSelfUpdate(selfUpdateModel: model);
-    if (res) {
-      emit(state.copyWith(address: model.address, name: model.name));
+  getCurrentAppVersion() async {
+    PackageInfo? pacakge = await selfUpdateRepo.getAppVersion();
+    if (pacakge != null) {
+      emit(
+        state.copyWith(
+          currentAppVersion: pacakge.version,
+        ),
+      );
+      return pacakge;
+    } else {
+      return null;
     }
-    return res;
   }
 }

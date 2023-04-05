@@ -1,45 +1,50 @@
+import 'package:dappstore/core/error/i_error_logger.dart';
 import 'package:dappstore/core/network/network.dart';
 import 'package:dappstore/core/store/i_cache_store.dart';
 import 'package:dappstore/features/self_update/infrastructure/datasources/i_data_sources.dart';
 import 'package:dappstore/features/self_update/infrastructure/datasources/remote_data_source.dart';
-import 'package:dappstore/features/self_update/infrastructure/models/self_update_model.dart';
-import 'package:dappstore/features/self_update/infrastructure/models/self_update_store_model.dart';
+import 'package:dappstore/features/self_update/infrastructure/models/self_update_data_model.dart';
 import 'package:dappstore/features/self_update/infrastructure/repositories/i_self_update_repository.dart';
-import 'package:dappstore/features/self_update/infrastructure/store/i_self_update_store.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 @LazySingleton(as: ISelfUpdateRepo)
 class SelfUpdateRepoImpl implements ISelfUpdateRepo {
   final ICacheStore cacheStore;
+  final IErrorLogger errorLogger;
   late final Network _network =
       Network(dioClient: Dio(), interceptors: cacheStore.dioCacheInterceptor);
   late final IDataSource _dataSource = RemoteDataSource(network: _network);
   @override
-  final ISelfUpdateStore SelfUpdateStore;
-
-  SelfUpdateRepoImpl({required this.SelfUpdateStore, required this.cacheStore});
+  SelfUpdateRepoImpl({
+    required this.cacheStore,
+    required this.errorLogger,
+  });
 
   @override
-  Future<SelfUpdateModel?> getSelfUpdate({required String address}) async {
-    SelfUpdateStoreModel? selfUpdateStoreModel =
-        await SelfUpdateStore.getSelfUpdate(address);
-    if (selfUpdateStoreModel != null) {
-      return SelfUpdateModel.fromStoreModel(selfUpdateStoreModel);
-    } else {
-      return _dataSource.getSelfUpdate(address: address);
+  Future<SelfUpdateDataModel?> getLatestBuild() async {
+    try {
+      SelfUpdateDataModel? selfUpdateDataModel =
+          await _dataSource.getLatestBuild();
+      return selfUpdateDataModel;
+    } catch (e) {
+      debugPrint("Self Update error ${e.toString()}");
+      errorLogger.logError(e);
+      return null;
     }
   }
 
   @override
-  Future<bool> postSelfUpdate(
-      {required SelfUpdateModel selfUpdateModel}) async {
-    bool res =
-        await _dataSource.postSelfUpdate(selfUpdateModel: selfUpdateModel);
-    if (res) {
-      await SelfUpdateStore.addSelfUpdate(
-          model: selfUpdateModel.toStoreModel());
+  Future<PackageInfo?> getAppVersion() async {
+    try {
+      final package = await PackageInfo.fromPlatform();
+      return selfUpdateDataModel;
+    } catch (e) {
+      debugPrint("Self Update error ${e.toString()}");
+      errorLogger.logError(e);
+      return null;
     }
-    return res;
   }
 }
