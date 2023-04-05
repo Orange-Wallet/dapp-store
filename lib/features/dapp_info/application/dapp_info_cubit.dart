@@ -21,9 +21,11 @@ class DappInfoCubit extends Cubit<DappInfoState> implements IDappInfoCubit {
       emit(state.copyWith(
           activeDappId: storeCubit.state.activeDappId, dappInfo: dappInfo));
     } else {
-      getDappInfo(
-          queryParams:
-              GetDappInfoQueryDto(dappId: storeCubit.state.activeDappId));
+      if (storeCubit.state.activeDappId != null) {
+        getDappInfo(
+            queryParams:
+                GetDappInfoQueryDto(dappId: storeCubit.state.activeDappId));
+      }
     }
   }
 

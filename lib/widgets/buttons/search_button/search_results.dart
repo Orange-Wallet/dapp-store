@@ -1,3 +1,6 @@
+import 'package:dappstore/core/di/di.dart';
+import 'package:dappstore/core/router/constants/routes.dart';
+import 'package:dappstore/core/router/custom_route_observer.dart';
 import 'package:dappstore/core/router/router.dart';
 import 'package:dappstore/features/dapp_info/presentation/screens/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
@@ -94,11 +97,17 @@ class _SearchResultState extends State<SearchResult> {
                       onTap: () {
                         widget.handler
                             .setActiveDappId(dappId: list[index]!.dappId ?? "");
+                        String path = getIt<CustomRouteObserver>().currentPath;
+                        if (path.contains(Routes.dappInfo)) {
+                          context.popUntilRoute(DappInfoPage());
+                          context.popRoute();
+                        }
                         context.pushRoute(const DappInfoPage());
                       },
                       child: BigDappCard(
                         dapp: list[index]!,
                         handler: widget.handler,
+                        key: ValueKey(list[index]?.dappId),
                       ),
                     ),
                   );
@@ -110,6 +119,11 @@ class _SearchResultState extends State<SearchResult> {
                     onTap: () {
                       widget.handler
                           .setActiveDappId(dappId: list[index]!.dappId ?? "");
+                      String path = getIt<CustomRouteObserver>().currentPath;
+                      if (path.contains(Routes.dappInfo)) {
+                        context.popUntilRoute(DappInfoPage());
+                        context.popRoute();
+                      }
                       context.pushRoute(const DappInfoPage());
                     },
                     child: DappListTile(

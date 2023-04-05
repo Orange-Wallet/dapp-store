@@ -1,4 +1,3 @@
-import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/widgets/buttons/search_button/custom_search_delegate.dart';
 import 'package:dappstore/widgets/buttons/search_button/i_search_handler.dart';
 import 'package:dappstore/widgets/buttons/search_button/search_handler.dart';
@@ -19,6 +18,7 @@ class SearchButton extends StatelessWidget {
               handler: handler,
               context: context,
             ),
+            useRootNavigator: true,
           );
         },
         icon: const Icon(
