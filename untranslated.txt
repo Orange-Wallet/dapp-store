@@ -91,6 +91,11 @@
     "tryAgain",
     "about",
     "helpAndFeedback",
-    "logout"
+    "logout",
+    "oopsSomethingWentWrong",
+    "notifiedEngineers",
+    "goBack",
+    "networkIssue",
+    "checkNetwork"
   ]
 }

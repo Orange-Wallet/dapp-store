@@ -1,6 +1,7 @@
 import 'package:dappstore/core/application/i_app_handler.dart';
 import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/features/wallet_connect/presentation/wallet_connect_screen.dart';
+import 'package:dappstore/widgets/error_widgets/error_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -67,6 +68,16 @@ class _AppState extends State<App> with WidgetsBindingObserver {
       localizationsDelegates: AppLocalizations.localizationsDelegates.toList(),
       supportedLocales: AppLocalizations.supportedLocales,
       locale: appHandler.localeCubit.getLocaleToUse(),
+      builder: (BuildContext context, Widget? widget) {
+        ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
+          debugPrint('${errorDetails.stack}');
+          return CustomErrorScreen(
+            details: errorDetails,
+            theme: appHandler.themeCubit.theme,
+          );
+        };
+        return widget!;
+      },
       home: const WalletConnectScreen(),
     );
   }
