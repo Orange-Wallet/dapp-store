@@ -1,15 +1,15 @@
 import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
-import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/widgets/buttons/customizable_app_button.dart';
+import 'package:dappstore/widgets/buttons/search_button/i_search_handler.dart';
 import 'package:dappstore/widgets/image_widgets/image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class BigDappCard extends StatelessWidget {
   final DappInfo dapp;
-  final IDappStoreHandler handler;
+  final ISearchHandler handler;
 
   const BigDappCard({
     required this.dapp,

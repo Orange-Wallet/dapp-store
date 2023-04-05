@@ -19,6 +19,7 @@ import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_sto
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/in_screen_appbar.dart';
+import 'package:dappstore/widgets/buttons/search_button/search_button.dart';
 import 'package:dappstore/widgets/cards/default_card.dart';
 import 'package:dappstore/widgets/loader/loader.dart';
 import 'package:dappstore/widgets/snacbar/snacbar_context_extension.dart';
@@ -71,6 +72,7 @@ class _DappInfoPageState extends State<DappInfoPage> {
                 appBar: InScreenAppBar(
                   title: dappState.dappInfo?.name ?? "",
                   themeSpec: theme,
+                  actionWidgets: [SearchButton()],
                 ),
                 body: dappState.loading == true
                     ? Center(

@@ -1,8 +1,6 @@
 import 'package:dappstore/core/router/router.dart';
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';
-import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
-import 'package:dappstore/features/dapp_store_home/presentation/widgets/custom_search_delegate.dart';
 import 'package:dappstore/widgets/white_gradient_line.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +17,6 @@ class InScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    IDappStoreHandler handler = DappStoreHandler();
     return AppBar(
       backgroundColor: themeSpec.appBarBackgroundColor,
       leading: InkWell(

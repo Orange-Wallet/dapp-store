@@ -87,4 +87,7 @@ class DappStoreHandler implements IDappStoreHandler {
   setActiveDappId({required String dappId}) {
     getStoreCubit().setActiveDappId(dappId: dappId);
   }
+
+  @override
+  IStoreCubit get storeCubit => getIt<IStoreCubit>();
 }

@@ -1,9 +1,9 @@
 import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
-import 'package:dappstore/features/dapp_store_home/presentation/widgets/custom_search_delegate.dart';
 import 'package:dappstore/features/settings/presentation/settings_dialog.dart';
 import 'package:dappstore/utils/image_constants.dart';
 import 'package:dappstore/widgets/bottom_sheet/bottom_sheet.dart';
+import 'package:dappstore/widgets/buttons/search_button/search_button.dart';
 import 'package:dappstore/widgets/white_gradient_line.dart';
 import 'package:flutter/material.dart';
 
@@ -25,17 +25,7 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
       ),
       // title: TextField(),
       actions: [
-        IconButton(
-            onPressed: () {
-              showSearch(
-                  context: context,
-                  delegate:
-                      CustomSearchDelegate(handler: handler, context: context));
-            },
-            icon: const Icon(
-              Icons.search,
-              color: Colors.white,
-            )),
+        SearchButton(),
         IconButton(
             onPressed: () {
               context.showBottomSheet(

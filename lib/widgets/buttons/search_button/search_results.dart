@@ -1,17 +1,17 @@
 import 'package:dappstore/core/router/router.dart';
 import 'package:dappstore/features/dapp_info/presentation/screens/dapp_info.dart';
-import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
+import 'package:dappstore/widgets/buttons/search_button/i_search_handler.dart';
 import 'package:dappstore/widgets/dapp/big_dapp_card.dart';
 import 'package:dappstore/widgets/dapp/dapp_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SearchResult extends StatefulWidget {
-  final IDappStoreHandler handler;
+  final ISearchHandler handler;
   final String query;
   const SearchResult({super.key, required this.handler, required this.query});
 
@@ -57,7 +57,7 @@ class _SearchResultState extends State<SearchResult> {
               (previous.searchResult.hashCode !=
                   current.searchResult.hashCode) &&
               (widget.query == current.searchParams?.search),
-          bloc: widget.handler.getStoreCubit(),
+          bloc: widget.handler.storeCubit,
           builder: (context, state) {
             List<DappInfo?>? list = state.searchResult?.response;
             if ((list == null)) {

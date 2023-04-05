@@ -1,11 +1,12 @@
 import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
+import 'package:dappstore/widgets/buttons/search_button/i_search_handler.dart';
 import 'package:dappstore/widgets/image_widgets/image.dart';
 import 'package:flutter/material.dart';
 
 class DappListTile extends StatelessWidget {
   final DappInfo dapp;
-  final IDappStoreHandler handler;
+  final ISearchHandler handler;
   final bool isInSearchField;
   final bool isThreeLines;
 

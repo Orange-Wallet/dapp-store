@@ -1,12 +1,12 @@
 import 'package:dappstore/core/localisation/localisation_extension.dart';
-import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
-import 'package:dappstore/features/dapp_store_home/presentation/widgets/search_result.dart';
+import 'package:dappstore/widgets/buttons/search_button/i_search_handler.dart';
+import 'package:dappstore/widgets/buttons/search_button/search_results.dart';
 import 'package:dappstore/widgets/white_gradient_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
-  IDappStoreHandler handler;
+  ISearchHandler handler;
   CustomSearchDelegate({required this.handler, required BuildContext context})
       : super(
           searchFieldStyle: handler.theme.whiteBoldTextStyle,
