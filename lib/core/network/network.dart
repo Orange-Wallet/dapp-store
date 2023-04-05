@@ -23,7 +23,7 @@ class Network {
   Network({
     required Dio dioClient,
     this.globalCacheOptions,
-    Iterable<Interceptor>? interceptors,
+    required Iterable<Interceptor>? interceptors,
     HttpClientAdapter? httpClientAdapter,
   })  : _dio = dioClient,
         _cancelToken = CancelToken() {

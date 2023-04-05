@@ -1,4 +1,6 @@
 import 'package:dappstore/core/network/network.dart';
+import 'package:dappstore/core/store/cache_store.dart';
+import 'package:dappstore/core/store/i_cache_store.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/curated_category_list.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/curated_list.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
@@ -19,11 +21,16 @@ import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: IDappListRepo)
 class DappListRepoImpl implements IDappListRepo {
-  late final Network _network = Network(dioClient: Dio());
+  final ICacheStore cacheStore;
+  late final Network _network;
   late final IDataSource _dataSource = RemoteDataSource(network: _network);
   late final IDataSource _localDataSource = LocalDataSource(network: _network);
-
-  DappListRepoImpl();
+  DappListRepoImpl({required this.cacheStore}) {
+    _network = Network(
+      dioClient: Dio(),
+      interceptors: cacheStore.dioCacheInterceptor,
+    );
+  }
 
   @override
   Future<DappList> getDappList({GetDappQueryDto? queryParams}) async {

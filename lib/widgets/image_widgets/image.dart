@@ -85,20 +85,19 @@ class _ImageWidgetState extends State<ImageWidget>
         }
       }
 
-      Network(
-              dioClient: Dio()
-                ..interceptors.add(DioCacheInterceptor(
-                    options: CacheOptions(
-                  store:
-                      MemCacheStore(maxSize: 200000000, maxEntrySize: 7340032),
-                  policy: CachePolicy.request,
-                  hitCacheOnErrorExcept: [401, 403],
-                  maxStale: const Duration(days: 7),
-                  priority: CachePriority.normal,
-                  cipher: null,
-                  keyBuilder: CacheOptions.defaultCacheKeyBuilder,
-                  allowPostMethod: false,
-                ))))
+      Network(dioClient: Dio(), interceptors: [
+        DioCacheInterceptor(
+            options: CacheOptions(
+          store: MemCacheStore(maxSize: 200000000, maxEntrySize: 7340032),
+          policy: CachePolicy.request,
+          hitCacheOnErrorExcept: [401, 403],
+          maxStale: const Duration(days: 7),
+          priority: CachePriority.normal,
+          cipher: null,
+          keyBuilder: CacheOptions.defaultCacheKeyBuilder,
+          allowPostMethod: false,
+        ))
+      ])
           .get(
         // cacheOptions: CacheOptions(store: MemCacheStore()),
         options: Options(responseType: ResponseType.bytes),
