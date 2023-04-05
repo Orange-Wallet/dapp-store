@@ -2,7 +2,6 @@ import 'package:dappstore/core/router/constants/routes.dart';
 import 'package:dappstore/core/router/interface/route.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
-import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/explore_by_categories.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/explore_card.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/featured_dapp_infinite_scroll.dart';
@@ -26,7 +25,6 @@ class HomePage extends StatefulScreen {
 
 class _HomePageState extends State<HomePage> {
   late final IDappStoreHandler storeHandler;
-  late final IStoreCubit storeCubit;
   @override
   void initState() {
     super.initState();
