@@ -4,6 +4,7 @@ import 'package:dappstore/features/dapp_store_home/application/handler/dapp_stor
 import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/explore_by_categories.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/explore_card.dart';
+import 'package:dappstore/features/dapp_store_home/presentation/widgets/expolre_more_card.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/featured_dapp_infinite_scroll.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/featured_dapps_list.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/home_appbar.dart';
@@ -72,6 +73,7 @@ class _HomePageState extends State<HomePage> {
           ),
           const SavedDappscard(),
           const ExploreBycategories(),
+          const ExploreMoreCard(),
           const UpdateAvailableCard(),
           const TopCategoriesList(),
           const FeaturedDappInfiniteScroll(),
