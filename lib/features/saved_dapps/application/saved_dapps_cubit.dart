@@ -6,6 +6,7 @@ import 'package:dappstore/features/saved_dapps/application/i_saved_dapps_cubit.d
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+
 part '../../../generated/features/saved_dapps/application/saved_dapps_cubit.freezed.dart';
 part 'saved_dapps_state.dart';
 
@@ -26,7 +27,7 @@ class SavedDappsCubit extends Cubit<SavedDappsState>
     final dappList = await storeCubit.queryWithPackageId(
         pacakgeIds: installedApps.values.map((e) => e.packageName!).toList());
     final nonNullDappInfo =
-        dappList.response?.where((e) => e != null).map((e) => e!).toList() ??
+        dappList?.response?.where((e) => e != null).map((e) => e!).toList() ??
             [];
     final List<DappInfo> toUpdate = [];
     final List<DappInfo> notToUpdate = [];

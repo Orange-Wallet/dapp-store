@@ -6,17 +6,17 @@ import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
 
 abstract class IDappListRepo {
-  Future<DappList> getDappList({GetDappQueryDto? queryParams});
+  Future<DappList?> getDappList({GetDappQueryDto? queryParams});
 
   Future<DappInfo?> getDappInfo({GetDappInfoQueryDto? queryParams});
 
-  Future<List<CuratedList>> getCuratedList();
-  Future<List<CuratedCategoryList>> getCuratedCategoryList();
-  Future<DappList> getFeaturedDappsList();
-  Future<DappList> getFeaturedDappsByCategory({required String category});
+  Future<List<CuratedList>?> getCuratedList();
+  Future<List<CuratedCategoryList>?> getCuratedCategoryList();
+  Future<DappList?> getFeaturedDappsList();
+  Future<DappList?> getFeaturedDappsByCategory({required String category});
   Future<String?> getBuildUrl(String dappId);
   String getPwaRedirectionUrl(String dappId, String walletAddress);
-  Future<DappList> queryWithPackageId({
+  Future<DappList?> queryWithPackageId({
     required List<String> pacakgeIds,
   });
 }

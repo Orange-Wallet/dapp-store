@@ -1,5 +1,4 @@
 import 'package:dappstore/core/network/network.dart';
-import 'package:dappstore/core/store/cache_store.dart';
 import 'package:dappstore/core/store/i_cache_store.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/curated_category_list.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/curated_list.dart';
@@ -33,10 +32,10 @@ class DappListRepoImpl implements IDappListRepo {
   }
 
   @override
-  Future<DappList> getDappList({GetDappQueryDto? queryParams}) async {
-    final DappListDto dappList = await _dataSource.getDappList(
+  Future<DappList?> getDappList({GetDappQueryDto? queryParams}) async {
+    final DappListDto? dappList = await _dataSource.getDappList(
         queryParams: queryParams); // from remote data source
-    return dappList.toDomain();
+    return dappList?.toDomain();
   }
 
   @override
@@ -47,45 +46,50 @@ class DappListRepoImpl implements IDappListRepo {
   }
 
   @override
-  Future<List<CuratedList>> getCuratedList() async {
-    final List<CuratedListDto> curatedList = await _dataSource.getCuratedList();
+  Future<List<CuratedList>?> getCuratedList() async {
+    final List<CuratedListDto>? curatedList =
+        await _dataSource.getCuratedList();
     final List<CuratedList> list = [];
-    for (var element in curatedList) {
-      list.add(element.toDomain());
+    if (curatedList != null) {
+      for (var element in curatedList) {
+        list.add(element.toDomain());
+      }
     }
     return list;
   }
 
   @override
-  Future<List<CuratedCategoryList>> getCuratedCategoryList() async {
-    final List<CuratedCategoryListDto> curatedCategoryList =
-        await _localDataSource.getCuratedCategoryList();
+  Future<List<CuratedCategoryList>?> getCuratedCategoryList() async {
+    final List<CuratedCategoryListDto>? curatedCategoryList =
+        await _dataSource.getCuratedCategoryList();
     final List<CuratedCategoryList> list = [];
-    for (var element in curatedCategoryList) {
-      list.add(element.toDomain());
+    if (curatedCategoryList != null) {
+      for (var element in curatedCategoryList) {
+        list.add(element.toDomain());
+      }
     }
     return list;
   }
 
   @override
-  Future<DappList> getFeaturedDappsByCategory(
+  Future<DappList?> getFeaturedDappsByCategory(
       {required String category}) async {
-    final DappListDto dappList =
+    final DappListDto? dappList =
         await _dataSource.getFeaturedDappsByCategory(category: category);
-    return dappList.toDomain();
+    return dappList?.toDomain();
   }
 
   @override
-  Future<DappList> getFeaturedDappsList() async {
-    final DappListDto dappList = await _dataSource.getFeaturedDappsList();
-    return dappList.toDomain();
+  Future<DappList?> getFeaturedDappsList() async {
+    final DappListDto? dappList = await _dataSource.getFeaturedDappsList();
+    return dappList?.toDomain();
   }
 
   @override
   Future<String?> getBuildUrl(String dappId) async {
-    final BuildUrlDto dto = await _dataSource.getBuildUrl(dappId);
-    if (dto.success ?? false) {
-      return dto.url;
+    final BuildUrlDto? dto = await _dataSource.getBuildUrl(dappId);
+    if (dto?.success ?? false) {
+      return dto?.url;
     }
     return null;
   }
@@ -98,10 +102,10 @@ class DappListRepoImpl implements IDappListRepo {
   }
 
   @override
-  Future<DappList> queryWithPackageId(
+  Future<DappList?> queryWithPackageId(
       {required List<String> pacakgeIds}) async {
-    final DappListDto dappListDto =
+    final DappListDto? dappListDto =
         await _localDataSource.getDappsByPackageId(pacakgeIds);
-    return dappListDto.toDomain();
+    return dappListDto?.toDomain();
   }
 }
