@@ -30,6 +30,7 @@ class RemoteDataSource implements IDataSource {
       // TODO catch exception
       log("${e.toString()} : $stack ");
     }
+    return null;
   }
 
   @override
@@ -44,6 +45,7 @@ class RemoteDataSource implements IDataSource {
       // TODO catch exception
       log("${e.toString()} : $stack ");
     }
+    return null;
   }
 
   @override
@@ -55,6 +57,7 @@ class RemoteDataSource implements IDataSource {
       // TODO catch exception
       log("${e.toString()} : $stack ");
     }
+    return null;
   }
 
   @override
@@ -82,6 +85,7 @@ class RemoteDataSource implements IDataSource {
       // TODO catch exception
       log("${e.toString()} : $stack ");
     }
+    return null;
   }
 
   @override
@@ -103,6 +107,7 @@ class RemoteDataSource implements IDataSource {
       // TODO catch exception
       log("${e.toString()} : $stack ");
     }
+    return null;
   }
 
   @override
@@ -110,9 +115,7 @@ class RemoteDataSource implements IDataSource {
     //TODO implement breaking
     try {
       Response res = await _network.get(
-        //  path: "${Config.glApiBaseUrl}/api/v1/store/featured",
-        //   queryParams: GetDappQueryDto(limit: 20).toJson(),
-        path: "${Config.registryApiBaseUrl}/dapp",
+        path: "${Config.glApiBaseUrl}/api/v1/store/featured",
         queryParams: GetDappQueryDto(limit: 20).toJson(),
       );
 
@@ -121,6 +124,7 @@ class RemoteDataSource implements IDataSource {
       // TODO catch exception
       log("${e.toString()} : $stack ");
     }
+    return null;
   }
 
   //TODO: add address here
@@ -136,6 +140,7 @@ class RemoteDataSource implements IDataSource {
       // TODO catch exception
       log("${e.toString()} : $stack ");
     }
+    return null;
   }
 
   //TODO: implement this
@@ -150,6 +155,7 @@ class RemoteDataSource implements IDataSource {
       // TODO catch exception
       log("${e.toString()} : $stack ");
     }
+    return null;
   }
 
   @override
