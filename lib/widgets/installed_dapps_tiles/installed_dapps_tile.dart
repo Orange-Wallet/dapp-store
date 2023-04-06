@@ -1,16 +1,12 @@
 import 'package:dappstore/widgets/buttons/customizable_app_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
-import 'package:dappstore/features/download_and_installer/infrastructure/repositories/package_manager.dart/i_package_manager.dart';
-import 'package:dappstore/features/download_and_installer/infrastructure/repositories/package_manager.dart/package_manager_cubit.dart';
 import 'package:dappstore/widgets/image_widgets/image.dart';
 import 'package:dappstore/widgets/installed_dapps_tiles/i_installed_dapps_tile_handler.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 
 class InstalledDappsTile extends StatelessWidget {
   final DappInfo dappInfo;
@@ -24,7 +20,6 @@ class InstalledDappsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    IInstalledDappsTileHandler handler = getIt<IInstalledDappsTileHandler>();
     final leading = SizedBox(
       height: 42,
       width: 42,
@@ -45,7 +40,7 @@ class InstalledDappsTile extends StatelessWidget {
       style: theme.titleTextStyle,
     );
     final subtitle = Text(
-      "${dappInfo.developer} · ${dappInfo.category}",
+      "${dappInfo.developer?.legalName} · ${dappInfo.category}",
       style: theme.bodyTextStyle,
     );
     final updateButton = Container(

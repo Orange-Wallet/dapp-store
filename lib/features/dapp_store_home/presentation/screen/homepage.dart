@@ -14,7 +14,7 @@ import 'package:dappstore/features/dapp_store_home/presentation/widgets/update_a
 import 'package:dappstore/features/self_update/application/cubit/self_update_cubit.dart';
 import 'package:dappstore/utils/image_constants.dart';
 import 'package:dappstore/widgets/bottom_sheet/bottom_sheet.dart';
-import 'package:dappstore/widgets/self_update_handler/soft_update_popup_widget.dart';
+import 'package:dappstore/widgets/self_update_handler/update_popup_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulScreen {

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dappstore/config/config.dart';
 import 'package:dappstore/core/network/network.dart';
+import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/datasources/i_data_source.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/build_url_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/curated_category_list_dto.dart';
@@ -145,17 +146,23 @@ class RemoteDataSource implements IDataSource {
 
   //TODO: implement this
   @override
-  Future<DappListDto?> getDappsByPackageId(List<String> packageIds) async {
+  Future<Map<String, DappInfo?>> getDappsByPackageId(
+      List<String> packageIds) async {
     try {
       Response res = await _network.get(
-          path: "${Config.registryApiBaseUrl}/dapp/searchByPackageId",
+          path: "${Config.registryApiBaseUrl}/api/v1/dapp/queryWithPackageId",
           queryParams: {"packageId": packageIds});
-      return DappListDto.fromJson(res.data[0]);
+      final data = res.data["response"] as Map<String, dynamic>;
+      final Map<String, DappInfo> mapping = {};
+      data.forEach((key, value) {
+        mapping[key] = DappInfo.fromJson(value);
+      });
+      return mapping;
     } catch (e, stack) {
       // TODO catch exception
       log("${e.toString()} : $stack ");
     }
-    return null;
+    return {};
   }
 
   @override

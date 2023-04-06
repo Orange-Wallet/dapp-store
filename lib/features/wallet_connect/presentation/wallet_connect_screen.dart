@@ -19,7 +19,7 @@ import 'package:dappstore/utils/constants.dart';
 import 'package:dappstore/utils/icon_constants.dart';
 import 'package:dappstore/utils/image_constants.dart';
 import 'package:dappstore/widgets/bottom_sheet/bottom_sheet.dart';
-import 'package:dappstore/widgets/self_update_handler/soft_update_popup_widget.dart';
+import 'package:dappstore/widgets/self_update_handler/update_popup_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

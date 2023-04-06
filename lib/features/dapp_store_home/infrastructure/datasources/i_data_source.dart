@@ -1,3 +1,4 @@
+import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/build_url_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/curated_category_list_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/curated_list_dto.dart';
@@ -21,5 +22,5 @@ abstract class IDataSource {
   Future<DappListDto?> getFeaturedDappsByCategory({required String category});
   Future<BuildUrlDto?> getBuildUrl(String dappId);
   String getPwaRedirectionUrl(String dappId, String walletAddress);
-  Future<DappListDto?> getDappsByPackageId(List<String> packageIds);
+  Future<Map<String, DappInfo?>> getDappsByPackageId(List<String> packageIds);
 }

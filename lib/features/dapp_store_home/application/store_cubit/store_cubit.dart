@@ -230,10 +230,10 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
   }
 
   @override
-  Future<DappList?> queryWithPackageId(
+  Future<Map<String, DappInfo?>> queryWithPackageId(
       {required List<String> pacakgeIds}) async {
-    final DappList? dappList =
+    final Map<String, DappInfo?> mapping =
         await dappListRepo.queryWithPackageId(pacakgeIds: pacakgeIds);
-    return dappList;
+    return mapping;
   }
 }

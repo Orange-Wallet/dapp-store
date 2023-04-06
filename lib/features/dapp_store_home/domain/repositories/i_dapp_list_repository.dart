@@ -16,7 +16,7 @@ abstract class IDappListRepo {
   Future<DappList?> getFeaturedDappsByCategory({required String category});
   Future<String?> getBuildUrl(String dappId);
   String getPwaRedirectionUrl(String dappId, String walletAddress);
-  Future<DappList?> queryWithPackageId({
+  Future<Map<String, DappInfo?>> queryWithPackageId({
     required List<String> pacakgeIds,
   });
 }

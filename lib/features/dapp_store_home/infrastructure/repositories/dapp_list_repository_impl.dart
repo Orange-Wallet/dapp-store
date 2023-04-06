@@ -102,10 +102,10 @@ class DappListRepoImpl implements IDappListRepo {
   }
 
   @override
-  Future<DappList?> queryWithPackageId(
+  Future<Map<String, DappInfo?>> queryWithPackageId(
       {required List<String> pacakgeIds}) async {
-    final DappListDto? dappListDto =
+    final Map<String, DappInfo?> dappListDto =
         await _localDataSource.getDappsByPackageId(pacakgeIds);
-    return dappListDto?.toDomain();
+    return dappListDto;
   }
 }

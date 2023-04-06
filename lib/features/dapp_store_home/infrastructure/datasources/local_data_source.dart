@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dappstore/config/config.dart';
 import 'package:dappstore/core/network/network.dart';
+import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/datasources/i_data_source.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/build_url_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/curated_category_list_dto.dart';
@@ -45,7 +46,7 @@ class LocalDataSource implements IDataSource {
           "isForMatureAudience": false,
           "isSelfModerated": true,
           "language": "en",
-          "version": "unknown",
+          "version": "20000",
           "packageId": "com.trellis.OpenWallet",
           "isListed": true,
           "listDate": "2023-01-30",
@@ -199,50 +200,70 @@ class LocalDataSource implements IDataSource {
   }
 
   @override
-  Future<DappListDto> getDappsByPackageId(List<String> packageIds) async {
-    return DappListDto.fromJson({
-      "page": 0,
-      "pageCount": 1,
-      "limit": 10,
-      "response": [
-        {
-          "name": "Axie Infinity",
+  Future<Map<String, DappInfo?>> getDappsByPackageId(
+      List<String> packageIds) async {
+    const json = {
+      "response": {
+        "io.floornfts": {
+          "name": "Floor: NFTs simplified",
           "description":
-              "Axie Infinity is a Pokemon-inspired digital pet universe where players use their cute characters called Axies in various games. The Axie Infinity Universe highlights the benefits of blockchain technology through \"Free to Play to Earn\" gameplay and a player-owned economy.",
-          "appUrl": "https://app.aave.com/",
+              "Introducing the Floor app — the best way to stay connected to your NFTs, and understand the world of NFTs.\\n• Track your NFT portfolio in one place\\n• See live and historic activity for Collections\\n• Understand the value of NFTs with estimated value\\n• Discover collections that are trending and build lists of watched collections!\\n• Watch collections to follow prices and get push notifications for updates\\n• View current OpenSea floor prices and listings\\n• See ETH wallet balances\\n• And more...",
+          "appUrl": "https://www.floornfts.io/",
+          "dappId": "io.floornfts.dapp",
+          "minAge": 13,
+          "isForMatureAudience": true,
+          "isSelfModerated": false,
+          "language": "en",
+          "version": "10140200",
+          "isListed": true,
+          "listDate": "2023-03-27",
+          "availableOnPlatform": ["android"],
+          "category": "nft",
+          "chains": [1, 137],
+          "geoRestrictions": {
+            "blockedCountries": ["cu", "ir", "kp", "ru", "sy", "ua"]
+          },
+          "is_featured": true,
+          "packageId": "io.floornfts",
           "images": {
             "logo":
-                "https://dashboard-assets.dappradar.com/document/9495/axieinfinity-dapp-games-ronin-logo_1ec806d57fd80ab68d351658cb8d146a.png",
+                "https://ipfs.io/ipfs/QmRvQV4hXXm4oetmwAVvVa9xEq2dZ8gn9sovnEbrWX3z1Q",
+            "banner":
+                "https://ipfs.io/ipfs/QmQzFJeKKLMvLfuCFHMHHu9iQ2TrTHtXVsQVueTVScP6yK",
             "screenshots": [
-              "https://dummyimage.com/200x800.png",
-              "https://dummyimage.com/200x800.png",
-              "https://dummyimage.com/200x800.png",
-              "https://dummyimage.com/200x800.png",
+              "https://ipfs.io/ipfs/QmSC7DPQ3wngtjXtWmFff45Rc2aPaLh1SRFJDz6vJ5dEvb",
+              "https://ipfs.io/ipfs/QmRxKDPWJ4NpCG2CFv3ygQDHfJdnqBPSwsGNPTnb6Zv6WK",
+              "https://ipfs.io/ipfs/QmXdSan3BZicfFoJECDxhLeRTrWErMnhKXPCNf5ESs9s21",
+              "https://ipfs.io/ipfs/QmUF76uD1AeuyUjYccHTqbGSe7UU6Pdpog1Y1JAXHFgdZG"
             ]
           },
-          "minAge": 13,
-          "isForMatureAudience": false,
-          "isSelfModerated": true,
-          "language": "en",
-          "version": "100",
-          "packageId": "com.trellis.OpenWallet",
-          "isListed": true,
-          "listDate": "2023-01-30",
-          "availableOnPlatform": ["web", "android"],
-          "category": "games",
-          "chains": [1],
-          "dappId": "exchange.quickswap.dapp",
+          "developer": {
+            "legalName": "Floor NFTs",
+            "logo": null,
+            "website": "https://www.floornfts.io/",
+            "privacyPolicyUrl": "https://www.floornfts.io/privacy",
+            "support": {"email": "support@floornfts.io"},
+            "githubID": null
+          },
           "metrics": {
-            "dappId": "exchange.quickswap.dapp",
+            "dappId": "io.floornfts.dapp",
             "downloads": 0,
             "installs": 0,
             "uninstalls": 0,
             "ratingsCount": 0,
             "visits": 0,
             "rating": null
-          }
+          },
+          "users": []
         }
-      ]
+      },
+      "status": 200
+    };
+    final data = json["response"] as Map<String, dynamic>;
+    final Map<String, DappInfo> mapping = {};
+    data.forEach((key, value) {
+      mapping[key] = DappInfo.fromJson(value);
     });
+    return mapping;
   }
 }

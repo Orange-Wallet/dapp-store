@@ -48,5 +48,6 @@ abstract class IStoreCubit extends Cubit<StoreState> {
   getBuildUrl(String dappId);
 
   String getPwaRedirectionUrl(String dappId, String walletAddress);
-  Future<DappList?> queryWithPackageId({required List<String> pacakgeIds});
+  Future<Map<String, DappInfo?>> queryWithPackageId(
+      {required List<String> pacakgeIds});
 }

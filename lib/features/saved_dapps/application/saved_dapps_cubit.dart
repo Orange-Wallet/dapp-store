@@ -24,11 +24,12 @@ class SavedDappsCubit extends Cubit<SavedDappsState>
   initialise() async {
     emit(state.copyWith(loading: true));
     final installedApps = packageManager.installedAppsList();
-    final dappList = await storeCubit.queryWithPackageId(
+    final dappMapping = await storeCubit.queryWithPackageId(
         pacakgeIds: installedApps.values.map((e) => e.packageName!).toList());
-    final nonNullDappInfo =
-        dappList?.response?.where((e) => e != null).map((e) => e!).toList() ??
-            [];
+    dappMapping.removeWhere((k, v) => v == null);
+
+    final List<DappInfo> nonNullDappInfo =
+        dappMapping.values.toList().map((e) => e!).toList();
     final List<DappInfo> toUpdate = [];
     final List<DappInfo> notToUpdate = [];
     for (var element in nonNullDappInfo) {
