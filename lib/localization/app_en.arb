@@ -125,5 +125,7 @@
   "softUpdateText": "New update is availbale, download to get the latest features and fixes.",
   "hardUpdateText": "New update is availbale, you need to update dApp store to continue using it",
   "writeAboutTheApp":"Write about the dapp \n \nI feel the app is...",
-  "shareReview":"Share review"
+  "shareReview":"Share review",
+  "yourReview":"Your review",
+  "editReview":"Edit review"
 }
