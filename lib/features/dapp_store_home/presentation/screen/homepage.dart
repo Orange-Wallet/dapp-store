@@ -34,21 +34,23 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     storeHandler = DappStoreHandler();
     storeHandler.started();
-    storeHandler.selfUpdateCubit.checkUpdate().then((value) {
-      bool dismissable = true;
-      if (value == UpdateType.hardUpdate) {
-        dismissable = false;
-      }
-      if (value != UpdateType.noUpdate) {
-        context.showBottomSheet(
-          child: UpdateWidget(
-            isHardUpdate: !dismissable,
-          ),
-          theme: storeHandler.theme,
-          dismissable: dismissable,
-        );
-      }
-    });
+    storeHandler.selfUpdateCubit.checkUpdate().then(
+      (value) {
+        bool dismissable = true;
+        if (value == UpdateType.hardUpdate) {
+          dismissable = false;
+        }
+        if (value != UpdateType.noUpdate) {
+          context.showBottomSheet(
+            child: UpdateWidget(
+              isHardUpdate: !dismissable,
+            ),
+            theme: storeHandler.theme,
+            dismissable: dismissable,
+          );
+        }
+      },
+    );
   }
 
   @override
