@@ -40,7 +40,7 @@ class SelfUpdateRepoImpl implements ISelfUpdateRepo {
   Future<PackageInfo?> getAppVersion() async {
     try {
       final package = await PackageInfo.fromPlatform();
-      return selfUpdateDataModel;
+      return package;
     } catch (e) {
       debugPrint("Self Update error ${e.toString()}");
       errorLogger.logError(e);

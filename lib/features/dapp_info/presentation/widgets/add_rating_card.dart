@@ -6,12 +6,12 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 typedef RatingCallback = void Function(double rating);
 
-class AddRatingCard extends StatelessWidget {
+class RatingCard extends StatefulWidget {
   final IThemeSpec theme;
   final RatingCallback callback;
   final double rating;
 
-  const AddRatingCard({
+  const RatingCard({
     super.key,
     required this.theme,
     this.rating = 0,
@@ -19,43 +19,56 @@ class AddRatingCard extends StatelessWidget {
   });
 
   @override
+  State<RatingCard> createState() => _RatingCardState();
+}
+
+class _RatingCardState extends State<RatingCard> {
+  @override
   Widget build(BuildContext context) {
     return DefaultCard(
-      theme: theme,
+      theme: widget.theme,
       child: Padding(
         padding: const EdgeInsets.all(12.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Column(
           children: [
-            Text(
-              context.getLocale!.addRating,
-              style: theme.titleTextExtraBold,
-            ),
-            RatingBar(
-              initialRating: rating,
-              direction: Axis.horizontal,
-              allowHalfRating: true,
-              itemCount: 5,
-              itemSize: 25,
-              ratingWidget: RatingWidget(
-                full: Icon(
-                  Icons.star,
-                  color: theme.ratingGrey,
-                ),
-                half: Icon(
-                  Icons.star_half,
-                  color: theme.ratingGrey,
-                ),
-                empty: Icon(
-                  Icons.star,
-                  color: theme.unratedGrey,
-                ),
-              ),
-              onRatingUpdate: callback,
-            ),
+            addRatingCard(),
           ],
         ),
       ),
+    );
+  }
+
+  Widget addRatingCard() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          context.getLocale!.addRating,
+          style: widget.theme.titleTextExtraBold,
+        ),
+        RatingBar(
+          initialRating: widget.rating,
+          direction: Axis.horizontal,
+          allowHalfRating: true,
+          itemCount: 5,
+          itemSize: 25,
+          ratingWidget: RatingWidget(
+            full: Icon(
+              Icons.star,
+              color: widget.theme.ratingGrey,
+            ),
+            half: Icon(
+              Icons.star_half,
+              color: widget.theme.ratingGrey,
+            ),
+            empty: Icon(
+              Icons.star,
+              color: widget.theme.unratedGrey,
+            ),
+          ),
+          onRatingUpdate: widget.callback,
+        ),
+      ],
     );
   }
 }
