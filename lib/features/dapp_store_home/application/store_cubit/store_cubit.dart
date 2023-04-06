@@ -41,10 +41,10 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
 
   @override
   getDappList() async {
-    DappList dappList =
+    DappList? dappList =
         await dappListRepo.getDappList(queryParams: GetDappQueryDto(limit: 20));
-    emit(
-        state.copyWith(dappList: dappList, dappListCurrentPage: dappList.page));
+    emit(state.copyWith(
+        dappList: dappList, dappListCurrentPage: dappList?.page));
   }
 
   @override
@@ -54,14 +54,14 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
       if (nextPage <= (state.dappList?.pageCount ?? 0)) {
         emit(state.copyWith(isLoadingNextDappListPage: true));
 
-        DappList dappList = await dappListRepo.getDappList(
+        DappList? dappList = await dappListRepo.getDappList(
             queryParams: GetDappQueryDto(page: nextPage));
         DappList? currentList = state.dappList;
         DappList updatedList = DappList(
-            page: dappList.page,
-            limit: dappList.limit,
-            pageCount: dappList.pageCount,
-            response: [...?currentList?.response, ...?dappList.response]);
+            page: dappList?.page,
+            limit: dappList?.limit,
+            pageCount: dappList?.pageCount,
+            response: [...?currentList?.response, ...?dappList?.response]);
 
         emit(state.copyWith(
           dappList: updatedList,
@@ -102,17 +102,17 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
 
   @override
   getCuratedList() async {
-    List<CuratedList> curatedList = await dappListRepo.getCuratedList();
+    List<CuratedList>? curatedList = await dappListRepo.getCuratedList();
     emit(state.copyWith(curatedList: curatedList));
   }
 
   @override
   getSearchDappList({required GetDappQueryDto queryParams}) async {
-    DappList dappList =
+    DappList? dappList =
         await dappListRepo.getDappList(queryParams: queryParams);
     emit(state.copyWith(
       searchResult: dappList,
-      searchPage: dappList.page,
+      searchPage: dappList?.page,
       searchParams: queryParams,
     ));
   }
@@ -125,14 +125,14 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
       if (nextPage <= (state.searchResult?.pageCount ?? 0)) {
         emit(state.copyWith(isLoadingNextSearchPage: true));
 
-        DappList searchList = await dappListRepo.getDappList(
+        DappList? searchList = await dappListRepo.getDappList(
             queryParams: queryParams.copyWith(page: nextPage));
         DappList? currentList = state.searchResult;
         DappList updatedList = DappList(
-            page: searchList.page,
-            limit: searchList.limit,
-            pageCount: searchList.pageCount,
-            response: [...?currentList?.response, ...?searchList.response]);
+            page: searchList?.page,
+            limit: searchList?.limit,
+            pageCount: searchList?.pageCount,
+            response: [...?currentList?.response, ...?searchList?.response]);
 
         emit(state.copyWith(
           searchResult: updatedList,
@@ -157,11 +157,11 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
   @override
   getSelectedCategoryDappList({required GetDappQueryDto queryParams}) async {
     emit(state.copyWith(isLoadingNextselectedCategoryPage: true));
-    DappList dappList =
+    DappList? dappList =
         await dappListRepo.getDappList(queryParams: queryParams);
     emit(state.copyWith(
       selectedCategoryDappList: dappList,
-      selectedCategoryPage: dappList.page,
+      selectedCategoryPage: dappList?.page,
       categoryParams: queryParams,
       isLoadingNextselectedCategoryPage: false,
     ));
@@ -175,14 +175,14 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
       if (nextPage <= (state.selectedCategoryDappList?.pageCount ?? 0)) {
         emit(state.copyWith(isLoadingNextselectedCategoryPage: true));
 
-        DappList searchList = await dappListRepo.getDappList(
+        DappList? searchList = await dappListRepo.getDappList(
             queryParams: queryParams.copyWith(page: nextPage));
         DappList? currentList = state.selectedCategoryDappList;
         DappList updatedList = DappList(
-            page: searchList.page,
-            limit: searchList.limit,
-            pageCount: searchList.pageCount,
-            response: [...?currentList?.response, ...?searchList.response]);
+            page: searchList?.page,
+            limit: searchList?.limit,
+            pageCount: searchList?.pageCount,
+            response: [...?currentList?.response, ...?searchList?.response]);
 
         emit(state.copyWith(
           selectedCategoryDappList: updatedList,
@@ -196,14 +196,14 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
 
   @override
   getCuratedCategoryList() async {
-    List<CuratedCategoryList> curatedCategoryList =
+    List<CuratedCategoryList>? curatedCategoryList =
         await dappListRepo.getCuratedCategoryList();
     emit(state.copyWith(curatedCategoryList: curatedCategoryList));
   }
 
   @override
   getFeaturedDappsByCategory({required String category}) async {
-    DappList dappList =
+    DappList? dappList =
         await dappListRepo.getFeaturedDappsByCategory(category: category);
     Map<String, DappList?> map = Map.of(state.featuredDappsByCategory ?? {});
     map[category] = dappList;
@@ -213,7 +213,7 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
 
   @override
   getFeaturedDappsList() async {
-    DappList dappList = await dappListRepo.getFeaturedDappsList();
+    DappList? dappList = await dappListRepo.getFeaturedDappsList();
     emit(state.copyWith(featuredDappList: dappList));
   }
 
@@ -230,9 +230,9 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
   }
 
   @override
-  Future<DappList> queryWithPackageId(
+  Future<DappList?> queryWithPackageId(
       {required List<String> pacakgeIds}) async {
-    final DappList dappList =
+    final DappList? dappList =
         await dappListRepo.queryWithPackageId(pacakgeIds: pacakgeIds);
     return dappList;
   }
