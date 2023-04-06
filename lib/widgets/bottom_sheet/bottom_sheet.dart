@@ -3,10 +3,15 @@ import 'package:dappstore/widgets/white_gradient_line.dart';
 import 'package:flutter/material.dart';
 
 extension BottomSheet on BuildContext {
-  showBottomSheet({required IThemeSpec theme, required Widget child}) {
+  showBottomSheet({
+    required IThemeSpec theme,
+    required Widget child,
+    bool dismissable = true,
+  }) {
     showModalBottomSheet(
       backgroundColor: Colors.transparent,
       context: this,
+      isDismissible: dismissable,
       builder: (context) {
         return Container(
           color: Colors.transparent,

@@ -23,6 +23,8 @@ class CustomizableAppButton extends StatefulWidget {
   final Widget openWidget;
   final Widget installWidget;
   final Widget installingWidget;
+  final Widget? progressIndicator;
+  final Function? customDownloadFunction;
 
   CustomizableAppButton({
     Key? key,
@@ -32,6 +34,8 @@ class CustomizableAppButton extends StatefulWidget {
     required this.openWidget,
     required this.installWidget,
     required this.installingWidget,
+    this.progressIndicator,
+    this.customDownloadFunction,
   }) : super(key: key) {
     appButtonHandler = getIt<IAppButtonHandler>();
     packageManager = appButtonHandler.packageManager;
@@ -83,7 +87,11 @@ class _CustomizableAppButtonState extends State<CustomizableAppButton> {
                         previous.packageMapping![widget.dappInfo.packageId!]
                                 ?.progress !=
                             current.packageMapping![widget.dappInfo.packageId!]
-                                ?.progress);
+                                ?.progress ||
+                        previous.packageMapping![widget.dappInfo.packageId!]
+                                ?.installing !=
+                            current.packageMapping![widget.dappInfo.packageId!]
+                                ?.installing);
                   },
                   builder: (context, state) {
                     final package = state.packageMapping![dappInfo.packageId];
@@ -108,7 +116,8 @@ class _CustomizableAppButtonState extends State<CustomizableAppButton> {
                           !(package?.status == DownloadTaskStatus.failed ||
                               package?.status ==
                                   DownloadTaskStatus.undefined)) {
-                        return circularProgressIndicator;
+                        return widget.progressIndicator ??
+                            circularProgressIndicator;
                       }
                       if ((package?.installing ?? false)) {
                         return widget.installingWidget;
@@ -118,20 +127,26 @@ class _CustomizableAppButtonState extends State<CustomizableAppButton> {
                           false)) {
                         return InkWell(
                           onTap: () {
-                            widget.appButtonHandler
-                                .startDownload(widget.dappInfo, context);
+                            if (widget.customDownloadFunction != null) {
+                              widget.customDownloadFunction!.call();
+                            } else {
+                              widget.appButtonHandler
+                                  .startDownload(widget.dappInfo, context);
+                            }
                           },
                           child: widget.installWidget,
                         );
                       } else {
-                        if ((state.packageMapping![dappInfo.packageId]
-                                    ?.versionCode ??
-                                0) <
+                        if ((package?.versionCode ?? 0) <
                             (double.tryParse(dappInfo.version ?? "0") ?? 0)) {
                           return InkWell(
                             onTap: () {
-                              widget.appButtonHandler
-                                  .startDownload(widget.dappInfo, context);
+                              if (widget.customDownloadFunction != null) {
+                                widget.customDownloadFunction!.call();
+                              } else {
+                                widget.appButtonHandler
+                                    .startDownload(widget.dappInfo, context);
+                              }
                             },
                             child: widget.updateWidget,
                           );

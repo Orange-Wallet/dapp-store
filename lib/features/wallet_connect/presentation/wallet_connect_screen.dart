@@ -9,6 +9,8 @@ import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/screen/homepage.dart';
 import 'package:dappstore/features/profile/application/handler/i_profile_handler.dart';
 import 'package:dappstore/features/profile/application/handler/profile_handler.dart';
+import 'package:dappstore/features/self_update/application/cubit/i_self_update_cubit.dart';
+import 'package:dappstore/features/self_update/application/cubit/self_update_cubit.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/wallet_connect_cubit.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/store/i_wallet_connect_store.dart';
@@ -17,6 +19,7 @@ import 'package:dappstore/utils/constants.dart';
 import 'package:dappstore/utils/icon_constants.dart';
 import 'package:dappstore/utils/image_constants.dart';
 import 'package:dappstore/widgets/bottom_sheet/bottom_sheet.dart';
+import 'package:dappstore/widgets/self_update_handler/soft_update_popup_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,13 +41,31 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
   late final IWalletConnectCubit cubit;
   late final IWalletConnectStore wcStore;
   late final IProfileHandler profileHandler;
+  late final ISelfUpdateCubit selfUpdateCubit;
+  bool checkForUpdate = true;
   @override
   void initState() {
     super.initState();
     theme = getIt<IThemeCubit>().theme;
     cubit = getIt<IWalletConnectCubit>();
     wcStore = getIt<IWalletConnectStore>();
+    selfUpdateCubit = getIt<ISelfUpdateCubit>();
     profileHandler = ProfileHandler();
+    if (checkForUpdate) {
+      selfUpdateCubit.checkUpdate().then((value) {
+        checkForUpdate = false;
+        bool dismissable = true;
+        if (value == UpdateType.hardUpdate) {
+          dismissable = false;
+          context.showBottomSheet(
+              child: UpdateWidget(
+                isHardUpdate: !dismissable,
+              ),
+              theme: theme,
+              dismissable: dismissable);
+        }
+      });
+    }
   }
 
   @override

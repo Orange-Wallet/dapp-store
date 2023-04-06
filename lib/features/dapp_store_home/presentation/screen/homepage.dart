@@ -11,7 +11,10 @@ import 'package:dappstore/features/dapp_store_home/presentation/widgets/home_app
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/saved_dapps_card.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/top_category_list.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/update_available_card.dart';
+import 'package:dappstore/features/self_update/application/cubit/self_update_cubit.dart';
 import 'package:dappstore/utils/image_constants.dart';
+import 'package:dappstore/widgets/bottom_sheet/bottom_sheet.dart';
+import 'package:dappstore/widgets/self_update_handler/soft_update_popup_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulScreen {
@@ -31,6 +34,21 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     storeHandler = DappStoreHandler();
     storeHandler.started();
+    storeHandler.selfUpdateCubit.checkUpdate().then((value) {
+      bool dismissable = true;
+      if (value == UpdateType.hardUpdate) {
+        dismissable = false;
+      }
+      if (value != UpdateType.noUpdate) {
+        context.showBottomSheet(
+          child: UpdateWidget(
+            isHardUpdate: !dismissable,
+          ),
+          theme: storeHandler.theme,
+          dismissable: dismissable,
+        );
+      }
+    });
   }
 
   @override

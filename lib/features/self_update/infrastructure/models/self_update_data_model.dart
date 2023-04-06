@@ -6,9 +6,9 @@ part '../../../../generated/features/self_update/infrastructure/models/self_upda
 @freezed
 class SelfUpdateDataModel with _$SelfUpdateDataModel {
   const factory SelfUpdateDataModel({
-    String? latestVersion,
-    String? url,
-    String? minimumSupportedVersion,
+    String? latestBuildNumber,
+    String? downloadUrl,
+    String? minimumSupportedBuildNumber,
   }) = _SelfUpdateDataModel;
   factory SelfUpdateDataModel.fromJson(Map<String, Object?> json) =>
       _$SelfUpdateDataModelFromJson(json);

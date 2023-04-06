@@ -2,6 +2,7 @@ import 'package:dappstore/core/error/i_error_logger.dart';
 import 'package:dappstore/core/network/network.dart';
 import 'package:dappstore/core/store/i_cache_store.dart';
 import 'package:dappstore/features/self_update/infrastructure/datasources/i_data_sources.dart';
+import 'package:dappstore/features/self_update/infrastructure/datasources/local_data_source.dart';
 import 'package:dappstore/features/self_update/infrastructure/datasources/remote_data_source.dart';
 import 'package:dappstore/features/self_update/infrastructure/models/self_update_data_model.dart';
 import 'package:dappstore/features/self_update/infrastructure/repositories/i_self_update_repository.dart';
@@ -16,7 +17,11 @@ class SelfUpdateRepoImpl implements ISelfUpdateRepo {
   final IErrorLogger errorLogger;
   late final Network _network =
       Network(dioClient: Dio(), interceptors: cacheStore.dioCacheInterceptor);
-  late final IDataSource _dataSource = RemoteDataSource(network: _network);
+  late final ISelfUpdateDataSource _dataSource =
+      RemoteDataSource(network: _network);
+  late final ISelfUpdateDataSource _localDataSource =
+      LocalDataSource(network: _network);
+
   @override
   SelfUpdateRepoImpl({
     required this.cacheStore,
@@ -27,7 +32,7 @@ class SelfUpdateRepoImpl implements ISelfUpdateRepo {
   Future<SelfUpdateDataModel?> getLatestBuild() async {
     try {
       SelfUpdateDataModel? selfUpdateDataModel =
-          await _dataSource.getLatestBuild();
+          await _localDataSource.getLatestBuild();
       return selfUpdateDataModel;
     } catch (e) {
       debugPrint("Self Update error ${e.toString()}");
@@ -40,7 +45,7 @@ class SelfUpdateRepoImpl implements ISelfUpdateRepo {
   Future<PackageInfo?> getAppVersion() async {
     try {
       final package = await PackageInfo.fromPlatform();
-      return selfUpdateDataModel;
+      return package;
     } catch (e) {
       debugPrint("Self Update error ${e.toString()}");
       errorLogger.logError(e);

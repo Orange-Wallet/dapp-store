@@ -121,5 +121,7 @@
   "notifiedEngineers": "We encountered an error and we've notified our engineering team about it. Sorry for the inconvenience caused.",
   "goBack": "Go back",
   "networkIssue": "Network Issue",
-  "checkNetwork": "Plese check your network"
+  "checkNetwork": "Plese check your network",
+  "softUpdateText": "New update is availbale, download to get the latest features and fixes.",
+  "hardUpdateText": "New update is availbale, you need to update dApp store to continue using it"
 }

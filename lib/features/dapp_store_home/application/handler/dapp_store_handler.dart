@@ -6,10 +6,15 @@ import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_sto
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_info_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
 import 'package:dappstore/features/saved_dapps/application/i_saved_dapps_cubit.dart';
+import 'package:dappstore/features/self_update/application/cubit/i_self_update_cubit.dart';
 
 class DappStoreHandler implements IDappStoreHandler {
   @override
   ISavedDappsCubit get savedDappsCubit => getIt<ISavedDappsCubit>();
+
+  @override
+  ISelfUpdateCubit get selfUpdateCubit => getIt<ISelfUpdateCubit>();
+
   @override
   IStoreCubit getStoreCubit() {
     return getIt<IStoreCubit>();

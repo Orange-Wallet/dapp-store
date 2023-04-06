@@ -96,6 +96,8 @@
     "notifiedEngineers",
     "goBack",
     "networkIssue",
-    "checkNetwork"
+    "checkNetwork",
+    "softUpdateText",
+    "hardUpdateText"
   ]
 }

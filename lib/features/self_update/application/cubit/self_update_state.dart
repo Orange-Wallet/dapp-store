@@ -3,17 +3,16 @@ part of 'self_update_cubit.dart';
 @freezed
 class SelfUpdateState with _$SelfUpdateState {
   const factory SelfUpdateState({
-    required String? url,
-    required String? latestVersion,
-    required String? minimumSupportedVersion,
+    SelfUpdateDataModel? updateData,
+    DappInfo? storeInfo,
     String? currentAppVersion,
+    UpdateType? updateType,
   }) = _SelfUpdateState;
 
   factory SelfUpdateState.initial() => const SelfUpdateState(
-      url: null,
-      latestVersion: null,
-      minimumSupportedVersion: null,
-      currentAppVersion: null);
+        updateData: null,
+        updateType: UpdateType.noUpdate,
+      );
 
   factory SelfUpdateState.fromJson(Map<String, dynamic> json) =>
       _$SelfUpdateStateFromJson(json);

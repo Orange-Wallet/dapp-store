@@ -1,10 +1,10 @@
 import 'package:dappstore/config/config.dart';
 import 'package:dappstore/core/network/network.dart';
 import 'package:dappstore/features/self_update/infrastructure/datasources/i_data_sources.dart';
-import 'package:dappstore/features/self_update/infrastructure/models/self_update_store_model.dart';
+import 'package:dappstore/features/self_update/infrastructure/models/self_update_data_model.dart';
 import 'package:dio/dio.dart';
 
-class RemoteDataSource implements IDataSource {
+class RemoteDataSource implements ISelfUpdateDataSource {
   final Network _network;
   RemoteDataSource({required Network network}) : _network = network;
 

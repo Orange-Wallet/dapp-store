@@ -3,10 +3,13 @@ import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_sto
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_info_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
 import 'package:dappstore/features/saved_dapps/application/i_saved_dapps_cubit.dart';
+import 'package:dappstore/features/self_update/application/cubit/i_self_update_cubit.dart';
 import 'package:dappstore/widgets/buttons/search_button/i_search_handler.dart';
 
 abstract class IDappStoreHandler implements ISearchHandler {
   ISavedDappsCubit get savedDappsCubit;
+
+  ISelfUpdateCubit get selfUpdateCubit;
 
   IStoreCubit getStoreCubit();
   @override
