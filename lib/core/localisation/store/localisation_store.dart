@@ -41,7 +41,7 @@ class LocalisationStore implements ILocalisationStore {
 
     final LocalisationStorage? localeStorage = box.get(0);
 
-    return localeStorage?.shouldFollowSystem ?? false;
+    return localeStorage?.shouldFollowSystem ?? true;
   }
 
   @override

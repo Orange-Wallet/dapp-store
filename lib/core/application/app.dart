@@ -15,6 +15,7 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> with WidgetsBindingObserver {
   late IAppHandler appHandler;
+  late Locale localeToUse;
   @override
   void initState() {
     appHandler = getIt<IAppHandler>();
@@ -31,6 +32,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
       appHandler.setLightTheme();
       debugPrint("Switching to Light theme");
     }
+
     super.initState();
   }
 
@@ -71,7 +73,6 @@ class _AppState extends State<App> with WidgetsBindingObserver {
           : ThemeMode.light,
       localizationsDelegates: AppLocalizations.localizationsDelegates.toList(),
       supportedLocales: AppLocalizations.supportedLocales,
-      locale: appHandler.localeCubit.getLocaleToUse(),
       builder: (BuildContext context, Widget? widget) {
         ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
           debugPrint('${errorDetails.stack}');
