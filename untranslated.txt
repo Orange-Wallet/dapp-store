@@ -98,6 +98,8 @@
     "networkIssue",
     "checkNetwork",
     "softUpdateText",
-    "hardUpdateText"
+    "hardUpdateText",
+    "writeAboutTheApp",
+    "shareReview"
   ]
 }
