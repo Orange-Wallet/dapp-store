@@ -55,8 +55,8 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
         logger: Logger(level: Level.error),
       );
       log(signClient?.name ?? "error");
-    } catch (e, trace) {
-      log("${e.toString()}: $trace");
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
     }
   }
 
@@ -145,6 +145,9 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
       return true;
     }).catchError((e) {
       debugPrint("Connection error $e");
+      errorLogger.logError(
+          e, StackTrace.fromString("wallet connect cubit.dart"));
+
       emit(state.copyWith(
         failure: false,
         failureConnection: true,
@@ -187,7 +190,9 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
       } else {
         throw Exception("No active Session");
       }
-    } catch (e) {
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
+
       emit(state.copyWith(
         txLoading: false,
         txSucesess: false,
@@ -231,6 +236,8 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
         ));
         return res;
       } catch (e, stack) {
+        errorLogger.logError(e, stack);
+
         emit(state.copyWith(
           failure: false,
           failureSign: true,
@@ -290,7 +297,9 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
         ));
         throw Exception("No active Session");
       }
-    } catch (e) {
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
+
       emit(state.copyWith(
         txLoading: false,
         txSucesess: false,
@@ -332,7 +341,9 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
         ));
         throw Exception("No active Session");
       }
-    } catch (e) {
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
+
       emit(state.copyWith(
         txLoading: false,
         txSucesess: false,
@@ -373,7 +384,9 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
         ));
         throw Exception("No active Session");
       }
-    } catch (e) {
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
+
       emit(state.copyWith(
         txLoading: false,
         txSucesess: false,
@@ -404,8 +417,10 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
         );
         wcStore.clearBox();
         emit(WalletConnectState.initial());
-      } catch (e, stackTrace) {
-        log(" ${e.toString()}: $stackTrace");
+      } catch (e, stack) {
+        errorLogger.logError(e, stack);
+
+        log(" ${e.toString()}: $stack");
       }
     }
     getSessionAndPairings();

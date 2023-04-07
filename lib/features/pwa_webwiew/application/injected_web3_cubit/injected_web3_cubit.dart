@@ -103,8 +103,9 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
           ),
           state.connectedChainId!);
       return txHash;
-    } catch (e) {
-      errorLogger.logError(e);
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
+
       // errorCallBack!.call(SigningFailures.SENDING_FAILED);
       return "";
     }
@@ -124,8 +125,9 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
           ),
           state.connectedChainId!);
       return signedTx;
-    } catch (e) {
-      errorLogger.logError(e);
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
+
       //errorCallBack!.call(SigningFailures.SIGNING_FAILED);
       return "";
     }
@@ -144,8 +146,9 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
     try {
       final signedMessage = await signer.getPersonalSign(data);
       return signedMessage;
-    } catch (e) {
-      errorLogger.logError(e);
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
+
       //  errorCallBack!.call(SigningFailures.SIGNING_FAILED);
       return "";
     }
@@ -158,8 +161,9 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
     try {
       final signedMessage = await signer.getEthSign(data);
       return signedMessage;
-    } catch (e) {
-      errorLogger.logError(e);
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
+
       // errorCallBack!.call(SigningFailures.SIGNING_FAILED);
       return "";
     }
@@ -172,8 +176,9 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
     try {
       final signedMessage = await signer.getEthSignTypedData(data.data!);
       return signedMessage;
-    } catch (e) {
-      errorLogger.logError(e);
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
+
       // errorCallBack!.call(SigningFailures.SIGNING_FAILED);
       return "";
     }

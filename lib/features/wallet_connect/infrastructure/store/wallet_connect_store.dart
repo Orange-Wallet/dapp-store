@@ -29,8 +29,9 @@ class WalletConnectStore implements IWalletConnectStore {
       await box.put(topicID, wcStore);
       await box.close();
       return wcStore;
-    } catch (e) {
-      errorLogger.logError(e);
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
+
       return null;
     }
   }
@@ -47,8 +48,9 @@ class WalletConnectStore implements IWalletConnectStore {
       await box.delete(topicID);
       await box.close();
       return true;
-    } catch (e) {
-      errorLogger.logError(e);
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
+
       return false;
     }
   }
@@ -64,8 +66,9 @@ class WalletConnectStore implements IWalletConnectStore {
       }
       await box.close();
       return box.toMap();
-    } catch (e) {
-      errorLogger.logError(e);
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
+
       return null;
     }
   }
@@ -96,8 +99,9 @@ class WalletConnectStore implements IWalletConnectStore {
       await box.deleteFromDisk();
       await box.close();
       return true;
-    } catch (e) {
-      errorLogger.logError(e);
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
+
       return false;
     }
   }

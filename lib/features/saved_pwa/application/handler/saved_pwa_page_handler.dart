@@ -1,4 +1,5 @@
 import 'package:dappstore/core/di/di.dart';
+import 'package:dappstore/core/error/i_error_logger.dart';
 import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/router/router.dart';
 import 'package:dappstore/core/theme/i_theme_cubit.dart';
@@ -47,7 +48,9 @@ class SavedPwaPageHandler implements ISavedPwaPageHandler {
             subtitle: context.getLocale!.connectWallet,
             theme: themeCubit.theme);
       }
-    } catch (e) {
+    } catch (e, stack) {
+      getIt<IErrorLogger>().logError(e, stack);
+
       context.showErrorSheet(
           title: context.getLocale!.somethingWentWrong,
           subtitle: context.getLocale!.tryAgain,

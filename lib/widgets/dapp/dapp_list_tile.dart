@@ -1,4 +1,3 @@
-import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/widgets/buttons/search_button/i_search_handler.dart';
 import 'package:dappstore/widgets/image_widgets/image.dart';

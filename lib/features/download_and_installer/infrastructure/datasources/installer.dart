@@ -10,8 +10,9 @@ class Installer {
       debugPrint(apkPath);
       await AppInstaller.installApk(apkPath, actionRequired: true);
       return true;
-    } catch (e) {
-      errorLogger.logError(e);
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
+
       return false;
     }
   }
@@ -19,8 +20,8 @@ class Installer {
   static void registerCallBack(MethodCallBack callBack) async {
     try {
       AppInstaller.registerHandler(callBack);
-    } catch (e) {
-      errorLogger.logError(e);
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
     }
   }
 }

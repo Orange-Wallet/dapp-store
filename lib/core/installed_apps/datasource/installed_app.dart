@@ -16,8 +16,8 @@ class InstalledAppsUtils {
         packageNamePrefix,
       );
       return apps;
-    } catch (e) {
-      errorLogger.logError(e);
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
       return null;
     }
   }
@@ -26,8 +26,8 @@ class InstalledAppsUtils {
     try {
       AppInfo? appInfo = await InstalledApps.getAppInfo(packageName);
       return appInfo;
-    } catch (e) {
-      errorLogger.logError(e);
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
 
       return null;
     }
@@ -37,8 +37,8 @@ class InstalledAppsUtils {
     try {
       bool? status = await InstalledApps.startApp(packageName);
       return status;
-    } catch (e) {
-      errorLogger.logError(e);
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
 
       return null;
     }
@@ -48,8 +48,8 @@ class InstalledAppsUtils {
     try {
       bool? status = await InstalledApps.openSettings(packageName);
       return status;
-    } catch (e) {
-      errorLogger.logError(e);
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
 
       return null;
     }
@@ -59,8 +59,8 @@ class InstalledAppsUtils {
     try {
       bool? isSystemApp = await InstalledApps.isSystemApp(packageName);
       return isSystemApp;
-    } catch (e) {
-      errorLogger.logError(e);
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
 
       return null;
     }

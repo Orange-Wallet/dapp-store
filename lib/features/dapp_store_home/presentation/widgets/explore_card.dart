@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'dart:ui';
 
 import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';

@@ -26,8 +26,9 @@ class ProfileStore implements IProfileStore {
       await box.put(model.address, model);
       await box.close();
       return model;
-    } catch (e) {
-      errorLogger.logError(e);
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
+
       return null;
     }
   }
@@ -44,8 +45,9 @@ class ProfileStore implements IProfileStore {
       await box.delete(address);
       await box.close();
       return true;
-    } catch (e) {
-      errorLogger.logError(e);
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
+
       return false;
     }
   }
@@ -61,8 +63,9 @@ class ProfileStore implements IProfileStore {
       }
       await box.close();
       return box.toMap()[address];
-    } catch (e) {
-      errorLogger.logError(e);
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
+
       return null;
     }
   }
@@ -89,8 +92,9 @@ class ProfileStore implements IProfileStore {
       await box.deleteFromDisk();
       await box.close();
       return true;
-    } catch (e) {
-      errorLogger.logError(e);
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
+
       return false;
     }
   }

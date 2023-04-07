@@ -25,8 +25,9 @@ class SavedPwaStore implements ISavedPwaStore {
       );
       await box.put(dappInfo.dappId!, savedPwa);
       return savedPwa;
-    } catch (e) {
-      errorLogger.logError(e);
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
+
       return null;
     }
   }
@@ -38,8 +39,9 @@ class SavedPwaStore implements ISavedPwaStore {
 
       await box.delete(dappId);
       return true;
-    } catch (e) {
-      errorLogger.logError(e);
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
+
       return false;
     }
   }
@@ -49,8 +51,9 @@ class SavedPwaStore implements ISavedPwaStore {
     try {
       Box<SavedPwaModel> box = await _getBox();
       return box.toMap();
-    } catch (e) {
-      errorLogger.logError(e);
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
+
       return null;
     }
   }
@@ -61,8 +64,9 @@ class SavedPwaStore implements ISavedPwaStore {
       Box<SavedPwaModel> box = await _getBox();
       await box.deleteFromDisk();
       return true;
-    } catch (e) {
-      errorLogger.logError(e);
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
+
       return false;
     }
   }

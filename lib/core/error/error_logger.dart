@@ -3,8 +3,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-part '../../generated/core/error/error_logger.freezed.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
+part '../../generated/core/error/error_logger.freezed.dart';
 part 'error_logger_state.dart';
 
 @LazySingleton(as: IErrorLogger)
@@ -13,11 +14,12 @@ class ErrorLogger extends Cubit<ErrorLoggerState> implements IErrorLogger {
 
   @override
   initialise() {
-    //todo: initilalise logger
+    //TODO: initilalise logger
   }
   @override
-  Future<void> logError(Object e) {
-    debugPrint("ERROR: ${e.toString()}");
+  Future<void> logError(Object e, StackTrace stack) {
+    debugPrint("ERROR: ${e.toString()} \nStack: ${stack.toString()}");
+    Sentry.captureException(e, stackTrace: stack);
     return Future.value();
   }
 }
