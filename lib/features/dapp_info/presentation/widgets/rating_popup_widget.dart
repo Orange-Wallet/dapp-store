@@ -19,7 +19,11 @@ class RatingPopupWidget extends StatelessWidget {
     double rating = initialRating;
     final IThemeSpec theme = handler.themeCubit.theme;
     return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+      padding: EdgeInsets.only(
+        left: 16,
+        right: 16,
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
       child: Column(
         children: [
           Row(
@@ -65,6 +69,7 @@ class RatingPopupWidget extends StatelessWidget {
           ),
           TextField(
             maxLines: 3,
+            autofocus: true,
             decoration: InputDecoration(
                 hintText: context.getLocale!.writeAboutTheApp,
                 hintStyle: theme.bodyTextStyle,
