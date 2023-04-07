@@ -3,7 +3,6 @@ import 'package:dappstore/core/router/router.dart';
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:dappstore/features/dapp_info/application/handler/i_dapp_info_handler.dart';
 import 'package:dappstore/features/dapp_info/presentation/widgets/add_rating_card.dart';
-import 'package:dappstore/features/dapp_info/presentation/widgets/rating_card.dart';
 import 'package:flutter/material.dart';
 
 class RatingPopupWidget extends StatelessWidget {
@@ -20,7 +19,11 @@ class RatingPopupWidget extends StatelessWidget {
     double rating = initialRating;
     final IThemeSpec theme = handler.themeCubit.theme;
     return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+      padding: EdgeInsets.only(
+        left: 16,
+        right: 16,
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
       child: Column(
         children: [
           Row(
@@ -66,6 +69,7 @@ class RatingPopupWidget extends StatelessWidget {
           ),
           TextField(
             maxLines: 3,
+            autofocus: true,
             decoration: InputDecoration(
                 hintText: context.getLocale!.writeAboutTheApp,
                 hintStyle: theme.bodyTextStyle,
