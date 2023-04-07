@@ -180,10 +180,8 @@ class _DappInfoPageState extends State<DappInfoPage> {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 15.0),
                             child: RatingCard(
+                              handler: dappInfoHandler,
                               theme: theme,
-                              callback: (rating) {
-                                //todo: implement this.
-                              },
                             ),
                           ),
                           Padding(

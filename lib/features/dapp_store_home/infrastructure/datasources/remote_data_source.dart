@@ -130,10 +130,13 @@ class RemoteDataSource implements IDataSource {
 
   //TODO: add address here
   @override
-  Future<BuildUrlDto?> getBuildUrl(String dappId) async {
+  Future<BuildUrlDto?> getBuildUrl(
+    String dappId,
+  ) async {
     try {
+      final url = "${Config.registryApiBaseUrl}/dapp/$dappId/build";
       Response res = await _network.get(
-        path: "${Config.registryApiBaseUrl}/dapp/$dappId/build",
+        path: url,
       );
 
       return BuildUrlDto.fromJson(res.data);
