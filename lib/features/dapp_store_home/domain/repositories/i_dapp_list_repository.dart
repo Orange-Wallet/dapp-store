@@ -2,6 +2,7 @@ import 'package:dappstore/features/dapp_store_home/domain/entities/curated_categ
 import 'package:dappstore/features/dapp_store_home/domain/entities/curated_list.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_list.dart';
+import 'package:dappstore/features/dapp_store_home/domain/entities/post_rating.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_info_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
 
@@ -14,9 +15,17 @@ abstract class IDappListRepo {
   Future<List<CuratedCategoryList>?> getCuratedCategoryList();
   Future<DappList?> getFeaturedDappsList();
   Future<DappList?> getFeaturedDappsByCategory({required String category});
-  Future<String?> getBuildUrl(String dappId);
+  String? getBuildUrl(String dappId, String address);
   String getPwaRedirectionUrl(String dappId, String walletAddress);
   Future<Map<String, DappInfo?>> queryWithPackageId({
     required List<String> pacakgeIds,
+  });
+
+  Future<bool> postRating({
+    required PostRating ratingData,
+  });
+
+  Future<PostRating?> getRating({
+    required String dappId,
   });
 }

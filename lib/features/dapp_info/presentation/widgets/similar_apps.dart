@@ -1,10 +1,8 @@
 import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:dappstore/features/dapp_info/application/handler/i_dapp_info_handler.dart';
-import 'package:dappstore/features/dapp_info/presentation/widgets/dapp_title_tile.dart';
 import 'package:dappstore/features/dapp_info/presentation/widgets/similar_apps_tile.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
-import 'package:dappstore/widgets/cards/default_card.dart';
 import 'package:flutter/material.dart';
 
 class SimilarApps extends StatelessWidget {

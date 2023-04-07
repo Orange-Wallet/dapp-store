@@ -6,6 +6,7 @@ import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_info
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_list_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_info_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
+import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/post_rating_dto.dart';
 
 abstract class IDataSource {
   Future<DappListDto?> getDappList({
@@ -20,7 +21,13 @@ abstract class IDataSource {
   Future<List<CuratedCategoryListDto>?> getCuratedCategoryList();
   Future<DappListDto?> getFeaturedDappsList();
   Future<DappListDto?> getFeaturedDappsByCategory({required String category});
-  Future<BuildUrlDto?> getBuildUrl(String dappId);
+  BuildUrlDto? getBuildUrl(String dappId, String address);
   String getPwaRedirectionUrl(String dappId, String walletAddress);
   Future<Map<String, DappInfo?>> getDappsByPackageId(List<String> packageIds);
+  Future<bool> postRating(
+    PostRatingDto ratingData,
+  );
+  Future<bool> getRating(
+    String dappId,
+  );
 }

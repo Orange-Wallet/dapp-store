@@ -11,6 +11,7 @@ import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_info
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_list_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_info_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
+import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/post_rating_dto.dart';
 import 'package:dio/dio.dart';
 
 class RemoteDataSource implements IDataSource {
@@ -130,21 +131,17 @@ class RemoteDataSource implements IDataSource {
 
   //TODO: add address here
   @override
-  Future<BuildUrlDto?> getBuildUrl(
-    String dappId,
-  ) async {
+  BuildUrlDto? getBuildUrl(String dappId, String address) {
     try {
-      final url = "${Config.registryApiBaseUrl}/dapp/$dappId/build";
-      Response res = await _network.get(
-        path: url,
-      );
+      final url =
+          "https://api-a.meroku.store/o/download/$dappId?userAddress=$address";
+      // final url = "${Config.registryApiBaseUrl}/dapp/$dappId/build";
 
-      return BuildUrlDto.fromJson(res.data);
+      return BuildUrlDto.fromJson({"url": url, "success": true});
     } catch (e, stack) {
-      // TODO catch exception
       log("${e.toString()} : $stack ");
+      return null;
     }
-    return null;
   }
 
   //TODO: implement this
@@ -171,5 +168,45 @@ class RemoteDataSource implements IDataSource {
   @override
   String getPwaRedirectionUrl(String dappId, String walletAddress) {
     return "${Config.registryApiBaseUrl}/o/view/$dappId?userAddress=$walletAddress";
+  }
+
+  @override
+  Future<bool> postRating(
+    PostRatingDto ratingData,
+  ) async {
+    try {
+      Response res = await _network.post(
+          path: "${Config.registryApiBaseUrl}/api/v1/dapp/rate",
+          data: ratingData.toJson());
+      if (res.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e, stack) {
+      // TODO catch exception
+      log("${e.toString()} : $stack ");
+    }
+    return false;
+  }
+
+  @override
+  Future<bool> getRating(
+    String dappId,
+  ) async {
+    try {
+      Response res = await _network.get(
+          path: "${Config.registryApiBaseUrl}/api/v1/dapp/rate",
+          queryParams: {"dappId": dappId});
+      if (res.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e, stack) {
+      // TODO catch exception
+      log("${e.toString()} : $stack ");
+    }
+    return false;
   }
 }

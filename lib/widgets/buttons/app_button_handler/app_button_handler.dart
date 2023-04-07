@@ -30,7 +30,8 @@ class AppButtonHandler implements IAppButtonHandler {
   IDappInfoCubit get dappInfoCubit => getIt<IDappInfoCubit>();
   @override
   startDownload(DappInfo dappInfo, BuildContext context) async {
-    final url = await storeCubit.getBuildUrl(dappInfo.dappId!);
+    final url = storeCubit.getBuildUrl(
+        dappInfo.dappId!, walletConnectCubit.getActiveAdddress() ?? "");
     if (url != null) {
       await packageManager.startDownload(dappInfo, url, true);
     } else {

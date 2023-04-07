@@ -218,8 +218,8 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
   }
 
   @override
-  getBuildUrl(String dappId) async {
-    String? build = await dappListRepo.getBuildUrl(dappId);
+  getBuildUrl(String dappId, String address) {
+    String? build = dappListRepo.getBuildUrl(dappId, address);
     return build;
   }
 

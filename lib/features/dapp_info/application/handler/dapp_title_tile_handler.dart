@@ -28,9 +28,11 @@ class DappTitleTileHandler implements IDappTitleTileHandler {
   ISavedPwaCubit get savedPwaCubit => getIt<ISavedPwaCubit>();
   @override
   IDappInfoCubit get dappInfoCubit => getIt<IDappInfoCubit>();
+
   @override
   startDownload(DappInfo dappInfo, BuildContext context) async {
-    final url = await storeCubit.getBuildUrl(dappInfo.dappId!);
+    final url = storeCubit.getBuildUrl(
+        dappInfo.dappId!, walletConnectCubit.getActiveAdddress() ?? "");
     if (url != null) {
       await packageManager.startDownload(dappInfo, url, true);
     } else {

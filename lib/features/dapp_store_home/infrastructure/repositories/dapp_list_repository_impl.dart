@@ -4,6 +4,7 @@ import 'package:dappstore/features/dapp_store_home/domain/entities/curated_categ
 import 'package:dappstore/features/dapp_store_home/domain/entities/curated_list.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_list.dart';
+import 'package:dappstore/features/dapp_store_home/domain/entities/post_rating.dart';
 import 'package:dappstore/features/dapp_store_home/domain/repositories/i_dapp_list_repository.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/datasources/i_data_source.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/datasources/local_data_source.dart';
@@ -86,8 +87,8 @@ class DappListRepoImpl implements IDappListRepo {
   }
 
   @override
-  Future<String?> getBuildUrl(String dappId) async {
-    final BuildUrlDto? dto = await _dataSource.getBuildUrl(dappId);
+  String? getBuildUrl(String dappId, String address) {
+    final BuildUrlDto? dto = _dataSource.getBuildUrl(dappId, address);
     if (dto?.success ?? false) {
       return dto?.url;
     }
@@ -107,5 +108,19 @@ class DappListRepoImpl implements IDappListRepo {
     final Map<String, DappInfo?> dappListDto =
         await _localDataSource.getDappsByPackageId(pacakgeIds);
     return dappListDto;
+  }
+
+  @override
+  Future<bool> postRating({
+    required PostRating ratingData,
+  }) async {
+    return false;
+  }
+
+  @override
+  Future<PostRating?> getRating({
+    required String dappId,
+  }) async {
+    return null;
   }
 }

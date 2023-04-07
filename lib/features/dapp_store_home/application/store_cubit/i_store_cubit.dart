@@ -1,6 +1,5 @@
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
-import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_list.dart';
 import 'package:dappstore/features/dapp_store_home/domain/repositories/i_dapp_list_repository.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_info_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
@@ -45,7 +44,7 @@ abstract class IStoreCubit extends Cubit<StoreState> {
 
   DappInfo? get getActiveDappInfo;
 
-  getBuildUrl(String dappId);
+  getBuildUrl(String dappId, String address);
 
   String getPwaRedirectionUrl(String dappId, String walletAddress);
   Future<Map<String, DappInfo?>> queryWithPackageId(

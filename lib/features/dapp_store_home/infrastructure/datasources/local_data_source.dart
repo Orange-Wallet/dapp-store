@@ -11,6 +11,7 @@ import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_info
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_list_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_info_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
+import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/post_rating_dto.dart';
 import 'package:dappstore/utils/typedef.dart';
 import 'package:dio/dio.dart';
 
@@ -186,7 +187,7 @@ class LocalDataSource implements IDataSource {
   }
 
   @override
-  Future<BuildUrlDto> getBuildUrl(String dappId) async {
+  BuildUrlDto? getBuildUrl(String dappId, String address) {
     return BuildUrlDto.fromJson({
       "url":
           "https://github.com/Abhimanyu121/OpenWallet/releases/download/Alpha2/app-release.apk",
@@ -265,5 +266,19 @@ class LocalDataSource implements IDataSource {
       mapping[key] = DappInfo.fromJson(value);
     });
     return mapping;
+  }
+
+  @override
+  Future<bool> postRating(
+    PostRatingDto ratingData,
+  ) async {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> getRating(
+    String dappId,
+  ) async {
+    throw UnimplementedError();
   }
 }
