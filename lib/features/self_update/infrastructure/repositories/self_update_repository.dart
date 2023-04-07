@@ -34,9 +34,10 @@ class SelfUpdateRepoImpl implements ISelfUpdateRepo {
       SelfUpdateDataModel? selfUpdateDataModel =
           await _localDataSource.getLatestBuild();
       return selfUpdateDataModel;
-    } catch (e) {
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
+
       debugPrint("Self Update error ${e.toString()}");
-      errorLogger.logError(e);
       return null;
     }
   }
@@ -46,9 +47,10 @@ class SelfUpdateRepoImpl implements ISelfUpdateRepo {
     try {
       final package = await PackageInfo.fromPlatform();
       return package;
-    } catch (e) {
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
+
       debugPrint("Self Update error ${e.toString()}");
-      errorLogger.logError(e);
       return null;
     }
   }

@@ -1,5 +1,5 @@
-import 'dart:developer';
-
+import 'package:dappstore/core/di/di.dart';
+import 'package:dappstore/core/error/i_error_logger.dart';
 import 'package:dappstore/core/network/network.dart';
 import 'package:dappstore/features/analytics/datasource/i_datasource.dart';
 import 'package:dappstore/features/analytics/dtos/install_analytics_model.dart';
@@ -18,8 +18,7 @@ class RemoteDataSource implements IDataSource {
       // return res.data != null;
       return true;
     } catch (e, stack) {
-      // TODO catch exception
-      log("${e.toString()} : $stack ");
+      getIt<IErrorLogger>().logError(e, stack);
     }
     return null;
   }

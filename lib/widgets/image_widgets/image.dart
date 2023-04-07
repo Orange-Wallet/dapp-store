@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dappstore/core/di/di.dart';
+import 'package:dappstore/core/error/i_error_logger.dart';
 import 'package:dappstore/core/network/network.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
@@ -125,6 +127,10 @@ class _ImageWidgetState extends State<ImageWidget>
         }
       }).catchError((e) {
         debugPrint('[Media View] Error: $_imagePath $e');
+
+        getIt<IErrorLogger>()
+            .logError(e, StackTrace.fromString("image_widget.dart"));
+
         if (mounted) {
           setState(() {
             _imageType = ImageType.UNSUPPORTED;

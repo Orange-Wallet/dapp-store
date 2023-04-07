@@ -1,3 +1,5 @@
+import 'package:dappstore/core/di/di.dart';
+import 'package:dappstore/core/error/i_error_logger.dart';
 import 'package:dappstore/features/wallet_connect/models/chain_data.dart';
 import 'package:dappstore/features/wallet_connect/models/chain_metadata.dart';
 import 'package:dappstore/features/wallet_connect/models/connected_account.dart';
@@ -13,7 +15,9 @@ class WCHelper {
           .where((element) => element.chainId == chainId)
           .first
           .name;
-    } catch (e) {
+    } catch (e, stack) {
+      getIt<IErrorLogger>().logError(e, stack);
+
       debugPrint('Invalid chain');
     }
     return 'Unknown';
@@ -24,7 +28,9 @@ class WCHelper {
       return ChainData.allChains
           .where((element) => element.chainId == chainId)
           .first;
-    } catch (e) {
+    } catch (e, stack) {
+      getIt<IErrorLogger>().logError(e, stack);
+
       debugPrint('Invalid chain');
     }
     return ChainData.mainChains[0];

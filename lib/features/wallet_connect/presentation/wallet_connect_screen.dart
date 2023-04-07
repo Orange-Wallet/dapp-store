@@ -349,8 +349,9 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                 //           if (res != null) {
                 //             context.replaceRoute(const HomePage());
                 //           }
-                //         } catch (e, trace) {
-                //           log("$e : ${trace}");
+                //         } ccatch (e, stack) {
+                // errorLogger.logError(e,stack);
+
                 //         }
                 //       }
                 //     },

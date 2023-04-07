@@ -52,7 +52,7 @@ class DappTitleTileHandler implements IDappTitleTileHandler {
         dappName: dappInfo.name!,
       ));
     } else {
-      //todo: show popup
+      //TODO: show popup
     }
   }
 

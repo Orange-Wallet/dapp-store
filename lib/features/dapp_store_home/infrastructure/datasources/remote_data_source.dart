@@ -1,6 +1,6 @@
-import 'dart:developer';
-
 import 'package:dappstore/config/config.dart';
+import 'package:dappstore/core/di/di.dart';
+import 'package:dappstore/core/error/i_error_logger.dart';
 import 'package:dappstore/core/network/network.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/datasources/i_data_source.dart';
@@ -16,6 +16,7 @@ import 'package:dio/dio.dart';
 
 class RemoteDataSource implements IDataSource {
   final Network _network;
+  final IErrorLogger errorLogger = getIt<IErrorLogger>();
   RemoteDataSource({required Network network}) : _network = network;
 
   @override
@@ -29,8 +30,7 @@ class RemoteDataSource implements IDataSource {
 
       return DappListDto.fromJson(res.data);
     } catch (e, stack) {
-      // TODO catch exception
-      log("${e.toString()} : $stack ");
+      errorLogger.logError(e, stack);
     }
     return null;
   }
@@ -43,8 +43,7 @@ class RemoteDataSource implements IDataSource {
           queryParams: queryParams?.toJson());
       return DappInfoDto.fromJson(res.data[0]);
     } catch (e, stack) {
-      // TODO catch exception
-      log("${e.toString()} : $stack ");
+      errorLogger.logError(e, stack);
     }
     return null;
   }
@@ -55,8 +54,7 @@ class RemoteDataSource implements IDataSource {
     try {
       return [DappInfoDto()];
     } catch (e, stack) {
-      // TODO catch exception
-      log("${e.toString()} : $stack ");
+      errorLogger.logError(e, stack);
     }
     return null;
   }
@@ -83,8 +81,7 @@ class RemoteDataSource implements IDataSource {
           .toList();
       return list;
     } catch (e, stack) {
-      // TODO catch exception
-      log("${e.toString()} : $stack ");
+      errorLogger.logError(e, stack);
     }
     return null;
   }
@@ -105,8 +102,7 @@ class RemoteDataSource implements IDataSource {
 
       return DappListDto.fromJson(res.data);
     } catch (e, stack) {
-      // TODO catch exception
-      log("${e.toString()} : $stack ");
+      errorLogger.logError(e, stack);
     }
     return null;
   }
@@ -122,8 +118,7 @@ class RemoteDataSource implements IDataSource {
 
       return DappListDto.fromJson(res.data);
     } catch (e, stack) {
-      // TODO catch exception
-      log("${e.toString()} : $stack ");
+      errorLogger.logError(e, stack);
     }
     return null;
   }
@@ -150,8 +145,7 @@ class RemoteDataSource implements IDataSource {
       });
       return mapping;
     } catch (e, stack) {
-      // TODO catch exception
-      log("${e.toString()} : $stack ");
+      errorLogger.logError(e, stack);
     }
     return {};
   }
@@ -175,8 +169,7 @@ class RemoteDataSource implements IDataSource {
         return false;
       }
     } catch (e, stack) {
-      // TODO catch exception
-      log("${e.toString()} : $stack ");
+      errorLogger.logError(e, stack);
     }
     return false;
   }
@@ -195,8 +188,7 @@ class RemoteDataSource implements IDataSource {
         return false;
       }
     } catch (e, stack) {
-      // TODO catch exception
-      log("${e.toString()} : $stack ");
+      errorLogger.logError(e, stack);
     }
     return false;
   }

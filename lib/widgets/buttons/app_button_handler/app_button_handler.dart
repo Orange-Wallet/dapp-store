@@ -51,7 +51,7 @@ class AppButtonHandler implements IAppButtonHandler {
         dappName: dappInfo.name!,
       ));
     } else {
-      //todo: show popup
+      //TODO: show popup
     }
   }
 
