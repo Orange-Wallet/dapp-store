@@ -6,9 +6,9 @@ part '../../../generated/features/analytics/dtos/install_analytics_model.g.dart'
 @freezed
 class InstallAnalyticsDTO with _$InstallAnalyticsDTO {
   factory InstallAnalyticsDTO({
-    String? dappId,
-    String? userAddress,
-    String? timestamp,
+    required String dappId,
+    required String userAddress,
+    required String timestamp,
     Map<String, dynamic>? metadata,
   }) = _InstallAnalyticsDTO;
   factory InstallAnalyticsDTO.fromJson(Map<String, Object?> json) =>
