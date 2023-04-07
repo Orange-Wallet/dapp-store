@@ -39,7 +39,6 @@ class _SettingsDialogState extends State<SettingsDialog> {
 
   @override
   void didUpdateWidget(covariant SettingsDialog oldWidget) {
-    // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
   }
 

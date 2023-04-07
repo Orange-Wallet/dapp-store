@@ -38,7 +38,6 @@ class RemoteDataSource implements IDataSource {
   @override
   Future<DappInfoDto?> getDappInfo({GetDappInfoQueryDto? queryParams}) async {
     try {
-      //TODO needs to test properly
       Response res = await _network.get(
           path: "${Config.glApiBaseUrl}/api/v1/dapp/searchById",
           queryParams: queryParams?.toJson());
@@ -52,7 +51,7 @@ class RemoteDataSource implements IDataSource {
 
   @override
   Future<List<DappInfoDto>?> searchDapps(String searchString) async {
-    //dio api call
+    //TODO dio api call
     try {
       return [DappInfoDto()];
     } catch (e, stack) {
@@ -137,7 +136,6 @@ class RemoteDataSource implements IDataSource {
     return BuildUrlDto.fromJson({"url": url, "success": true});
   }
 
-  //TODO: implement this
   @override
   Future<Map<String, DappInfo?>> getDappsByPackageId(
       List<String> packageIds) async {

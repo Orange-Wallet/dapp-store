@@ -4,7 +4,6 @@ import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dar
 import 'package:dappstore/features/self_update/application/cubit/i_self_update_cubit.dart';
 import 'package:dappstore/features/self_update/infrastructure/models/self_update_data_model.dart';
 import 'package:dappstore/features/self_update/infrastructure/repositories/i_self_update_repository.dart';
-import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';

@@ -1,5 +1,4 @@
 import 'dart:isolate';
-import 'dart:ui';
 
 import 'package:dappstore/core/permissions/i_permissions_cubit.dart';
 import 'package:dappstore/features/download_and_installer/infrastructure/datasources/downloader.dart';
@@ -9,8 +8,8 @@ import 'package:dappstore/features/download_and_installer/infrastructure/reposit
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:injectable/injectable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 part '../../../../../generated/features/download_and_installer/infrastructure/repositories/downloader/downloader_cubit.freezed.dart';
