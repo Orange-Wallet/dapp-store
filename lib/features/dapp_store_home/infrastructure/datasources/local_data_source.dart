@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dappstore/config/config.dart';
 import 'package:dappstore/core/network/network.dart';
@@ -276,9 +277,29 @@ class LocalDataSource implements IDataSource {
   }
 
   @override
-  Future<bool> getRating(
+  Future<List<PostRatingDto>> getRating(
     String dappId,
   ) async {
-    throw UnimplementedError();
+    return [
+      PostRatingDto.fromJson({
+        "dappId": "com.axieinfinity.dapp",
+        "rating": 4,
+        "comment": "Amazing dapp",
+        "userId": null,
+        "username": "Abhi",
+        "userAddress": "0x2bD7Fe74aA4E442b9EA407fBBEEe331840018465"
+      })
+    ];
+  }
+
+  Future<PostRatingDto?> getUserRating(String dappId, String address) async {
+    return PostRatingDto.fromJson({
+      "dappId": "com.axieinfinity.dapp",
+      "rating": 4,
+      "comment": "Amazing dapp",
+      "userId": null,
+      "username": "Abhi",
+      "userAddress": "0x2bD7Fe74aA4E442b9EA407fBBEEe331840018465"
+    });
   }
 }

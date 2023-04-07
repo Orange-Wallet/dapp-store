@@ -6,9 +6,12 @@ class DappInfoState with _$DappInfoState {
     bool? loading,
     DappInfo? dappInfo,
     String? activeDappId,
+    required List<PostRating> ratings,
+    PostRating? selfRating,
   }) = _DappInfoState;
 
-  factory DappInfoState.initial() => const _DappInfoState(loading: false);
+  factory DappInfoState.initial() =>
+      const _DappInfoState(loading: false, ratings: []);
 
   factory DappInfoState.fromJson(Map<String, dynamic> json) =>
       _$DappInfoStateFromJson(json);

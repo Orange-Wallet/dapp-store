@@ -118,9 +118,19 @@ class DappListRepoImpl implements IDappListRepo {
   }
 
   @override
-  Future<PostRating?> getRating({
+  Future<List<PostRating>> getRating({
     required String dappId,
   }) async {
-    return null;
+    final dataList = await _localDataSource.getRating(dappId);
+    return dataList.map((e) => e.toDomain()).toList() as List<PostRating>;
+  }
+
+  @override
+  Future<PostRating?> getUserRating({
+    required String dappId,
+    required String address,
+  }) async {
+    final data = await _localDataSource.getUserRating(dappId, address);
+    return data?.toDomain();
   }
 }

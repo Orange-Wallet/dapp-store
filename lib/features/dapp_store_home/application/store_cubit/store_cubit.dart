@@ -3,6 +3,7 @@ import 'package:dappstore/features/dapp_store_home/domain/entities/curated_categ
 import 'package:dappstore/features/dapp_store_home/domain/entities/curated_list.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_list.dart';
+import 'package:dappstore/features/dapp_store_home/domain/entities/post_rating.dart';
 import 'package:dappstore/features/dapp_store_home/domain/repositories/i_dapp_list_repository.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_info_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
@@ -235,5 +236,29 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
     final Map<String, DappInfo?> mapping =
         await dappListRepo.queryWithPackageId(pacakgeIds: pacakgeIds);
     return mapping;
+  }
+
+  @override
+  Future<bool> postRating({required PostRating ratingData}) async {
+    final bool status = await dappListRepo.postRating(ratingData: ratingData);
+
+    return status;
+  }
+
+  @override
+  Future<List<PostRating>> getRating({required String dappId}) async {
+    final List<PostRating> ratingList =
+        await dappListRepo.getRating(dappId: dappId);
+    return ratingList;
+  }
+
+  @override
+  Future<PostRating?> getUserRating({
+    required String dappId,
+    required String address,
+  }) async {
+    final PostRating? ratingList =
+        await dappListRepo.getUserRating(dappId: dappId, address: address);
+    return ratingList;
   }
 }

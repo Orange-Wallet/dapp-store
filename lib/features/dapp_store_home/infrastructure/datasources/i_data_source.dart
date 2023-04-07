@@ -27,7 +27,6 @@ abstract class IDataSource {
   Future<bool> postRating(
     PostRatingDto ratingData,
   );
-  Future<bool> getRating(
-    String dappId,
-  );
+  Future<List<PostRatingDto>> getRating(String dappId);
+  Future<PostRatingDto?> getUserRating(String dappId, String address);
 }

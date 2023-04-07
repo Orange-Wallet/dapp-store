@@ -25,7 +25,11 @@ abstract class IDappListRepo {
     required PostRating ratingData,
   });
 
-  Future<PostRating?> getRating({
+  Future<List<PostRating>> getRating({
     required String dappId,
+  });
+  Future<PostRating?> getUserRating({
+    required String dappId,
+    required String address,
   });
 }

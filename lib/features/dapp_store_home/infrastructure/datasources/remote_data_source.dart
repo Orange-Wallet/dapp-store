@@ -184,22 +184,49 @@ class RemoteDataSource implements IDataSource {
   }
 
   @override
-  Future<bool> getRating(
+  Future<List<PostRatingDto>> getRating(
     String dappId,
   ) async {
     try {
       Response res = await _network.get(
           path: "${Config.registryApiBaseUrl}/api/v1/dapp/rate",
           queryParams: {"dappId": dappId});
+      final data = [];
       if (res.statusCode == 200) {
-        return true;
+        for (var element in (res.data as List<Map<String, Object?>>)) {
+          data.add(PostRatingDto.fromJson(element));
+        }
       } else {
-        return false;
+        return [];
       }
     } catch (e, stack) {
       // TODO catch exception
       log("${e.toString()} : $stack ");
     }
-    return false;
+    return [];
+  }
+
+  @override
+  Future<PostRatingDto?> getUserRating(
+    String dappId,
+    String address,
+  ) async {
+    try {
+      Response res = await _network.get(
+          path: "${Config.registryApiBaseUrl}/api/v1/dapp/rate",
+          queryParams: {
+            "dappId": dappId,
+            "userAddress": address,
+          });
+      if (res.statusCode == 200) {
+        return PostRatingDto.fromJson(res.data);
+      } else {
+        return null;
+      }
+    } catch (e, stack) {
+      // TODO catch exception
+      log("${e.toString()} : $stack ");
+    }
+    return null;
   }
 }
