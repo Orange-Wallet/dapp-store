@@ -49,7 +49,11 @@ class DappInfoHandler implements IDappInfoHandler {
   }
 
   @override
-  postRating(double rating, String comment, String dappId) async {
+  postRating(
+    double rating,
+    String comment,
+    String dappId,
+  ) async {
     final profile = await profileCubit.getProfile(
         address: walletConnectCubit.getActiveAdddress() ?? "");
     PostRating data = PostRating(
@@ -59,10 +63,6 @@ class DappInfoHandler implements IDappInfoHandler {
       userAddress: walletConnectCubit.getActiveAdddress() ?? "",
       username: profile?.name ?? "",
     );
-    final status = await storeCubit.postRating(ratingData: data);
-    if(status){
-      dappInfoCubit.set
-    }
-
+    await dappInfoCubit.postUserRating(data: data);
   }
 }

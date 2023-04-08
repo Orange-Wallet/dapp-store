@@ -33,16 +33,13 @@ class DappInfoCubit extends Cubit<DappInfoState> implements IDappInfoCubit {
                 GetDappInfoQueryDto(dappId: storeCubit.state.activeDappId));
       }
     }
-    storeCubit.getRating(dappId: storeCubit.state.activeDappId!).then((value) {
-      emit(state.copyWith(ratings: value));
-    });
-    storeCubit
-        .getUserRating(
-            dappId: storeCubit.state.activeDappId!,
-            address: walletConnectCubit.getActiveAdddress() ?? "")
-        .then((value) {
-      emit(state.copyWith(selfRating: value));
-    });
+    getRatings(
+      dappId: storeCubit.state.activeDappId!,
+    );
+
+    getUserRating(
+      dappId: storeCubit.state.activeDappId!,
+    );
   }
 
   @override
@@ -63,10 +60,46 @@ class DappInfoCubit extends Cubit<DappInfoState> implements IDappInfoCubit {
   }
 
   @override
+  Future<List<PostRating>> getRatings({required String dappId}) async {
+    emit(state.copyWith(loading: true));
+
+    List<PostRating> ratings = await storeCubit.getRating(dappId: dappId);
+    log(ratings.toString());
+    emit(state.copyWith(
+      ratings: ratings,
+    ));
+    return ratings;
+  }
+
+  @override
   Future<bool> updateUserRating({required PostRating data}) async {
     emit(state.copyWith(
       selfRating: data,
     ));
     return true;
+  }
+
+  @override
+  Future<bool> postUserRating({required PostRating data}) async {
+    bool ratingStatus = await storeCubit.postRating(ratingData: data);
+    if ((ratingStatus)) {
+      updateUserRating(data: data);
+    }
+    return true;
+  }
+
+  @override
+  Future<PostRating?> getUserRating({required String dappId}) async {
+    final userAddress = walletConnectCubit.getActiveAdddress();
+    if (userAddress != null) {
+      PostRating? rating =
+          await storeCubit.getUserRating(dappId: dappId, address: userAddress);
+      log(rating.toString());
+      emit(state.copyWith(
+        selfRating: rating,
+      ));
+      return rating;
+    }
+    return null;
   }
 }

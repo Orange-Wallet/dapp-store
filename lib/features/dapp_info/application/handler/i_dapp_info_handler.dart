@@ -22,4 +22,9 @@ abstract class IDappInfoHandler {
     BuildContext context,
     Widget ratingDialog,
   );
+  postRating(
+    double rating,
+    String comment,
+    String dappId,
+  );
 }

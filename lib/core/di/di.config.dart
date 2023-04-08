@@ -13,8 +13,8 @@ import 'package:dappstore/core/installed_apps/i_installed_apps_cubit.dart'
     as _i16;
 import 'package:dappstore/core/installed_apps/installed_apps_cubit.dart'
     as _i17;
-import 'package:dappstore/core/localisation/i_localisation_cubit.dart' as _i58;
-import 'package:dappstore/core/localisation/localisation_cubit.dart' as _i59;
+import 'package:dappstore/core/localisation/i_localisation_cubit.dart' as _i56;
+import 'package:dappstore/core/localisation/localisation_cubit.dart' as _i57;
 import 'package:dappstore/core/localisation/store/i_localisation_store.dart'
     as _i22;
 import 'package:dappstore/core/localisation/store/localisation_store.dart'
@@ -28,22 +28,22 @@ import 'package:dappstore/core/platform_channel/platform_channel_cubit.dart'
 import 'package:dappstore/core/router/custom_route_observer.dart' as _i3;
 import 'package:dappstore/core/store/cache_store.dart' as _i9;
 import 'package:dappstore/core/store/i_cache_store.dart' as _i8;
-import 'package:dappstore/core/theme/i_theme_cubit.dart' as _i70;
+import 'package:dappstore/core/theme/i_theme_cubit.dart' as _i68;
 import 'package:dappstore/core/theme/store/i_theme_store.dart' as _i46;
 import 'package:dappstore/core/theme/store/theme_store.dart' as _i47;
-import 'package:dappstore/core/theme/theme_cubit.dart' as _i71;
+import 'package:dappstore/core/theme/theme_cubit.dart' as _i69;
 import 'package:dappstore/features/analytics/handler/analytics_handler.dart'
     as _i51;
 import 'package:dappstore/features/analytics/handler/i_analytics_handler.dart'
     as _i50;
 import 'package:dappstore/features/dapp_info/application/dapp_info_cubit.dart'
-    as _i53;
+    as _i73;
 import 'package:dappstore/features/dapp_info/application/handler/dapp_title_tile_handler.dart'
     as _i13;
 import 'package:dappstore/features/dapp_info/application/handler/i_dapp_title_tile_handler.dart'
     as _i12;
 import 'package:dappstore/features/dapp_info/application/i_dapp_info_cubit.dart'
-    as _i52;
+    as _i72;
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart'
     as _i44;
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/store_cubit.dart'
@@ -53,29 +53,29 @@ import 'package:dappstore/features/dapp_store_home/domain/repositories/i_dapp_li
 import 'package:dappstore/features/dapp_store_home/infrastructure/repositories/dapp_list_repository_impl.dart'
     as _i11;
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/downloader/downloader_cubit.dart'
-    as _i55;
+    as _i53;
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/downloader/i_downloader_cubit.dart'
-    as _i54;
+    as _i52;
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/foreground_service/foreground_service_cubit.dart'
-    as _i57;
+    as _i55;
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/foreground_service/i_foreground_service_cubit.dart'
-    as _i56;
+    as _i54;
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/installer/i_installer_cubit.dart'
     as _i20;
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/installer/installer_cubit.dart'
     as _i21;
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/package_manager.dart/i_package_manager.dart'
-    as _i60;
+    as _i58;
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/package_manager.dart/package_manager_cubit.dart'
-    as _i61;
+    as _i59;
 import 'package:dappstore/features/profile/application/cubit/i_profile_cubit.dart'
     as _i76;
 import 'package:dappstore/features/profile/application/cubit/profile_cubit.dart'
     as _i77;
 import 'package:dappstore/features/profile/infrastructure/repositories/i_profile_repository.dart'
-    as _i62;
+    as _i60;
 import 'package:dappstore/features/profile/infrastructure/repositories/profile_repository.dart'
-    as _i63;
+    as _i61;
 import 'package:dappstore/features/profile/infrastructure/store/i_profile_store.dart'
     as _i28;
 import 'package:dappstore/features/profile/infrastructure/store/profile_store.dart'
@@ -97,25 +97,25 @@ import 'package:dappstore/features/saved_dapps/application/handler/i_saved_dapps
 import 'package:dappstore/features/saved_dapps/application/handler/saved_dapps_handler.dart'
     as _i35;
 import 'package:dappstore/features/saved_dapps/application/i_saved_dapps_cubit.dart'
-    as _i64;
+    as _i62;
 import 'package:dappstore/features/saved_dapps/application/saved_dapps_cubit.dart'
-    as _i65;
+    as _i63;
 import 'package:dappstore/features/saved_pwa/application/handler/i_saved_pwa_page_handler.dart'
     as _i36;
 import 'package:dappstore/features/saved_pwa/application/handler/saved_pwa_page_handler.dart'
     as _i37;
 import 'package:dappstore/features/saved_pwa/application/i_saved_pwa_cubit.dart'
-    as _i66;
+    as _i64;
 import 'package:dappstore/features/saved_pwa/application/saved_pwa_cubit.dart'
-    as _i67;
+    as _i65;
 import 'package:dappstore/features/saved_pwa/infrastructure/store/i_saved_pwa_store.dart'
     as _i38;
 import 'package:dappstore/features/saved_pwa/infrastructure/store/saved_pwa_store.dart'
     as _i39;
 import 'package:dappstore/features/self_update/application/cubit/i_self_update_cubit.dart'
-    as _i68;
+    as _i66;
 import 'package:dappstore/features/self_update/application/cubit/self_update_cubit.dart'
-    as _i69;
+    as _i67;
 import 'package:dappstore/features/self_update/application/handler/i_self_update_handler.dart'
     as _i40;
 import 'package:dappstore/features/self_update/application/handler/self_update_handler.dart'
@@ -125,9 +125,9 @@ import 'package:dappstore/features/self_update/infrastructure/repositories/i_sel
 import 'package:dappstore/features/self_update/infrastructure/repositories/self_update_repository.dart'
     as _i43;
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart'
-    as _i72;
+    as _i70;
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/wallet_connect_cubit.dart'
-    as _i73;
+    as _i71;
 import 'package:dappstore/features/wallet_connect/infrastructure/store/i_wallet_connect_store.dart'
     as _i48;
 import 'package:dappstore/features/wallet_connect/infrastructure/store/wallet_connect_store.dart'
@@ -193,50 +193,52 @@ _i1.GetIt $initGetIt(
       () => _i49.WalletConnectStore(errorLogger: gh<_i14.IErrorLogger>()));
   gh.lazySingleton<_i50.IAnalyticsHandler>(
       () => _i51.AnalyticsHandler(cacheStore: gh<_i8.ICacheStore>()));
-  gh.lazySingleton<_i52.IDappInfoCubit>(
-      () => _i53.DappInfoCubit(storeCubit: gh<_i44.IStoreCubit>()));
-  gh.lazySingleton<_i54.IDownloader>(() => _i55.DownloaderCubit(
+  gh.lazySingleton<_i52.IDownloader>(() => _i53.DownloaderCubit(
         permissionsCubit: gh<_i24.IPermissions>(),
         installerCubit: gh<_i20.IInstallerCubit>(),
       ));
-  gh.lazySingleton<_i56.IForegroundService>(() => _i57.ForegroundService(
+  gh.lazySingleton<_i54.IForegroundService>(() => _i55.ForegroundService(
       platformChannelCubit: gh<_i26.IPlatformChannelCubit>()));
-  gh.lazySingleton<_i58.ILocaleCubit>(
-      () => _i59.LocaleCubit(localisationStore: gh<_i22.ILocalisationStore>()));
-  gh.lazySingleton<_i60.IPackageManager>(() => _i61.PackageManager(
+  gh.lazySingleton<_i56.ILocaleCubit>(
+      () => _i57.LocaleCubit(localisationStore: gh<_i22.ILocalisationStore>()));
+  gh.lazySingleton<_i58.IPackageManager>(() => _i59.PackageManager(
         gh<_i20.IInstallerCubit>(),
-        gh<_i54.IDownloader>(),
-        gh<_i56.IForegroundService>(),
+        gh<_i52.IDownloader>(),
+        gh<_i54.IForegroundService>(),
         gh<_i16.IInstalledAppsCubit>(),
       ));
-  gh.lazySingleton<_i62.IProfileRepo>(() => _i63.ProfileRepoImpl(
+  gh.lazySingleton<_i60.IProfileRepo>(() => _i61.ProfileRepoImpl(
         profileStore: gh<_i28.IProfileStore>(),
         cacheStore: gh<_i8.ICacheStore>(),
       ));
-  gh.lazySingleton<_i64.ISavedDappsCubit>(() => _i65.SavedDappsCubit(
-        packageManager: gh<_i60.IPackageManager>(),
+  gh.lazySingleton<_i62.ISavedDappsCubit>(() => _i63.SavedDappsCubit(
+        packageManager: gh<_i58.IPackageManager>(),
         storeCubit: gh<_i44.IStoreCubit>(),
       ));
-  gh.lazySingleton<_i66.ISavedPwaCubit>(
-      () => _i67.SavedPwaCubit(savedPwaStore: gh<_i38.ISavedPwaStore>()));
-  gh.lazySingleton<_i68.ISelfUpdateCubit>(() => _i69.SelfUpdateCubit(
+  gh.lazySingleton<_i64.ISavedPwaCubit>(
+      () => _i65.SavedPwaCubit(savedPwaStore: gh<_i38.ISavedPwaStore>()));
+  gh.lazySingleton<_i66.ISelfUpdateCubit>(() => _i67.SelfUpdateCubit(
         errorLogger: gh<_i14.IErrorLogger>(),
         selfUpdateRepo: gh<_i42.ISelfUpdateRepo>(),
         installedAppsCubit: gh<_i16.IInstalledAppsCubit>(),
       ));
-  gh.lazySingleton<_i70.IThemeCubit>(
-      () => _i71.ThemeCubit(themeStore: gh<_i46.IThemeStore>()));
-  gh.lazySingleton<_i72.IWalletConnectCubit>(() => _i73.WalletConnectCubit(
+  gh.lazySingleton<_i68.IThemeCubit>(
+      () => _i69.ThemeCubit(themeStore: gh<_i46.IThemeStore>()));
+  gh.lazySingleton<_i70.IWalletConnectCubit>(() => _i71.WalletConnectCubit(
         errorLogger: gh<_i14.IErrorLogger>(),
         wcStore: gh<_i48.IWalletConnectStore>(),
       ));
+  gh.lazySingleton<_i72.IDappInfoCubit>(() => _i73.DappInfoCubit(
+        storeCubit: gh<_i44.IStoreCubit>(),
+        walletConnectCubit: gh<_i70.IWalletConnectCubit>(),
+      ));
   gh.lazySingleton<_i74.IInjectedWeb3Cubit>(() => _i75.InjectedWeb3Cubit(
-        signer: gh<_i72.IWalletConnectCubit>(),
+        signer: gh<_i70.IWalletConnectCubit>(),
         errorLogger: gh<_i14.IErrorLogger>(),
       ));
   gh.lazySingleton<_i76.IProfileCubit>(() => _i77.ProfileCubit(
         errorLogger: gh<_i14.IErrorLogger>(),
-        profileRepo: gh<_i62.IProfileRepo>(),
+        profileRepo: gh<_i60.IProfileRepo>(),
       ));
   return getIt;
 }

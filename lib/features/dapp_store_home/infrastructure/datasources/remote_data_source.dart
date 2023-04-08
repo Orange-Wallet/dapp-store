@@ -214,8 +214,7 @@ class RemoteDataSource implements IDataSource {
         return null;
       }
     } catch (e, stack) {
-      // TODO catch exception
-      log("${e.toString()} : $stack ");
+      errorLogger.logError(e, stack);
     }
     return null;
   }
