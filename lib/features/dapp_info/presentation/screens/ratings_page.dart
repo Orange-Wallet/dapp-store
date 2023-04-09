@@ -26,10 +26,9 @@ class RatingsScreen extends StatelessScreen {
         title: context.getLocale!.ratingsAndReviews,
       ),
       body: ListView.builder(
-        itemCount: 2,
-        // itemCount: ratingsList.length,
+        itemCount: ratingsList.length,
         itemBuilder: ((context, index) {
-          final rating = ratingsList[0];
+          final rating = ratingsList[index];
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: Column(
