@@ -11,4 +11,6 @@ class Routes {
   static const walletConnectScreen = '/walletConnectScreen';
 
   static const savedDappsPage = '/savedDappsPage';
+
+  static const ratingsScreen = '/reatingsScreen';
 }

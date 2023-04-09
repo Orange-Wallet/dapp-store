@@ -114,6 +114,11 @@ class DappListRepoImpl implements IDappListRepo {
   Future<bool> postRating({
     required PostRating ratingData,
   }) async {
+    final dskStatus = await _dataSource.postRatingDsk(ratingData.toDto());
+    if (dskStatus) {
+      final serverStatus = await _dataSource.postRating(ratingData.toDto());
+      return serverStatus;
+    }
     return false;
   }
 
@@ -122,7 +127,12 @@ class DappListRepoImpl implements IDappListRepo {
     required String dappId,
   }) async {
     final dataList = await _localDataSource.getRating(dappId);
-    return dataList.map((e) => e.toDomain()).toList() as List<PostRating>;
+    List<PostRating> ratingList = [];
+    for (var element in dataList) {
+      final domain = element.toDomain();
+      ratingList.add(domain);
+    }
+    return ratingList;
   }
 
   @override
@@ -130,7 +140,11 @@ class DappListRepoImpl implements IDappListRepo {
     required String dappId,
     required String address,
   }) async {
-    final data = await _localDataSource.getUserRating(dappId, address);
-    return data?.toDomain();
+    final data = await _dataSource.getUserRating(dappId, address);
+    if (data != null) {
+      return data.toDomain();
+    } else {
+      return null;
+    }
   }
 }

@@ -161,7 +161,26 @@ class RemoteDataSource implements IDataSource {
   ) async {
     try {
       Response res = await _network.post(
-          path: "${Config.registryApiBaseUrl}/api/v1/dapp/rate",
+          path: "${Config.glApiBaseUrl}/api/v1/dapp/rate",
+          data: ratingData.toJson());
+      if (res.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e, stack) {
+      errorLogger.logError(e, stack);
+    }
+    return false;
+  }
+
+  @override
+  Future<bool> postRatingDsk(
+    PostRatingDto ratingData,
+  ) async {
+    try {
+      Response res = await _network.post(
+          path: "${Config.registryApiBaseUrl}/dapp/rate",
           data: ratingData.toJson());
       if (res.statusCode == 200) {
         return true;
@@ -202,14 +221,17 @@ class RemoteDataSource implements IDataSource {
     String address,
   ) async {
     try {
-      Response res = await _network.get(
-          path: "${Config.registryApiBaseUrl}/api/v1/dapp/rate",
-          queryParams: {
-            "dappId": dappId,
-            "userAddress": address,
-          });
-      if (res.statusCode == 200) {
-        return PostRatingDto.fromJson(res.data);
+      Response res = await _network
+          .get(path: "${Config.glApiBaseUrl}/api/v1/dapp/rate", queryParams: {
+        "dappId": dappId,
+        "userAddress": address,
+      });
+      if ((res.statusCode ?? 400) < 400 && (res.data as Map).isNotEmpty) {
+        final data = PostRatingDto.fromJson(res.data);
+        if (data.rating == null) {
+          return null;
+        }
+        return data;
       } else {
         return null;
       }

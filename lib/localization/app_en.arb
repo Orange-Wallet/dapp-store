@@ -124,8 +124,12 @@
   "checkNetwork": "Plese check your network",
   "softUpdateText": "New update is availbale, download to get the latest features and fixes.",
   "hardUpdateText": "New update is availbale, you need to update dApp store to continue using it",
-  "writeAboutTheApp":"Write about the dapp \n \nI feel the app is...",
-  "shareReview":"Share review",
-  "yourReview":"Your review",
-  "editReview":"Edit review"
+  "writeAboutTheApp": "Write about the dapp \n \nI feel the app is...",
+  "shareReview": "Share review",
+  "yourReview": "Your review",
+  "editReview": "Edit review",
+  "otherReview": "Other review",
+  "downloadDappToReview": "Something went wrong, did you not download/open dApp before posting review?",
+  "reviewPosted": "Review posted.",
+  "ratingsAndReviews": "Ratings and Reviews"
 }

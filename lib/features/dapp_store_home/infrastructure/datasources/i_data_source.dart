@@ -29,4 +29,7 @@ abstract class IDataSource {
   );
   Future<List<PostRatingDto>> getRating(String dappId);
   Future<PostRatingDto?> getUserRating(String dappId, String address);
+  Future<bool> postRatingDsk(
+    PostRatingDto ratingData,
+  );
 }

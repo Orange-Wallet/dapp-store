@@ -49,7 +49,7 @@ class DappInfoHandler implements IDappInfoHandler {
   }
 
   @override
-  postRating(
+  Future<bool> postRating(
     double rating,
     String comment,
     String dappId,
@@ -63,6 +63,6 @@ class DappInfoHandler implements IDappInfoHandler {
       userAddress: walletConnectCubit.getActiveAdddress() ?? "",
       username: profile?.name ?? "",
     );
-    await dappInfoCubit.postUserRating(data: data);
+    return await dappInfoCubit.postUserRating(data: data);
   }
 }

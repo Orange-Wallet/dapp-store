@@ -85,7 +85,7 @@ class DappInfoCubit extends Cubit<DappInfoState> implements IDappInfoCubit {
     if ((ratingStatus)) {
       updateUserRating(data: data);
     }
-    return true;
+    return ratingStatus;
   }
 
   @override
@@ -95,9 +95,12 @@ class DappInfoCubit extends Cubit<DappInfoState> implements IDappInfoCubit {
       PostRating? rating =
           await storeCubit.getUserRating(dappId: dappId, address: userAddress);
       log(rating.toString());
-      emit(state.copyWith(
-        selfRating: rating,
-      ));
+      if (rating != null) {
+        emit(state.copyWith(
+          selfRating: rating,
+        ));
+      }
+
       return rating;
     }
     return null;

@@ -129,25 +129,22 @@ class _DappInfoPageState extends State<DappInfoPage> {
                               ),
                               Column(
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                      10,
-                                      32.0,
-                                      10,
-                                      12,
+                                  if (dappState.dappInfo?.images?.screenshots !=
+                                      null)
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                        10,
+                                        32.0,
+                                        10,
+                                        12,
+                                      ),
+                                      child: ImageCarousel(
+                                        imageUrls: (dappState.dappInfo?.images
+                                                ?.screenshots ??
+                                            []),
+                                        dappInfoHandler: dappInfoHandler,
+                                      ),
                                     ),
-                                    child: ImageCarousel(
-                                      imageUrls: (dappState
-                                              .dappInfo?.images?.screenshots ??
-                                          [
-                                            "https://dummyimage.com/200x800.png",
-                                            "https://dummyimage.com/200x800.png",
-                                            "https://dummyimage.com/200x800.png",
-                                            "https://dummyimage.com/200x800.png",
-                                          ]),
-                                      dappInfoHandler: dappInfoHandler,
-                                    ),
-                                  ),
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         top: 20.0, bottom: 40),
@@ -182,6 +179,7 @@ class _DappInfoPageState extends State<DappInfoPage> {
                             child: RatingCard(
                               handler: dappInfoHandler,
                               theme: theme,
+                              dappInfo: dappState.dappInfo!,
                             ),
                           ),
                           Padding(

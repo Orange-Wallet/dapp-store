@@ -17,5 +17,12 @@ class PostRating with _$PostRating {
   }) = _PostRating;
   factory PostRating.fromJson(Map<String, Object?> json) =>
       _$PostRatingFromJson(json);
-  toDto() => PostRatingDto();
+  toDto() => PostRatingDto(
+        dappId: dappId,
+        rating: rating,
+        comment: comment,
+        userId: userId,
+        username: username,
+        userAddress: userAddress,
+      );
 }

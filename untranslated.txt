@@ -1,1 +1,64 @@
-{}
+{
+  "de": [
+    "otherReview",
+    "downloadDappToReview",
+    "reviewPosted",
+    "ratingsAndReviews"
+  ],
+
+  "es": [
+    "otherReview",
+    "downloadDappToReview",
+    "reviewPosted",
+    "ratingsAndReviews"
+  ],
+
+  "fr": [
+    "otherReview",
+    "downloadDappToReview",
+    "reviewPosted",
+    "ratingsAndReviews"
+  ],
+
+  "it": [
+    "otherReview",
+    "downloadDappToReview",
+    "reviewPosted",
+    "ratingsAndReviews"
+  ],
+
+  "ja": [
+    "otherReview",
+    "downloadDappToReview",
+    "reviewPosted",
+    "ratingsAndReviews"
+  ],
+
+  "ko": [
+    "otherReview",
+    "downloadDappToReview",
+    "reviewPosted",
+    "ratingsAndReviews"
+  ],
+
+  "pl": [
+    "otherReview",
+    "downloadDappToReview",
+    "reviewPosted",
+    "ratingsAndReviews"
+  ],
+
+  "ru": [
+    "otherReview",
+    "downloadDappToReview",
+    "reviewPosted",
+    "ratingsAndReviews"
+  ],
+
+  "zh": [
+    "otherReview",
+    "downloadDappToReview",
+    "reviewPosted",
+    "ratingsAndReviews"
+  ]
+}

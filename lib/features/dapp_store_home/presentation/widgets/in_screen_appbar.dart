@@ -8,6 +8,7 @@ class InScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
   final IThemeSpec themeSpec;
   final String title;
   final emptyBox = const SizedBox();
+  // ignore: prefer_typing_uninitialized_variables
   final actionWidgets;
   const InScreenAppBar(
       {super.key,
