@@ -33,13 +33,16 @@ class DappInfoCubit extends Cubit<DappInfoState> implements IDappInfoCubit {
                 GetDappInfoQueryDto(dappId: storeCubit.state.activeDappId));
       }
     }
-    getRatings(
-      dappId: storeCubit.state.activeDappId!,
-    );
+    if (storeCubit.state.activeDappId != null) {
+      //@abhimanyu121 this part is conflicting
+      getRatings(
+        dappId: storeCubit.state.activeDappId!,
+      );
 
-    getUserRating(
-      dappId: storeCubit.state.activeDappId!,
-    );
+      getUserRating(
+        dappId: storeCubit.state.activeDappId!,
+      );
+    }
   }
 
   @override
@@ -67,7 +70,9 @@ class DappInfoCubit extends Cubit<DappInfoState> implements IDappInfoCubit {
     log(ratings.toString());
     emit(state.copyWith(
       ratings: ratings,
+      loading: false,
     ));
+
     return ratings;
   }
 

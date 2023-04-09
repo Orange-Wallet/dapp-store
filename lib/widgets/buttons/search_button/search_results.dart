@@ -10,6 +10,7 @@ import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_
 import 'package:dappstore/widgets/buttons/search_button/i_search_handler.dart';
 import 'package:dappstore/widgets/dapp/big_dapp_card.dart';
 import 'package:dappstore/widgets/dapp/dapp_list_tile.dart';
+import 'package:dappstore/widgets/loader/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -80,7 +81,8 @@ class _SearchResultState extends State<SearchResult> {
                     return const SizedBox();
                   } else {
                     return Center(
-                      child: CircularProgressIndicator(
+                      child: Loader(
+                        size: 40,
                         color: widget.handler.theme.bodyTextColor,
                       ),
                     );
@@ -99,7 +101,7 @@ class _SearchResultState extends State<SearchResult> {
                             .setActiveDappId(dappId: list[index]!.dappId ?? "");
                         String path = getIt<CustomRouteObserver>().currentPath;
                         if (path.contains(Routes.dappInfo)) {
-                          context.popUntilRoute(DappInfoPage());
+                          context.popUntilRoute(const DappInfoPage());
                           context.popRoute();
                         }
                         context.pushRoute(const DappInfoPage());

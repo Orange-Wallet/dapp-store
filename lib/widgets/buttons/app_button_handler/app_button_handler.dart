@@ -27,7 +27,8 @@ class AppButtonHandler implements IAppButtonHandler {
   @override
   ISavedPwaCubit get savedPwaCubit => getIt<ISavedPwaCubit>();
   @override
-  IDappInfoCubit get dappInfoCubit => getIt<IDappInfoCubit>();
+  IDappInfoCubit get dappInfoCubit => getIt<
+      IDappInfoCubit>(); // @abhimanyu121 this is generating error so added that if check in dappInfoCubit
   @override
   startDownload(DappInfo dappInfo, BuildContext context) async {
     final url = storeCubit.getBuildUrl(

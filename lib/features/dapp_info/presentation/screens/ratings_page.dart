@@ -33,7 +33,7 @@ class RatingsScreen extends StatelessScreen {
             child: Column(
               children: [
                 ReviewTile(
-                  address: rating.userAddress ?? rating.username ?? "",
+                  address: rating.userAddress ?? rating.username ?? "null",
                   theme: theme,
                   name: rating.username ?? "",
                   description: rating.comment ?? "",
