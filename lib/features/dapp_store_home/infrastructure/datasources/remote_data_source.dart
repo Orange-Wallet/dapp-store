@@ -126,7 +126,7 @@ class RemoteDataSource implements IDataSource {
   @override
   BuildUrlDto? getBuildUrl(String dappId, String address) {
     final url =
-        "https://api-a.meroku.store/o/download/$dappId?userAddress=$address";
+        "${Config.registryApiBaseUrl}/o/download/$dappId?userAddress=$address";
 
     return BuildUrlDto.fromJson({"url": url, "success": true});
   }

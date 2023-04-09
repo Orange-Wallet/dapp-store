@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:dappstore/config/config.dart';
 import 'package:dappstore/core/error/i_error_logger.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/store/i_wallet_connect_store.dart';
@@ -41,17 +42,10 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
   initialize() async {
     try {
       signClient = await SignClient.init(
-        projectId: "36f352c5daeb6ed6ae15657366a9df3d",
-        relayUrl: "wss://relay.walletconnect.com",
-        metadata: const AppMetadata(
-          name: 'DappStore_test',
-          description: 'Dapp Store by HTC',
-          url: 'https://htc.com/',
-          icons: [
-            'https://1000logos.net/wp-content/uploads/2021/05/HTC-logo.png'
-          ],
-        ),
-        database: 'memory',
+        projectId: WalletConnectConfig.projectId,
+        relayUrl: WalletConnectConfig.relayUrl,
+        metadata: WalletConnectConfig.metadata,
+        database: WalletConnectConfig.database,
         logger: Logger(level: Level.error),
       );
       log(signClient?.name ?? "error");
