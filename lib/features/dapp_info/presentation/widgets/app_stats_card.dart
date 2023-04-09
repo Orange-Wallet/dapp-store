@@ -40,6 +40,8 @@ class AppStatsCard extends StatelessWidget {
                 RatingBar(
                   initialRating: dappInfo?.metrics?.rating ?? 0,
                   direction: Axis.horizontal,
+                  ignoreGestures: true,
+                  onRatingUpdate: (_) {},
                   allowHalfRating: true,
                   itemCount: 5,
                   itemSize: 20,
@@ -57,7 +59,6 @@ class AppStatsCard extends StatelessWidget {
                       color: theme.unratedGrey,
                     ),
                   ),
-                  onRatingUpdate: (rating) {},
                 ),
               ],
             )

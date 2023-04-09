@@ -7,7 +7,7 @@ import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/in_screen_appbar.dart';
 import 'package:dappstore/features/saved_dapps/application/handler/i_saved_dapps_handler.dart';
 import 'package:dappstore/features/saved_dapps/presentation/widgets/installed_dapps_list.dart';
-import 'package:dappstore/features/saved_pwa/presentation/widgets/saved_dapps_page.dart';
+import 'package:dappstore/features/saved_pwa/presentation/widgets/saved_pwa_page.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable

@@ -18,6 +18,7 @@ import 'package:dappstore/utils/icon_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:random_avatar/random_avatar.dart';
 
 class SettingsDialog extends StatefulWidget {
   final IThemeSpec theme;
@@ -50,8 +51,14 @@ class _SettingsDialogState extends State<SettingsDialog> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              randomAvatar(
+                  getIt<IWalletConnectCubit>().getActiveAdddress().toString(),
+                  height: 50,
+                  width: 50),
+              const SizedBox(
+                width: 12,
+              ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -74,6 +81,7 @@ class _SettingsDialogState extends State<SettingsDialog> {
                   ),
                 ],
               ),
+              const Expanded(child: SizedBox()),
               TextButton(
                   onPressed: () async {
                     await getIt<IWalletConnectCubit>().disconnectAll();

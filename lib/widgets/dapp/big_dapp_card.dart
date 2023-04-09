@@ -185,7 +185,6 @@ class BigDappCard extends StatelessWidget {
                     RatingBar(
                       initialRating: dapp.metrics?.rating ?? 0,
                       direction: Axis.horizontal,
-                      allowHalfRating: true,
                       itemCount: 5,
                       itemSize: 20,
                       ratingWidget: RatingWidget(
@@ -202,7 +201,9 @@ class BigDappCard extends StatelessWidget {
                           color: handler.theme.unratedGrey,
                         ),
                       ),
-                      onRatingUpdate: (rating) {},
+                      ignoreGestures: true,
+                      onRatingUpdate: (_) {},
+                      allowHalfRating: true,
                     ),
                   ],
                 )

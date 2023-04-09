@@ -95,6 +95,9 @@ class _RatingCardState extends State<RatingCard> {
                     ),
                   if (state.selfRating != null)
                     ReviewTile(
+                        address: state.selfRating?.userAddress ??
+                            state.selfRating!.username ??
+                            "",
                         theme: widget.theme,
                         name: state.selfRating!.username ?? "",
                         description: state.selfRating!.comment ?? "",
@@ -139,6 +142,8 @@ class _RatingCardState extends State<RatingCard> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             ReviewTile(
+                              address:
+                                  rating.userAddress ?? rating.username ?? "",
                               name: rating.username ?? "",
                               description: rating.comment ?? "",
                               rating: rating.rating ?? 0,

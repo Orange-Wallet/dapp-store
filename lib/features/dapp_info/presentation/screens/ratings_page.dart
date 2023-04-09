@@ -5,7 +5,6 @@ import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:dappstore/features/dapp_info/presentation/widgets/review_tile.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/post_rating.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/in_screen_appbar.dart';
-import 'package:dappstore/widgets/white_gradient_line.dart';
 import 'package:flutter/material.dart';
 
 class RatingsScreen extends StatelessScreen {
@@ -34,6 +33,7 @@ class RatingsScreen extends StatelessScreen {
             child: Column(
               children: [
                 ReviewTile(
+                  address: rating.userAddress ?? rating.username ?? "",
                   theme: theme,
                   name: rating.username ?? "",
                   description: rating.comment ?? "",

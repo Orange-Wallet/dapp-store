@@ -1,9 +1,10 @@
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
-import 'package:dappstore/widgets/image_widgets/image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:random_avatar/random_avatar.dart';
 
 class ReviewTile extends StatelessWidget {
+  final String address;
   final String name;
   final String description;
   final int rating;
@@ -11,6 +12,7 @@ class ReviewTile extends StatelessWidget {
 
   const ReviewTile(
       {super.key,
+      required this.address,
       required this.name,
       required this.description,
       required this.rating,
@@ -28,13 +30,9 @@ class ReviewTile extends StatelessWidget {
             Expanded(
               child: Row(
                 children: [
-                  const ImageWidgetCached(
-                    "https://avatars.githubusercontent.com/u/82613752?s=200&v=4",
-                    height: 15,
-                    width: 15,
-                  ),
+                  randomAvatar(address, height: 30, width: 30),
                   const SizedBox(
-                    width: 6,
+                    width: 12,
                   ),
                   Text(
                     name,
