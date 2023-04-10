@@ -25,7 +25,7 @@ class RemoteDataSource implements IDataSource {
   }) async {
     try {
       Response res = await _network.get(
-          path: "${Config.registryApiBaseUrl}/dapp",
+          path: "${Config.glApiBaseUrl}/api/v1/dapp",
           queryParams: queryParams?.toJson());
 
       return DappListDto.fromJson(res.data);
@@ -93,12 +93,12 @@ class RemoteDataSource implements IDataSource {
 
     try {
       Response res = await _network.get(
-          path: "${Config.registryApiBaseUrl}/dapp",
-          queryParams: GetDappQueryDto(limit: 20).toJson()
-          // path: "${Config.glApiBaseUrl}/api/v1/categories/categorydapps",
-          // queryParams:
-          //     GetDappQueryDto(limit: 20, categories: [category]).toJson(),
-          );
+        // path: "${Config.registryApiBaseUrl}/dapp",
+        // queryParams: GetDappQueryDto(limit: 20).toJson()
+        path: "${Config.glApiBaseUrl}/api/v1/categories/categorydapps",
+        queryParams:
+            GetDappQueryDto(limit: 20, categories: [category]).toJson(),
+      );
 
       return DappListDto.fromJson(res.data);
     } catch (e, stack) {

@@ -2,6 +2,7 @@ import 'package:dappstore/core/application/init/store.dart';
 import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/core/error/i_error_logger.dart';
 import 'package:dappstore/core/localisation/i_localisation_cubit.dart';
+import 'package:dappstore/core/permissions/i_permissions_cubit.dart';
 import 'package:dappstore/core/store/i_cache_store.dart';
 import 'package:dappstore/core/theme/i_theme_cubit.dart';
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/downloader/i_downloader_cubit.dart';
@@ -27,8 +28,8 @@ Future<void> initialise() async {
 
   await getIt<IPackageManager>().init();
 
-  // await getIt<IPermissions>().requestNotificationPermission();
-  // await getIt<IPermissions>().requestStoragePermission();
+  await getIt<IPermissions>().requestNotificationPermission();
+  await getIt<IPermissions>().requestStoragePermission();
   // await getIt<IPermissions>().requestAppInstallationPermission();
   await getIt<IDownloader>().initializeStorageDir();
   await getIt<ISavedDappsCubit>().initialise();

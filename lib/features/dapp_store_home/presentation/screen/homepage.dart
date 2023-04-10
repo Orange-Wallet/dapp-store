@@ -93,16 +93,14 @@ class _HomePageState extends State<HomePage> {
     return BlocListener<IPermissions, PermissionsState>(
       bloc: permissions,
       listenWhen: (previous, current) =>
-          previous.appInstallation != current.appInstallation ||
-          previous.notificationPermission != current.notificationPermission ||
-          previous.storagePermission != current.storagePermission,
-      listener: (context, state) {
-        if (state.storagePermission != PermissionStatus.granted) {
-          permissions.requestStoragePermission();
-        }
-        if (state.notificationPermission != PermissionStatus.granted) {
-          permissions.requestNotificationPermission();
-        }
+          previous.appInstallation != current.appInstallation,
+      listener: (context, state) async {
+        // if (state.storagePermission != PermissionStatus.granted) {
+        //   await permissions.requestStoragePermission();
+        // }
+        // if (state.notificationPermission != PermissionStatus.granted) {
+        //   await permissions.requestNotificationPermission();
+        // }
         if (!isShowingDialog &&
             state.appInstallation != PermissionStatus.granted) {
           setState(() {
