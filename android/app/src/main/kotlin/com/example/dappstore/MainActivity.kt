@@ -1,4 +1,4 @@
-package com.dappstore.htc
+package com.htc.dappstore
 
 import android.content.Intent
 import android.util.Log
