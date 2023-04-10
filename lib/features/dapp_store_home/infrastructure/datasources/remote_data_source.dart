@@ -136,12 +136,15 @@ class RemoteDataSource implements IDataSource {
       List<String> packageIds) async {
     try {
       Response res = await _network.get(
-          path: "${Config.registryApiBaseUrl}/api/v1/dapp/queryWithPackageId",
-          queryParams: {"packageId": packageIds});
+        path:
+            "${Config.glApiBaseUrl}/api/v1/dapp/queryWithPackageId?packages= ${packageIds.join(",")}",
+      );
       final data = res.data["response"] as Map<String, dynamic>;
       final Map<String, DappInfo> mapping = {};
       data.forEach((key, value) {
-        mapping[key] = DappInfo.fromJson(value);
+        if (value != null) {
+          mapping[key] = DappInfo.fromJson(value);
+        }
       });
       return mapping;
     } catch (e, stack) {

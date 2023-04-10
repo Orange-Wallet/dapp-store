@@ -125,8 +125,11 @@ class _CustomizableAppButtonState extends State<CustomizableAppButton> {
                     child: widget.installWidget,
                   );
                 } else {
-                  if ((Version.parse(package?.versionName ?? "0.0.0")) <
-                      (Version.parse(dappInfo.version ?? "0.0.0"))) {
+                  final installedVersion =
+                      Version.parse(package?.versionName ?? "0.0.0");
+                  final availableVersion =
+                      Version.parse(dappInfo.version ?? "0.0.0");
+                  if (installedVersion < availableVersion) {
                     return InkWell(
                       onTap: () {
                         if (widget.customDownloadFunction != null) {
