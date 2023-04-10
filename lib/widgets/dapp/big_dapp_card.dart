@@ -24,7 +24,7 @@ class BigDappCard extends StatelessWidget {
       height: 30,
       width: 84,
       decoration: BoxDecoration(
-        color: theme.appGreen,
+        color: theme.blue,
         shape: BoxShape.rectangle,
         borderRadius: BorderRadius.all(
           Radius.circular(
