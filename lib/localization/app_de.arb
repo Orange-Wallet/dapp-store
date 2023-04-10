@@ -131,5 +131,8 @@
   "otherReview": "Andere Bewertung",
   "downloadDappToReview": "Etwas ist schief gelaufen. Hast du die dApp nicht heruntergeladen/geöffnet, bevor du eine Bewertung abgegeben hast?",
   "reviewPosted": "Bewertung veröffentlicht.",
-  "ratingsAndReviews": "Bewertungen und Rezensionen"
+  "ratingsAndReviews": "Bewertungen und Rezensionen",
+  "allowAppInstall": "Installationsberechtigung erlauben",
+  "allowAppInstallDesc": "Erlaube dappstore, Apps auf diesem Gerät zu installieren",
+  "goToSettings": "Zu den Einstellungen gehen"
 }

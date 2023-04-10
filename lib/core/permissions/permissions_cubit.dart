@@ -4,15 +4,24 @@ import 'package:dappstore/core/permissions/i_permissions_cubit.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:injectable/injectable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:permission_handler/permission_handler.dart';
+
 part '../../generated/core/permissions/permissions_cubit.freezed.dart';
 part 'permissions_state.dart';
 
 @LazySingleton(as: IPermissions)
 class Permissions extends Cubit<PermissionsState> implements IPermissions {
   Permissions() : super(PermissionsState.initial());
+
+  @override
+  checkAllPermissions() async {
+    await checkStoragePermission();
+    await checkAppInstallationPermissions();
+    await checkNotificationPermission();
+  }
+
   @override
   Future<PermissionStatus> checkStoragePermission() async {
     if (Platform.isAndroid) {
@@ -42,7 +51,7 @@ class Permissions extends Cubit<PermissionsState> implements IPermissions {
   @override
   Future<PermissionStatus> checkNotificationPermission() async {
     final status = await Permission.notification.status;
-    emit(state.copyWith(storagePermission: status));
+    emit(state.copyWith(notificationPermission: status));
     return status;
   }
 
@@ -56,7 +65,7 @@ class Permissions extends Cubit<PermissionsState> implements IPermissions {
   @override
   Future<PermissionStatus> requestNotificationPermission() async {
     final result = await Permission.notification.request();
-    emit(state.copyWith(storagePermission: result));
+    emit(state.copyWith(notificationPermission: result));
     return result;
   }
 

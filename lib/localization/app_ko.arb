@@ -131,5 +131,8 @@
   "otherReview": "다른 리뷰",
   "downloadDappToReview": "문제가 발생했습니다. 리뷰를 게시하기 전에 dApp을 다운로드/열지 않으셨나요?",
   "reviewPosted": "리뷰가 게시되었습니다.",
-  "ratingsAndReviews": "평가 및 리뷰"
+  "ratingsAndReviews": "평가 및 리뷰",
+  "allowAppInstall": "설치 권한 허용",
+  "allowAppInstallDesc": "이 장치에 dappstore가 앱을 설치할 수 있도록 허용합니다",
+  "goToSettings": "설정으로 이동"
 }
