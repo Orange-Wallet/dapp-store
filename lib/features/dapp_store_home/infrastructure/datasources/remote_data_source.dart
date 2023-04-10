@@ -202,7 +202,7 @@ class RemoteDataSource implements IDataSource {
   ) async {
     try {
       Response res = await _network.get(
-          path: "${Config.registryApiBaseUrl}/api/v1/dapp/rate",
+          path: "${Config.glApiBaseUrl}/api/v1/dapp/rate",
           queryParams: {"dappId": dappId});
       final data = [];
       if (res.statusCode == 200) {
