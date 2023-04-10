@@ -16,7 +16,7 @@ part '../../../../generated/features/dapp_store_home/application/store_cubit/sto
 part 'store_state.dart';
 
 @LazySingleton(as: IStoreCubit)
-class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
+class StoreCubit extends HydratedCubit<StoreState> implements IStoreCubit {
   @override
   IDappListRepo dappListRepo;
   StoreCubit({required this.dappListRepo}) : super(StoreState.initial());
@@ -260,5 +260,17 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
     final PostRating? ratingList =
         await dappListRepo.getUserRating(dappId: dappId, address: address);
     return ratingList;
+  }
+
+  @override
+  StoreState? fromJson(Map<String, dynamic> json) {
+    final storedState = StoreState.fromJson(json);
+    emit(storedState);
+    return storedState;
+  }
+
+  @override
+  Map<String, dynamic>? toJson(StoreState state) {
+    return state.toJson();
   }
 }

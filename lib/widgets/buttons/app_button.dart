@@ -208,7 +208,9 @@ class _AppButtonState extends State<AppButton> {
                 );
               } else if ((packageInfo?.installed ?? false) &&
                   (Version.parse(packageInfo?.versionName ?? "0.0.0")) <
-                      Version.parse(widget.dappInfo.version ?? "0.0.0")) {
+                      Version.parse(
+                          widget.dappInfo.version?.replaceAll("v", "") ??
+                              "0.0.0")) {
                 return SizedBox(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,

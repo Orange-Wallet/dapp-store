@@ -170,10 +170,16 @@ class DappTitleTile extends StatelessWidget {
               ),
             );
           } else {
-            final installedVersion = Version.parse(
-                state.packageMapping![dappInfo.packageId]?.versionName ??
-                    "0.0.0");
-            final availableVersion = Version.parse(dappInfo.version ?? "0.0.0");
+            var installedVersion = Version.parse("0.0.0");
+
+            var availableVersion = Version.parse("0.0.0");
+
+            try {
+              installedVersion = Version.parse(package?.versionName ?? "0.0.0");
+              availableVersion = Version.parse(
+                  dappInfo.version?.replaceAll("v", "") ?? "0.0.0");
+            } catch (_) {}
+
             if (installedVersion < availableVersion) {
               return Column(
                 children: [
