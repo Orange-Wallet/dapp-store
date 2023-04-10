@@ -80,7 +80,7 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
         viveInstalled = false;
       }
     });
-    cubit.getPreviouslyConnectedSession();
+    // cubit.getPreviouslyConnectedSession();
     super.didChangeDependencies();
   }
 
@@ -97,7 +97,6 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
             previous.failureSign != current.failureSign,
         listener: (context, state) async {
           if (state.connected && state.signVerified) {
-            profileHandler.getProfile(address: state.activeAddress!);
             context.replaceRoute(const HomePage());
           }
         },
@@ -287,7 +286,7 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                       state.failureConnection ||
                       !state.signVerified))
                 TextButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (!state.connected || state.failureConnection) {
                       cubit.getConnectRequest(["eip155:137", "eip155:1"]);
                     } else {

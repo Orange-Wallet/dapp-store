@@ -21,7 +21,10 @@ Future<void> initialise() async {
     getIt<ISavedPwaCubit>().initialise();
     getIt<ICacheStore>().initialise();
   });
+
+  // WC initialise
   await getIt<IWalletConnectCubit>().initialize();
+  await getIt<IWalletConnectCubit>().getPreviouslyConnectedSession();
 
   await getIt<IPackageManager>().init();
 
@@ -30,6 +33,4 @@ Future<void> initialise() async {
   await getIt<IPermissions>().requestAppInstallationPermission();
   await getIt<IDownloader>().initializeStorageDir();
   await getIt<ISavedDappsCubit>().initialise();
-  // await getIt<WalletConnectCubit>().initialize();
-  // Initialize the app dependencies
 }
