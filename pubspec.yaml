@@ -67,6 +67,7 @@ dependencies:
   flutter_phoenix: 1.1.0
   internet_connection_checker: ^1.0.0+1
   random_avatar: ^0.0.7
+  version: ^3.0.2
 
 # dependency_overrides:
   # stream_channel: ^2.1.1 

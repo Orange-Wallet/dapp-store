@@ -7,7 +7,6 @@ import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_sto
 import 'package:dappstore/features/dapp_store_home/domain/entities/post_rating.dart';
 import 'package:dappstore/features/profile/application/cubit/i_profile_cubit.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
-import 'package:dappstore/features/wallet_connect/infrastructure/cubit/wallet_connect_cubit.dart';
 import 'package:dappstore/widgets/bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 

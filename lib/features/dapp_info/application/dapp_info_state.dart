@@ -11,7 +11,7 @@ class DappInfoState with _$DappInfoState {
   }) = _DappInfoState;
 
   factory DappInfoState.initial() =>
-      const _DappInfoState(loading: false, ratings: []);
+      const _DappInfoState(loading: true, ratings: []);
 
   factory DappInfoState.fromJson(Map<String, dynamic> json) =>
       _$DappInfoStateFromJson(json);

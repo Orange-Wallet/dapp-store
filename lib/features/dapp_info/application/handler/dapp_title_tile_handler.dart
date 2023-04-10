@@ -26,8 +26,6 @@ class DappTitleTileHandler implements IDappTitleTileHandler {
   IWalletConnectCubit get walletConnectCubit => getIt<IWalletConnectCubit>();
   @override
   ISavedPwaCubit get savedPwaCubit => getIt<ISavedPwaCubit>();
-  @override
-  IDappInfoCubit get dappInfoCubit => getIt<IDappInfoCubit>();
 
   @override
   startDownload(DappInfo dappInfo, BuildContext context) async {

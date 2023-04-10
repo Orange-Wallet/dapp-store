@@ -13,7 +13,6 @@ abstract class IAppButtonHandler {
   IStoreCubit get storeCubit;
   IWalletConnectCubit get walletConnectCubit;
   ISavedPwaCubit get savedPwaCubit;
-  IDappInfoCubit get dappInfoCubit;
 
   startDownload(DappInfo dappInfo, BuildContext context);
 

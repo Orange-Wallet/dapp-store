@@ -1,8 +1,6 @@
 import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
-import 'package:dappstore/features/dapp_info/application/dapp_info_cubit.dart';
-import 'package:dappstore/features/dapp_info/application/i_dapp_info_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/package_manager.dart/i_package_manager.dart';
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/package_manager.dart/package_manager_cubit.dart';
@@ -47,261 +45,240 @@ class AppButton extends StatefulWidget {
 class _AppButtonState extends State<AppButton> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<IDappInfoCubit, DappInfoState>(
-        bloc: widget.appButtonHandler.dappInfoCubit,
-        buildWhen: ((previous, current) => true),
-        builder: (context, state) {
-          return BlocBuilder<ISavedPwaCubit, SavedPwaState>(
-              bloc: widget.appButtonHandler.savedPwaCubit,
-              buildWhen: (previous, current) {
-                return previous.savedDapps[widget.dappInfo.dappId!] !=
-                    current.savedDapps[widget.dappInfo.dappId!];
-              },
-              builder: (BuildContext context, savedPwaState) {
-                final savedDapp =
-                    savedPwaState.savedDapps[widget.dappInfo.dappId];
-                return BlocBuilder<IPackageManager, PackageManagerState>(
-                  bloc: widget.packageManager,
-                  buildWhen: (previous, current) {
-                    return (previous
-                                .packageMapping![widget.dappInfo.packageId!] !=
-                            current
-                                .packageMapping![widget.dappInfo.packageId!] ||
-                        previous.packageMapping![widget.dappInfo.packageId!]
-                                ?.status !=
-                            current.packageMapping![widget.dappInfo.packageId!]
-                                ?.status ||
-                        previous.packageMapping![widget.dappInfo.packageId!]
-                                ?.progress !=
-                            current.packageMapping![widget.dappInfo.packageId!]
-                                ?.progress ||
-                        previous.packageMapping![widget.dappInfo.packageId!]
-                                ?.installing !=
-                            current.packageMapping![widget.dappInfo.packageId!]
-                                ?.installing);
+    return BlocBuilder<ISavedPwaCubit, SavedPwaState>(
+        bloc: widget.appButtonHandler.savedPwaCubit,
+        buildWhen: (previous, current) {
+          return previous.savedDapps[widget.dappInfo.dappId!] !=
+              current.savedDapps[widget.dappInfo.dappId!];
+        },
+        builder: (BuildContext context, savedPwaState) {
+          final savedDapp = savedPwaState.savedDapps[widget.dappInfo.dappId];
+          return BlocBuilder<IPackageManager, PackageManagerState>(
+            bloc: widget.packageManager,
+            buildWhen: (previous, current) {
+              return (previous.packageMapping![widget.dappInfo.packageId!] !=
+                      current.packageMapping![widget.dappInfo.packageId!] ||
+                  previous.packageMapping![widget.dappInfo.packageId!]
+                          ?.status !=
+                      current.packageMapping![widget.dappInfo.packageId!]
+                          ?.status ||
+                  previous.packageMapping![widget.dappInfo.packageId!]
+                          ?.progress !=
+                      current.packageMapping![widget.dappInfo.packageId!]
+                          ?.progress ||
+                  previous.packageMapping![widget.dappInfo.packageId!]
+                          ?.installing !=
+                      current.packageMapping![widget.dappInfo.packageId!]
+                          ?.installing);
+            },
+            builder: (context, state) {
+              final packageInfo = state.packageMapping![
+                  widget.dappInfo.packageId ?? widget.dappInfo.dappId];
+              if (((packageInfo?.status == DownloadTaskStatus.enqueued) ||
+                      (packageInfo?.status == DownloadTaskStatus.running) ||
+                      (packageInfo?.progress != 100 &&
+                          packageInfo?.progress != null)) &&
+                  !(packageInfo?.status == DownloadTaskStatus.failed ||
+                      packageInfo?.status == DownloadTaskStatus.undefined)) {
+                return CircularProgressIndicator.adaptive(
+                  backgroundColor: widget.theme.greyBlue,
+                  valueColor: AlwaysStoppedAnimation<Color>(widget.theme.blue),
+                );
+              } else if (packageInfo?.status == DownloadTaskStatus.complete &&
+                  (packageInfo?.installing ?? false)) {
+                return CustomElevatedButton(
+                  onTap: () {},
+                  color: widget.theme.ratingGrey,
+                  radius: widget.radius,
+                  width: widget.width,
+                  height: widget.height,
+                  child: Text(
+                    context.getLocale!.installing,
+                    style: widget.theme.normalTextStyle,
+                  ),
+                );
+              } else if (!(packageInfo?.installed ?? false) &&
+                  (widget.dappInfo.availableOnPlatform?.contains("android") ??
+                      false) &&
+                  (widget.dappInfo.packageId != null)) {
+                return CustomElevatedButton(
+                  onTap: () {
+                    widget.appButtonHandler
+                        .startDownload(widget.dappInfo, context);
                   },
-                  builder: (context, state) {
-                    final packageInfo = state.packageMapping![
-                        widget.dappInfo.packageId ?? widget.dappInfo.dappId];
-                    if (((packageInfo?.status == DownloadTaskStatus.enqueued) ||
-                            (packageInfo?.status ==
-                                DownloadTaskStatus.running) ||
-                            (packageInfo?.progress != 100 &&
-                                packageInfo?.progress != null)) &&
-                        !(packageInfo?.status == DownloadTaskStatus.failed ||
-                            packageInfo?.status ==
-                                DownloadTaskStatus.undefined)) {
-                      return CircularProgressIndicator.adaptive(
-                        backgroundColor: widget.theme.greyBlue,
-                        valueColor:
-                            AlwaysStoppedAnimation<Color>(widget.theme.blue),
-                      );
-                    } else if (packageInfo?.status ==
-                            DownloadTaskStatus.complete &&
-                        (packageInfo?.installing ?? false)) {
-                      return CustomElevatedButton(
-                        onTap: () {},
-                        color: widget.theme.ratingGrey,
-                        radius: widget.radius,
-                        width: widget.width,
-                        height: widget.height,
-                        child: Text(
-                          context.getLocale!.installing,
-                          style: widget.theme.normalTextStyle,
-                        ),
-                      );
-                    } else if (!(packageInfo?.installed ?? false) &&
-                        (widget.dappInfo.availableOnPlatform
-                                ?.contains("android") ??
-                            false) &&
-                        (widget.dappInfo.packageId != null)) {
-                      return CustomElevatedButton(
-                        onTap: () {
-                          widget.appButtonHandler
-                              .startDownload(widget.dappInfo, context);
-                        },
-                        color: widget.theme.blue,
-                        radius: widget.radius,
-                        width: widget.width,
-                        height: widget.height,
-                        child: Text(
-                          context.getLocale!.download,
-                          style: widget.theme.normalTextStyle,
-                        ),
-                      );
-                    } else if (!(widget.dappInfo.availableOnPlatform
-                            ?.contains("android") ??
-                        false)) {
-                      return SizedBox(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            if (widget.showSecondary)
-                              savedDapp == null
-                                  ? Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: SizedBox(
-                                        width: widget.width,
-                                        height: widget.height,
-                                        child: TextButton(
-                                          onPressed: () {
-                                            widget.appButtonHandler
-                                                .saveDapp(widget.dappInfo);
-                                          },
-                                          style: TextButton.styleFrom(
-                                            // foregroundColor: theme.appGreen,
-                                            backgroundColor: Colors.transparent,
-                                            // shadowColor: theme.appGreen,
-                                            // surfaceTintColor: theme.appGreen,
-                                            shape: RoundedRectangleBorder(
-                                              side: BorderSide(
-                                                color: widget.theme.appGreen,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                widget.radius,
-                                              ),
-                                            ),
-                                          ),
-                                          child: Text(
-                                            context.getLocale!.save,
-                                            style: widget.theme.redButtonText
-                                                .copyWith(
-                                                    color:
-                                                        widget.theme.appGreen),
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  : Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: SizedBox(
-                                        width: widget.width,
-                                        height: widget.height,
-                                        child: TextButton(
-                                          onPressed: () {
-                                            widget.appButtonHandler
-                                                .unsaveDapp(widget.dappInfo);
-                                          },
-                                          style: TextButton.styleFrom(
-                                            foregroundColor:
-                                                widget.theme.buttonRed,
-                                            backgroundColor: Colors.black,
-                                            surfaceTintColor:
-                                                widget.theme.buttonRed,
-                                            shape: RoundedRectangleBorder(
-                                              side: BorderSide(
-                                                color: widget.theme.buttonRed,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                widget.radius,
-                                              ),
-                                            ),
-                                          ),
-                                          child: Text(
-                                            context.getLocale!.remove,
-                                            style: widget.theme.redButtonText,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                            if (widget.showPrimary)
-                              CustomElevatedButton(
-                                onTap: () {
-                                  widget.appButtonHandler
-                                      .openPwaApp(context, widget.dappInfo);
-                                },
-                                color: widget.theme.blue,
-                                radius: widget.radius,
-                                width: widget.width,
-                                height: widget.height,
-                                child: Text(
-                                  context.getLocale!.openDapp,
-                                  style: widget.theme.normalTextStyle,
-                                ),
-                              )
-                          ],
-                        ),
-                      );
-                    } else if ((packageInfo?.installed ?? false) &&
-                        (packageInfo?.versionCode ?? 0) <
-                            (double.tryParse(widget.dappInfo.version ?? "0") ??
-                                0)) {
-                      return SizedBox(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            if (widget.showSecondary)
-                              SizedBox(
-                                width: widget.width,
-                                height: widget.height,
-                                child: TextButton(
+                  color: widget.theme.blue,
+                  radius: widget.radius,
+                  width: widget.width,
+                  height: widget.height,
+                  child: Text(
+                    context.getLocale!.download,
+                    style: widget.theme.normalTextStyle,
+                  ),
+                );
+              } else if (!(widget.dappInfo.availableOnPlatform
+                      ?.contains("android") ??
+                  false)) {
+                return SizedBox(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      if (widget.showSecondary)
+                        savedDapp == null
+                            ? Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SizedBox(
+                                  width: widget.width,
+                                  height: widget.height,
+                                  child: TextButton(
                                     onPressed: () {
-                                      widget.appButtonHandler.startDownload(
-                                          widget.dappInfo, context);
+                                      widget.appButtonHandler
+                                          .saveDapp(widget.dappInfo);
                                     },
                                     style: TextButton.styleFrom(
-                                      foregroundColor: widget.theme.buttonBlue,
+                                      // foregroundColor: theme.appGreen,
                                       backgroundColor: Colors.transparent,
+                                      // shadowColor: theme.appGreen,
+                                      // surfaceTintColor: theme.appGreen,
                                       shape: RoundedRectangleBorder(
                                         side: BorderSide(
-                                            color: widget.theme.buttonBlue),
+                                          color: widget.theme.appGreen,
+                                        ),
                                         borderRadius: BorderRadius.circular(
                                           widget.radius,
                                         ),
                                       ),
                                     ),
-                                    child: Center(
-                                      child: Text(
-                                        context.getLocale!.update,
-                                        style: widget.theme.normalTextStyle
-                                            .copyWith(
-                                          color: widget.theme.buttonBlue,
-                                        ),
-                                      ),
-                                    )),
-                              ),
-                            if (widget.showPrimary)
-                              Padding(
+                                    child: Text(
+                                      context.getLocale!.save,
+                                      style: widget.theme.redButtonText
+                                          .copyWith(
+                                              color: widget.theme.appGreen),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: CustomElevatedButton(
-                                  onTap: () {
-                                    widget.appButtonHandler
-                                        .openApp(widget.dappInfo);
-                                  },
-                                  color: widget.theme.blue,
-                                  radius: widget.radius,
+                                child: SizedBox(
                                   width: widget.width,
                                   height: widget.height,
-                                  child: Text(
-                                    context.getLocale!.open,
-                                    style: widget.theme.normalTextStyle,
+                                  child: TextButton(
+                                    onPressed: () {
+                                      widget.appButtonHandler
+                                          .unsaveDapp(widget.dappInfo);
+                                    },
+                                    style: TextButton.styleFrom(
+                                      foregroundColor: widget.theme.buttonRed,
+                                      backgroundColor: Colors.black,
+                                      surfaceTintColor: widget.theme.buttonRed,
+                                      shape: RoundedRectangleBorder(
+                                        side: BorderSide(
+                                          color: widget.theme.buttonRed,
+                                        ),
+                                        borderRadius: BorderRadius.circular(
+                                          widget.radius,
+                                        ),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      context.getLocale!.remove,
+                                      style: widget.theme.redButtonText,
+                                    ),
                                   ),
                                 ),
                               ),
-                          ],
-                        ),
-                      );
-                    } else if (packageInfo?.installed ?? false) {
-                      return CustomElevatedButton(
-                        onTap: () {
-                          widget.appButtonHandler.openApp(widget.dappInfo);
-                        },
-                        color: widget.theme.blue,
-                        radius: widget.radius,
-                        width: widget.width,
-                        height: widget.height,
-                        child: Text(
-                          context.getLocale!.openDapp,
-                          style: widget.theme.normalTextStyle,
-                        ),
-                      );
-                    }
-                    return const SizedBox();
-                  },
+                      if (widget.showPrimary)
+                        CustomElevatedButton(
+                          onTap: () {
+                            widget.appButtonHandler
+                                .openPwaApp(context, widget.dappInfo);
+                          },
+                          color: widget.theme.blue,
+                          radius: widget.radius,
+                          width: widget.width,
+                          height: widget.height,
+                          child: Text(
+                            context.getLocale!.openDapp,
+                            style: widget.theme.normalTextStyle,
+                          ),
+                        )
+                    ],
+                  ),
                 );
-              });
+              } else if ((packageInfo?.installed ?? false) &&
+                  (packageInfo?.versionCode ?? 0) <
+                      (double.tryParse(widget.dappInfo.version ?? "0") ?? 0)) {
+                return SizedBox(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      if (widget.showSecondary)
+                        SizedBox(
+                          width: widget.width,
+                          height: widget.height,
+                          child: TextButton(
+                              onPressed: () {
+                                widget.appButtonHandler
+                                    .startDownload(widget.dappInfo, context);
+                              },
+                              style: TextButton.styleFrom(
+                                foregroundColor: widget.theme.buttonBlue,
+                                backgroundColor: Colors.transparent,
+                                shape: RoundedRectangleBorder(
+                                  side: BorderSide(
+                                      color: widget.theme.buttonBlue),
+                                  borderRadius: BorderRadius.circular(
+                                    widget.radius,
+                                  ),
+                                ),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  context.getLocale!.update,
+                                  style: widget.theme.normalTextStyle.copyWith(
+                                    color: widget.theme.buttonBlue,
+                                  ),
+                                ),
+                              )),
+                        ),
+                      if (widget.showPrimary)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CustomElevatedButton(
+                            onTap: () {
+                              widget.appButtonHandler.openApp(widget.dappInfo);
+                            },
+                            color: widget.theme.blue,
+                            radius: widget.radius,
+                            width: widget.width,
+                            height: widget.height,
+                            child: Text(
+                              context.getLocale!.open,
+                              style: widget.theme.normalTextStyle,
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                );
+              } else if (packageInfo?.installed ?? false) {
+                return CustomElevatedButton(
+                  onTap: () {
+                    widget.appButtonHandler.openApp(widget.dappInfo);
+                  },
+                  color: widget.theme.blue,
+                  radius: widget.radius,
+                  width: widget.width,
+                  height: widget.height,
+                  child: Text(
+                    context.getLocale!.openDapp,
+                    style: widget.theme.normalTextStyle,
+                  ),
+                );
+              }
+              return const SizedBox();
+            },
+          );
         });
   }
 }
