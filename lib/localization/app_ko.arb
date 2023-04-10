@@ -57,56 +57,56 @@
   "and": "및",
   "connectWith": "연결",
   "firstName": "이름",
-  "lastName":"성",
-"profile": "프로필",
-"wallets": "지갑",
-"edit": "편집",
-"addWallet": "지갑 추가",
-"settings": "설정",
-"privacyPolicy": "개인정보 처리방침",
-"connectWithOthers": "다른 지갑과 연결",
-"sendingTxFail": "전송 실패",
-"signingFailed": "서명 실패",
-"methodNotSupported": "지원되지 않는 메소드",
-"chainNotSupported": "지원되지 않는 체인",
-"remove": "제거",
-"showMore": "더 보기",
-"showLess": "간략히 보기",
-"welcomeToHTC": "HTC dApp 스토어에 오신 것을 환영합니다",
-"signMessage": "메시지 서명",
-"savedPwa": "저장된 dApps",
-"noDappsSaved": "저장된 dApp이 없습니다",
-"dappsReadyToUpdate": "dApps 업데이트가 준비되었습니다",
-"updateYourDapps": "최신 기능을 즐기려면 dApps를 업데이트하세요",
-"youHave": "소유한 dApps 수",
-"webDapps": "웹 dApps",
-"manageDapps": "dApps 관리",
-"installedDapps": "설치된 dApps",
-"pwas": "PWAs",
-"installedDappWithNumber": "설치된 dApps({number})",
-"@installedDappWithNumber": {
-"placeholders": {
-"number": {
-"type": "int"
-}
-}
-},
-"savedPwasWithNumber": "저장된 PWA dApps({number})",
-"@savedPwasWithNumber": {
-"placeholders": {
-"number": {
-"type": "int"
-}
-}
-},
-"noDappsInstalled": "설치된 dApp이 없습니다",
-"youWillReceivetwo": "지갑에 2개의 요청이 도착합니다. 하나는 지갑 연결을 위한 것이고, 다른 하나는 메시지 서명을 위한 것입니다. 서명에는 무료로 트랜잭션이 전송되지 않습니다.",
-"confirmThatYouAreOwner": "지갑으로 돌아가서 메시지에 서명하여 이 지갑의 소유자임을 확인하십시오",
-"connectUsignAnyWalletConnect": "Wallet Connect를 사용하여 지원되는 어떤 지갑이든 연결하십시오",
-"goBackToWallet": "지갑으로 돌아가서 메시지에 서명하십시오",
-"approveRequest": "요청 승인",
-"approveRequestSubtitle": "요청 내용을 확인한 후 지갑을 열어 요청에 서명하십시오",
-"ohno": "오, 아이고!",
+  "lastName": "성",
+  "profile": "프로필",
+  "wallets": "지갑",
+  "edit": "편집",
+  "addWallet": "지갑 추가",
+  "settings": "설정",
+  "privacyPolicy": "개인정보 처리방침",
+  "connectWithOthers": "다른 지갑과 연결",
+  "sendingTxFail": "전송 실패",
+  "signingFailed": "서명 실패",
+  "methodNotSupported": "지원되지 않는 메소드",
+  "chainNotSupported": "지원되지 않는 체인",
+  "remove": "제거",
+  "showMore": "더 보기",
+  "showLess": "간략히 보기",
+  "welcomeToHTC": "HTC dApp 스토어에 오신 것을 환영합니다",
+  "signMessage": "메시지 서명",
+  "savedPwa": "저장된 dApps",
+  "noDappsSaved": "저장된 dApp이 없습니다",
+  "dappsReadyToUpdate": "dApps 업데이트가 준비되었습니다",
+  "updateYourDapps": "최신 기능을 즐기려면 dApps를 업데이트하세요",
+  "youHave": "소유한 dApps 수",
+  "webDapps": "웹 dApps",
+  "manageDapps": "dApps 관리",
+  "installedDapps": "설치된 dApps",
+  "pwas": "PWAs",
+  "installedDappWithNumber": "설치된 dApps({number})",
+  "@installedDappWithNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "savedPwasWithNumber": "저장된 PWA dApps({number})",
+  "@savedPwasWithNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "noDappsInstalled": "설치된 dApp이 없습니다",
+  "youWillReceivetwo": "지갑에 2개의 요청이 도착합니다. 하나는 지갑 연결을 위한 것이고, 다른 하나는 메시지 서명을 위한 것입니다. 서명에는 무료로 트랜잭션이 전송되지 않습니다.",
+  "confirmThatYouAreOwner": "지갑으로 돌아가서 메시지에 서명하여 이 지갑의 소유자임을 확인하십시오",
+  "connectUsignAnyWalletConnect": "Wallet Connect를 사용하여 지원되는 어떤 지갑이든 연결하십시오",
+  "goBackToWallet": "지갑으로 돌아가서 메시지에 서명하십시오",
+  "approveRequest": "요청 승인",
+  "approveRequestSubtitle": "요청 내용을 확인한 후 지갑을 열어 요청에 서명하십시오",
+  "ohno": "오, 아이고!",
   "chainNotSupportedPopup": "요청한 체인은 현재 지원되지 않습니다.",
   "seeInstalledDapps": "설치된 모든 dApp 보기",
   "deepDive": "Web3 세상에 깊이 빠져들다.",
@@ -127,5 +127,9 @@
   "writeAboutTheApp": "dApp에 대해 작성하세요.\n\n이 앱에 대해 느끼는 바는...",
   "shareReview": "리뷰 공유",
   "yourReview": "리뷰 작성",
-  "editReview": "리뷰 편집"
+  "editReview": "리뷰 편집",
+  "otherReview": "다른 리뷰",
+  "downloadDappToReview": "문제가 발생했습니다. 리뷰를 게시하기 전에 dApp을 다운로드/열지 않으셨나요?",
+  "reviewPosted": "리뷰가 게시되었습니다.",
+  "ratingsAndReviews": "평가 및 리뷰"
 }

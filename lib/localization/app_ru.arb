@@ -55,58 +55,58 @@
   "viveWallet": "Vive Wallet",
   "byContinuing": "Продолжая, вы соглашаетесь",
   "and": "и",
-"connectWith": "Подключиться с",
-"firstName": "Имя",
-"lastName": "Фамилия",
-"profile": "Профиль",
-"wallets": "Кошельки",
-"edit": "Редактировать",
-"addWallet": "Добавить кошелек",
-"settings": "Настройки",
-"privacyPolicy": "Политика конфиденциальности",
-"connectWithOthers": "Подключиться с другими",
-"sendingTxFail": "Ошибка отправки",
-"signingFailed": "Ошибка подписания",
-"methodNotSupported": "Метод не поддерживается",
-"chainNotSupported": "Сеть не поддерживается",
-"remove": "Удалить",
-"showMore": "Показать еще",
-"showLess": "Показать меньше",
-"welcomeToHTC": "Добро пожаловать в магазин dApp HTC",
-"signMessage": "Подписать сообщение",
-"savedPwa": "Сохраненные dApp",
-"noDappsSaved": "Нет сохраненных dApp",
-"dappsReadyToUpdate": "dApp готовы к обновлению",
-"updateYourDapps": "Чтобы использовать последние функции, обновите свои dApp",
-"youHave": "У вас есть",
-"webDapps": "dApp веб-сайтов",
-"manageDapps": "Управление dApp",
-"installedDapps": "Установленные dApp",
-"pwas": "PWAs",
-"installedDappWithNumber": "Установленные dApp ({number})",
-"@installedDappWithNumber": {
-"placeholders": {
-"number": {
-"type": "int"
-}
-}
-},
-"savedPwasWithNumber": "Сохраненные PWA dApp ({number})",
-"@savedPwasWithNumber": {
-"placeholders": {
-"number": {
-"type": "int"
-}
-}
-},
-"noDappsInstalled": "Нет установленных dApp",
-"youWillReceivetwo": "Вы получите два запроса. Один для подключения к кошельку, второй для подписания сообщения. Подписание не включает оплату транзакций.",
-"confirmThatYouAreOwner": "Вернитесь в кошелек и подпишите сообщение, чтобы подтвердить, что вы владелец этого кошелька",
-"connectUsignAnyWalletConnect": "Подключитесь с помощью любого кошелька, поддерживающего Wallet Connect",
-"goBackToWallet": "Вернитесь в кошелек и подпишите сообщение",
-"approveRequest": "Подтвердите запрос",
-"approveRequestSubtitle": "После проверки содержимого запроса откройте кошелек и подпишите его",
-"ohno": "О нет!",
+  "connectWith": "Подключиться с",
+  "firstName": "Имя",
+  "lastName": "Фамилия",
+  "profile": "Профиль",
+  "wallets": "Кошельки",
+  "edit": "Редактировать",
+  "addWallet": "Добавить кошелек",
+  "settings": "Настройки",
+  "privacyPolicy": "Политика конфиденциальности",
+  "connectWithOthers": "Подключиться с другими",
+  "sendingTxFail": "Ошибка отправки",
+  "signingFailed": "Ошибка подписания",
+  "methodNotSupported": "Метод не поддерживается",
+  "chainNotSupported": "Сеть не поддерживается",
+  "remove": "Удалить",
+  "showMore": "Показать еще",
+  "showLess": "Показать меньше",
+  "welcomeToHTC": "Добро пожаловать в магазин dApp HTC",
+  "signMessage": "Подписать сообщение",
+  "savedPwa": "Сохраненные dApp",
+  "noDappsSaved": "Нет сохраненных dApp",
+  "dappsReadyToUpdate": "dApp готовы к обновлению",
+  "updateYourDapps": "Чтобы использовать последние функции, обновите свои dApp",
+  "youHave": "У вас есть",
+  "webDapps": "dApp веб-сайтов",
+  "manageDapps": "Управление dApp",
+  "installedDapps": "Установленные dApp",
+  "pwas": "PWAs",
+  "installedDappWithNumber": "Установленные dApp ({number})",
+  "@installedDappWithNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "savedPwasWithNumber": "Сохраненные PWA dApp ({number})",
+  "@savedPwasWithNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "noDappsInstalled": "Нет установленных dApp",
+  "youWillReceivetwo": "Вы получите два запроса. Один для подключения к кошельку, второй для подписания сообщения. Подписание не включает оплату транзакций.",
+  "confirmThatYouAreOwner": "Вернитесь в кошелек и подпишите сообщение, чтобы подтвердить, что вы владелец этого кошелька",
+  "connectUsignAnyWalletConnect": "Подключитесь с помощью любого кошелька, поддерживающего Wallet Connect",
+  "goBackToWallet": "Вернитесь в кошелек и подпишите сообщение",
+  "approveRequest": "Подтвердите запрос",
+  "approveRequestSubtitle": "После проверки содержимого запроса откройте кошелек и подпишите его",
+  "ohno": "О нет!",
   "chainNotSupportedPopup": "Выбранный цепочка в данный момент не поддерживается.",
   "seeInstalledDapps": "Посмотреть все установленные dApp.",
   "deepDive": "Погружение в мир Web3.",
@@ -127,5 +127,9 @@
   "writeAboutTheApp": "Напишите о dApp.\n\nЯ считаю, что приложение...",
   "shareReview": "Поделиться отзывом",
   "yourReview": "Ваш отзыв",
-  "editReview": "Изменить отзыв"
+  "editReview": "Изменить отзыв",
+  "otherReview": "Другой обзор",
+  "downloadDappToReview": "Что-то пошло не так. Вы не загружали/не открывали dApp перед тем, как оставить отзыв?",
+  "reviewPosted": "Отзыв опубликован.",
+  "ratingsAndReviews": "Рейтинги и отзывы"
 }

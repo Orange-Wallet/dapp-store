@@ -58,55 +58,55 @@
   "connectWith": "接続する",
   "firstName": "名",
   "lastName": "姓",
-"profile": "プロフィール",
-"wallets": "ウォレット",
-"edit": "編集",
-"addWallet": "ウォレットを追加",
-"settings": "設定",
-"privacyPolicy": "プライバシーポリシー",
-"connectWithOthers": "他のウォレットと接続",
-"sendingTxFail": "送信エラー",
-"signingFailed": "署名に失敗しました",
-"methodNotSupported": "メソッドがサポートされていません",
-"chainNotSupported": "チェーンがサポートされていません",
-"remove": "削除",
-"showMore": "もっと表示",
-"showLess": "表示を減らす",
-"welcomeToHTC": "HTC dAppストアへようこそ",
-"signMessage": "メッセージに署名",
-"savedPwa": "保存されたdApps",
-"noDappsSaved": "保存されたdAppはありません",
-"dappsReadyToUpdate": "dAppsのアップデートが準備されています",
-"updateYourDapps": "最新の機能を楽しむためにdAppsをアップデートしてください",
-"youHave": "所有数",
-"webDapps": "Web dApps",
-"manageDapps": "dAppsの管理",
-"installedDapps": "インストール済み",
-"pwas": "PWAs",
-"installedDappWithNumber": "インストール済みのdApps({number})",
-"@installedDappWithNumber": {
-"placeholders": {
-"number": {
-"type": "int"
-}
-}
-},
-"savedPwasWithNumber": "保存されたPWA dApps({number})",
-"@savedPwasWithNumber": {
-"placeholders": {
-"number": {
-"type": "int"
-}
-}
-},
-"noDappsInstalled": "インストールされたdAppはありません",
-"youWillReceivetwo": "ウォレットに2つのリクエストが届きます。1つはウォレットの接続のため、もう1つはメッセージに署名するためです。署名には無料でトランザクションは送信されません",
-"confirmThatYouAreOwner": "ウォレットに戻り、メッセージに署名してこのウォレットの所有者であることを確認してください",
-"connectUsignAnyWalletConnect": "Wallet Connectでサポートされた任意のウォレットを使用して接続",
-"goBackToWallet": "ウォレットに戻り、メッセージに署名してください",
-"approveRequest": "リクエストを承認",
-"approveRequestSubtitle": "詳細を確認した後、ウォレットを開き、リクエストに署名してください",
-"ohno": "あら、困りました！",
+  "profile": "プロフィール",
+  "wallets": "ウォレット",
+  "edit": "編集",
+  "addWallet": "ウォレットを追加",
+  "settings": "設定",
+  "privacyPolicy": "プライバシーポリシー",
+  "connectWithOthers": "他のウォレットと接続",
+  "sendingTxFail": "送信エラー",
+  "signingFailed": "署名に失敗しました",
+  "methodNotSupported": "メソッドがサポートされていません",
+  "chainNotSupported": "チェーンがサポートされていません",
+  "remove": "削除",
+  "showMore": "もっと表示",
+  "showLess": "表示を減らす",
+  "welcomeToHTC": "HTC dAppストアへようこそ",
+  "signMessage": "メッセージに署名",
+  "savedPwa": "保存されたdApps",
+  "noDappsSaved": "保存されたdAppはありません",
+  "dappsReadyToUpdate": "dAppsのアップデートが準備されています",
+  "updateYourDapps": "最新の機能を楽しむためにdAppsをアップデートしてください",
+  "youHave": "所有数",
+  "webDapps": "Web dApps",
+  "manageDapps": "dAppsの管理",
+  "installedDapps": "インストール済み",
+  "pwas": "PWAs",
+  "installedDappWithNumber": "インストール済みのdApps({number})",
+  "@installedDappWithNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "savedPwasWithNumber": "保存されたPWA dApps({number})",
+  "@savedPwasWithNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "noDappsInstalled": "インストールされたdAppはありません",
+  "youWillReceivetwo": "ウォレットに2つのリクエストが届きます。1つはウォレットの接続のため、もう1つはメッセージに署名するためです。署名には無料でトランザクションは送信されません",
+  "confirmThatYouAreOwner": "ウォレットに戻り、メッセージに署名してこのウォレットの所有者であることを確認してください",
+  "connectUsignAnyWalletConnect": "Wallet Connectでサポートされた任意のウォレットを使用して接続",
+  "goBackToWallet": "ウォレットに戻り、メッセージに署名してください",
+  "approveRequest": "リクエストを承認",
+  "approveRequestSubtitle": "詳細を確認した後、ウォレットを開き、リクエストに署名してください",
+  "ohno": "あら、困りました！",
   "chainNotSupportedPopup": "リクエストされたチェーンは現在サポートされていません。",
   "seeInstalledDapps": "インストールされたすべてのdAppを表示する",
   "deepDive": "Web3の世界に深く潜入する",
@@ -127,5 +127,9 @@
   "writeAboutTheApp": "dAppについて書く\n\nこのアプリは...",
   "shareReview": "レビューを共有する",
   "yourReview": "あなたのレビュー",
-  "editReview": "レビューを編集する"
+  "editReview": "レビューを編集する",
+  "otherReview": "他のレビュー",
+  "downloadDappToReview": "何かがうまくいかなかったですね。レビューを投稿する前に、dAppをダウンロード/開いていないのではありませんか？",
+  "reviewPosted": "レビューが投稿されました。",
+  "ratingsAndReviews": "評価とレビュー"
 }

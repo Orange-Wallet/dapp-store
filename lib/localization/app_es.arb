@@ -107,7 +107,7 @@
   "approveRequest": "Aprobar Solicitud",
   "approveRequestSubtitle": "Por favor, abre tu cartera y firma la solicitud después de revisar todos los detalles.",
   "ohno": "¡Oh no!",
- "chainNotSupportedPopup": "La cadena solicitada no es compatible en este momento.",
+  "chainNotSupportedPopup": "La cadena solicitada no es compatible en este momento.",
   "seeInstalledDapps": "Ver todas las dapps instaladas.",
   "deepDive": "Sumérgete en el mundo de Web3.",
   "noWallet": "Sin cartera",
@@ -127,7 +127,9 @@
   "writeAboutTheApp": "Escribe acerca de la dApp \n \nSiento que la aplicación es...",
   "shareReview": "Compartir reseña",
   "yourReview": "Tu reseña",
-  "editReview": "Editar reseña"
+  "editReview": "Editar reseña",
+  "otherReview": "Otra reseña",
+  "downloadDappToReview": "Algo salió mal, ¿no descargaste/abriste la dApp antes de publicar la reseña?",
+  "reviewPosted": "Reseña publicada.",
+  "ratingsAndReviews": "Calificaciones y reseñas"
 }
-
-

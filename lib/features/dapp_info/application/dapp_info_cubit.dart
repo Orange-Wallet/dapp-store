@@ -14,7 +14,6 @@ part '../../../generated/features/dapp_info/application/dapp_info_cubit.freezed.
 part '../../../generated/features/dapp_info/application/dapp_info_cubit.g.dart';
 part 'dapp_info_state.dart';
 
-@LazySingleton(as: IDappInfoCubit)
 class DappInfoCubit extends Cubit<DappInfoState> implements IDappInfoCubit {
   final IStoreCubit storeCubit;
   final IWalletConnectCubit walletConnectCubit;

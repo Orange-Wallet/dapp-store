@@ -74,7 +74,11 @@ class _AppButtonState extends State<AppButton> {
                         previous.packageMapping![widget.dappInfo.packageId!]
                                 ?.progress !=
                             current.packageMapping![widget.dappInfo.packageId!]
-                                ?.progress);
+                                ?.progress ||
+                        previous.packageMapping![widget.dappInfo.packageId!]
+                                ?.installing !=
+                            current.packageMapping![widget.dappInfo.packageId!]
+                                ?.installing);
                   },
                   builder: (context, state) {
                     final packageInfo = state.packageMapping![

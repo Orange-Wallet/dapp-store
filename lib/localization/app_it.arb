@@ -58,55 +58,55 @@
   "connectWith": "Connetti con",
   "firstName": "Nome",
   "lastName": "Cognome",
-"profile": "Profilo",
-"wallets": "Portafogli",
-"edit": "Modifica",
-"addWallet": "Aggiungi Wallet",
-"settings": "Impostazioni",
-"privacyPolicy": "Politica sulla Privacy",
-"connectWithOthers": "Connetti con altri wallet",
-"sendingTxFail": "Invio della transazione fallito.",
-"signingFailed": "Firma fallita.",
-"methodNotSupported": "Metodo non supportato.",
-"chainNotSupported": "Chain non supportata.",
-"remove": "Rimuovi",
-"showMore": "Mostra di più",
-"showLess": "Mostra di meno",
-"welcomeToHTC": "Benvenuto nell'HTC dApp Store",
-"signMessage": "Firma Messaggio",
-"savedPwa": "dApp Salvate",
-"noDappsSaved": "Nessuna dApp salvata",
-"dappsReadyToUpdate": "dApps sono pronte per l'aggiornamento.",
-"updateYourDapps": "Aggiorna le tue dApps per godere di tutte le ultime funzionalità.",
-"youHave": "Hai",
-"webDapps": "dApp Web",
-"manageDapps": "Gestisci dApps",
-"installedDapps": "Installate",
-"pwas": "PWAs",
-"installedDappWithNumber": "dApps Installate ({number})",
-"@installedDappWithNumber": {
-"placeholders": {
-"number": {
-"type": "int"
-}
-}
-},
-"savedPwasWithNumber": "PWA dApps Salvate ({number})",
-"@savedPwasWithNumber": {
-"placeholders": {
-"number": {
-"type": "int"
-}
-}
-},
-"noDappsInstalled": "Nessuna dApp installata.",
-"youWillReceivetwo": "Riceverai due richieste nel tuo wallet. Una per connettere il wallet e un'altra per firmare un messaggio, la firma è gratuita e non invierà una transazione.",
-"confirmThatYouAreOwner": "Torna al wallet e firma un messaggio per confermare che sei il proprietario di questo wallet.",
-"connectUsignAnyWalletConnect": "Connetti usando qualsiasi wallet supportato da Wallet Connect",
-"goBackToWallet": "Torna al wallet per firmare un messaggio",
-"approveRequest": "Approva Richiesta",
-"approveRequestSubtitle": "Apri il tuo wallet e firma la richiesta dopo aver verificato tutti i dettagli.",
-"ohno": "Oh no!",
+  "profile": "Profilo",
+  "wallets": "Portafogli",
+  "edit": "Modifica",
+  "addWallet": "Aggiungi Wallet",
+  "settings": "Impostazioni",
+  "privacyPolicy": "Politica sulla Privacy",
+  "connectWithOthers": "Connetti con altri wallet",
+  "sendingTxFail": "Invio della transazione fallito.",
+  "signingFailed": "Firma fallita.",
+  "methodNotSupported": "Metodo non supportato.",
+  "chainNotSupported": "Chain non supportata.",
+  "remove": "Rimuovi",
+  "showMore": "Mostra di più",
+  "showLess": "Mostra di meno",
+  "welcomeToHTC": "Benvenuto nell'HTC dApp Store",
+  "signMessage": "Firma Messaggio",
+  "savedPwa": "dApp Salvate",
+  "noDappsSaved": "Nessuna dApp salvata",
+  "dappsReadyToUpdate": "dApps sono pronte per l'aggiornamento.",
+  "updateYourDapps": "Aggiorna le tue dApps per godere di tutte le ultime funzionalità.",
+  "youHave": "Hai",
+  "webDapps": "dApp Web",
+  "manageDapps": "Gestisci dApps",
+  "installedDapps": "Installate",
+  "pwas": "PWAs",
+  "installedDappWithNumber": "dApps Installate ({number})",
+  "@installedDappWithNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "savedPwasWithNumber": "PWA dApps Salvate ({number})",
+  "@savedPwasWithNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "noDappsInstalled": "Nessuna dApp installata.",
+  "youWillReceivetwo": "Riceverai due richieste nel tuo wallet. Una per connettere il wallet e un'altra per firmare un messaggio, la firma è gratuita e non invierà una transazione.",
+  "confirmThatYouAreOwner": "Torna al wallet e firma un messaggio per confermare che sei il proprietario di questo wallet.",
+  "connectUsignAnyWalletConnect": "Connetti usando qualsiasi wallet supportato da Wallet Connect",
+  "goBackToWallet": "Torna al wallet per firmare un messaggio",
+  "approveRequest": "Approva Richiesta",
+  "approveRequestSubtitle": "Apri il tuo wallet e firma la richiesta dopo aver verificato tutti i dettagli.",
+  "ohno": "Oh no!",
   "chainNotSupportedPopup": "La catena richiesta non è supportata al momento.",
   "seeInstalledDapps": "Visualizza tutte le dApp installate.",
   "deepDive": "Approfondisci il mondo di Web3.",
@@ -127,5 +127,9 @@
   "writeAboutTheApp": "Scrivi sulla dApp \n \nPenso che l'app sia...",
   "shareReview": "Condividi recensione",
   "yourReview": "La tua recensione",
-  "editReview": "Modifica recensione"
+  "editReview": "Modifica recensione",
+  "otherReview": "Altra recensione",
+  "downloadDappToReview": "Qualcosa è andato storto, non hai scaricato/aperto la dApp prima di pubblicare la recensione?",
+  "reviewPosted": "Recensione pubblicata.",
+  "ratingsAndReviews": "Valutazioni e recensioni"
 }

@@ -36,14 +36,10 @@ import 'package:dappstore/features/analytics/handler/analytics_handler.dart'
     as _i51;
 import 'package:dappstore/features/analytics/handler/i_analytics_handler.dart'
     as _i50;
-import 'package:dappstore/features/dapp_info/application/dapp_info_cubit.dart'
-    as _i73;
 import 'package:dappstore/features/dapp_info/application/handler/dapp_title_tile_handler.dart'
     as _i13;
 import 'package:dappstore/features/dapp_info/application/handler/i_dapp_title_tile_handler.dart'
     as _i12;
-import 'package:dappstore/features/dapp_info/application/i_dapp_info_cubit.dart'
-    as _i72;
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart'
     as _i44;
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/store_cubit.dart'
@@ -69,9 +65,9 @@ import 'package:dappstore/features/download_and_installer/infrastructure/reposit
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/package_manager.dart/package_manager_cubit.dart'
     as _i59;
 import 'package:dappstore/features/profile/application/cubit/i_profile_cubit.dart'
-    as _i76;
+    as _i74;
 import 'package:dappstore/features/profile/application/cubit/profile_cubit.dart'
-    as _i77;
+    as _i75;
 import 'package:dappstore/features/profile/infrastructure/repositories/i_profile_repository.dart'
     as _i60;
 import 'package:dappstore/features/profile/infrastructure/repositories/profile_repository.dart'
@@ -85,9 +81,9 @@ import 'package:dappstore/features/pwa_webwiew/application/handler/i_pwa_webview
 import 'package:dappstore/features/pwa_webwiew/application/handler/pwa_webview_handler.dart'
     as _i33;
 import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/i_injected_web3_cubit.dart'
-    as _i74;
+    as _i72;
 import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/injected_web3_cubit.dart'
-    as _i75;
+    as _i73;
 import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/i_pwa_webview_cubit.dart'
     as _i30;
 import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/pwa_webview_cubit.dart'
@@ -228,15 +224,11 @@ _i1.GetIt $initGetIt(
         errorLogger: gh<_i14.IErrorLogger>(),
         wcStore: gh<_i48.IWalletConnectStore>(),
       ));
-  gh.lazySingleton<_i72.IDappInfoCubit>(() => _i73.DappInfoCubit(
-        storeCubit: gh<_i44.IStoreCubit>(),
-        walletConnectCubit: gh<_i70.IWalletConnectCubit>(),
-      ));
-  gh.lazySingleton<_i74.IInjectedWeb3Cubit>(() => _i75.InjectedWeb3Cubit(
+  gh.lazySingleton<_i72.IInjectedWeb3Cubit>(() => _i73.InjectedWeb3Cubit(
         signer: gh<_i70.IWalletConnectCubit>(),
         errorLogger: gh<_i14.IErrorLogger>(),
       ));
-  gh.lazySingleton<_i76.IProfileCubit>(() => _i77.ProfileCubit(
+  gh.lazySingleton<_i74.IProfileCubit>(() => _i75.ProfileCubit(
         errorLogger: gh<_i14.IErrorLogger>(),
         profileRepo: gh<_i60.IProfileRepo>(),
       ));

@@ -58,55 +58,55 @@
   "connectWith": "Se connecter avec",
   "firstName": "Prénom",
   "lastName": "Nom de famille",
-"profile": "Profil",
-"wallets": "Portefeuilles",
-"edit": "Modifier",
-"addWallet": "Ajouter un portefeuille",
-"settings": "Paramètres",
-"privacyPolicy": "Politique de confidentialité",
-"connectWithOthers": "Se connecter avec un autre portefeuille",
-"sendingTxFail": "Échec de l'envoi de la transaction.",
-"signingFailed": "Échec de la signature.",
-"methodNotSupported": "Méthode non prise en charge.",
-"chainNotSupported": "Chaîne non prise en charge.",
-"remove": "Supprimer",
-"showMore": "Afficher plus",
-"showLess": "Afficher moins",
-"welcomeToHTC": "Bienvenue dans la boutique d'apps HTC",
-"signMessage": "Signer un message",
-"savedPwa": "Apps enregistrées",
-"noDappsSaved": "Aucune app enregistrée",
-"dappsReadyToUpdate": "Les apps sont prêtes à être mises à jour.",
-"updateYourDapps": "Mettez à jour vos apps pour profiter de toutes les dernières fonctionnalités.",
-"youHave": "Vous avez",
-"webDapps": "Apps web",
-"manageDapps": "Gérer les apps",
-"installedDapps": "Installées",
-"pwas": "PWAs",
-"installedDappWithNumber": "Apps installées ({number})",
-"@installedDappWithNumber": {
-"placeholders": {
-"number": {
-"type": "int"
-}
-}
-},
-"savedPwasWithNumber": "Apps PWA ({number})",
-"@savedPwasWithNumber": {
-"placeholders": {
-"number": {
-"type": "int"
-}
-}
-},
-"noDappsInstalled": "Aucune app installée.",
-"youWillReceivetwo": "Vous recevrez deux demandes dans votre portefeuille. Une pour connecter le portefeuille et une autre pour signer un message. La signature est gratuite et n'enverra pas de transaction.",
-"confirmThatYouAreOwner": "Retournez dans le portefeuille et signez un message pour confirmer que vous êtes le propriétaire de ce portefeuille.",
-"connectUsignAnyWalletConnect": "Se connecter en utilisant n'importe quel portefeuille compatible avec Wallet Connect",
-"goBackToWallet": "Retourner au portefeuille pour signer un message",
-"approveRequest": "Approuver la demande",
-"approveRequestSubtitle": "Veuillez ouvrir votre portefeuille et signer la demande après avoir vérifié tous les détails.",
-"ohno": "Oh non !",
+  "profile": "Profil",
+  "wallets": "Portefeuilles",
+  "edit": "Modifier",
+  "addWallet": "Ajouter un portefeuille",
+  "settings": "Paramètres",
+  "privacyPolicy": "Politique de confidentialité",
+  "connectWithOthers": "Se connecter avec un autre portefeuille",
+  "sendingTxFail": "Échec de l'envoi de la transaction.",
+  "signingFailed": "Échec de la signature.",
+  "methodNotSupported": "Méthode non prise en charge.",
+  "chainNotSupported": "Chaîne non prise en charge.",
+  "remove": "Supprimer",
+  "showMore": "Afficher plus",
+  "showLess": "Afficher moins",
+  "welcomeToHTC": "Bienvenue dans la boutique d'apps HTC",
+  "signMessage": "Signer un message",
+  "savedPwa": "Apps enregistrées",
+  "noDappsSaved": "Aucune app enregistrée",
+  "dappsReadyToUpdate": "Les apps sont prêtes à être mises à jour.",
+  "updateYourDapps": "Mettez à jour vos apps pour profiter de toutes les dernières fonctionnalités.",
+  "youHave": "Vous avez",
+  "webDapps": "Apps web",
+  "manageDapps": "Gérer les apps",
+  "installedDapps": "Installées",
+  "pwas": "PWAs",
+  "installedDappWithNumber": "Apps installées ({number})",
+  "@installedDappWithNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "savedPwasWithNumber": "Apps PWA ({number})",
+  "@savedPwasWithNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "noDappsInstalled": "Aucune app installée.",
+  "youWillReceivetwo": "Vous recevrez deux demandes dans votre portefeuille. Une pour connecter le portefeuille et une autre pour signer un message. La signature est gratuite et n'enverra pas de transaction.",
+  "confirmThatYouAreOwner": "Retournez dans le portefeuille et signez un message pour confirmer que vous êtes le propriétaire de ce portefeuille.",
+  "connectUsignAnyWalletConnect": "Se connecter en utilisant n'importe quel portefeuille compatible avec Wallet Connect",
+  "goBackToWallet": "Retourner au portefeuille pour signer un message",
+  "approveRequest": "Approuver la demande",
+  "approveRequestSubtitle": "Veuillez ouvrir votre portefeuille et signer la demande après avoir vérifié tous les détails.",
+  "ohno": "Oh non !",
   "chainNotSupportedPopup": "La chaîne demandée n'est pas prise en charge pour le moment.",
   "seeInstalledDapps": "Voir toutes les dApps installées.",
   "deepDive": "Plongez dans le monde de Web3.",
@@ -127,5 +127,9 @@
   "writeAboutTheApp": "Écrire à propos de la dApp \n \nJe pense que l'application est...",
   "shareReview": "Partager un avis",
   "yourReview": "Votre avis",
-  "editReview": "Modifier l'avis"
+  "editReview": "Modifier l'avis",
+  "otherReview": "Autre avis",
+  "downloadDappToReview": "Quelque chose s'est mal passé, n'avez-vous pas téléchargé/ouvert la dApp avant de publier un avis ?",
+  "reviewPosted": "Avis publié.",
+  "ratingsAndReviews": "Évaluations et avis"
 }
