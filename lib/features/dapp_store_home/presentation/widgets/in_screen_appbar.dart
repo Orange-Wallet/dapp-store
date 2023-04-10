@@ -31,17 +31,24 @@ class InScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
           color: themeSpec.whiteColor,
         ),
       ),
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          emptyBox,
-          Text(
-            title,
-            style: themeSpec.secondaryTitleTextStyle,
-          ),
-          emptyBox,
-          emptyBox,
-        ],
+      title: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.6,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            emptyBox,
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.5,
+              child: Text(
+                title,
+                style: themeSpec.secondaryTitleTextStyle,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            emptyBox,
+            emptyBox,
+          ],
+        ),
       ),
       actions: [...actionWidgets],
       bottom: const WhiteGradientLine(),

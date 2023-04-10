@@ -22,10 +22,13 @@ class DappInfoCubit extends Cubit<DappInfoState> implements IDappInfoCubit {
   }) : super(DappInfoState.initial()) {
     final dappInfo = storeCubit.getActiveDappInfo;
     if (dappInfo != null) {
-      emit(state.copyWith(
+      emit(
+        state.copyWith(
           activeDappId: storeCubit.state.activeDappId,
           dappInfo: dappInfo,
-          loading: false));
+          loading: false,
+        ),
+      );
     } else {
       if (storeCubit.state.activeDappId != null) {
         getDappInfo(
@@ -63,8 +66,6 @@ class DappInfoCubit extends Cubit<DappInfoState> implements IDappInfoCubit {
 
   @override
   Future<List<PostRating>> getRatings({required String dappId}) async {
-    emit(state.copyWith(loading: true));
-
     List<PostRating> ratings = await storeCubit.getRating(dappId: dappId);
     log(ratings.toString());
     emit(state.copyWith(
