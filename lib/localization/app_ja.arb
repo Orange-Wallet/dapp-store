@@ -131,5 +131,8 @@
   "otherReview": "他のレビュー",
   "downloadDappToReview": "何かがうまくいかなかったですね。レビューを投稿する前に、dAppをダウンロード/開いていないのではありませんか？",
   "reviewPosted": "レビューが投稿されました。",
-  "ratingsAndReviews": "評価とレビュー"
+  "ratingsAndReviews": "評価とレビュー",
+  "allowAppInstall": "インストールの許可",
+  "allowAppInstallDesc": "このデバイスに対してdappstoreにアプリのインストールを許可する",
+  "goToSettings": "設定に移動する"
 }

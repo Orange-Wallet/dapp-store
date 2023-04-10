@@ -131,5 +131,8 @@
   "otherReview": "Другой обзор",
   "downloadDappToReview": "Что-то пошло не так. Вы не загружали/не открывали dApp перед тем, как оставить отзыв?",
   "reviewPosted": "Отзыв опубликован.",
-  "ratingsAndReviews": "Рейтинги и отзывы"
+  "ratingsAndReviews": "Рейтинги и отзывы",
+  "allowAppInstall": "Разрешить разрешение на установку",
+  "allowAppInstallDesc": "Разрешить dappstore устанавливать приложения на этом устройстве",
+  "goToSettings": "Перейти в настройки"
 }

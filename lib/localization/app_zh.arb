@@ -131,5 +131,8 @@
   "otherReview": "其他评论",
   "downloadDappToReview": "出了点问题，您在发布评论前是否没有下载/打开dApp？",
   "reviewPosted": "评论已发布。",
-  "ratingsAndReviews": "评分和评论"
+  "ratingsAndReviews": "评分和评论",
+   "allowAppInstall": "允许安装权限",
+  "allowAppInstallDesc": "允许dappstore在此设备上安装应用程序",
+  "goToSettings": "前往设置"
 }

@@ -131,5 +131,8 @@
   "otherReview": "Other review",
   "downloadDappToReview": "Something went wrong, did you not download/open dApp before posting review?",
   "reviewPosted": "Review posted.",
-  "ratingsAndReviews": "Ratings and Reviews"
+  "ratingsAndReviews": "Ratings and Reviews",
+  "allowAppInstall":"Allow installation permission",
+  "allowAppInstallDesc":"Allow dappstore to install apps on this device",
+  "goToSettings":"Go to settings"
 }
