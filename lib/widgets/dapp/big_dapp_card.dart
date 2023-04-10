@@ -116,9 +116,10 @@ class BigDappCard extends StatelessWidget {
                       ),
                       clipBehavior: Clip.antiAlias,
                       child: ImageWidgetCached(
-                        dapp.images?.banner ?? dapp.images!.logo!,
-                        key:
-                            ValueKey(dapp.images?.banner ?? dapp.images!.logo!),
+                        dapp.images?.logo ?? dapp.images!.banner!,
+                        key: ValueKey(
+                          dapp.images?.logo ?? dapp.images!.banner!,
+                        ),
                         height: 52,
                         width: 52,
                       ),

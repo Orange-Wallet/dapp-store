@@ -14,6 +14,7 @@ import 'package:dappstore/features/dapp_store_home/presentation/widgets/normal_a
 import 'package:dappstore/widgets/chip.dart';
 import 'package:dappstore/widgets/dapp/dapp_list_horizontal_green_blue_card.dart';
 import 'package:dappstore/widgets/dapp/dapp_list_tile.dart';
+import 'package:dappstore/widgets/loader/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -108,9 +109,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 if ((list == null || list.isEmpty))
                   (state.isLoadingNextselectedCategoryPage ?? false)
                       ? Center(
-                          child: CircularProgressIndicator(
-                          color: storeHandler.theme.bodyTextColor,
-                        ))
+                          child: Loader(
+                            size: 40,
+                            color: storeHandler.theme.bodyTextColor,
+                          ),
+                        )
                       : const SizedBox()
                 else ...[
                   Align(
@@ -193,7 +196,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
             return const SizedBox();
           } else {
             return Center(
-              child: CircularProgressIndicator(
+              child: Loader(
+                size: 40,
                 color: storeHandler.theme.bodyTextColor,
               ),
             );
