@@ -28,9 +28,8 @@ class CacheStore implements ICacheStore {
   @override
   Iterable<DioCacheInterceptor> get dioCacheInterceptor => [
         DioCacheInterceptor(
-          options: CacheOptions(
-            store: cacheStore,
-          ),
+          options:
+              CacheOptions(store: cacheStore, policy: CachePolicy.forceCache),
         )
       ];
 }
