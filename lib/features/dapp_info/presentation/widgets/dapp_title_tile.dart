@@ -11,6 +11,7 @@ import 'package:dappstore/widgets/image_widgets/image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:version/version.dart';
 
 // ignore: must_be_immutable
 class DappTitleTile extends StatelessWidget {
@@ -169,8 +170,11 @@ class DappTitleTile extends StatelessWidget {
               ),
             );
           } else {
-            if ((state.packageMapping![dappInfo.packageId]?.versionCode ?? 0) <
-                (double.tryParse(dappInfo.version ?? "0") ?? 0)) {
+            final installedVersion = Version.parse(
+                state.packageMapping![dappInfo.packageId]?.versionName ??
+                    "0.0.0");
+            final availableVersion = Version.parse(dappInfo.version ?? "0.0.0");
+            if (installedVersion < availableVersion) {
               return Column(
                 children: [
                   listWithoutTrailing,

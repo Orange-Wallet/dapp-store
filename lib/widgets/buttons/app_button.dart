@@ -11,6 +11,7 @@ import 'package:dappstore/widgets/buttons/elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:version/version.dart';
 
 // ignore: must_be_immutable
 class AppButton extends StatefulWidget {
@@ -206,8 +207,8 @@ class _AppButtonState extends State<AppButton> {
                   ),
                 );
               } else if ((packageInfo?.installed ?? false) &&
-                  (packageInfo?.versionCode ?? 0) <
-                      (double.tryParse(widget.dappInfo.version ?? "0") ?? 0)) {
+                  (Version.parse(packageInfo?.versionName ?? "0.0.0")) <
+                      Version.parse(widget.dappInfo.version ?? "0.0.0")) {
                 return SizedBox(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
