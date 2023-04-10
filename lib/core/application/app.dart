@@ -1,6 +1,8 @@
 import 'package:dappstore/core/application/i_app_handler.dart';
 import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/core/router/custom_route_observer.dart';
+import 'package:dappstore/features/dapp_store_home/presentation/screen/homepage.dart';
+import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
 import 'package:dappstore/features/wallet_connect/presentation/wallet_connect_screen.dart';
 import 'package:dappstore/widgets/error_widgets/error_screen.dart';
 import 'package:flutter/material.dart';
@@ -84,7 +86,10 @@ class _AppState extends State<App> with WidgetsBindingObserver {
         };
         return widget!;
       },
-      home: const WalletConnectScreen(),
+      home: (getIt<IWalletConnectCubit>().state.connected &&
+              getIt<IWalletConnectCubit>().state.signVerified)
+          ? const HomePage()
+          : const WalletConnectScreen(),
     );
   }
 

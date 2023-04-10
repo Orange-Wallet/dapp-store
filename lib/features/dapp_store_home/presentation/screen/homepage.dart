@@ -1,3 +1,4 @@
+import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/core/router/constants/routes.dart';
 import 'package:dappstore/core/router/interface/route.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';
@@ -11,7 +12,9 @@ import 'package:dappstore/features/dapp_store_home/presentation/widgets/home_app
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/saved_dapps_card.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/top_category_list.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/update_available_card.dart';
+import 'package:dappstore/features/profile/application/handler/profile_handler.dart';
 import 'package:dappstore/features/self_update/application/cubit/self_update_cubit.dart';
+import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
 import 'package:dappstore/utils/image_constants.dart';
 import 'package:dappstore/widgets/bottom_sheet/bottom_sheet.dart';
 import 'package:dappstore/widgets/self_update_handler/update_popup_widget.dart';
@@ -34,6 +37,8 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     storeHandler = DappStoreHandler();
     storeHandler.started();
+    ProfileHandler()
+        .getProfile(address: getIt<IWalletConnectCubit>().state.activeAddress!);
     storeHandler.selfUpdateCubit.checkUpdate().then(
       (value) {
         bool dismissable = true;
