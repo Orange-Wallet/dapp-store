@@ -45,6 +45,7 @@ class _DappInfoPageState extends State<DappInfoPage> {
   void initState() {
     super.initState();
     dappInfoHandler = DappInfoHandler();
+
     themeCubit = dappInfoHandler.themeCubit;
     dashedLine = DashedLine(
       color: dappInfoHandler.themeCubit.theme.whiteColor,
@@ -67,6 +68,8 @@ class _DappInfoPageState extends State<DappInfoPage> {
               storeHandler.getSelectedCategoryDappList(
                   queryParams: GetDappQueryDto(
                       categories: [dappState.dappInfo?.category]));
+              storeHandler.resetSelectedCategory();
+
               return Scaffold(
                 backgroundColor: theme.backgroundColor,
                 appBar: InScreenAppBar(
