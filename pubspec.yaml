@@ -33,7 +33,6 @@ dependencies:
     git:
       url: https://github.com/Abhimanyu121/flutter_downloader
       ref: 05a47625b6e7c7973966bc274ed7d476567971d7
-#      ref: 3aa04ec625f6c79779ee49edf24ecb483d8a2fcc
   android_path_provider: ^0.3.0
   device_info_plus: ^8.1.0
   path_provider: ^2.0.13

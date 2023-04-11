@@ -51,9 +51,9 @@ class SavedDappsCubit extends Cubit<SavedDappsState>
       noUpdate: notToUpdate,
       needUpdate: toUpdate,
     ));
-    installerCubit.registerCallBack((data) {
-      installerCallBack();
-    });
+    // installerCubit.registerCallBack((data) {
+    //   installerCallBack();
+    // });
   }
 
   installerCallBack() async {
