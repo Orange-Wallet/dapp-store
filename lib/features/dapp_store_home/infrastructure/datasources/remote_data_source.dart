@@ -89,8 +89,6 @@ class RemoteDataSource implements IDataSource {
   @override
   Future<DappListDto?> getFeaturedDappsByCategory(
       {required String category}) async {
-    //TODO implement breaking
-
     try {
       Response res = await _network.get(
         // path: "${Config.registryApiBaseUrl}/dapp",
@@ -109,7 +107,6 @@ class RemoteDataSource implements IDataSource {
 
   @override
   Future<DappListDto?> getFeaturedDappsList() async {
-    //TODO implement breaking
     try {
       Response res = await _network.get(
         path: "${Config.glApiBaseUrl}/api/v1/store/featured",
