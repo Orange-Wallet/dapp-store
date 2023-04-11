@@ -28,9 +28,9 @@ class StoreCubit extends HydratedCubit<StoreState> implements IStoreCubit {
 
   @override
   started() async {
-    await getDappList();
-    await getCuratedCategoryList();
-    await getCuratedList();
+    getDappList();
+    getCuratedCategoryList();
+    getCuratedList();
     await getFeaturedDappsList();
     for (var i = 0; i < state.curatedCategoryList!.length; i++) {
       if (state.curatedCategoryList?[i]?.category != null) {

@@ -68,8 +68,8 @@ class _HomePageState extends State<HomePage> {
     getPermission();
   }
 
-  getPermission() async {
-    await permissions.checkAllPermissions();
+  getPermission() {
+    permissions.checkAllPermissions();
 
     // PermissionStatus? notificationStatus =
     //     await permissions.checkNotificationPermission();
