@@ -6,8 +6,8 @@ import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dar
 import 'package:dappstore/features/dapp_store_home/domain/entities/post_rating.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_info_query_dto.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 part '../../../generated/features/dapp_info/application/dapp_info_cubit.freezed.dart';
 part '../../../generated/features/dapp_info/application/dapp_info_cubit.g.dart';
