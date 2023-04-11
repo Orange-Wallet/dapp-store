@@ -21,8 +21,8 @@ class DappStoreHandler implements IDappStoreHandler {
   }
 
   @override
-  started() async {
-    await getStoreCubit().started();
+  started() {
+    getStoreCubit().started();
   }
 
   @override
