@@ -262,6 +262,7 @@ class PackageManager extends Cubit<PackageManagerState>
             .copyWith(installed: status.status, installing: false);
         final updatedMap = {...packageMap};
         updatedMap[status.packageName] = package;
+
         emit(state.copyWith(packageMapping: updatedMap));
       }
     }

@@ -20,10 +20,6 @@ class CacheStore implements ICacheStore {
           .create(recursive: true);
     }
     final cachePath = "${appDocDirectory.path}/cacheStore";
-    var hydratedCubitStore = Directory("${appDocDirectory.path}/hydratedStore");
-
-    HydratedBloc.storage =
-        await HydratedStorage.build(storageDirectory: hydratedCubitStore);
 
     hiveCacheStore = HiveCacheStore(cachePath);
   }

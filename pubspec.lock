@@ -833,7 +833,7 @@ packages:
     source: hosted
     version: "9.0.7"
   permission_handler_platform_interface:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: permission_handler_platform_interface
       url: "https://pub.dartlang.org"

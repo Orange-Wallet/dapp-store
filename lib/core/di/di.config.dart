@@ -210,6 +210,7 @@ _i1.GetIt $initGetIt(
   gh.lazySingleton<_i62.ISavedDappsCubit>(() => _i63.SavedDappsCubit(
         packageManager: gh<_i58.IPackageManager>(),
         storeCubit: gh<_i44.IStoreCubit>(),
+        installerCubit: gh<_i20.IInstallerCubit>(),
       ));
   gh.lazySingleton<_i64.ISavedPwaCubit>(
       () => _i65.SavedPwaCubit(savedPwaStore: gh<_i38.ISavedPwaStore>()));

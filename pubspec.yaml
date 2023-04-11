@@ -29,7 +29,6 @@ dependencies:
   dio_cache_interceptor: ^3.4.0
   get_it: ^7.2.0
   bloc: ^8.1.1
-  hydrated_bloc: ^9.1.0
   flutter_downloader:
     git:
       url: https://github.com/Abhimanyu121/flutter_downloader
@@ -68,6 +67,7 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   random_avatar: ^0.0.7
   version: ^3.0.2
+  permission_handler_platform_interface: ^3.9.0
 
 # dependency_overrides:
   # stream_channel: ^2.1.1 

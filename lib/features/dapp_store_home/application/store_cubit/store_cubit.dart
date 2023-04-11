@@ -16,7 +16,7 @@ part '../../../../generated/features/dapp_store_home/application/store_cubit/sto
 part 'store_state.dart';
 
 @LazySingleton(as: IStoreCubit)
-class StoreCubit extends HydratedCubit<StoreState> implements IStoreCubit {
+class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
   @override
   IDappListRepo dappListRepo;
   StoreCubit({required this.dappListRepo}) : super(StoreState.initial());

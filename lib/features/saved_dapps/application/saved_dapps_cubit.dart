@@ -1,6 +1,7 @@
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/features/download_and_installer/domain/package_info.dart';
+import 'package:dappstore/features/download_and_installer/infrastructure/repositories/installer/i_installer_cubit.dart';
 import 'package:dappstore/features/download_and_installer/infrastructure/repositories/package_manager.dart/i_package_manager.dart';
 import 'package:dappstore/features/saved_dapps/application/i_saved_dapps_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,14 +15,48 @@ part 'saved_dapps_state.dart';
 class SavedDappsCubit extends Cubit<SavedDappsState>
     implements ISavedDappsCubit {
   final IPackageManager packageManager;
+  final IInstallerCubit installerCubit;
   final IStoreCubit storeCubit;
   SavedDappsCubit({
     required this.packageManager,
     required this.storeCubit,
+    required this.installerCubit,
   }) : super(SavedDappsState.initial());
 
   @override
   initialise() async {
+    emit(state.copyWith(loading: true));
+    final installedApps = packageManager.installedAppsList();
+    final dappMapping = await storeCubit.queryWithPackageId(
+        pacakgeIds: installedApps.values.map((e) => e.packageName!).toList());
+    dappMapping.removeWhere((k, v) => v == null);
+
+    final List<DappInfo> nonNullDappInfo =
+        dappMapping.values.toList().map((e) => e!).toList();
+    final List<DappInfo> toUpdate = [];
+    final List<DappInfo> notToUpdate = [];
+    for (var element in nonNullDappInfo) {
+      double deviceVersion =
+          installedApps[element.packageId!]?.versionCode ?? 0;
+      double availableVersion = double.tryParse(element.version ?? "0") ?? 0;
+      if (deviceVersion < availableVersion) {
+        toUpdate.add(element);
+      } else {
+        notToUpdate.add(element);
+      }
+    }
+    emit(state.copyWith(
+      dappInfoList: nonNullDappInfo,
+      loading: false,
+      noUpdate: notToUpdate,
+      needUpdate: toUpdate,
+    ));
+    installerCubit.registerCallBack((data) {
+      installerCallBack();
+    });
+  }
+
+  installerCallBack() async {
     emit(state.copyWith(loading: true));
     final installedApps = packageManager.installedAppsList();
     final dappMapping = await storeCubit.queryWithPackageId(
