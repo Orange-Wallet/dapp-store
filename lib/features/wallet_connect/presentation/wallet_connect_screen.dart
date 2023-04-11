@@ -221,7 +221,9 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
               !state.loadingSign &&
               !state.failureSign) {
             await Future.delayed(const Duration(seconds: 1), () async {
-              cubit.getEthSign("Testing").then((value) {
+              cubit
+                  .getEthSign("I allow to connect my wallet to HTC dappstore.")
+                  .then((value) {
                 if (value.isNotEmpty || value != "") {
                   getIt<IWalletConnectStore>().addSignature(
                       topicID: state.activeSession!.topic, signature: value);
