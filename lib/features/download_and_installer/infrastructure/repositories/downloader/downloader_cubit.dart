@@ -24,7 +24,7 @@ class DownloaderCubit extends Cubit<DownloaderState> implements IDownloader {
       : super(DownloaderState.initial());
 
   @override
-  initialize() async {
+  Future<void> initialize() async {
     await Downloader.initialize(Downloader.downloadCallback);
     //_bindBackgroundIsolate();
   }

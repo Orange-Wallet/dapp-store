@@ -1,4 +1,4 @@
 abstract class IErrorLogger {
-  initialise();
+  Future<void> initialise();
   Future<void> logError(Object e, StackTrace stack);
 }

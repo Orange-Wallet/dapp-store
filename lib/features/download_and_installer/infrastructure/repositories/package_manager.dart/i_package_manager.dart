@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 abstract class IPackageManager extends Cubit<PackageManagerState> {
   IPackageManager() : super(PackageManagerState.initial());
 
-  init();
+  Future<void> init();
 
   startDownload(
     DappInfo dappInfo,

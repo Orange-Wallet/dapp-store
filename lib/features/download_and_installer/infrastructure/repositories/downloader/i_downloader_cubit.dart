@@ -2,7 +2,7 @@ import 'package:dappstore/features/download_and_installer/infrastructure/dtos/ta
 import 'package:flutter_downloader/flutter_downloader.dart';
 
 abstract class IDownloader {
-  initialize();
+  Future<void> initialize();
 
   initializeStorageDir();
 

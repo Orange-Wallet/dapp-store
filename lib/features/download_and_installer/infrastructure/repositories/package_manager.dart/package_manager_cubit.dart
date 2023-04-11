@@ -32,7 +32,7 @@ class PackageManager extends Cubit<PackageManagerState>
       this.installedApps)
       : super(PackageManagerState.initial());
   @override
-  init() async {
+  Future<void> init() async {
     final Future<List<DownloadTask>?> downloadsFuture =
         downloader.getAllDownloads();
     final Future<List<AppInfo>?> appInfoFuture = installedApps.getInstalledApps(

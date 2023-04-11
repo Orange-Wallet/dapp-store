@@ -13,24 +13,28 @@ import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_
 
 Future<void> initialise() async {
   configureDependencies();
-  await getIt<IDownloader>().initialize();
-  await getIt<IErrorLogger>().initialise();
-  await initialiseStore().then((_) {
-    getIt<IThemeCubit>().initialise(height: 844, width: 360);
-    getIt<ILocaleCubit>().initialise();
-    getIt<ISavedPwaCubit>().initialise();
-    getIt<ICacheStore>().initialise();
+  await Future.wait([
+    getIt<IErrorLogger>().initialise(),
+    getIt<IDownloader>().initialize().then(
+      (value) async {
+        await getIt<IPackageManager>().init();
+      },
+    ),
+    initialiseStore().then((_) async {
+      getIt<IThemeCubit>().initialise(height: 844, width: 360);
+      getIt<ILocaleCubit>().initialise();
+      getIt<ISavedPwaCubit>().initialise();
+      getIt<ICacheStore>().initialise();
+
+      // WC initialise
+      await getIt<IWalletConnectCubit>().initialize();
+      await getIt<IWalletConnectCubit>().getPreviouslyConnectedSession();
+    }),
+    getIt<IPermissions>().requestNotificationPermission(),
+  ]);
+  await getIt<IPermissions>().requestStoragePermission().then((_) async {
+    await getIt<IDownloader>().initializeStorageDir();
+    await getIt<ISavedDappsCubit>().initialise();
   });
-
-  // WC initialise
-  await getIt<IWalletConnectCubit>().initialize();
-  await getIt<IWalletConnectCubit>().getPreviouslyConnectedSession();
-
-  await getIt<IPackageManager>().init();
-
-  await getIt<IPermissions>().requestNotificationPermission();
-  await getIt<IPermissions>().requestStoragePermission();
   // await getIt<IPermissions>().requestAppInstallationPermission();
-  await getIt<IDownloader>().initializeStorageDir();
-  await getIt<ISavedDappsCubit>().initialise();
 }

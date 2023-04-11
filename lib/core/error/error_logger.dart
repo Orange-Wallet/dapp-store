@@ -13,9 +13,10 @@ class ErrorLogger extends Cubit<ErrorLoggerState> implements IErrorLogger {
   ErrorLogger() : super(ErrorLoggerState.initial());
 
   @override
-  initialise() {
+  Future<void> initialise() async {
     //TODO: initilalise logger
   }
+
   @override
   Future<void> logError(Object e, StackTrace stack) {
     debugPrint("ERROR: ${e.toString()} \nStack: ${stack.toString()}");
