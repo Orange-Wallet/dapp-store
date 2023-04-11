@@ -194,28 +194,21 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       child: Column(
         children: [
           Text(
-            context.getLocale!.allowAppNotification,
+            title,
             style: theme.biggerTitleTextStyle,
           ),
           const SizedBox(
             height: 12,
           ),
           Text(
-            context.getLocale!.allowAppNotificationDesc,
+            body,
             style: theme.bodyTextStyle,
           ),
           const SizedBox(
             height: 24,
           ),
           TextButton(
-              onPressed: () async {
-                await permissions.requestNotificationPermission();
-                // if (status == PermissionStatus.granted) {
-                context.popRoute();
-                permissions.changeShowingNotificationDialog(false);
-
-                // }
-              },
+              onPressed: onPressed,
               style: TextButton.styleFrom(
                 backgroundColor: theme.wcBlue,
                 shape: RoundedRectangleBorder(
