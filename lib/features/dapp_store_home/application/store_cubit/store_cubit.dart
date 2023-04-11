@@ -93,8 +93,9 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
         return state.selectedCategoryDappList?.response?.firstWhere(
             (element) => element?.dappId == state.activeDappId, orElse: () {
           return state.featuredDappList?.response?.firstWhere(
-            (element) => element?.dappId == state.activeDappId,
-          );
+              (element) => element?.dappId == state.activeDappId, orElse: () {
+            return null;
+          });
         });
       });
     });
