@@ -7,6 +7,7 @@ import 'package:dappstore/features/saved_dapps/application/i_saved_dapps_cubit.d
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:version/version.dart';
 
 part '../../../generated/features/saved_dapps/application/saved_dapps_cubit.freezed.dart';
 part 'saved_dapps_state.dart';
@@ -36,9 +37,10 @@ class SavedDappsCubit extends Cubit<SavedDappsState>
     final List<DappInfo> toUpdate = [];
     final List<DappInfo> notToUpdate = [];
     for (var element in nonNullDappInfo) {
-      double deviceVersion =
-          installedApps[element.packageId!]?.versionCode ?? 0;
-      double availableVersion = double.tryParse(element.version ?? "0") ?? 0;
+      Version deviceVersion = Version.parse(
+          installedApps[element.packageId!]?.versionName ?? "0.0.0");
+      Version availableVersion =
+          Version.parse(element.version?.replaceAll("v", "") ?? "0.0.0");
       if (deviceVersion < availableVersion) {
         toUpdate.add(element);
       } else {
@@ -50,13 +52,17 @@ class SavedDappsCubit extends Cubit<SavedDappsState>
       loading: false,
       noUpdate: notToUpdate,
       needUpdate: toUpdate,
+      installedApps: installedApps,
     ));
-    // installerCubit.registerCallBack((data) {
-    //   installerCallBack();
-    // });
+    packageManager.stream.listen((event) {
+      if ((state.installedApps?.length ?? 0) !=
+          packageManager.installedAppsList().length) {
+        reloadPackages();
+      }
+    });
   }
 
-  installerCallBack() async {
+  reloadPackages() async {
     emit(state.copyWith(loading: true));
     final installedApps = packageManager.installedAppsList();
     final dappMapping = await storeCubit.queryWithPackageId(
@@ -68,9 +74,10 @@ class SavedDappsCubit extends Cubit<SavedDappsState>
     final List<DappInfo> toUpdate = [];
     final List<DappInfo> notToUpdate = [];
     for (var element in nonNullDappInfo) {
-      double deviceVersion =
-          installedApps[element.packageId!]?.versionCode ?? 0;
-      double availableVersion = double.tryParse(element.version ?? "0") ?? 0;
+      Version deviceVersion = Version.parse(
+          installedApps[element.packageId!]?.versionName ?? "0.0.0");
+      Version availableVersion =
+          Version.parse(element.version?.replaceAll("v", "") ?? "0.0.0");
       if (deviceVersion < availableVersion) {
         toUpdate.add(element);
       } else {
