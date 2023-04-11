@@ -30,7 +30,6 @@ Future<void> initialise() async {
       await getIt<IWalletConnectCubit>().initialize();
       await getIt<IWalletConnectCubit>().getPreviouslyConnectedSession();
     }),
-    getIt<IPermissions>().requestNotificationPermission(),
   ]);
   await getIt<IPermissions>().requestStoragePermission().then((_) async {
     await getIt<IDownloader>().initializeStorageDir();

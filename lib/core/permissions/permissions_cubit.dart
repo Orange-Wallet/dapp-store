@@ -6,6 +6,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:notification_permissions/notification_permissions.dart'
+    as nPerm;
 import 'package:permission_handler/permission_handler.dart';
 
 part '../../generated/core/permissions/permissions_cubit.freezed.dart';
@@ -64,9 +66,18 @@ class Permissions extends Cubit<PermissionsState> implements IPermissions {
 
   @override
   Future<PermissionStatus> requestNotificationPermission() async {
-    final result = await Permission.notification.request();
-    emit(state.copyWith(notificationPermission: result));
-    return result;
+    nPerm.PermissionStatus permissionStatus =
+        await nPerm.NotificationPermissions.requestNotificationPermissions();
+    PermissionStatus perm = PermissionStatus.denied;
+    if (permissionStatus == nPerm.PermissionStatus.granted) {
+      perm = PermissionStatus.granted;
+    } else if (permissionStatus == nPerm.PermissionStatus.denied) {
+      perm = PermissionStatus.denied;
+    } else if (permissionStatus == nPerm.PermissionStatus.provisional) {
+      perm = PermissionStatus.limited;
+    }
+    emit(state.copyWith(notificationPermission: perm));
+    return perm;
   }
 
   @override

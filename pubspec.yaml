@@ -68,6 +68,7 @@ dependencies:
   random_avatar: ^0.0.7
   version: ^3.0.2
   permission_handler_platform_interface: ^3.9.0
+  notification_permissions: ^0.6.1
 
 # dependency_overrides:
   # stream_channel: ^2.1.1 
