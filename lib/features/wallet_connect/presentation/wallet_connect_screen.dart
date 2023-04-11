@@ -290,7 +290,10 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                     if (!state.connected || state.failureConnection) {
                       cubit.getConnectRequest(["eip155:137", "eip155:1"]);
                     } else {
-                      cubit.getEthSign("Testing").then((value) {
+                      cubit
+                          .getEthSign(
+                              "I allow to connect my wallet to HTC dappstore.")
+                          .then((value) {
                         if (value.isNotEmpty || value != "") {
                           getIt<IWalletConnectStore>().addSignature(
                               topicID: state.activeSession!.topic,
