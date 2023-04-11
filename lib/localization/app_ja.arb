@@ -134,5 +134,8 @@
   "ratingsAndReviews": "評価とレビュー",
   "allowAppInstall": "インストールの許可",
   "allowAppInstallDesc": "このデバイスに対してdappstoreにアプリのインストールを許可する",
+  
+  "allowAppNotification": "通知の許可",
+  "allowAppNotificationDesc": "このデバイスに対してdappstoreが通知を送信することを許可する",
   "goToSettings": "設定に移動する"
 }

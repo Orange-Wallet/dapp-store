@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:notification_permissions/notification_permissions.dart'
-    as nPerm;
+    as n_perm;
 import 'package:permission_handler/permission_handler.dart';
 
 part '../../generated/core/permissions/permissions_cubit.freezed.dart';
@@ -18,7 +18,7 @@ class Permissions extends Cubit<PermissionsState> implements IPermissions {
   Permissions() : super(PermissionsState.initial());
 
   @override
-  checkAllPermissions() async {
+  Future<void> checkAllPermissions() async {
     await checkStoragePermission();
     await checkAppInstallationPermissions();
     await checkNotificationPermission();
@@ -66,14 +66,17 @@ class Permissions extends Cubit<PermissionsState> implements IPermissions {
 
   @override
   Future<PermissionStatus> requestNotificationPermission() async {
-    nPerm.PermissionStatus permissionStatus =
-        await nPerm.NotificationPermissions.requestNotificationPermissions();
+    // final result = await Permission.notification.request();
+    // emit(state.copyWith(notificationPermission: result));
+    // return result;
+    n_perm.PermissionStatus permissionStatus =
+        await n_perm.NotificationPermissions.requestNotificationPermissions();
     PermissionStatus perm = PermissionStatus.denied;
-    if (permissionStatus == nPerm.PermissionStatus.granted) {
+    if (permissionStatus == n_perm.PermissionStatus.granted) {
       perm = PermissionStatus.granted;
-    } else if (permissionStatus == nPerm.PermissionStatus.denied) {
+    } else if (permissionStatus == n_perm.PermissionStatus.denied) {
       perm = PermissionStatus.denied;
-    } else if (permissionStatus == nPerm.PermissionStatus.provisional) {
+    } else if (permissionStatus == n_perm.PermissionStatus.provisional) {
       perm = PermissionStatus.limited;
     }
     emit(state.copyWith(notificationPermission: perm));
@@ -88,5 +91,20 @@ class Permissions extends Cubit<PermissionsState> implements IPermissions {
       return result;
     }
     return null;
+  }
+
+  @override
+  changeShowingInstallDialog(bool value) {
+    emit(state.copyWith(isShowingInstallDialog: value));
+  }
+
+  @override
+  changeShowingNotificationDialog(bool value) {
+    emit(state.copyWith(isShowingNotificationDialog: value));
+  }
+
+  @override
+  changeShowingStorageDialog(bool value) {
+    emit(state.copyWith(isShowingStorageDialog: value));
   }
 }

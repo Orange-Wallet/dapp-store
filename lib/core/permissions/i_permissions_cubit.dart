@@ -5,7 +5,7 @@ import 'package:permission_handler/permission_handler.dart';
 abstract class IPermissions extends Cubit<PermissionsState> {
   IPermissions() : super(PermissionsState.initial());
 
-  checkAllPermissions();
+  Future<void> checkAllPermissions();
 
   Future<PermissionStatus> checkStoragePermission();
 
@@ -18,4 +18,8 @@ abstract class IPermissions extends Cubit<PermissionsState> {
   Future<PermissionStatus?> requestAppInstallationPermission();
 
   Future<PermissionStatus> requestNotificationPermission();
+
+  changeShowingInstallDialog(bool value);
+  changeShowingNotificationDialog(bool value);
+  changeShowingStorageDialog(bool value);
 }

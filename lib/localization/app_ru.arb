@@ -134,5 +134,7 @@
   "ratingsAndReviews": "Рейтинги и отзывы",
   "allowAppInstall": "Разрешить разрешение на установку",
   "allowAppInstallDesc": "Разрешить dappstore устанавливать приложения на этом устройстве",
+  "allowAppNotification": "Разрешить разрешение на уведомления",
+  "allowAppNotificationDesc": "Разрешить dappstore отправлять уведомления на этом устройстве",
   "goToSettings": "Перейти в настройки"
 }

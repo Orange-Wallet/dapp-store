@@ -134,5 +134,7 @@
   "ratingsAndReviews": "Ratings and Reviews",
   "allowAppInstall":"Allow installation permission",
   "allowAppInstallDesc":"Allow dappstore to install apps on this device",
+  "allowAppNotification":"Allow notifications permission",
+  "allowAppNotificationDesc":"Allow dappstore to send notification on this device",
   "goToSettings":"Go to settings"
 }

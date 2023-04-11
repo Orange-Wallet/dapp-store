@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:ui';
 
-import 'package:android_path_provider/android_path_provider.dart';
 import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/core/error/i_error_logger.dart';
 import 'package:dappstore/features/download_and_installer/infrastructure/dtos/task_info.dart';

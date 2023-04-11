@@ -1,5 +1,3 @@
-import 'package:dappstore/core/di/di.dart';
-import 'package:dappstore/core/permissions/i_permissions_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/dapp_store_handler.dart';
 import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_store_handler.dart';
 import 'package:dappstore/features/settings/presentation/settings_dialog.dart';

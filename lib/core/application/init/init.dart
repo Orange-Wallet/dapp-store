@@ -28,9 +28,9 @@ Future<void> initialise() async {
 
   await getIt<IPackageManager>().init();
 
-  await getIt<IPermissions>().requestNotificationPermission();
+  // await getIt<IPermissions>().requestNotificationPermission();
   await getIt<IPermissions>().requestStoragePermission();
-  await getIt<IPermissions>().requestAppInstallationPermission();
+  // await getIt<IPermissions>().requestAppInstallationPermission();
   await getIt<IDownloader>().initializeStorageDir();
   await getIt<ISavedDappsCubit>().initialise();
   // await getIt<IPermissions>().requestAppInstallationPermission();

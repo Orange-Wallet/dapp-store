@@ -134,5 +134,7 @@
   "ratingsAndReviews": "Calificaciones y reseñas",
   "allowAppInstall": "Permitir permiso de instalación",
   "allowAppInstallDesc": "Permitir que dappstore instale aplicaciones en este dispositivo",
+  "allowAppNotification": "Permitir permiso de notificaciones",
+  "allowAppNotificationDesc": "Permitir que dappstore envíe notificaciones en este dispositivo",
   "goToSettings": "Ir a ajustes"
 }

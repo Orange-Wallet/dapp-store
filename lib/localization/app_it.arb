@@ -134,5 +134,7 @@
   "ratingsAndReviews": "Valutazioni e recensioni",
   "allowAppInstall": "Consenti autorizzazione all'installazione",
   "allowAppInstallDesc": "Consenti a dappstore di installare app su questo dispositivo",
+  "allowAppNotification": "Consenti autorizzazione alle notifiche",
+  "allowAppNotificationDesc": "Consenti a dappstore di inviare notifiche su questo dispositivo",
   "goToSettings": "Vai alle impostazioni"
 }

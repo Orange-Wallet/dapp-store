@@ -6,7 +6,14 @@ class PermissionsState with _$PermissionsState {
     PermissionStatus? storagePermission,
     PermissionStatus? appInstallation,
     PermissionStatus? notificationPermission,
+    required bool isShowingInstallDialog,
+    required bool isShowingNotificationDialog,
+    required bool isShowingStorageDialog,
   }) = _PermissionsState;
 
-  factory PermissionsState.initial() => const PermissionsState();
+  factory PermissionsState.initial() => const PermissionsState(
+        isShowingInstallDialog: false,
+        isShowingNotificationDialog: false,
+        isShowingStorageDialog: false,
+      );
 }
