@@ -38,12 +38,6 @@ class NormalAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         SearchButton(),
-        IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.menu,
-              color: handler.theme.whiteColor,
-            ))
       ],
       bottom: const WhiteGradientLine(),
     );
