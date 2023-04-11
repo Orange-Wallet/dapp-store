@@ -49,7 +49,7 @@ class Downloader {
         url: task.link!,
         fileName: task.fileName,
         savedDir: localPath,
-        saveInPublicStorage: true,
+        saveInPublicStorage: false,
         timeout: 15000000,
         headers: {
           "connection": "close",
