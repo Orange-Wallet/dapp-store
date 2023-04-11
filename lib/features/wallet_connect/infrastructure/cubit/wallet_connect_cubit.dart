@@ -36,6 +36,7 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
   started() async {
     await initialize();
     getSessionAndPairings();
+    await getPreviouslyConnectedSession();
   }
 
   @override
