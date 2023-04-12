@@ -17,5 +17,5 @@ void main() async {
     },
     appRunner: () => runApp(const App()),
   );
-  runApp(const App());
+  // runApp(const App());
 }
