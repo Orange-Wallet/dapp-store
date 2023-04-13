@@ -39,7 +39,7 @@ class _FeaturedDappsListState extends State<FeaturedDappsList> {
             return Container();
           }
           return Padding(
-            padding: const EdgeInsets.only(top: 20, left: 8),
+            padding: const EdgeInsets.only(top: 5, left: 8),
             child: SizedBox(
               height: MediaQuery.of(context).size.height / 3,
               child: ListView.builder(

@@ -52,10 +52,15 @@ class UpdateAvailableCard extends StatelessWidget {
                                     context.getLocale!.seeInstalledDapps,
                                     style: handler.theme.normalTextStyle2,
                                   )
-                                : Text(
-                                    "${state.needUpdate?.length} ${context.getLocale!.dappsReadyToUpdate}",
-                                    style: handler.theme.normalTextStyle2,
-                                  ),
+                                : state.needUpdate?.length == 1
+                                    ? Text(
+                                        "${state.needUpdate?.length} ${context.getLocale!.dappReadyToUpdate}",
+                                        style: handler.theme.normalTextStyle2,
+                                      )
+                                    : Text(
+                                        "${state.needUpdate?.length} ${context.getLocale!.dappsReadyToUpdate}",
+                                        style: handler.theme.normalTextStyle2,
+                                      ),
                             (state.needUpdate?.isEmpty ?? true)
                                 ? Text(
                                     context.getLocale!.deepDive,

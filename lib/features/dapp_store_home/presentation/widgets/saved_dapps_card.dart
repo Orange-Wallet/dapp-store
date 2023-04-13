@@ -59,10 +59,16 @@ class SavedDappscard extends StatelessWidget {
                                       "${context.getLocale!.youHave} ",
                                       style: handler.theme.normalTextStyle,
                                     ),
-                                    Text(
-                                      "${state.savedDapps.values.length} ${context.getLocale!.webDapps} ",
-                                      style: handler.theme.normalTextStyle2,
-                                    ),
+                                    if (state.savedDapps.values.length != 1)
+                                      Text(
+                                        "${state.savedDapps.values.length} ${context.getLocale!.webDapps} ",
+                                        style: handler.theme.normalTextStyle2,
+                                      ),
+                                    if (state.savedDapps.values.length == 1)
+                                      Text(
+                                        "${state.savedDapps.values.length} ${context.getLocale!.webDapp} ",
+                                        style: handler.theme.normalTextStyle2,
+                                      ),
                                   ],
                                 ),
                                 const SizedBox(

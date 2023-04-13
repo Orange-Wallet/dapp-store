@@ -13,7 +13,7 @@ class ExploreCard extends StatelessWidget {
     DappStoreHandler handler = DappStoreHandler();
 
     return Container(
-        padding: const EdgeInsets.only(left: 32, top: 16, bottom: 16),
+        padding: const EdgeInsets.only(left: 32, top: 16, bottom: 10),
         child: Stack(
           children: [
             Align(
