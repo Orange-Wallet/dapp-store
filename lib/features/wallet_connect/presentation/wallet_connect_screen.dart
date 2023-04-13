@@ -2,14 +2,17 @@ import 'package:dappstore/config/config.dart';
 import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/core/installed_apps/i_installed_apps_cubit.dart';
 import 'package:dappstore/core/localisation/localisation_extension.dart';
+import 'package:dappstore/core/localisation/store/i_localisation_store.dart';
 import 'package:dappstore/core/router/constants/routes.dart';
 import 'package:dappstore/core/router/interface/route.dart';
 import 'package:dappstore/core/router/router.dart';
 import 'package:dappstore/core/theme/i_theme_cubit.dart';
+import 'package:dappstore/core/theme/store/i_theme_store.dart';
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/screen/homepage.dart';
 import 'package:dappstore/features/profile/application/handler/i_profile_handler.dart';
 import 'package:dappstore/features/profile/application/handler/profile_handler.dart';
+import 'package:dappstore/features/profile/infrastructure/store/i_profile_store.dart';
 import 'package:dappstore/features/self_update/application/cubit/i_self_update_cubit.dart';
 import 'package:dappstore/features/self_update/application/cubit/self_update_cubit.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
@@ -247,14 +250,50 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
               const SizedBox(height: 16.0),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                child: _DialogTileItem(
-                  leading: '1',
-                  title: context.getLocale!.connectWallet,
-                  subtitle: context.getLocale!.connectUsignAnyWalletConnect,
-                  theme: theme,
-                  loading: state.loadingConnection,
-                  success: state.connected,
-                  error: state.failureConnection,
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: _DialogTileItem(
+                        leading: '1',
+                        title: context.getLocale!.connectWallet,
+                        subtitle:
+                            context.getLocale!.connectUsignAnyWalletConnect,
+                        theme: theme,
+                        loading: state.loadingConnection,
+                        success: state.connected,
+                        error: state.failureConnection,
+                      ),
+                    ),
+                    if (state.connected)
+                      InkWell(
+                          onTap: () async {
+                            await getIt<IWalletConnectCubit>().disconnectAll();
+                            await getIt<IProfileStore>().clearBox();
+                            await getIt<ILocalisationStore>().clearBox();
+                            await getIt<IThemeStore>().clearBox();
+                            context.popRoute();
+                          },
+                          // style: TextButton.styleFrom(
+                          //   backgroundColor: Colors.transparent,
+                          //   shape: RoundedRectangleBorder(
+                          //     side: BorderSide(
+                          //       color: theme.buttonRed,
+                          //     ),
+                          //     borderRadius: BorderRadius.circular(
+                          //       theme.buttonRadius,
+                          //     ),
+                          //   ),
+                          // ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.close,
+                              color: theme.buttonRed,
+                            ),
+                          )),
+                  ],
                 ),
               ),
               const SizedBox(height: 16.0),

@@ -16,9 +16,7 @@ class WalletConnectConfig {
     name: 'HTC dAppStore',
     description: 'dAppStore by HTC',
     url: 'https://htc.com/',
-    icons: [
-      'https://drive.google.com/file/d/1tebdkfaUb4V98LpxGcnUSaBuvh84TebC/view?usp=sharing'
-    ],
+    icons: ['https://1000logos.net/wp-content/uploads/2021/05/HTC-logo.png'],
   );
   static const database = 'memory';
 

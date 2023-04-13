@@ -418,6 +418,7 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
         log(" ${e.toString()}: $stack");
       }
     }
+    emit(WalletConnectState.initial());
     getSessionAndPairings();
   }
 
