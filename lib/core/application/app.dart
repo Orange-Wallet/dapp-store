@@ -53,6 +53,21 @@ class _AppState extends State<App> with WidgetsBindingObserver {
     super.didChangePlatformBrightness();
   }
 
+  MaterialColor white = const MaterialColor(
+    0xFFFFFFFF,
+    <int, Color>{
+      50: Color(0xFFFFFFFF),
+      100: Color(0xFFFFFFFF),
+      200: Color(0xFFFFFFFF),
+      300: Color(0xFFFFFFFF),
+      400: Color(0xFFFFFFFF),
+      500: Color(0xFFFFFFFF),
+      600: Color(0xFFFFFFFF),
+      700: Color(0xFFFFFFFF),
+      800: Color(0xFFFFFFFF),
+      900: Color(0xFFFFFFFF),
+    },
+  );
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -61,13 +76,14 @@ class _AppState extends State<App> with WidgetsBindingObserver {
         getIt<CustomRouteObserver>(),
       ],
       debugShowCheckedModeBanner: false,
-      title: "Test",
+      title: "dApp Store",
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: white,
+        backgroundColor: Colors.white,
         useMaterial3: true,
       ),
       darkTheme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: white,
         backgroundColor: Colors.black,
         useMaterial3: true,
       ),

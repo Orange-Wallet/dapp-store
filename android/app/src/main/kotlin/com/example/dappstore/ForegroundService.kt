@@ -58,8 +58,7 @@ class ForegroundService: Service() {
 
         val notification: Notification = NotificationCompat.Builder(this, channelId)
             .setOngoing(true)
-            .setSmallIcon(R.drawable.dark_header)
-            .setContentTitle("Dapp Store")
+            .setContentTitle("dApp Store")
             .setContentText("This notification allows us to download apps in background")
             .setContentIntent(pendingIntent).build()
 
