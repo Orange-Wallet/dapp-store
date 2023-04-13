@@ -52,7 +52,7 @@ class _RatingsScreenState extends State<RatingsScreen> {
   _scrollListener() {
     if (controller.position.extentAfter <= 0) {
       debugPrint("Next search page");
-      widget.handler.dappInfoCubit.getRatingListNextPage();
+      widget.handler.getRatingListNextPage();
     }
   }
 
