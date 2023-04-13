@@ -111,7 +111,7 @@ class _RatingCardState extends State<RatingCard> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          context.getLocale!.allReview,
+                          context.getLocale!.allReviews,
                           style: widget.theme.whiteBoldTextStyle,
                         ),
                         TextButton(
