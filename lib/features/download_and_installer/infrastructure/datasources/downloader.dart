@@ -195,7 +195,7 @@ class Downloader {
 
     if (Platform.isAndroid) {
       try {
-        final directory = await getExternalCacheDirectories();
+        final directory = await getExternalStorageDirectories();
         externalStorageDirPath = directory?.first.path;
       } catch (err, st) {
         errorLogger.logError(err, st);

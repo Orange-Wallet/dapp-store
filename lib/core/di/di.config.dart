@@ -198,10 +198,12 @@ _i1.GetIt $initGetIt(
   gh.lazySingleton<_i56.ILocaleCubit>(
       () => _i57.LocaleCubit(localisationStore: gh<_i22.ILocalisationStore>()));
   gh.lazySingleton<_i58.IPackageManager>(() => _i59.PackageManager(
-        gh<_i20.IInstallerCubit>(),
-        gh<_i52.IDownloader>(),
-        gh<_i54.IForegroundService>(),
-        gh<_i16.IInstalledAppsCubit>(),
+        installer: gh<_i20.IInstallerCubit>(),
+        downloader: gh<_i52.IDownloader>(),
+        foregroundService: gh<_i54.IForegroundService>(),
+        installedApps: gh<_i16.IInstalledAppsCubit>(),
+        analyticsHandler: gh<_i50.IAnalyticsHandler>(),
+        storeCubit: gh<_i44.IStoreCubit>(),
       ));
   gh.lazySingleton<_i60.IProfileRepo>(() => _i61.ProfileRepoImpl(
         profileStore: gh<_i28.IProfileStore>(),

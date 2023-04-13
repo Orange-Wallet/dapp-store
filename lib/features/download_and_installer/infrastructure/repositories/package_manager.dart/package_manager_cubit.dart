@@ -2,6 +2,8 @@ import 'dart:isolate';
 import 'dart:ui';
 
 import 'package:dappstore/core/installed_apps/i_installed_apps_cubit.dart';
+import 'package:dappstore/features/analytics/handler/i_analytics_handler.dart';
+import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/features/download_and_installer/domain/package_info.dart';
 import 'package:dappstore/features/download_and_installer/infrastructure/datasources/downloader.dart';
@@ -24,13 +26,20 @@ part 'package_manager_state.dart';
 @LazySingleton(as: IPackageManager)
 class PackageManager extends Cubit<PackageManagerState>
     implements IPackageManager {
+  final IAnalyticsHandler analyticsHandler;
   final IInstallerCubit installer;
   final IDownloader downloader;
   final IForegroundService foregroundService;
   final IInstalledAppsCubit installedApps;
-  PackageManager(this.installer, this.downloader, this.foregroundService,
-      this.installedApps)
-      : super(PackageManagerState.initial());
+  final IStoreCubit storeCubit;
+  PackageManager({
+    required this.installer,
+    required this.downloader,
+    required this.foregroundService,
+    required this.installedApps,
+    required this.analyticsHandler,
+    required this.storeCubit,
+  }) : super(PackageManagerState.initial());
   @override
   Future<void> init() async {
     final Future<List<DownloadTask>?> downloadsFuture =
@@ -184,6 +193,15 @@ class PackageManager extends Cubit<PackageManagerState>
       }
     }
     await installer.installApp("${downloader.saveDir}/$packageId.apk");
+    storeCubit.queryWithPackageId(pacakgeIds: [packageId]).then((result) {
+      final DappInfo? dappInfo = result[packageId];
+      if (dappInfo != null) {
+        analyticsHandler.installDappEvent(
+          dappId: dappInfo.dappId!,
+          metadata: {},
+        );
+      }
+    });
   }
 
   @override

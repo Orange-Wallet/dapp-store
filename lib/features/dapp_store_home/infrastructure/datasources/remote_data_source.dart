@@ -132,9 +132,11 @@ class RemoteDataSource implements IDataSource {
   Future<Map<String, DappInfo?>> getDappsByPackageId(
       List<String> packageIds) async {
     try {
+      final packagesList = packageIds.join(",");
+      final url =
+          "${Config.glApiBaseUrl}/api/v1/dapp/queryWithPackageId?packages=$packagesList";
       Response res = await _network.get(
-        path:
-            "${Config.glApiBaseUrl}/api/v1/dapp/queryWithPackageId?packages= ${packageIds.join(",")}",
+        path: url,
       );
       final data = res.data["response"] as Map<String, dynamic>;
       final Map<String, DappInfo> mapping = {};
