@@ -13,10 +13,16 @@ class WalletConnectConfig {
   static const projectId = "36f352c5daeb6ed6ae15657366a9df3d";
   static const relayUrl = "wss://relay.walletconnect.com";
   static const metadata = AppMetadata(
-    name: 'DappStore_test',
-    description: 'Dapp Store by HTC',
+    name: 'HTC dAppStore',
+    description: 'dAppStore by HTC',
     url: 'https://htc.com/',
-    icons: ['https://1000logos.net/wp-content/uploads/2021/05/HTC-logo.png'],
+    icons: [
+      'https://drive.google.com/file/d/1tebdkfaUb4V98LpxGcnUSaBuvh84TebC/view?usp=sharing'
+    ],
   );
   static const database = 'memory';
+
+  static const signMessageData =
+      "I allow to connect my wallet to HTC dappstore.";
+  static const connectingChain = ["eip155:137", "eip155:1"];
 }

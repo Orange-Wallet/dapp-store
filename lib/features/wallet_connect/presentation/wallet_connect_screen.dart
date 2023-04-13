@@ -1,3 +1,4 @@
+import 'package:dappstore/config/config.dart';
 import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/core/installed_apps/i_installed_apps_cubit.dart';
 import 'package:dappstore/core/localisation/localisation_extension.dart';
@@ -222,7 +223,7 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
               !state.failureSign) {
             await Future.delayed(const Duration(seconds: 1), () async {
               cubit
-                  .getEthSign("I allow to connect my wallet to HTC dappstore.")
+                  .getEthSign(WalletConnectConfig.signMessageData)
                   .then((value) {
                 if (value.isNotEmpty || value != "") {
                   getIt<IWalletConnectStore>().addSignature(
@@ -290,11 +291,11 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                 TextButton(
                   onPressed: () async {
                     if (!state.connected || state.failureConnection) {
-                      cubit.getConnectRequest(["eip155:137", "eip155:1"]);
+                      cubit.getConnectRequest(
+                          WalletConnectConfig.connectingChain);
                     } else {
                       cubit
-                          .getEthSign(
-                              "I allow to connect my wallet to HTC dappstore.")
+                          .getEthSign(WalletConnectConfig.signMessageData)
                           .then((value) {
                         if (value.isNotEmpty || value != "") {
                           getIt<IWalletConnectStore>().addSignature(

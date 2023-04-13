@@ -22,9 +22,9 @@ class AnalyticsHandler implements IAnalyticsHandler {
   }
 
   @override
-  Future<bool?> intallDappEvent(
+  Future<bool?> installDappEvent(
       {required String dappId, required Map<String, dynamic> metadata}) async {
-    return await _dataSource.intallDappEvent(
+    return await _dataSource.installDappEvent(
         installAnalyticsDTO: InstallAnalyticsDTO(
             dappId: dappId,
             userAddress: getIt<IWalletConnectCubit>().getActiveAdddress()!,

@@ -1,4 +1,4 @@
 abstract class IAnalyticsHandler {
-  Future<bool?> intallDappEvent(
+  Future<bool?> installDappEvent(
       {required String dappId, required Map<String, dynamic> metadata});
 }
