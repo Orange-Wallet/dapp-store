@@ -5,6 +5,7 @@ import 'package:dappstore/features/dapp_store_home/domain/entities/curated_list.
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_list.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/post_rating.dart';
+import 'package:dappstore/features/dapp_store_home/domain/entities/rating_list.dart';
 import 'package:dappstore/features/dapp_store_home/domain/repositories/i_dapp_list_repository.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/datasources/i_data_source.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/datasources/local_data_source.dart';
@@ -16,6 +17,8 @@ import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_info
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_list_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_info_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
+import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/rating_list_dto.dart';
+import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/rating_list_query_dto.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
@@ -123,16 +126,11 @@ class DappListRepoImpl implements IDappListRepo {
   }
 
   @override
-  Future<List<PostRating>> getRating({
-    required String dappId,
+  Future<RatingList?> getRating({
+    required RatingListQueryDto params,
   }) async {
-    final dataList = await _localDataSource.getRating(dappId);
-    List<PostRating> ratingList = [];
-    for (var element in dataList) {
-      final domain = element.toDomain();
-      ratingList.add(domain);
-    }
-    return ratingList;
+    final RatingListDto? dataList = await _dataSource.getRating(params: params);
+    return dataList?.toDomain();
   }
 
   @override

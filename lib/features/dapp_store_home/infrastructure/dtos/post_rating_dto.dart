@@ -12,7 +12,7 @@ class PostRatingDto with _$PostRatingDto {
     int? rating,
     String? comment,
     String? userId,
-    String? username,
+    String? userName,
     String? userAddress,
   }) = _PostRatingDto;
   factory PostRatingDto.fromJson(Map<String, Object?> json) =>
@@ -22,7 +22,7 @@ class PostRatingDto with _$PostRatingDto {
         rating: rating,
         comment: comment,
         userId: userId,
-        username: username,
+        userName: userName,
         userAddress: userAddress,
       );
 }

@@ -1,9 +1,11 @@
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/post_rating.dart';
+import 'package:dappstore/features/dapp_store_home/domain/entities/rating_list.dart';
 import 'package:dappstore/features/dapp_store_home/domain/repositories/i_dapp_list_repository.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_info_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
+import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/rating_list_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/repositories/dapp_list_repository_impl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -53,7 +55,9 @@ abstract class IStoreCubit extends Cubit<StoreState> {
   Future<bool> postRating({
     required PostRating ratingData,
   });
-  Future<List<PostRating>> getRating({required String dappId});
+  Future<RatingList?> getRating({
+    required RatingListQueryDto params,
+  });
   Future<PostRating?> getUserRating({
     required String dappId,
     required String address,

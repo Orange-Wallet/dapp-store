@@ -12,7 +12,7 @@ class PostRating with _$PostRating {
     int? rating,
     String? comment,
     String? userId,
-    String? username,
+    String? userName,
     String? userAddress,
   }) = _PostRating;
   factory PostRating.fromJson(Map<String, Object?> json) =>
@@ -22,7 +22,7 @@ class PostRating with _$PostRating {
         rating: rating,
         comment: comment,
         userId: userId,
-        username: username,
+        userName: userName,
         userAddress: userAddress,
       );
 }

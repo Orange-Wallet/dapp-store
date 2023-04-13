@@ -3,8 +3,10 @@ import 'package:dappstore/features/dapp_store_home/domain/entities/curated_list.
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_list.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/post_rating.dart';
+import 'package:dappstore/features/dapp_store_home/domain/entities/rating_list.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_info_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
+import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/rating_list_query_dto.dart';
 
 abstract class IDappListRepo {
   Future<DappList?> getDappList({GetDappQueryDto? queryParams});
@@ -25,9 +27,10 @@ abstract class IDappListRepo {
     required PostRating ratingData,
   });
 
-  Future<List<PostRating>> getRating({
-    required String dappId,
+  Future<RatingList?> getRating({
+    required RatingListQueryDto params,
   });
+
   Future<PostRating?> getUserRating({
     required String dappId,
     required String address,

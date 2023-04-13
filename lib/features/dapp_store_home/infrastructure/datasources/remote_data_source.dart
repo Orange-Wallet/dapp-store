@@ -12,6 +12,8 @@ import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_list
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_info_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/post_rating_dto.dart';
+import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/rating_list_dto.dart';
+import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/rating_list_query_dto.dart';
 import 'package:dio/dio.dart';
 
 class RemoteDataSource implements IDataSource {
@@ -196,25 +198,18 @@ class RemoteDataSource implements IDataSource {
   }
 
   @override
-  Future<List<PostRatingDto>> getRating(
-    String dappId,
-  ) async {
+  Future<RatingListDto?> getRating({
+    required RatingListQueryDto params,
+  }) async {
     try {
       Response res = await _network.get(
-          path: "${Config.glApiBaseUrl}/api/v1/dapp/rate",
-          queryParams: {"dappId": dappId});
-      final data = [];
-      if (res.statusCode == 200) {
-        for (var element in (res.data as List<Map<String, Object?>>)) {
-          data.add(PostRatingDto.fromJson(element));
-        }
-      } else {
-        return [];
-      }
+        path: "${Config.glApiBaseUrl}/api/v1/reviews",
+        queryParams: params.toJson(),
+      );
+      return RatingListDto.fromJson(res.data);
     } catch (e, stack) {
       errorLogger.logError(e, stack);
     }
-    return [];
   }
 
   @override

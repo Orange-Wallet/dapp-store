@@ -96,29 +96,30 @@ class _RatingCardState extends State<RatingCard> {
                   if (state.selfRating != null)
                     ReviewTile(
                         address: state.selfRating?.userAddress ??
-                            state.selfRating!.username ??
+                            state.selfRating!.userName ??
                             "null",
                         theme: widget.theme,
-                        name: state.selfRating!.username ?? "",
+                        name: state.selfRating!.userName ?? "",
                         description: state.selfRating!.comment ?? "",
                         rating: state.selfRating!.rating ?? 0),
                   Divider(
                     color: widget.theme.whiteColor.withOpacity(0.2),
                     height: 1,
                   ),
-                  if (state.ratings.isNotEmpty)
+                  if (state.ratingList?.response?.isNotEmpty ?? false)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          context.getLocale!.otherReview,
+                          context.getLocale!.allReview,
                           style: widget.theme.whiteBoldTextStyle,
                         ),
                         TextButton(
                             onPressed: () {
                               context.pushRoute(RatingsScreen(
-                                  theme: widget.theme,
-                                  ratingsList: state.ratings));
+                                theme: widget.theme,
+                                handler: widget.handler,
+                              ));
                             },
                             child: Text(
                               context.getLocale!.viewAll,
@@ -126,26 +127,28 @@ class _RatingCardState extends State<RatingCard> {
                             ))
                       ],
                     ),
-                  if (state.ratings.isNotEmpty)
+                  if (state.ratingList?.response?.isNotEmpty ?? false)
                     Divider(
                       color: widget.theme.whiteColor.withOpacity(0.08),
                       height: 1,
                     ),
-                  if (state.ratings.isNotEmpty)
+                  if (state.ratingList?.response?.isNotEmpty ?? false)
                     ListView.builder(
                       shrinkWrap: true,
-                      itemCount:
-                          state.ratings.length > 3 ? 3 : state.ratings.length,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: state.ratingList!.response!.length > 3
+                          ? 3
+                          : state.ratingList!.response!.length,
                       itemBuilder: ((context, index) {
-                        final rating = state.ratings[index];
+                        final rating = state.ratingList!.response![index]!;
                         return Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             ReviewTile(
                               address: rating.userAddress ??
-                                  rating.username ??
+                                  rating.userName ??
                                   "null",
-                              name: rating.username ?? "",
+                              name: rating.userName ?? "",
                               description: rating.comment ?? "",
                               rating: rating.rating ?? 0,
                               theme: widget.theme,

@@ -4,7 +4,10 @@ import 'package:dappstore/features/dapp_info/application/i_dapp_info_cubit.dart'
 import 'package:dappstore/features/dapp_store_home/application/store_cubit/i_store_cubit.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/post_rating.dart';
+import 'package:dappstore/features/dapp_store_home/domain/entities/rating_list.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_info_query_dto.dart';
+import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
+import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/rating_list_query_dto.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -38,7 +41,9 @@ class DappInfoCubit extends Cubit<DappInfoState> implements IDappInfoCubit {
     }
     if (storeCubit.state.activeDappId != null) {
       getRatings(
-        dappId: storeCubit.state.activeDappId!,
+        params: RatingListQueryDto(
+          dappId: storeCubit.state.activeDappId,
+        ),
       );
 
       getUserRating(
@@ -64,15 +69,53 @@ class DappInfoCubit extends Cubit<DappInfoState> implements IDappInfoCubit {
     return dappInfo;
   }
 
-  @override
-  Future<List<PostRating>> getRatings({required String dappId}) async {
-    List<PostRating> ratings = await storeCubit.getRating(dappId: dappId);
-    log(ratings.toString());
-    emit(state.copyWith(
-      ratings: ratings,
-    ));
+  // @override
+  // Future<List<PostRating>> getRatings({required String dappId}) async {
+  //   List<PostRating> ratings = await storeCubit.getRating(dappId: dappId);
+  //   log(ratings.toString());
+  //   emit(state.copyWith(
+  //     ratings: ratings,
+  //   ));
 
-    return ratings;
+  //   return ratings;
+  // }
+  @override
+  getRatings({required RatingListQueryDto params}) async {
+    emit(state.copyWith(isLoadingNextRating: true));
+    RatingList? ratingsList = await storeCubit.getRating(params: params);
+    emit(state.copyWith(
+      ratingList: ratingsList,
+      ratingsPage: ratingsList?.page,
+      ratingQueryParams: params,
+      isLoadingNextRating: false,
+    ));
+  }
+
+  @override
+  getRatingListNextPage() async {
+    if (!(state.isLoadingNextRating ?? false)) {
+      RatingListQueryDto queryParams = state.ratingQueryParams!;
+      int nextPage = (state.ratingsPage ?? 0) + 1;
+      if (nextPage <= (state.ratingList?.pageCount ?? 0)) {
+        emit(state.copyWith(isLoadingNextRating: true));
+
+        RatingList? searchList = await storeCubit.getRating(
+            params: queryParams.copyWith(page: nextPage));
+        RatingList? currentList = state.ratingList;
+        RatingList updatedList = RatingList(
+            page: searchList?.page,
+            limit: searchList?.limit,
+            pageCount: searchList?.pageCount,
+            response: [...?currentList?.response, ...?searchList?.response]);
+
+        emit(state.copyWith(
+          ratingList: updatedList,
+          ratingsPage: updatedList.page,
+          ratingQueryParams: queryParams.copyWith(page: nextPage),
+          isLoadingNextRating: false,
+        ));
+      }
+    }
   }
 
   @override

@@ -4,9 +4,11 @@ import 'package:dappstore/features/dapp_store_home/domain/entities/curated_list.
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_list.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/post_rating.dart';
+import 'package:dappstore/features/dapp_store_home/domain/entities/rating_list.dart';
 import 'package:dappstore/features/dapp_store_home/domain/repositories/i_dapp_list_repository.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_info_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
+import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/rating_list_query_dto.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -246,9 +248,10 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
   }
 
   @override
-  Future<List<PostRating>> getRating({required String dappId}) async {
-    final List<PostRating> ratingList =
-        await dappListRepo.getRating(dappId: dappId);
+  Future<RatingList?> getRating({
+    required RatingListQueryDto params,
+  }) async {
+    final RatingList? ratingList = await dappListRepo.getRating(params: params);
     return ratingList;
   }
 

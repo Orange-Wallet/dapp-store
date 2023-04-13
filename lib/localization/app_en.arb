@@ -128,13 +128,13 @@
   "shareReview": "Share review",
   "yourReview": "Your review",
   "editReview": "Edit review",
-  "otherReview": "Other review",
+  "allReview": "All reviews",
   "downloadDappToReview": "Something went wrong, did you not download/open dApp before posting review?",
   "reviewPosted": "Review posted.",
   "ratingsAndReviews": "Ratings and Reviews",
-  "allowAppInstall":"Allow installation permission",
-  "allowAppInstallDesc":"Allow dappstore to install apps on this device",
-  "allowAppNotification":"Allow notifications permission",
-  "allowAppNotificationDesc":"Allow dappstore to send notification on this device",
-  "goToSettings":"Go to settings"
+  "allowAppInstall": "Allow installation permission",
+  "allowAppInstallDesc": "Allow dappstore to install apps on this device",
+  "allowAppNotification": "Allow notifications permission",
+  "allowAppNotificationDesc": "Allow dappstore to send notification on this device",
+  "goToSettings": "Go to settings"
 }

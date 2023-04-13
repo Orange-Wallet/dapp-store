@@ -12,6 +12,8 @@ import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_list
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_info_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/post_rating_dto.dart';
+import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/rating_list_dto.dart';
+import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/rating_list_query_dto.dart';
 import 'package:dappstore/utils/typedef.dart';
 import 'package:dio/dio.dart';
 
@@ -276,19 +278,32 @@ class LocalDataSource implements IDataSource {
   }
 
   @override
-  Future<List<PostRatingDto>> getRating(
-    String dappId,
-  ) async {
-    return [
-      PostRatingDto.fromJson({
-        "dappId": "com.axieinfinity.dapp",
-        "rating": 4,
-        "comment": "Amazing dapp",
-        "userId": null,
-        "username": "Abhi",
-        "userAddress": "0x2bD7Fe74aA4E442b9EA407fBBEEe331840018465"
-      })
-    ];
+  Future<RatingListDto?> getRating({
+    required RatingListQueryDto params,
+  }) async {
+    return RatingListDto.fromJson({
+      "page": 1,
+      "limit": 10,
+      "pageCount": 1,
+      "response": [
+        {
+          "dappId": "com.axieinfinity.dapp",
+          "rating": 5,
+          "comment": "Amazing dapp",
+          "userId": null,
+          "userName": "Karthik",
+          "userAddress": "0x2Ee331840018465bD7Fe74aA4E442b9EA407fBBE"
+        },
+        {
+          "dappId": "com.axieinfinity.dapp",
+          "rating": 5,
+          "comment": "Its an amazing dapp",
+          "userId": null,
+          "userName": "Stoic-Jackson",
+          "userAddress": "0x7c865c14f9dcDCbFd078C9eD10Be313f2e1012b9"
+        }
+      ]
+    });
   }
 
   @override

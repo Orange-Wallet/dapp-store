@@ -1,1 +1,37 @@
-{}
+{
+  "de": [
+    "allReview"
+  ],
+
+  "es": [
+    "allReview"
+  ],
+
+  "fr": [
+    "allReview"
+  ],
+
+  "it": [
+    "allReview"
+  ],
+
+  "ja": [
+    "allReview"
+  ],
+
+  "ko": [
+    "allReview"
+  ],
+
+  "pl": [
+    "allReview"
+  ],
+
+  "ru": [
+    "allReview"
+  ],
+
+  "zh": [
+    "allReview"
+  ]
+}

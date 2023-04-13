@@ -7,6 +7,8 @@ import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/dapp_list
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_info_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/get_dapp_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/post_rating_dto.dart';
+import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/rating_list_dto.dart';
+import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/rating_list_query_dto.dart';
 
 abstract class IDataSource {
   Future<DappListDto?> getDappList({
@@ -27,7 +29,9 @@ abstract class IDataSource {
   Future<bool> postRating(
     PostRatingDto ratingData,
   );
-  Future<List<PostRatingDto>> getRating(String dappId);
+  Future<RatingListDto?> getRating({
+    required RatingListQueryDto params,
+  });
   Future<PostRatingDto?> getUserRating(String dappId, String address);
   Future<bool> postRatingDsk(
     PostRatingDto ratingData,
