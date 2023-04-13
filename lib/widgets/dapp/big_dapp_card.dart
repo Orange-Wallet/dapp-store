@@ -107,48 +107,55 @@ class BigDappCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            BorderRadius.circular(handler.theme.smallRadius),
-                      ),
-                      clipBehavior: Clip.antiAlias,
-                      child: ImageWidgetCached(
-                        dapp.images?.logo ?? dapp.images!.banner!,
-                        key: ValueKey(
+                Expanded(
+                  child: Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(handler.theme.smallRadius),
+                        ),
+                        clipBehavior: Clip.antiAlias,
+                        child: ImageWidgetCached(
                           dapp.images?.logo ?? dapp.images!.banner!,
+                          key: ValueKey(
+                            dapp.images?.logo ?? dapp.images!.banner!,
+                          ),
+                          height: 52,
+                          width: 52,
                         ),
-                        height: 52,
-                        width: 52,
                       ),
-                    ),
-                    const SizedBox(
-                      width: 12,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          dapp.name ?? "N/A",
-                          style: handler.theme.normalTextStyle2,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                      const SizedBox(
+                        width: 12,
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              dapp.name ?? "N/A",
+                              style: handler.theme.normalTextStyle2,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              "${dapp.developer?.legalName ?? "N/A"} • ${dapp.category}",
+                              style: handler.theme.secondaryTextStyle1,
+                              maxLines: 1,
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                            )
+                          ],
                         ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Text(
-                          "${dapp.developer?.legalName ?? "N/A"} • ${dapp.category}",
-                          style: handler.theme.secondaryTextStyle1,
-                          maxLines: 1,
-                          softWrap: true,
-                          overflow: TextOverflow.ellipsis,
-                        )
-                      ],
-                    ),
-                  ],
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                    ],
+                  ),
                 ),
                 CustomizableAppButton(
                   theme: theme,
