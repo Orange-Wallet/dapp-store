@@ -11,12 +11,17 @@ extension BottomSheet on BuildContext {
     Function? callback,
   }) {
     showModalBottomSheet(
-      clipBehavior: Clip.hardEdge, // or hardEdge must
+      clipBehavior: Clip.antiAlias, // or hardEdge must
       backgroundColor: Colors.transparent,
       context: this,
-      elevation: 0,
+      elevation: 10,
       isDismissible: dismissable,
       isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(80),
+        ),
+      ),
       builder: (context) {
         return SingleChildScrollView(
           child: Container(
