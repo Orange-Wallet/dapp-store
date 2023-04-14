@@ -10,6 +10,7 @@ class PwaWebviewState with _$PwaWebviewState {
     required bool enableForward,
     required bool loading,
     required bool enableUrlField,
+    required bool errorPopup,
   }) = _PwaWebviewState;
   factory PwaWebviewState.initial() => const _PwaWebviewState(
         url: 'https://dappradar.com/',
@@ -19,5 +20,6 @@ class PwaWebviewState with _$PwaWebviewState {
         enableForward: false,
         loading: false,
         enableUrlField: false,
+        errorPopup: false,
       );
 }

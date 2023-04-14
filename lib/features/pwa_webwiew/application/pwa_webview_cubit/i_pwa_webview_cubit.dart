@@ -28,4 +28,7 @@ abstract class IPwaWebviewCubit extends Cubit<PwaWebviewState> {
   setLoading(bool value);
 
   setUrl(String url);
+
+  void setErrorPopupState(bool popupState);
+  bool get isErrorPopupOpen;
 }

@@ -38,15 +38,6 @@ class PwaWebviewCubit extends Cubit<PwaWebviewState>
     final enableBack = await _webViewController!.canGoBack();
     final enableForward = await _webViewController!.canGoForward();
     final title = await _webViewController!.getTitle() ?? '';
-    // final url = (await _webViewController!.getUrl()).toString();
-    // if (url != 'about:blank' && url != state.url) {
-    //   emit(state.copyWith(url: url));
-    //   _urlController!
-    //     ..text = state.url
-    //     ..selection =
-    //         TextSelection.fromPosition(TextPosition(offset: state.url.length));
-    //   if (loadStart) {}
-    // }
     emit(state.copyWith(
       enableBack: enableBack,
       enableForward: enableForward,
@@ -59,6 +50,14 @@ class PwaWebviewCubit extends Cubit<PwaWebviewState>
     debugPrint('onChange $change');
     super.onChange(change);
   }
+
+  @override
+  void setErrorPopupState(bool popupState) {
+    emit(state.copyWith(errorPopup: popupState));
+  }
+
+  @override
+  bool get isErrorPopupOpen => state.errorPopup;
 
   @override
   showUrlField() {

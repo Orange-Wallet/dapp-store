@@ -13,4 +13,5 @@ class Routes {
   static const savedDappsPage = '/savedDappsPage';
 
   static const ratingsScreen = '/reatingsScreen';
+  static const chainNotSupportedPopup = '/chainNotSupportedSheet';
 }

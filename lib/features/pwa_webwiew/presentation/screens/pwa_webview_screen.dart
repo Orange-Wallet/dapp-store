@@ -1,4 +1,5 @@
 import 'package:dappstore/core/di/di.dart';
+import 'package:dappstore/core/router/constants/routes.dart';
 import 'package:dappstore/core/router/interface/route.dart';
 import 'package:dappstore/core/theme/i_theme_cubit.dart';
 import 'package:dappstore/features/pwa_webwiew/application/handler/i_pwa_webview_handler.dart';
@@ -71,16 +72,27 @@ class _PwaWebViewState extends State<PwaWebView> {
                       isDebug: true,
                       initialUrlRequest:
                           URLRequest(url: Uri.parse(webViewState.url)),
-                      chainId: injectedWeb3State.connectedChainId ?? 1,
+                      chainId: injectedWeb3State.connectedChainId ?? 137,
                       rpc: injectedWeb3State.connectedChainRpc ??
                           "https://rpc.ankr.com/polygon",
                       onWebViewCreated: handler.initWebViewCubit,
                       initialOptions: InAppWebViewGroupOptions(
                         crossPlatform: InAppWebViewOptions(
                           useShouldOverrideUrlLoading: true,
+                          javaScriptCanOpenWindowsAutomatically: true,
+                          allowFileAccessFromFileURLs: true,
+                          allowUniversalAccessFromFileURLs: true,
+                          cacheEnabled: true,
+                          clearCache: true,
+                          javaScriptEnabled: true,
                         ),
                         android: AndroidInAppWebViewOptions(
-                            useHybridComposition: true),
+                          safeBrowsingEnabled: false,
+                          allowFileAccess: true,
+                          allowContentAccess: true,
+                          mixedContentMode: AndroidMixedContentMode
+                              .MIXED_CONTENT_ALWAYS_ALLOW,
+                        ),
                       ),
                       onProgressChanged: handler.onProgressChanged,
                       onLoadStart: handler.onLoadStart,
@@ -118,7 +130,11 @@ class _PwaWebViewState extends State<PwaWebView> {
 
   showChainNotSupportedPopup() {
     context.showBottomSheet(
+      routeName: Routes.chainNotSupportedPopup,
       theme: themeCubit.theme,
+      callback: () {
+        pwaWebviewCubit.setErrorPopupState(false);
+      },
       child: ChainNotSupportedPopup(
         walletConnectCubit: handler.walletConnectCubit,
         theme: themeCubit.theme,

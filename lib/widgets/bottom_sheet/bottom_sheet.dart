@@ -7,12 +7,16 @@ extension BottomSheet on BuildContext {
     required IThemeSpec theme,
     required Widget child,
     bool dismissable = true,
+    String? routeName,
+    Function? callback,
   }) {
     showModalBottomSheet(
+      routeSettings: RouteSettings(name: routeName),
       backgroundColor: Colors.transparent,
       context: this,
       isDismissible: dismissable,
       isScrollControlled: true,
+      useRootNavigator: true,
       builder: (context) {
         return SingleChildScrollView(
           child: Container(
@@ -63,6 +67,8 @@ extension BottomSheet on BuildContext {
           ),
         );
       },
-    );
+    ).whenComplete(() {
+      callback?.call();
+    });
   }
 }

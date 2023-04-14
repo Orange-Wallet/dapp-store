@@ -65,6 +65,7 @@ class PwaWebviewHandler implements IPwaWebviewHandler {
   @override
   void initWebViewCubit(InAppWebViewController controller) {
     webViewCubit.initWebViewController(controller);
+    controller.clearCache();
   }
 
   @override
@@ -104,6 +105,8 @@ class PwaWebviewHandler implements IPwaWebviewHandler {
 
   @override
   void reload() {
+    webViewCubit.webViewController?.clearCache();
+
     webViewCubit.webViewController?.reload();
   }
 
@@ -182,13 +185,20 @@ class PwaWebviewHandler implements IPwaWebviewHandler {
   @override
   Future<String> addEthereumChain(InAppWebViewController controller,
       JsAddEthereumChain data, chainId) async {
-    final chainRpc = RpcMapping.networks[chainId];
-    if (chainRpc == null || chainRpc != "") {
+    final radix = data.chainId?.contains("0x") == true ? 16 : 10;
+    final strippedChainId = data.chainId?.contains("0x") == true
+        ? data.chainId?.substring(2)
+        : data.chainId;
+    final parsedChainId = int.parse(strippedChainId ?? "1", radix: radix);
+    final chainRpc = RpcMapping.networks[parsedChainId];
+
+    if ((chainRpc == null || chainRpc == "") &&
+        !webViewCubit.isErrorPopupOpen) {
       chainNotSupportedCallback?.call();
+      webViewCubit.setErrorPopupState(true);
       return "";
     }
-    return injectedWeb3Cubit
-        .changeChains(int.tryParse(data.chainId ?? "1") ?? 1);
+    return injectedWeb3Cubit.changeChains(parsedChainId);
   }
 
   @override
