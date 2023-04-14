@@ -54,7 +54,7 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
         //connectedChainId: 137,
         //connectedChainRpc: "https://rpc.ankr.com/polygon",
         connectedChainId: supported,
-        connectedChainRpc: rpc,
+        connectedChainRpc: rpc!.rpc,
         connected: true,
         originalUrl: originalUrl,
       ),
@@ -66,7 +66,8 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
   String? get account => signer.getActiveAdddress();
 
   @override
-  String? get chainId => signer.getChain();
+  String? get chainId =>
+      state.connectedChainId?.toString() ?? signer.getChain()!.split(":")[1];
 
   @override
   changeChains(int chainId) {
@@ -77,7 +78,7 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
       emit(
         state.copyWith(
           connectedChainId: chainId,
-          connectedChainRpc: rpcEndpoint,
+          connectedChainRpc: rpcEndpoint.rpc,
         ),
       );
       return rpcEndpoint;

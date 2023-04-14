@@ -69,6 +69,7 @@ class _PwaWebViewState extends State<PwaWebView> {
                 body: Stack(
                   children: [
                     InjectedWebview(
+                      address: handler.injectedWeb3Cubit.account,
                       isDebug: true,
                       initialUrlRequest:
                           URLRequest(url: Uri.parse(webViewState.url)),
@@ -78,6 +79,7 @@ class _PwaWebViewState extends State<PwaWebView> {
                       onWebViewCreated: handler.initWebViewCubit,
                       initialOptions: InAppWebViewGroupOptions(
                         crossPlatform: InAppWebViewOptions(
+                          userAgent: "Mozilla/5.0",
                           useShouldOverrideUrlLoading: true,
                           javaScriptCanOpenWindowsAutomatically: true,
                           allowFileAccessFromFileURLs: true,

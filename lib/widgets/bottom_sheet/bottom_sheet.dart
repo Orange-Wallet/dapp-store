@@ -11,12 +11,12 @@ extension BottomSheet on BuildContext {
     Function? callback,
   }) {
     showModalBottomSheet(
-      routeSettings: RouteSettings(name: routeName),
+      clipBehavior: Clip.hardEdge, // or hardEdge must
       backgroundColor: Colors.transparent,
       context: this,
+      elevation: 0,
       isDismissible: dismissable,
       isScrollControlled: true,
-      useRootNavigator: true,
       builder: (context) {
         return SingleChildScrollView(
           child: Container(

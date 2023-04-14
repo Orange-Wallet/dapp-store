@@ -23,7 +23,7 @@ dependencies:
   flutter_injected_web3:
     git:
       url: https://github.com/Orange-Wallet/flutter_injected_web3
-      ref: f7e9605abaa472560f6fda2ec15eb729664af3e3
+      ref: dde6c3301fae6f7ca4cebe20fd8ebb3500d23fe2
   flutter_inappwebview: ^5.7.1
   injectable: ^2.1.0
   dio_cache_interceptor: ^3.4.0

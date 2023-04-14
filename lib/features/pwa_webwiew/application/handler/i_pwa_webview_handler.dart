@@ -59,4 +59,6 @@ abstract class IPwaWebviewHandler {
 
   Future<NavigationActionPolicy> shouldOverrideUrlLoading(
       InAppWebViewController controller, NavigationAction action);
+  showNetworkSwitch(BuildContext context);
+  changeChains(int chainId);
 }

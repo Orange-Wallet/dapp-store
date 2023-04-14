@@ -1,1 +1,37 @@
-{}
+{
+  "de": [
+    "selectNetwork"
+  ],
+
+  "es": [
+    "selectNetwork"
+  ],
+
+  "fr": [
+    "selectNetwork"
+  ],
+
+  "it": [
+    "selectNetwork"
+  ],
+
+  "ja": [
+    "selectNetwork"
+  ],
+
+  "ko": [
+    "selectNetwork"
+  ],
+
+  "pl": [
+    "selectNetwork"
+  ],
+
+  "ru": [
+    "selectNetwork"
+  ],
+
+  "zh": [
+    "selectNetwork"
+  ]
+}

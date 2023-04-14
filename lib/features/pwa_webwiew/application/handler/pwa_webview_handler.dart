@@ -6,7 +6,9 @@ import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/i
 import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/injected_web3_cubit.dart';
 import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/i_pwa_webview_cubit.dart';
 import 'package:dappstore/features/pwa_webwiew/infrastructure/models/rpc_mapping.dart';
+import 'package:dappstore/features/pwa_webwiew/presentation/widgets/network_selector_popup.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
+import 'package:dappstore/widgets/bottom_sheet/bottom_sheet.dart';
 import 'package:dappstore/widgets/snacbar/snacbar_context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -96,6 +98,7 @@ class PwaWebviewHandler implements IPwaWebviewHandler {
       }
       context.showMsgBar(errorString);
     });
+    injectedWeb3Cubit.changeChains(1);
   }
 
   @override
@@ -148,7 +151,7 @@ class PwaWebviewHandler implements IPwaWebviewHandler {
     return IncomingAccountsModel(
       address: injectedWeb3Cubit.account,
       chainId: int.tryParse(injectedWeb3Cubit.chainId!),
-      rpcUrl: "",
+      rpcUrl: injectedWeb3Cubit.state.connectedChainRpc,
     );
   }
 
@@ -192,12 +195,13 @@ class PwaWebviewHandler implements IPwaWebviewHandler {
     final parsedChainId = int.parse(strippedChainId ?? "1", radix: radix);
     final chainRpc = RpcMapping.networks[parsedChainId];
 
-    if ((chainRpc == null || chainRpc == "") &&
+    if ((chainRpc == null || chainRpc.rpc == "") &&
         !webViewCubit.isErrorPopupOpen) {
       chainNotSupportedCallback?.call();
       webViewCubit.setErrorPopupState(true);
       return "";
     }
+    changeChains(parsedChainId);
     return injectedWeb3Cubit.changeChains(parsedChainId);
   }
 
@@ -224,5 +228,23 @@ class PwaWebviewHandler implements IPwaWebviewHandler {
     } else {
       return NavigationActionPolicy.ALLOW;
     }
+  }
+
+  @override
+  showNetworkSwitch(BuildContext context) {
+    context.showBottomSheet(
+      child: NetworkSelectorPopup(
+        handler: this,
+        theme: themeCubit.theme,
+      ),
+      theme: themeCubit.theme,
+    );
+  }
+
+  @override
+  changeChains(int chainId) {
+    injectedWeb3Cubit.changeChains(chainId);
+    webViewCubit.webViewController!.clearCache();
+    webViewCubit.webViewController!.reload();
   }
 }

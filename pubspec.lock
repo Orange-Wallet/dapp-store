@@ -413,11 +413,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: f7e9605abaa472560f6fda2ec15eb729664af3e3
-      resolved-ref: f7e9605abaa472560f6fda2ec15eb729664af3e3
+      ref: dde6c3301fae6f7ca4cebe20fd8ebb3500d23fe2
+      resolved-ref: dde6c3301fae6f7ca4cebe20fd8ebb3500d23fe2
       url: "https://github.com/Orange-Wallet/flutter_injected_web3"
     source: git
-    version: "1.0.0"
+    version: "1.0.1"
   flutter_lints:
     dependency: "direct dev"
     description:
