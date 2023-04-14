@@ -63,7 +63,10 @@ class DappInfoHandler implements IDappInfoHandler {
       userAddress: walletConnectCubit.getActiveAdddress() ?? "",
       userName: profile?.name ?? "",
     );
-    return await dappInfoCubit.postUserRating(data: data);
+    bool res = await dappInfoCubit.postUserRating(data: data);
+
+    getRatings(params: RatingListQueryDto(dappId: dappId));
+    return res;
   }
 
   @override
