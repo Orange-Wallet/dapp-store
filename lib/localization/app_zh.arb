@@ -138,5 +138,6 @@
   "allowAppInstallDesc": "允许dappstore在此设备上安装应用程序",
   "allowAppNotification": "允许通知权限",
   "allowAppNotificationDesc": "允许dappstore在此设备上发送通知",
-  "goToSettings": "前往设置"
+  "goToSettings": "前往设置",
+  "selectNetwork": "选择网络"
 }

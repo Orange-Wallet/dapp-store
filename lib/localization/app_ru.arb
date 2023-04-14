@@ -138,5 +138,6 @@
   "allowAppInstallDesc": "Разрешить dappstore устанавливать приложения на этом устройстве",
   "allowAppNotification": "Разрешить разрешение на уведомления",
   "allowAppNotificationDesc": "Разрешить dappstore отправлять уведомления на этом устройстве",
-  "goToSettings": "Перейти в настройки"
+  "goToSettings": "Перейти в настройки",
+  "selectNetwork": "Выберите сеть"
 }

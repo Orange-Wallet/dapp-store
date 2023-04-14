@@ -138,5 +138,6 @@
   "allowAppInstallDesc": "Autoriser dappstore à installer des applications sur cet appareil",
   "allowAppNotification": "Autoriser la permission de notifications",
   "allowAppNotificationDesc": "Autoriser dappstore à envoyer des notifications sur cet appareil",
-  "goToSettings": "Aller aux paramètres"
+  "goToSettings": "Aller aux paramètres",
+  "selectNetwork": "Sélectionner un réseau"
 }
