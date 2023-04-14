@@ -1,6 +1,7 @@
 import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/router/constants/routes.dart';
 import 'package:dappstore/core/router/interface/route.dart';
+import 'package:dappstore/core/router/router.dart';
 import 'package:dappstore/core/theme/i_theme_cubit.dart';
 import 'package:dappstore/core/theme/theme_cubit.dart';
 import 'package:dappstore/features/dapp_info/application/dapp_info_cubit.dart';
@@ -57,195 +58,202 @@ class _DappInfoPageState extends State<DappInfoPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<IThemeCubit, ThemeState>(
-      bloc: themeCubit,
-      builder: (context, state) {
-        final theme = state.activeTheme!;
-        return BlocBuilder<IDappInfoCubit, DappInfoState>(
-            bloc: dappInfoHandler.dappInfoCubit,
-            builder: (context, dappState) {
-              final storeHandler = DappStoreHandler();
-              storeHandler.getSelectedCategoryDappList(
-                  queryParams: GetDappQueryDto(
-                      categories: [dappState.dappInfo?.category]));
-              storeHandler.resetSelectedCategory();
+    return WillPopScope(
+      onWillPop: () async {
+        context.popRoute(true);
+        return true;
+      },
+      child: BlocBuilder<IThemeCubit, ThemeState>(
+        bloc: themeCubit,
+        builder: (context, state) {
+          final theme = state.activeTheme!;
+          return BlocBuilder<IDappInfoCubit, DappInfoState>(
+              bloc: dappInfoHandler.dappInfoCubit,
+              builder: (context, dappState) {
+                final storeHandler = DappStoreHandler();
+                storeHandler.getSelectedCategoryDappList(
+                    queryParams: GetDappQueryDto(
+                        categories: [dappState.dappInfo?.category]));
+                storeHandler.resetSelectedCategory();
 
-              return Scaffold(
-                backgroundColor: theme.backgroundColor,
-                appBar: InScreenAppBar(
-                  title: dappState.dappInfo?.name ?? "",
-                  themeSpec: theme,
-                  actionWidgets: [SearchButton()],
-                ),
-                body: dappState.loading == true
-                    ? Center(
-                        child: Loader(
-                          size: 50,
-                          color: theme.whiteColor,
-                        ),
-                      )
-                    : ListView(
-                        children: [
-                          Stack(
-                            children: [
-                              Positioned(
-                                top: 50,
-                                left: -250,
-                                width: 400,
-                                height: 400,
-                                child: Container(
-                                  clipBehavior: Clip.antiAlias,
-                                  alignment: Alignment.topCenter,
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: storeHandler.theme.wcBlue,
-                                      gradient: RadialGradient(
-                                        colors: [
-                                          storeHandler.theme.wcBlue
-                                              .withOpacity(0.4),
-                                          storeHandler.theme.wcBlue
-                                              .withOpacity(0),
-                                        ],
-                                      )),
-                                  height: 500,
-                                ),
-                              ),
-                              Positioned.fill(
-                                right: -200,
-                                top: -300,
-                                child: Container(
-                                  clipBehavior: Clip.antiAlias,
-                                  alignment: Alignment.topCenter,
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: storeHandler.theme.wcBlue,
-                                      gradient: RadialGradient(
-                                        colors: [
-                                          storeHandler.theme.wcBlue
-                                              .withOpacity(0.4),
-                                          storeHandler.theme.wcBlue
-                                              .withOpacity(0),
-                                        ],
-                                      )),
-                                  height: 500,
-                                ),
-                              ),
-                              Column(
-                                children: [
-                                  if (dappState.dappInfo?.images?.screenshots !=
-                                      null)
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                        10,
-                                        32.0,
-                                        10,
-                                        12,
-                                      ),
-                                      child: ImageCarousel(
-                                        imageUrls: (dappState.dappInfo?.images
-                                                ?.screenshots ??
-                                            []),
-                                        dappInfoHandler: dappInfoHandler,
-                                      ),
-                                    ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 20.0, bottom: 40),
-                                    child: DappTitleTile(
-                                      dappInfo: dappState.dappInfo!,
-                                      theme: theme,
-                                      primaryTile: true,
-                                    ),
+                return Scaffold(
+                  backgroundColor: theme.backgroundColor,
+                  appBar: InScreenAppBar(
+                    title: dappState.dappInfo?.name ?? "",
+                    themeSpec: theme,
+                    actionWidgets: [SearchButton()],
+                  ),
+                  body: dappState.loading == true
+                      ? Center(
+                          child: Loader(
+                            size: 50,
+                            color: theme.whiteColor,
+                          ),
+                        )
+                      : ListView(
+                          children: [
+                            Stack(
+                              children: [
+                                Positioned(
+                                  top: 50,
+                                  left: -250,
+                                  width: 400,
+                                  height: 400,
+                                  child: Container(
+                                    clipBehavior: Clip.antiAlias,
+                                    alignment: Alignment.topCenter,
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: storeHandler.theme.wcBlue,
+                                        gradient: RadialGradient(
+                                          colors: [
+                                            storeHandler.theme.wcBlue
+                                                .withOpacity(0.4),
+                                            storeHandler.theme.wcBlue
+                                                .withOpacity(0),
+                                          ],
+                                        )),
+                                    height: 500,
                                   ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 20.0),
-                            child: dashedLine,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8.0),
-                            child: AppDescriptionBox(
-                                dappInfoHandler: dappInfoHandler),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 11.0),
-                            child: AppStatsCard(
-                              dappInfoHandler: dappInfoHandler,
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 15.0),
-                            child: RatingCard(
-                              handler: dappInfoHandler,
-                              theme: theme,
-                              dappInfo: dappState.dappInfo!,
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 15.0),
-                            child: DefaultCard(
-                              theme: theme,
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                ),
+                                Positioned.fill(
+                                  right: -200,
+                                  top: -300,
+                                  child: Container(
+                                    clipBehavior: Clip.antiAlias,
+                                    alignment: Alignment.topCenter,
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: storeHandler.theme.wcBlue,
+                                        gradient: RadialGradient(
+                                          colors: [
+                                            storeHandler.theme.wcBlue
+                                                .withOpacity(0.4),
+                                            storeHandler.theme.wcBlue
+                                                .withOpacity(0),
+                                          ],
+                                        )),
+                                    height: 500,
+                                  ),
+                                ),
+                                Column(
                                   children: [
-                                    Text(
-                                      context.getLocale!.contactSupport,
-                                      style: theme.titleTextExtraBold,
+                                    if (dappState
+                                            .dappInfo?.images?.screenshots !=
+                                        null)
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                          10,
+                                          32.0,
+                                          10,
+                                          12,
+                                        ),
+                                        child: ImageCarousel(
+                                          imageUrls: (dappState.dappInfo?.images
+                                                  ?.screenshots ??
+                                              []),
+                                          dappInfoHandler: dappInfoHandler,
+                                        ),
+                                      ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 20.0, bottom: 40),
+                                      child: DappTitleTile(
+                                        dappInfo: dappState.dappInfo!,
+                                        theme: theme,
+                                        primaryTile: true,
+                                      ),
                                     ),
-                                    InkWell(
-                                        onTap: () {
-                                          if (dappState.dappInfo?.developer
-                                                  ?.support?.email !=
-                                              null) {
-                                            canLaunchUrl(
-                                              Uri.parse(
-                                                  "mailto://${dappState.dappInfo?.developer?.support?.email}"),
-                                            );
-                                          } else {
-                                            context.showMsgBar(context
-                                                .getLocale!.noContactInfo);
-                                          }
-                                        },
-                                        child: Icon(
-                                          Icons.arrow_forward,
-                                          color: theme.whiteColor,
-                                        ))
                                   ],
                                 ),
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 20.0),
+                              child: dashedLine,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: AppDescriptionBox(
+                                  dappInfoHandler: dappInfoHandler),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 11.0),
+                              child: AppStatsCard(
+                                dappInfoHandler: dappInfoHandler,
                               ),
                             ),
-                          ),
-                          BlocBuilder<IStoreCubit, StoreState>(
-                            buildWhen: (previous, current) =>
-                                previous.selectedCategoryDappList.hashCode !=
-                                current.selectedCategoryDappList.hashCode,
-                            bloc: dappInfoHandler.storeCubit,
-                            builder: (context, dappState) {
-                              return SimilarApps(
-                                dappInfoHandler: dappInfoHandler,
-                                length: 5,
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15.0),
+                              child: RatingCard(
+                                handler: dappInfoHandler,
                                 theme: theme,
-                                dappList: dappState
-                                    .selectedCategoryDappList?.response,
-                              );
-                            },
-                          ),
-                          const SafeArea(
-                            child: SizedBox(),
-                          )
-                        ],
-                      ),
-              );
-            });
-      },
+                                dappInfo: dappState.dappInfo!,
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15.0),
+                              child: DefaultCard(
+                                theme: theme,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        context.getLocale!.contactSupport,
+                                        style: theme.titleTextExtraBold,
+                                      ),
+                                      InkWell(
+                                          onTap: () {
+                                            if (dappState.dappInfo?.developer
+                                                    ?.support?.email !=
+                                                null) {
+                                              canLaunchUrl(
+                                                Uri.parse(
+                                                    "mailto://${dappState.dappInfo?.developer?.support?.email}"),
+                                              );
+                                            } else {
+                                              context.showMsgBar(context
+                                                  .getLocale!.noContactInfo);
+                                            }
+                                          },
+                                          child: Icon(
+                                            Icons.arrow_forward,
+                                            color: theme.whiteColor,
+                                          ))
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            BlocBuilder<IStoreCubit, StoreState>(
+                              buildWhen: (previous, current) =>
+                                  previous.selectedCategoryDappList.hashCode !=
+                                  current.selectedCategoryDappList.hashCode,
+                              bloc: dappInfoHandler.storeCubit,
+                              builder: (context, dappState) {
+                                return SimilarApps(
+                                  dappInfoHandler: dappInfoHandler,
+                                  length: 5,
+                                  theme: theme,
+                                  dappList: dappState
+                                      .selectedCategoryDappList?.response,
+                                );
+                              },
+                            ),
+                            const SafeArea(
+                              child: SizedBox(),
+                            )
+                          ],
+                        ),
+                );
+              });
+        },
+      ),
     );
   }
 }
