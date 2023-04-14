@@ -32,7 +32,7 @@ class SelfUpdateRepoImpl implements ISelfUpdateRepo {
   Future<SelfUpdateDataModel?> getLatestBuild() async {
     try {
       SelfUpdateDataModel? selfUpdateDataModel =
-          await _localDataSource.getLatestBuild();
+          await _dataSource.getLatestBuild();
       return selfUpdateDataModel;
     } catch (e, stack) {
       errorLogger.logError(e, stack);

@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
-
 import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/router/router.dart';
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:dappstore/features/dapp_info/application/handler/i_dapp_info_handler.dart';
 import 'package:dappstore/features/dapp_info/presentation/widgets/add_rating_card.dart';
+import 'package:flutter/material.dart';
 
 class RatingPopupWidget extends StatefulWidget {
   final IDappInfoHandler handler;
@@ -189,7 +188,7 @@ class _RatingPopupWidgetState extends State<RatingPopupWidget> {
                                       } else {
                                         error = true;
                                       }
-                                      posting = true;
+                                      posting = false;
                                     });
                                   },
                                   style: TextButton.styleFrom(

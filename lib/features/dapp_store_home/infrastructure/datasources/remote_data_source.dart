@@ -209,6 +209,7 @@ class RemoteDataSource implements IDataSource {
       return RatingListDto.fromJson(res.data);
     } catch (e, stack) {
       errorLogger.logError(e, stack);
+      return null;
     }
   }
 

@@ -140,7 +140,8 @@ class DappListRepoImpl implements IDappListRepo {
   }) async {
     final data = await _dataSource.getUserRating(dappId, address);
     if (data != null) {
-      return data.toDomain();
+      var data2 = data.copyWith(userAddress: address, dappId: dappId);
+      return data2.toDomain();
     } else {
       return null;
     }
