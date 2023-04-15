@@ -9,6 +9,8 @@ import 'package:dappstore/features/wallet_connect/models/connected_account.dart'
 import 'package:dappstore/features/wallet_connect/models/eth/ethereum_transaction.dart';
 import 'package:dappstore/features/wallet_connect/utils/eip155.dart';
 import 'package:dappstore/features/wallet_connect/utils/helpers.dart';
+import 'package:eth_sig_util/eth_sig_util.dart';
+import 'package:eth_sig_util/util/utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -431,5 +433,20 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
           WCHelper.getConnectedAccountForSession(element);
     }
     return accountList;
+  }
+
+  @override
+  String getMessageToSign(String unhexedMessage) {
+    final messageBytes = Uint8List.fromList(unhexedMessage.codeUnits);
+    return bytesToHex(messageBytes, include0x: true);
+  }
+
+  @override
+  bool checkSignature(String unhexedMessage, String signature) {
+    final messageBytes = Uint8List.fromList(unhexedMessage.codeUnits);
+
+    final recoveredAddress = EthSigUtil.recoverPersonalSignature(
+        signature: signature, message: messageBytes);
+    return state.activeAddress == recoveredAddress;
   }
 }

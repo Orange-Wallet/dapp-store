@@ -37,7 +37,7 @@ class WCTestWidget extends StatelessWidget {
               var cubit = getIt<IWalletConnectCubit>();
               var res = await cubit.getPersonalSign("Testing");
               log((res.runtimeType.toString()));
-              var add = EthSigUtil.ecRecover(
+              var add = EthSigUtil.recoverPersonalSignature(
                   message: Uint8List.fromList("Testing ".codeUnits),
                   signature: res);
               // var add = EthSigUtil.ecRecover(

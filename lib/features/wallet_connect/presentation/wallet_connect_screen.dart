@@ -234,10 +234,11 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
               !state.loadingSign &&
               !state.failureSign) {
             await Future.delayed(const Duration(seconds: 1), () async {
-              cubit
-                  .getEthSign(WalletConnectConfig.signMessageData)
-                  .then((value) {
+              final message =
+                  cubit.getMessageToSign(WalletConnectConfig.signMessageData);
+              cubit.getEthSign(message).then((value) {
                 if (value.isNotEmpty || value != "") {
+                  final isVerified = cubit.checkSignature(message, value);
                   getIt<IWalletConnectStore>().addSignature(
                       topicID: state.activeSession!.topic, signature: value);
                 }
@@ -334,10 +335,12 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                         cubit.getConnectRequest(
                             WalletConnectConfig.connectingChain);
                       } else {
-                        cubit
-                            .getEthSign(WalletConnectConfig.signMessageData)
-                            .then((value) {
+                        final message = cubit.getMessageToSign(
+                            WalletConnectConfig.signMessageData);
+                        cubit.getEthSign(message).then((value) {
                           if (value.isNotEmpty || value != "") {
+                            final isVerified =
+                                cubit.checkSignature(message, value);
                             getIt<IWalletConnectStore>().addSignature(
                                 topicID: state.activeSession!.topic,
                                 signature: value);

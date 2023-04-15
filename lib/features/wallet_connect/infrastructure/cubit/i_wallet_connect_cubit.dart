@@ -52,4 +52,7 @@ abstract class IWalletConnectCubit extends Cubit<WalletConnectState>
 
 // returns topic->AccountList
   Map<String, List<ConnectedAccount>> getAllConnectedAccounts();
+  String getMessageToSign(String unhexedMessage);
+
+  bool checkSignature(String unhexedMessage, String signature);
 }
