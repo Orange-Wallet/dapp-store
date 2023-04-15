@@ -139,5 +139,6 @@
   "allowAppNotification": "通知の許可",
   "allowAppNotificationDesc": "このデバイスに対してdappstoreが通知を送信することを許可する",
   "goToSettings": "設定に移動する",
-  "selectNetwork": "ネットワークを選択"
+  "selectNetwork": "ネットワークを選択",
+  "sendRequest": "リクエストを送信する"
 }

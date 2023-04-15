@@ -23,10 +23,12 @@ import 'package:dappstore/utils/constants.dart';
 import 'package:dappstore/utils/icon_constants.dart';
 import 'package:dappstore/utils/image_constants.dart';
 import 'package:dappstore/widgets/bottom_sheet/bottom_sheet.dart';
+import 'package:dappstore/widgets/bottom_sheet/error_bottom_sheet.dart';
 import 'package:dappstore/widgets/self_update_handler/update_popup_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class WalletConnectScreen extends StatefulScreen {
@@ -101,7 +103,7 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
             previous.failureSign != current.failureSign,
         listener: (context, state) async {
           if (state.connected && state.signVerified) {
-            context.replaceRoute(const HomePage());
+            context.pushAndPopUntilRoot(const HomePage());
           }
         },
         builder: (context, state) {
@@ -178,8 +180,15 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                                   style: theme.secondaryGreenTextStyle4,
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () async {
-                                      await launchUrlString(
-                                          "https://slickwallet.xyz");
+                                      if (viveInstalled) {
+                                        await getIt<IInstalledAppsCubit>()
+                                            .startApp(
+                                                packageName:
+                                                    Constants.vivePackageName);
+                                      } else {
+                                        await launchUrlString(
+                                            Constants.viveWalletPlaystore);
+                                      }
                                     }),
                             ],
                           ),
@@ -275,17 +284,6 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                             await getIt<IThemeStore>().clearBox();
                             context.popRoute();
                           },
-                          // style: TextButton.styleFrom(
-                          //   backgroundColor: Colors.transparent,
-                          //   shape: RoundedRectangleBorder(
-                          //     side: BorderSide(
-                          //       color: theme.buttonRed,
-                          //     ),
-                          //     borderRadius: BorderRadius.circular(
-                          //       theme.buttonRadius,
-                          //     ),
-                          //   ),
-                          // ),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Icon(
@@ -329,23 +327,32 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                       !state.signVerified))
                 TextButton(
                   onPressed: () async {
-                    if (!state.connected || state.failureConnection) {
-                      cubit.getConnectRequest(
-                          WalletConnectConfig.connectingChain);
+                    bool internet =
+                        await InternetConnectionChecker().hasConnection;
+                    if (internet) {
+                      if (!state.connected || state.failureConnection) {
+                        cubit.getConnectRequest(
+                            WalletConnectConfig.connectingChain);
+                      } else {
+                        cubit
+                            .getEthSign(WalletConnectConfig.signMessageData)
+                            .then((value) {
+                          if (value.isNotEmpty || value != "") {
+                            getIt<IWalletConnectStore>().addSignature(
+                                topicID: state.activeSession!.topic,
+                                signature: value);
+                          }
+                        });
+                      }
                     } else {
-                      cubit
-                          .getEthSign(WalletConnectConfig.signMessageData)
-                          .then((value) {
-                        if (value.isNotEmpty || value != "") {
-                          getIt<IWalletConnectStore>().addSignature(
-                              topicID: state.activeSession!.topic,
-                              signature: value);
-                        }
-                      });
+                      context.showErrorSheet(
+                          title: context.getLocale!.networkIssue,
+                          subtitle: context.getLocale!.checkNetwork,
+                          theme: theme);
                     }
                   },
                   child: Text(
-                    'Send request',
+                    context.getLocale!.sendRequest,
                     style: theme.buttonTextStyle,
                   ),
                 ),

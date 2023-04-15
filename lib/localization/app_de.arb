@@ -139,5 +139,6 @@
   "allowAppNotification": "Benachrichtigungsberechtigung erlauben",
   "allowAppNotificationDesc": "Erlaube dappstore, Benachrichtigungen auf diesem Gerät zu senden",
   "goToSettings": "Zu den Einstellungen gehen",
-  "selectNetwork": "Netzwerk auswählen"
+  "selectNetwork": "Netzwerk auswählen",
+  "sendRequest": "Anfrage senden"
 }

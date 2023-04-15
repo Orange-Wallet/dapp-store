@@ -139,5 +139,6 @@
   "allowAppNotification": "允许通知权限",
   "allowAppNotificationDesc": "允许dappstore在此设备上发送通知",
   "goToSettings": "前往设置",
-  "selectNetwork": "选择网络"
+  "selectNetwork": "选择网络",
+  "sendRequest": "发送请求"
 }

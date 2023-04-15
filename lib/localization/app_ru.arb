@@ -139,5 +139,6 @@
   "allowAppNotification": "Разрешить разрешение на уведомления",
   "allowAppNotificationDesc": "Разрешить dappstore отправлять уведомления на этом устройстве",
   "goToSettings": "Перейти в настройки",
-  "selectNetwork": "Выберите сеть"
+  "selectNetwork": "Выберите сеть",
+  "sendRequest": "Отправить запрос"
 }

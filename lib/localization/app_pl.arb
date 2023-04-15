@@ -139,5 +139,6 @@
   "allowAppNotification": "Zezwól na zgodę na powiadomienia",
   "allowAppNotificationDesc": "Zezwól dappstore na wysyłanie powiadomień na tym urządzeniu",
   "goToSettings": "Przejdź do ustawień",
-  "selectNetwork": "Wybierz sieć"
+  "selectNetwork": "Wybierz sieć",
+  "sendRequest": "Wyślij zapytanie"
 }

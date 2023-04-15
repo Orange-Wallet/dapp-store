@@ -139,5 +139,6 @@
   "allowAppNotification": "알림 권한 허용",
   "allowAppNotificationDesc": "이 장치에 dappstore가 알림을 보낼 수 있도록 허용합니다",
   "goToSettings": "설정으로 이동",
-  "selectNetwork": "네트워크 선택"
+  "selectNetwork": "네트워크 선택",
+  "sendRequest": "요청 보내기"
 }

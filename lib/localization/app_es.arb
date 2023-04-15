@@ -139,5 +139,6 @@
   "allowAppNotification": "Permitir permiso de notificaciones",
   "allowAppNotificationDesc": "Permitir que dappstore envíe notificaciones en este dispositivo",
   "goToSettings": "Ir a ajustes",
-  "selectNetwork": "Seleccionar red"
+  "selectNetwork": "Seleccionar red",
+  "sendRequest": "Enviar solicitud"
 }
