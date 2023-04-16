@@ -9,7 +9,7 @@ import 'package:dappstore/features/wallet_connect/models/connected_account.dart'
 import 'package:dappstore/features/wallet_connect/models/eth/ethereum_transaction.dart';
 import 'package:dappstore/features/wallet_connect/utils/eip155.dart';
 import 'package:dappstore/features/wallet_connect/utils/helpers.dart';
-import 'package:eth_sig_util/eth_sig_util.dart';
+import 'package:dappstore/features/wallet_connect/utils/sign_checker.dart';
 import 'package:eth_sig_util/util/utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -78,7 +78,11 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
             .map((e) =>
                 int.parse(WCHelper.getChainIdFromAccountStr(e).split(":")[1]))
             .toList(),
-        signVerified: await wcStore.doesSignExist(res.topic),
+        signVerified: await wcStore.doesSignExist(
+          topicID: res.topic,
+          activeAddress: WCHelper.getAddressFromAccountStr(
+              res.namespaces[ChainType.eip155.name]!.accounts.first),
+        ),
       ));
     }
   }
@@ -200,7 +204,7 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
   }
 
   @override
-  Future<String> getEthSign(String data) async {
+  Future<String> getLoginEthSign(String data) async {
     if (state.activeSession != null) {
       try {
         SessionRequestParams params = Eip155Data.getRequestParams(
@@ -222,16 +226,41 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
         ));
 
         var res = await signClient?.request(params);
-        emit(state.copyWith(
-          failure: false,
-          failureSign: false,
-          loadingSign: false,
-          signVerified: true,
-          txLoading: false,
-          txSucesess: true,
-          txFailure: false,
-        ));
-        return res;
+        if (res.isNotEmpty || res != "") {
+          final isVerified = SigChecker.checkSignature(
+              activeAddress: state.activeAddress,
+              unhexedMessage: WalletConnectConfig.signMessageData,
+              signature: res);
+          if (isVerified) {
+            wcStore.addSignature(
+                topicID: state.activeSession!.topic, signature: res);
+            emit(state.copyWith(
+              failure: false,
+              failureSign: false,
+              loadingSign: false,
+              signVerified: true,
+              txLoading: false,
+              txSucesess: true,
+              txFailure: false,
+            ));
+          }
+          return res;
+        } else {
+          errorLogger.logError("getLoginEthSign failed",
+              StackTrace.fromString("getLoginEthSign"));
+
+          emit(state.copyWith(
+            failure: false,
+            failureSign: true,
+            loadingSign: false,
+            signVerified: false,
+            txLoading: false,
+            txSucesess: false,
+            txFailure: true,
+          ));
+          debugPrint("getLoginEthSign failed");
+          return "";
+        }
       } catch (e, stack) {
         errorLogger.logError(e, stack);
 
@@ -254,6 +283,53 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
         failureSign: true,
         loadingSign: false,
         signVerified: false,
+        txLoading: false,
+        txSucesess: false,
+        txFailure: true,
+      ));
+      throw Exception("No active Session");
+    }
+  }
+
+  @override
+  Future<String> getEthSign(String data) async {
+    if (state.activeSession != null) {
+      try {
+        SessionRequestParams params = Eip155Data.getRequestParams(
+          topic: state.activeSession!.topic,
+          method: Eip155Methods.ETH_SIGN,
+          chainId: state.activeChainId!,
+          address: state.activeAddress!,
+          data: data,
+        );
+        log("getEthSign");
+        emit(state.copyWith(
+          txLoading: true,
+          txSucesess: false,
+          txFailure: false,
+        ));
+
+        var res = await signClient?.request(params);
+        emit(state.copyWith(
+          txLoading: false,
+          txSucesess: true,
+          txFailure: false,
+        ));
+        return res;
+      } catch (e, stack) {
+        errorLogger.logError(e, stack);
+
+        emit(state.copyWith(
+          txLoading: false,
+          txSucesess: false,
+          txFailure: true,
+        ));
+        debugPrint(e.toString());
+        debugPrint(stack.toString());
+        return "";
+      }
+    } else {
+      emit(state.copyWith(
         txLoading: false,
         txSucesess: false,
         txFailure: true,
@@ -439,14 +515,5 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
   String getMessageToSign(String unhexedMessage) {
     final messageBytes = Uint8List.fromList(unhexedMessage.codeUnits);
     return bytesToHex(messageBytes, include0x: true);
-  }
-
-  @override
-  bool checkSignature(String unhexedMessage, String signature) {
-    final messageBytes = Uint8List.fromList(unhexedMessage.codeUnits);
-
-    final recoveredAddress = EthSigUtil.recoverPersonalSignature(
-        signature: signature, message: messageBytes);
-    return state.activeAddress == recoveredAddress;
   }
 }

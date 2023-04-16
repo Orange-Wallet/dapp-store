@@ -35,6 +35,8 @@ abstract class IWalletConnectCubit extends Cubit<WalletConnectState>
   @override
   Future<String> getEthSign(String data);
 
+  Future<String> getLoginEthSign(String data);
+
   @override
   Future<String> getEthSignTypedData(String data);
 
@@ -53,6 +55,4 @@ abstract class IWalletConnectCubit extends Cubit<WalletConnectState>
 // returns topic->AccountList
   Map<String, List<ConnectedAccount>> getAllConnectedAccounts();
   String getMessageToSign(String unhexedMessage);
-
-  bool checkSignature(String unhexedMessage, String signature);
 }

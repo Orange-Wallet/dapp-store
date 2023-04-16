@@ -1,6 +1,8 @@
+import 'package:dappstore/config/config.dart';
 import 'package:dappstore/core/error/i_error_logger.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/entities/wallet_connect_store_model.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/store/i_wallet_connect_store.dart';
+import 'package:dappstore/features/wallet_connect/utils/sign_checker.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
 
@@ -74,13 +76,19 @@ class WalletConnectStore implements IWalletConnectStore {
   }
 
   @override
-  Future<bool> doesSignExist(String topicID) async {
+  Future<bool> doesSignExist(
+      {required String topicID, required String activeAddress}) async {
     Map<dynamic, WalletConnectStoreModel>? map = await getSignatureMap();
     if (map == null) {
       return false;
     } else if (map[topicID] == null) {
       return false;
     } else if (map[topicID] != null) {
+      final isVerified = SigChecker.checkSignature(
+          activeAddress: activeAddress,
+          unhexedMessage: WalletConnectConfig.signMessageData,
+          signature: map[topicID]!.signature);
+
       return true;
     } else {
       return false;

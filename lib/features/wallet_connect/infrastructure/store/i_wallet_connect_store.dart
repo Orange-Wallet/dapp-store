@@ -6,5 +6,6 @@ abstract class IWalletConnectStore {
   Future<bool> removeSignature(String topicID);
   Future<Map<dynamic, WalletConnectStoreModel>?> getSignatureMap();
   Future<bool> clearBox();
-  Future<bool> doesSignExist(String topicID);
+  Future<bool> doesSignExist(
+      {required String topicID, required String activeAddress});
 }
