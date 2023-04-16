@@ -17,6 +17,7 @@ class Installer {
     }
   }
 
+  //only one call back can be registered
   static void registerCallBack(MethodCallBack callBack) async {
     try {
       AppInstaller.registerHandler(callBack);

@@ -1,15 +1,12 @@
 import 'package:dappstore/core/di/di.dart';
-import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/theme/i_theme_cubit.dart';
 import 'package:dappstore/features/pwa_webwiew/application/handler/i_pwa_webview_handler.dart';
 import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/i_injected_web3_cubit.dart';
-import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/injected_web3_cubit.dart';
 import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/i_pwa_webview_cubit.dart';
 import 'package:dappstore/features/pwa_webwiew/infrastructure/models/rpc_mapping.dart';
 import 'package:dappstore/features/pwa_webwiew/presentation/widgets/network_selector_popup.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
 import 'package:dappstore/widgets/bottom_sheet/bottom_sheet.dart';
-import 'package:dappstore/widgets/snacbar/snacbar_context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_injected_web3/flutter_injected_web3.dart';
@@ -72,32 +69,8 @@ class PwaWebviewHandler implements IPwaWebviewHandler {
 
   @override
   initInjectedWeb3(BuildContext context) {
-    injectedWeb3Cubit.started((SigningFailures error) {
-      String errorString;
-      switch (error) {
-        case SigningFailures.SIGNING_FAILED:
-          {
-            errorString = context.getLocale!.signingFailed;
-            break;
-          }
-        case SigningFailures.METHOD_NOT_SUPPORTED:
-          {
-            errorString = context.getLocale!.methodNotSupported;
-            break;
-          }
-        case SigningFailures.SENDING_FAILED:
-          {
-            errorString = context.getLocale!.sendingTxFail;
-            break;
-          }
-        case SigningFailures.CHAIN_NOT_SUPPORTED:
-          {
-            errorString = context.getLocale!.sendingTxFail;
-            break;
-          }
-      }
-      context.showMsgBar(errorString);
-    });
+    injectedWeb3Cubit.started();
+
     injectedWeb3Cubit.changeChains(1);
   }
 

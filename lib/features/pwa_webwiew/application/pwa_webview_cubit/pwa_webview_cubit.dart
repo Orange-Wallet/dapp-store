@@ -1,6 +1,5 @@
 import 'package:dappstore/features/pwa_webwiew/application/pwa_webview_cubit/i_pwa_webview_cubit.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -9,6 +8,7 @@ import 'package:injectable/injectable.dart';
 part '../../../../generated/features/pwa_webwiew/application/pwa_webview_cubit/pwa_webview_cubit.freezed.dart';
 part 'pwa_webview_state.dart';
 
+//this cubit handles state of website that is opened in webview
 @LazySingleton(as: IPwaWebviewCubit)
 class PwaWebviewCubit extends Cubit<PwaWebviewState>
     implements IPwaWebviewCubit {
@@ -18,13 +18,6 @@ class PwaWebviewCubit extends Cubit<PwaWebviewState>
 
   @override
   InAppWebViewController? get webViewController => _webViewController;
-
-  TextEditingController? _urlController;
-
-  @override
-  initUrlController(TextEditingController controller) {
-    _urlController = controller;
-  }
 
   @override
   initWebViewController(InAppWebViewController controller) {

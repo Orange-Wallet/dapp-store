@@ -22,6 +22,7 @@ class Downloader {
     FlutterDownloader.registerCallback(downloadCallback, step: 1);
   }
 
+  //creates storage dir if it doesn't exist sets state
   static Future<bool> initializeStorageDir(
       bool? isStorageInitialized, String saveDir) async {
     try {
@@ -34,15 +35,12 @@ class Downloader {
     }
   }
 
+  //adds to download queue, only one file is downloaded at a time to avoid certain race condition
   static Future<TaskInfo?> requestDownload(
     TaskInfo task,
     bool isStorageInitialized,
     String localPath,
   ) async {
-    // try {
-    //   await Downloader.delete(task);
-    //   // ignore: empty_catches
-    // } catch (e) {}
     try {
       final taskId = await FlutterDownloader.enqueue(
         url: task.link!,
@@ -190,6 +188,7 @@ class Downloader {
     }
   }
 
+  //uses android data dir
   static Future<String?> getSavedDir() async {
     String? externalStorageDirPath;
 
@@ -220,6 +219,7 @@ class Downloader {
     return externalStorageDirPath;
   }
 
+  //call back to ui thread of flutter to update status of downloads
   @pragma('vm:entry-point')
   static void downloadCallback(
     String id,

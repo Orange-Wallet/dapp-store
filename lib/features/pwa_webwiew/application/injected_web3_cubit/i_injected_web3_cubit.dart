@@ -6,7 +6,7 @@ import 'injected_web3_cubit.dart';
 abstract class IInjectedWeb3Cubit extends Cubit<InjectedWeb3State> {
   IInjectedWeb3Cubit(super.initialState);
 
-  started(ShowError callback);
+  started();
 
   connect(int chainId, String originalUrl);
 

@@ -8,7 +8,6 @@ abstract class IPwaWebviewCubit extends Cubit<PwaWebviewState> {
 
   InAppWebViewController? get webViewController;
 
-  initUrlController(TextEditingController controller);
   initWebViewController(InAppWebViewController controller);
 
   updateButtonsState({

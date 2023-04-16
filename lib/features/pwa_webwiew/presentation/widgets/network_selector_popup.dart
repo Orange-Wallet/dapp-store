@@ -18,7 +18,6 @@ class NetworkSelectorPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      //   child: BlocCo(
       child: BlocBuilder<IInjectedWeb3Cubit, InjectedWeb3State>(
           bloc: handler.injectedWeb3Cubit,
           buildWhen: (previous, current) =>

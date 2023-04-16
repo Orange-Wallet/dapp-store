@@ -2,6 +2,7 @@ import 'package:dappstore/core/error/i_error_logger.dart';
 import 'package:dappstore/features/pwa_webwiew/infrastructure/models/rpc_mapping.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_connect_cubit.dart';
 import 'package:dappstore/features/wallet_connect/models/eth/ethereum_transaction.dart';
+import 'package:eth_sig_util/eth_sig_util.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_injected_web3/flutter_injected_web3.dart';
@@ -13,35 +14,21 @@ import 'i_injected_web3_cubit.dart';
 part '../../../../generated/features/pwa_webwiew/application/injected_web3_cubit/injected_web3_cubit.freezed.dart';
 part 'injected_web3_state.dart';
 
-typedef ShowError = Function(SigningFailures error);
-
-enum SigningFailures {
-  // ignore: constant_identifier_names
-  SENDING_FAILED,
-  // ignore: constant_identifier_names
-  SIGNING_FAILED,
-  // ignore: constant_identifier_names
-  METHOD_NOT_SUPPORTED,
-  // ignore: constant_identifier_names
-  CHAIN_NOT_SUPPORTED,
-}
-
+//this cubit handles web3 injection, all web3 related states and communication with signer.
 @LazySingleton(as: IInjectedWeb3Cubit)
 class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
     implements IInjectedWeb3Cubit {
-  ShowError? errorCallBack;
   final IErrorLogger errorLogger;
   final IWalletConnectCubit signer;
   InjectedWeb3Cubit({required this.signer, required this.errorLogger})
       : super(InjectedWeb3State.initial());
 
   @override
-  started(ShowError callback) {
+  started() {
     emit(state.copyWith(
       failure: false,
       connected: false,
     ));
-    errorCallBack = callback;
   }
 
   @override
@@ -50,9 +37,6 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
     final rpc = RpcMapping.networks[supported];
     emit(
       state.copyWith(
-        //connectedChainId: int.parse(signer.getChain()!),
-        //connectedChainId: 137,
-        //connectedChainRpc: "https://rpc.ankr.com/polygon",
         connectedChainId: supported,
         connectedChainRpc: rpc!.rpc,
         connected: true,
@@ -83,8 +67,6 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
       );
       return rpcEndpoint;
     } else {
-      //errorCallBack!.call(SigningFailures.SENDING_FAILED);
-
       return "";
     }
   }
@@ -106,8 +88,6 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
       return txHash;
     } catch (e, stack) {
       errorLogger.logError(e, stack);
-
-      // errorCallBack!.call(SigningFailures.SENDING_FAILED);
       return "";
     }
   }
@@ -129,15 +109,16 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
     } catch (e, stack) {
       errorLogger.logError(e, stack);
 
-      //errorCallBack!.call(SigningFailures.SIGNING_FAILED);
       return "";
     }
   }
 
   @override
   Future<String> ecRecover(JsEcRecoverObject ecRecoverObject) async {
-    //errorCallBack!.call(SigningFailures.METHOD_NOT_SUPPORTED);
-    return "";
+    final recoveredAddress = EthSigUtil.recoverSignature(
+        signature: ecRecoverObject.signature ?? "",
+        message: Uint8List.fromList(ecRecoverObject.message?.codeUnits ?? []));
+    return recoveredAddress;
   }
 
   @override
@@ -149,8 +130,6 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
       return signedMessage;
     } catch (e, stack) {
       errorLogger.logError(e, stack);
-
-      //  errorCallBack!.call(SigningFailures.SIGNING_FAILED);
       return "";
     }
   }
@@ -164,8 +143,6 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
       return signedMessage;
     } catch (e, stack) {
       errorLogger.logError(e, stack);
-
-      // errorCallBack!.call(SigningFailures.SIGNING_FAILED);
       return "";
     }
   }
@@ -179,8 +156,6 @@ class InjectedWeb3Cubit extends Cubit<InjectedWeb3State>
       return signedMessage;
     } catch (e, stack) {
       errorLogger.logError(e, stack);
-
-      // errorCallBack!.call(SigningFailures.SIGNING_FAILED);
       return "";
     }
   }

@@ -12,6 +12,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 part '../../generated/core/localisation/localisation_cubit.freezed.dart';
 part 'localisation_state.dart';
 
+//this cubit can be used to handle setting custom localisation
+//right now we are only following system though
 @LazySingleton(as: ILocaleCubit)
 class LocaleCubit extends Cubit<LocaleState> implements ILocaleCubit {
   final ILocalisationStore localisationStore;

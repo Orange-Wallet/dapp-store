@@ -23,6 +23,7 @@ import 'package:installed_apps/app_info.dart';
 part '../../../../../generated/features/download_and_installer/infrastructure/repositories/package_manager.dart/package_manager_cubit.freezed.dart';
 part 'package_manager_state.dart';
 
+//This cubit is single entrypoint for downloading, installing and checking existing installed apps
 @LazySingleton(as: IPackageManager)
 class PackageManager extends Cubit<PackageManagerState>
     implements IPackageManager {
@@ -40,6 +41,8 @@ class PackageManager extends Cubit<PackageManagerState>
     required this.analyticsHandler,
     required this.storeCubit,
   }) : super(PackageManagerState.initial());
+
+  //Gets all installed packages and download queue to get on device stage of any packageId.
   @override
   Future<void> init() async {
     final Future<List<DownloadTask>?> downloadsFuture =
@@ -96,6 +99,7 @@ class PackageManager extends Cubit<PackageManagerState>
     installer.registerCallBack(installerCallBack);
   }
 
+  //does same thing as init except registering installer callback
   @override
   reloadPackageManagerData() async {
     final List<AppInfo>? appInfo = await installedApps.getInstalledApps(
@@ -222,6 +226,7 @@ class PackageManager extends Cubit<PackageManagerState>
     return fileName.substring(0, fileName.length - 4);
   }
 
+  //this adds a listener to download process and once download is complete it triggers install
   void _bindBackgroundIsolate() {
     final isSuccess = IsolateNameServer.registerPortWithName(
       state.port!.sendPort,
@@ -270,6 +275,7 @@ class PackageManager extends Cubit<PackageManagerState>
     });
   }
 
+  //callback that is passed to installer to get installation status
   void installerCallBack(InstallStatus status) async {
     final packageMap = state.packageMapping;
     if (packageMap![status.packageName] != null) {

@@ -12,6 +12,7 @@ import 'package:version/version.dart';
 part '../../../generated/features/saved_dapps/application/saved_dapps_cubit.freezed.dart';
 part 'saved_dapps_state.dart';
 
+// this cubit mantains a list of installed dapps and the dapps that can be updated
 @LazySingleton(as: ISavedDappsCubit)
 class SavedDappsCubit extends Cubit<SavedDappsState>
     implements ISavedDappsCubit {
@@ -24,6 +25,8 @@ class SavedDappsCubit extends Cubit<SavedDappsState>
     required this.installerCubit,
   }) : super(SavedDappsState.initial());
 
+  //it gets a list of all the packages in the phone and checks if they are served by dappstore
+  //or can be updated by dappstore
   @override
   initialise() async {
     emit(state.copyWith(loading: true));

@@ -9,6 +9,8 @@ import 'package:injectable/injectable.dart';
 part '../../generated/core/theme/theme_cubit.freezed.dart';
 part 'theme_state.dart';
 
+//this cubit can manage multiple themes and also if app should follow system
+//at the moment we have only one theme but more can be added
 @LazySingleton(as: IThemeCubit)
 class ThemeCubit extends Cubit<ThemeState> implements IThemeCubit {
   final IThemeStore themeStore;
