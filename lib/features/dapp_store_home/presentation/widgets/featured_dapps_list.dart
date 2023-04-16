@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FeaturedDappsList extends StatefulWidget {
+  /// Created a horizantol list of featured dapps
+  /// uses [DappListHorizontalGreenBlueCard]
   const FeaturedDappsList({super.key});
 
   @override

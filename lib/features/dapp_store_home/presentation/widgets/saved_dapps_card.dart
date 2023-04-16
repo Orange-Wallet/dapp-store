@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SavedDappscard extends StatelessWidget {
+  /// Creates a simple card that shoes number of saved PWa to user
+  /// and redirects user to [SavedDappsPage]
   const SavedDappscard({super.key});
 
   @override

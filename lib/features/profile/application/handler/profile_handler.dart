@@ -12,6 +12,8 @@ class ProfileHandler implements IProfileHandler {
 
   @override
   getProfile({required String address}) async {
+    /// Checks of there is a existing profile for user or not on the server
+    /// if not creates a new one for user and post it on the server
     ProfileModel? model = await getProfileCubit().getProfile(address: address);
     if (model == null) {
       postProfile(address: address);

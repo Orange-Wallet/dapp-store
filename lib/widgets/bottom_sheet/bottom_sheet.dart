@@ -3,6 +3,8 @@ import 'package:dappstore/widgets/white_gradient_line.dart';
 import 'package:flutter/material.dart';
 
 extension BottomSheet on BuildContext {
+  /// A [BuildContext] extension to open bottom sheet from anywhere in the app
+
   showBottomSheet({
     required IThemeSpec theme,
     required Widget child,

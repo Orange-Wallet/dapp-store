@@ -24,6 +24,9 @@ class _AppState extends State<App> with WidgetsBindingObserver {
     Size size = WidgetsBinding.instance.window.physicalSize;
     appHandler.themeCubit.initialise(height: size.height, width: size.width);
     WidgetsBinding.instance.addObserver(this);
+
+    /// To check the current brightness settings for the user and setting Dark and light theme basis of that
+    /// currently we only support dark mode theme
     final brightness = WidgetsBinding.instance.window.platformBrightness;
     if (brightness == Brightness.dark &&
         appHandler.isFollowingSystemBrightness) {
@@ -40,6 +43,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
 
   @override
   void didChangePlatformBrightness() {
+    /// To actively check for mobile dark/light theme changes
     final brightness = WidgetsBinding.instance.window.platformBrightness;
     if (brightness == Brightness.dark &&
         appHandler.isFollowingSystemBrightness) {
@@ -102,6 +106,8 @@ class _AppState extends State<App> with WidgetsBindingObserver {
         };
         return widget!;
       },
+
+      /// Checks if user is signed in or not and than redirect to the respective screen
       home: (getIt<IWalletConnectCubit>().state.connected &&
               getIt<IWalletConnectCubit>().state.signVerified)
           ? const HomePage()

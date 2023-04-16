@@ -41,6 +41,7 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
     await getPreviouslyConnectedSession();
   }
 
+  /// To initialize the Wallet connect client with metadata
   @override
   initialize() async {
     try {
@@ -57,6 +58,7 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
     }
   }
 
+  /// To implement autologin for the user
   @override
   getPreviouslyConnectedSession() async {
     if ((signClient?.session.values.isNotEmpty ?? false) &&
@@ -107,6 +109,7 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
     return state.activeAddress;
   }
 
+  /// To send Wallet connect connection request for the user
   @override
   Future<bool> getConnectRequest(List<String> chainIds) async {
     EngineConnection? res =
@@ -136,12 +139,6 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
                 int.parse(WCHelper.getChainIdFromAccountStr(e).split(":")[1]))
             .toList(),
       ));
-      // getEthSign("Testing").then((value) {
-      //   if (value.isNotEmpty || value != "") {
-      //     getIt<IWalletConnectStore>().addSignature(
-      //         topicID: state.activeSession!.topic, signature: value);
-      //   }
-      // });
       log("connected");
       return true;
     }).catchError((e) {
@@ -203,6 +200,7 @@ class WalletConnectCubit extends Cubit<WalletConnectState>
     }
   }
 
+  /// Should only be used to get the login message sign from the user
   @override
   Future<String> getLoginEthSign(String data) async {
     if (state.activeSession != null) {

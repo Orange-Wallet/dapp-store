@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FeaturedDappInfiniteScroll extends StatefulWidget {
+  /// Creates a infinite auto scrolling list of dapps at the bottom
   const FeaturedDappInfiniteScroll({super.key});
 
   @override

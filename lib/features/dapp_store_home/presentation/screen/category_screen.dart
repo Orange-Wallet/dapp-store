@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CategoryScreen extends StatefulScreen {
+  /// Creates a category screen where only dapps of specific [category] are shown
   final String category;
   const CategoryScreen({super.key, required this.category});
 

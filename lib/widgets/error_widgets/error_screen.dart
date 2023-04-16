@@ -8,6 +8,9 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class CustomErrorScreen extends StatefulWidget {
+  /// Default error screen of the app
+  /// user shoudl be redirected here if an error occurs at any stage
+  /// [details] and [theme] are required
   final FlutterErrorDetails details;
   final IThemeSpec theme;
   const CustomErrorScreen({

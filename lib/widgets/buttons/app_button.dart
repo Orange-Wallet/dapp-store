@@ -15,6 +15,8 @@ import 'package:version/version.dart';
 
 // ignore: must_be_immutable
 class AppButton extends StatefulWidget {
+  /// A button that can handle install, update, openDapp, openPwa, saveDapp, unsaveDapp and more functionality
+  /// with custom designs params [theme]
   final IThemeSpec theme;
   final DappInfo dappInfo;
   late IAppButtonHandler appButtonHandler;

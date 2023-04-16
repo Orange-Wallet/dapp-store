@@ -123,7 +123,7 @@ class _SearchResultState extends State<SearchResult> {
                           .setActiveDappId(dappId: list[index]!.dappId ?? "");
                       String path = getIt<CustomRouteObserver>().currentPath;
                       if (path.contains(Routes.dappInfo)) {
-                        context.popUntilRoute(DappInfoPage());
+                        context.popUntilRoute(const DappInfoPage());
                         context.popRoute();
                       }
                       context.pushRoute(const DappInfoPage());

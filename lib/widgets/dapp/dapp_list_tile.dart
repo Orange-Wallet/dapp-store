@@ -4,6 +4,8 @@ import 'package:dappstore/widgets/image_widgets/image.dart';
 import 'package:flutter/material.dart';
 
 class DappListTile extends StatelessWidget {
+  /// A basic Dapp tile that can be used inside any listview inside the app
+  /// [dapp] and [handler] are required
   final DappInfo dapp;
   final ISearchHandler handler;
   final bool isInSearchField;

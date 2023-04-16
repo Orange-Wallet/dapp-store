@@ -265,14 +265,12 @@ class StoreCubit extends Cubit<StoreState> implements IStoreCubit {
     return ratingList;
   }
 
-  @override
   StoreState? fromJson(Map<String, dynamic> json) {
     final storedState = StoreState.fromJson(json);
     emit(storedState);
     return storedState;
   }
 
-  @override
   Map<String, dynamic>? toJson(StoreState state) {
     return state.toJson();
   }

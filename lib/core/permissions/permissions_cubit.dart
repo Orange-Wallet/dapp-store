@@ -24,6 +24,7 @@ class Permissions extends Cubit<PermissionsState> implements IPermissions {
     await checkNotificationPermission();
   }
 
+  /// To check if user have given storage permission or not
   @override
   Future<PermissionStatus> checkStoragePermission() async {
     if (Platform.isAndroid) {
@@ -39,6 +40,7 @@ class Permissions extends Cubit<PermissionsState> implements IPermissions {
     return status;
   }
 
+  /// To check if user have given app installation permission or not
   @override
   Future<PermissionStatus?> checkAppInstallationPermissions() async {
     if (Platform.isAndroid) {
@@ -50,6 +52,7 @@ class Permissions extends Cubit<PermissionsState> implements IPermissions {
     return null;
   }
 
+  /// To check if user have given notification permission or not
   @override
   Future<PermissionStatus> checkNotificationPermission() async {
     final status = await Permission.notification.status;
@@ -57,6 +60,7 @@ class Permissions extends Cubit<PermissionsState> implements IPermissions {
     return status;
   }
 
+  /// To request storage permission from user
   @override
   Future<PermissionStatus> requestStoragePermission() async {
     final result = await Permission.storage.request();
@@ -64,6 +68,7 @@ class Permissions extends Cubit<PermissionsState> implements IPermissions {
     return result;
   }
 
+  /// To request notification permission from user
   @override
   Future<PermissionStatus> requestNotificationPermission() async {
     // final result = await Permission.notification.request();
@@ -83,6 +88,7 @@ class Permissions extends Cubit<PermissionsState> implements IPermissions {
     return perm;
   }
 
+  /// To request app installation permission from user
   @override
   Future<PermissionStatus?> requestAppInstallationPermission() async {
     if (Platform.isAndroid) {

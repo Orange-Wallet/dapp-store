@@ -13,6 +13,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TopCategoriesList extends StatefulWidget {
+  /// Creates a list view with max top 3 featured dapps of any 3 random category
+  /// the number of top featured cards : 3 can be changed
+  /// the number of ramdom category : 3 can be changed
   final bool isInExploreCategory;
   const TopCategoriesList({super.key, this.isInExploreCategory = false});
 

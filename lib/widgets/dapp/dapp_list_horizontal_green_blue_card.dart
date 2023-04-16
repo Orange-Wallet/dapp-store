@@ -6,6 +6,8 @@ import 'package:dappstore/widgets/image_widgets/image.dart';
 import 'package:flutter/material.dart';
 
 class DappListHorizontalGreenBlueCard extends StatelessWidget {
+  /// A big Dapp card with green or blue gradient background that can be used inside any listview inside the app
+  /// [dapp], [green] and [handler] are required
   final bool green;
   final IDappStoreHandler handler;
   final DappInfo? dapp;

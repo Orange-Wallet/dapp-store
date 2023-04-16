@@ -1,19 +1,20 @@
+import 'package:dappstore/core/di/di.dart';
+import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
+import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
+import 'package:dappstore/features/download_and_installer/infrastructure/repositories/package_manager.dart/i_package_manager.dart';
+import 'package:dappstore/features/download_and_installer/infrastructure/repositories/package_manager.dart/package_manager_cubit.dart';
 import 'package:dappstore/features/saved_pwa/application/i_saved_pwa_cubit.dart';
 import 'package:dappstore/features/saved_pwa/application/saved_pwa_cubit.dart';
 import 'package:dappstore/widgets/buttons/app_button_handler/i_app_button_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
-
-import 'package:dappstore/core/di/di.dart';
-import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
-import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
-import 'package:dappstore/features/download_and_installer/infrastructure/repositories/package_manager.dart/i_package_manager.dart';
-import 'package:dappstore/features/download_and_installer/infrastructure/repositories/package_manager.dart/package_manager_cubit.dart';
 import 'package:version/version.dart';
 
 // ignore: must_be_immutable
 class CustomizableAppButton extends StatefulWidget {
+  /// A custom app button that can handle install, update or openDapp functionality
+  /// with custom designs params [theme]
   final IThemeSpec theme;
   final DappInfo dappInfo;
   late IAppButtonHandler appButtonHandler;

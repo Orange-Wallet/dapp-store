@@ -10,6 +10,7 @@ class RemoteDataSource implements IDataSource {
   final Network _network;
   RemoteDataSource({required Network network}) : _network = network;
 
+  /// API to get saved profile for the user address
   @override
   Future<ProfileModel?> getProfile({required String address}) async {
     Response res = await _network.get(
@@ -23,6 +24,7 @@ class RemoteDataSource implements IDataSource {
     }
   }
 
+  /// API to post the user profile to the server
   @override
   Future<bool> postProfile({required ProfileModel profile}) async {
     try {

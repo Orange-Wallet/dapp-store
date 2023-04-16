@@ -6,6 +6,7 @@ import 'package:dappstore/features/dapp_store_home/presentation/screen/explore_c
 import 'package:flutter/material.dart';
 
 class ExploreMoreCard extends StatelessWidget {
+  /// Creates a simple card that redirects user to [ExploreCategories] screen
   const ExploreMoreCard({super.key});
 
   @override

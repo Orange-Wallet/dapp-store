@@ -11,6 +11,7 @@ class RemoteDataSource implements ISelfUpdateDataSource {
   final IErrorLogger errorLogger = getIt<IErrorLogger>();
   RemoteDataSource({required Network network}) : _network = network;
 
+  /// API to check if there is dapp store update available or not
   @override
   Future<SelfUpdateDataModel?> getLatestBuild() async {
     try {

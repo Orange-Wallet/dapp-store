@@ -21,6 +21,7 @@ class RemoteDataSource implements IDataSource {
   final IErrorLogger errorLogger = getIt<IErrorLogger>();
   RemoteDataSource({required Network network}) : _network = network;
 
+  /// To get the dapp list based on [queryParams]
   @override
   Future<DappListDto?> getDappList({
     GetDappQueryDto? queryParams,
@@ -37,6 +38,7 @@ class RemoteDataSource implements IDataSource {
     return null;
   }
 
+  /// To get a dappinfo bsed on [queryParams]
   @override
   Future<DappInfoDto?> getDappInfo({GetDappInfoQueryDto? queryParams}) async {
     try {
@@ -50,9 +52,12 @@ class RemoteDataSource implements IDataSource {
     return null;
   }
 
+  /// not used
+  /// using getDappList along with [searchstring] inside the query params
+  /// still this is here for any custom implementations of API whenever needed
   @override
   Future<List<DappInfoDto>?> searchDapps(String searchString) async {
-    //TODO dio api call
+    //dio api call here
     try {
       return [DappInfoDto()];
     } catch (e, stack) {
@@ -61,6 +66,9 @@ class RemoteDataSource implements IDataSource {
     return null;
   }
 
+  /// To get curated list of dapp category from the registry
+  /// currently this is not being used in the app and an custom implementation is used instead
+  /// still this is kept here for any future use if required
   @override
   Future<List<CuratedListDto>> getCuratedList() async {
     // not used anymore
@@ -72,6 +80,8 @@ class RemoteDataSource implements IDataSource {
     return list;
   }
 
+  /// To get Curated category list from server
+  /// this is a custom implementation to directly get [CuratedCategoryListDto]
   @override
   Future<List<CuratedCategoryListDto>?> getCuratedCategoryList() async {
     try {
@@ -88,6 +98,8 @@ class RemoteDataSource implements IDataSource {
     return null;
   }
 
+  /// To get featured dapps by category list from server
+  /// this is a custom implementation to directly get [DappListDto]
   @override
   Future<DappListDto?> getFeaturedDappsByCategory(
       {required String category}) async {
@@ -107,6 +119,8 @@ class RemoteDataSource implements IDataSource {
     return null;
   }
 
+  /// To get featured dapps list from server
+  /// this is a custom implementation to directly get [DappListDto]
   @override
   Future<DappListDto?> getFeaturedDappsList() async {
     try {
@@ -122,6 +136,7 @@ class RemoteDataSource implements IDataSource {
     return null;
   }
 
+  /// To get build URL from the registry
   @override
   BuildUrlDto? getBuildUrl(String dappId, String address) {
     final url =
@@ -130,6 +145,9 @@ class RemoteDataSource implements IDataSource {
     return BuildUrlDto.fromJson({"url": url, "success": true});
   }
 
+  /// To get dapp by package id from server
+  /// this is a custom implementation to directly get [DappInfo]
+  /// for a list of [packageIds] passed as a queryParam
   @override
   Future<Map<String, DappInfo?>> getDappsByPackageId(
       List<String> packageIds) async {
@@ -154,11 +172,14 @@ class RemoteDataSource implements IDataSource {
     return {};
   }
 
+  /// To get PWA redirection URl for a dapp and user
   @override
   String getPwaRedirectionUrl(String dappId, String walletAddress) {
     return "${Config.registryApiBaseUrl}/o/view/$dappId?userAddress=$walletAddress";
   }
 
+  /// To post dapp rating on the server
+  /// this is a custom implementation to post rating data on server only
   @override
   Future<bool> postRating(
     PostRatingDto ratingData,
@@ -178,6 +199,7 @@ class RemoteDataSource implements IDataSource {
     return false;
   }
 
+  /// To post dapp rating on regisrty
   @override
   Future<bool> postRatingDsk(
     PostRatingDto ratingData,
@@ -197,6 +219,9 @@ class RemoteDataSource implements IDataSource {
     return false;
   }
 
+  /// To get dapp ratings from server
+  /// this is a custom implementation to directly get [RatingListDto]
+  /// for a list of [params] passed as a queryParam
   @override
   Future<RatingListDto?> getRating({
     required RatingListQueryDto params,
@@ -213,6 +238,9 @@ class RemoteDataSource implements IDataSource {
     }
   }
 
+  /// To get dapp ratings from server for [address]
+  /// this is a custom implementation to directly get [PostRatingDto]
+  /// for [dappId] and [address] passed as a queryParam
   @override
   Future<PostRatingDto?> getUserRating(
     String dappId,

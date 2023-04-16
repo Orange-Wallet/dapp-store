@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class BigDappCard extends StatelessWidget {
+  /// A basic Dapp card that can be used to display a highlighted dapp or first dapp in search result
+  /// [dapp] and [handler] are required
   final DappInfo dapp;
   final ISearchHandler handler;
 

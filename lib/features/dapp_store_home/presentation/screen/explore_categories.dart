@@ -10,6 +10,7 @@ import 'package:dappstore/features/dapp_store_home/presentation/widgets/top_cate
 import 'package:flutter/material.dart';
 
 class ExploreCategories extends StatefulScreen {
+  /// Creates a screen to explore are categories and list the top dapp of each category
   const ExploreCategories({super.key});
 
   @override

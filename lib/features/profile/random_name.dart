@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 class RandomName {
+  /// A list of random firstName and lastName
   RandomName();
   List<String> firstName = [
     "Admiring",
@@ -352,6 +353,7 @@ class RandomName {
     "Zhukovsky"
   ];
 
+  /// Generate random name for any user
   String generateName() {
     final random = math.Random();
     return "${firstName[random.nextInt(firstName.length - 1)]}-${lastName[random.nextInt(lastName.length - 1)]}";

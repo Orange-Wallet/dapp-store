@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TxPopup extends StatelessWidget {
+  /// Creates the transaction popup shown during any transaction made in PWA screen
   final IThemeSpec theme;
   final IWalletConnectCubit walletConnectCubit;
   const TxPopup(

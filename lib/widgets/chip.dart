@@ -2,6 +2,9 @@ import 'package:dappstore/features/dapp_store_home/application/handler/i_dapp_st
 import 'package:flutter/material.dart';
 
 class CustomChip extends StatelessWidget {
+  /// Creates a Custom chip.
+  ///
+  /// The [handler], and [title] arguments must not be null.
   final IDappStoreHandler handler;
   final String title;
   const CustomChip({super.key, required this.handler, required this.title});

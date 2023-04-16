@@ -15,6 +15,8 @@ import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: IAppButtonHandler)
 class AppButtonHandler implements IAppButtonHandler {
+  /// basic handler that can perform tasks like
+  /// [startDownload],[openPwaApp],[openApp],[saveDapp], [unsaveDapp], [triggerInstall] and [isDappSaved]
   @override
   IPackageManager get packageManager => getIt<IPackageManager>();
   @override

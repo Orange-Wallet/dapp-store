@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UpdateAvailableCard extends StatelessWidget {
+  /// Creates a simple card that shows number of dapps that have an update available
+  /// if null than shows user ans option to redirect to [SavedDappsPage] only
   const UpdateAvailableCard({super.key});
 
   @override

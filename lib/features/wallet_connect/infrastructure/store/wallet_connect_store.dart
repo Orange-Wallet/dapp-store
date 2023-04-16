@@ -14,6 +14,7 @@ class WalletConnectStore implements IWalletConnectStore {
 
   WalletConnectStore({required this.errorLogger});
 
+  /// To add user login sign to the store to be used for autologin
   @override
   Future<WalletConnectStoreModel?> addSignature(
       {required String topicID, required String signature}) async {
@@ -38,6 +39,7 @@ class WalletConnectStore implements IWalletConnectStore {
     }
   }
 
+  /// To remove the Login message signature once the user has logged off
   @override
   Future<bool> removeSignature(String topicID) async {
     try {
@@ -75,6 +77,7 @@ class WalletConnectStore implements IWalletConnectStore {
     }
   }
 
+  /// To check and verify is a sign for login message is already store for user and topic
   @override
   Future<bool> doesSignExist(
       {required String topicID, required String activeAddress}) async {
@@ -95,6 +98,7 @@ class WalletConnectStore implements IWalletConnectStore {
     }
   }
 
+  /// To clear box when user is logging off
   @override
   Future<bool> clearBox() async {
     try {

@@ -7,6 +7,7 @@ import 'package:injectable/injectable.dart';
 class LocalisationStore implements ILocalisationStore {
   static const localisationStorageBox = "LocalisationStorageBox";
   static const defaultLocale = 'en';
+
   @override
   setLocale(String locale) async {
     Box<LocalisationStorage> box = await _getBox();

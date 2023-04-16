@@ -6,6 +6,7 @@ import 'package:dappstore/utils/image_constants.dart';
 import 'package:flutter/material.dart';
 
 class ExploreCard extends StatelessWidget {
+  /// Created the top section of the homepage
   const ExploreCard({super.key});
 
   @override

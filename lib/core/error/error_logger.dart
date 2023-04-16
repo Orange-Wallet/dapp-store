@@ -14,7 +14,7 @@ class ErrorLogger extends Cubit<ErrorLoggerState> implements IErrorLogger {
 
   @override
   Future<void> initialise() async {
-    //TODO: initilalise logger
+    // Currently there is no initialisation required for the error logger
   }
 
   @override

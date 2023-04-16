@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:dappstore/features/pwa_webwiew/presentation/widgets/pwa_webview_app_bar.dart';
+import 'package:flutter/material.dart';
 
 class PwaWebViewPopupMenu extends StatelessWidget {
+  /// Creates menu items for PWA screen
   NavigationCallback forward;
   NavigationCallback backwards;
   NavigationCallback reload;

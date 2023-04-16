@@ -4,6 +4,9 @@ import 'package:dappstore/widgets/image_widgets/image.dart';
 import 'package:flutter/material.dart';
 
 class DappListHorizantal extends StatelessWidget {
+  /// A big Dapp tile that can be used inside any listview inside the app
+  /// [dapp] and [handler] are required
+  /// [tryBig] is turned off by default but can be used if big card is required
   final DappInfo dapp;
   final IDappStoreHandler handler;
   final bool tryBig;

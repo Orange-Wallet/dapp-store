@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:wallet_connect_dart_v2/wallet_connect_dart_v2.dart';
 
 class WCHelper {
+  /// WalletConnect helper to [getChainName],[getChainMetadataFromChainId] and more
   WCHelper._();
   static String getChainName(String chainId) {
     try {

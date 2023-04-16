@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class SavedDappsPage extends StatefulScreen {
+  /// Creates a tab view for installed dapps and saved PWA
   int selectedTab;
   SavedDappsPage({
     super.key,

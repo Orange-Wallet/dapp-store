@@ -18,6 +18,7 @@ class SelfUpdateHandler implements ISelfUpdateHandler {
   @override
   IThemeCubit get themeCubit => getIt<IThemeCubit>();
 
+  /// Handler to download the lastest vesrion of dapp store available
   @override
   Future<bool> triggerUpdate() async {
     final updateStatus = selfUpdateCubit.updateStatus;

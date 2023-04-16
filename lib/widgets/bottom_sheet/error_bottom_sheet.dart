@@ -4,6 +4,7 @@ import 'package:dappstore/widgets/bottom_sheet/dailog_tile_item.dart';
 import 'package:flutter/material.dart';
 
 extension ErrorPopup on BuildContext {
+  /// A [BuildContext] extension to open error bottom sheet from anywhere in the app
   showErrorSheet({
     required IThemeSpec theme,
     required String title,

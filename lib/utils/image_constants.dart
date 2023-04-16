@@ -1,4 +1,5 @@
 class ImageConstants {
+  /// All assets paths for images
   ImageConstants._();
 
   static const String _basePath = "assets/images";

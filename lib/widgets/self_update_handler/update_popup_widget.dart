@@ -14,6 +14,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // ignore: must_be_immutable
 class UpdateWidget extends StatelessWidget {
+  /// Handles and creates the dappstore self update Widget
+  /// [isHardUpdate] is false by default meaning there is only a soft update and user can bypass the update screen
+
   bool isHardUpdate;
   ISelfUpdateHandler selfUpdateHandler = getIt<ISelfUpdateHandler>();
   IThemeCubit themeCubit = getIt<IThemeCubit>();

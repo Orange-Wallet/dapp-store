@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomElevatedButton extends StatelessWidget {
+  /// A custom elevated button wrapper with app design
   final Widget child;
   final GestureTapCallback onTap;
   final Color color;

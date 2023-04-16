@@ -1,4 +1,3 @@
-import 'package:dappstore/features/dapp_store_home/domain/entities/dapp_info.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/post_rating.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

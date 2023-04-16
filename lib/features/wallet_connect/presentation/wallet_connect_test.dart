@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class WCTestWidget extends StatelessWidget {
+  /// this widget is only for testing purpose only
   const WCTestWidget({super.key});
 
   @override

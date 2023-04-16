@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/core/installed_apps/i_installed_apps_cubit.dart';
 import 'package:dappstore/core/localisation/localisation_extension.dart';
@@ -19,6 +21,8 @@ import 'package:dappstore/features/wallet_connect/presentation/wallet_connect_te
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+/// This widget should only be used for individual testing of core functionalities
+/// you might have to change things here everytime you are testing new things.
 class TestHomePage extends StatefulScreen {
   const TestHomePage({super.key});
 
@@ -70,7 +74,7 @@ class _TestHomePageState extends State<TestHomePage> {
                     await getIt<IStoreCubit>().setActiveDappId(
                       dappId: "io.opensea.dapp",
                     );
-                    context.pushRoute(DappInfoPage());
+                    context.pushRoute(const DappInfoPage());
                   },
                 ),
               ),

@@ -7,5 +7,6 @@ abstract class IProfileRepo {
   IProfileRepo({required this.profileStore});
 
   Future<ProfileModel?> getProfile({required String address});
+
   Future<bool> postProfile({required ProfileModel profile});
 }

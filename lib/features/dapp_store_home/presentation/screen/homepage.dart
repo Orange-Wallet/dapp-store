@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/permissions/i_permissions_cubit.dart';
@@ -26,6 +28,7 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class HomePage extends StatefulScreen {
+  /// Creates the dapp store homepage
   const HomePage({super.key});
 
   @override
@@ -71,6 +74,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   }
 
   getPermission() async {
+    /// to check if user have given all the requrired permission to dappstore or not
+    /// if no, then ask user to give permission before using the app
     await permissions.checkAllPermissions().then((value) =>
         showPermissions(context: context, theme: storeHandler.theme));
   }

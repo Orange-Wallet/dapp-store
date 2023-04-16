@@ -16,6 +16,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_injected_web3/flutter_injected_web3.dart';
 
 class PwaWebView extends StatefulScreen {
+  /// Creates a PWA web view screen to open PWA dapps
   final String dappName;
   const PwaWebView({super.key, required this.dappName});
 

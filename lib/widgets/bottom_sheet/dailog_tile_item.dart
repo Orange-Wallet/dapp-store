@@ -2,6 +2,8 @@ import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:flutter/material.dart';
 
 class DialogTileItem extends StatelessWidget {
+  /// A generic bottom sheet or dialog tile item
+
   final Widget? leading;
   final String title;
   final String subtitle;

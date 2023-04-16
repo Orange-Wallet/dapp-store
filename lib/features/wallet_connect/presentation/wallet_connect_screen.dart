@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:dappstore/config/config.dart';
 import 'package:dappstore/core/di/di.dart';
 import 'package:dappstore/core/installed_apps/i_installed_apps_cubit.dart';
@@ -32,6 +34,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class WalletConnectScreen extends StatefulScreen {
+  /// App login screen
   const WalletConnectScreen({super.key});
 
   @override
@@ -57,6 +60,9 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
     wcStore = getIt<IWalletConnectStore>();
     selfUpdateCubit = getIt<ISelfUpdateCubit>();
     profileHandler = ProfileHandler();
+
+    /// Checking dapp store self update bottom sheet will be opened
+    /// if soft update or hard update is available
     if (checkForUpdate) {
       selfUpdateCubit.checkUpdate().then((value) {
         checkForUpdate = false;
@@ -76,6 +82,7 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
 
   @override
   void didChangeDependencies() async {
+    /// To check if Vive Wallet is installed or not
     IInstalledAppsCubit installedCubit = getIt<IInstalledAppsCubit>();
     installedCubit
         .getAppInfo(packageName: Constants.vivePackageName)
@@ -86,7 +93,6 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
         viveInstalled = false;
       }
     });
-    // cubit.getPreviouslyConnectedSession();
     super.didChangeDependencies();
   }
 
@@ -229,6 +235,8 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
             previous.loadingSign != current.loadingSign ||
             previous.failureSign != current.failureSign,
         listener: (context, state) async {
+          /// Listening to state changes if wallet is conected and login message is not signed by the user
+          /// if so it will automatically send the [getLoginEthSign]
           if (state.connected &&
               !state.signVerified &&
               !state.loadingSign &&
@@ -322,6 +330,7 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                       !state.signVerified))
                 TextButton(
                   onPressed: () async {
+                    /// Handles the sendig walletConnect request and sign login message request
                     bool internet =
                         await InternetConnectionChecker().hasConnection;
                     if (internet) {

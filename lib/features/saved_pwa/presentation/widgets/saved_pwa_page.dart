@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // ignore: must_be_immutable
 class SavedPwas extends StatelessWidget {
+  /// Creates a saved PWA list
   late IThemeCubit themeCubit;
   late ISavedPwaPageHandler savedPwaPageHandler;
   late IThemeSpec theme;

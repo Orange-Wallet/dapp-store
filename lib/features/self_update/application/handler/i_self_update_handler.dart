@@ -7,5 +7,6 @@ abstract class ISelfUpdateHandler {
   ISelfUpdateCubit get selfUpdateCubit;
   IThemeCubit get themeCubit;
 
+  /// Handler to download the lastest vesrion of dapp store available
   Future<bool> triggerUpdate();
 }

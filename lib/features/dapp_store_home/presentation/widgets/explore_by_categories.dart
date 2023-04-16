@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ExploreBycategories extends StatefulWidget {
+  /// Creates a grid of all the category tiles for user to select any one explore single category
+  /// on selecting it redirects user to [CategoryScreen]
   const ExploreBycategories({
     super.key,
   });

@@ -5,6 +5,8 @@ import 'package:dappstore/features/wallet_connect/models/eth/ethereum_transactio
 import 'package:dappstore/features/wallet_connect/utils/helpers.dart';
 import 'package:wallet_connect_dart_v2/wallet_connect_dart_v2.dart';
 
+/// Enums and extension used for walletConnect
+
 enum Eip155Methods {
   PERSONAL_SIGN,
   ETH_SIGN,

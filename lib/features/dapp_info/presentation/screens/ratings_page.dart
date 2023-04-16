@@ -7,7 +7,6 @@ import 'package:dappstore/features/dapp_info/application/handler/i_dapp_info_han
 import 'package:dappstore/features/dapp_info/application/i_dapp_info_cubit.dart';
 import 'package:dappstore/features/dapp_info/presentation/widgets/review_tile.dart';
 import 'package:dappstore/features/dapp_store_home/domain/entities/post_rating.dart';
-import 'package:dappstore/features/dapp_store_home/infrastructure/dtos/rating_list_query_dto.dart';
 import 'package:dappstore/features/dapp_store_home/presentation/widgets/in_screen_appbar.dart';
 import 'package:dappstore/widgets/loader/loader.dart';
 import 'package:flutter/material.dart';

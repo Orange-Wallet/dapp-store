@@ -14,6 +14,8 @@ import 'package:jovial_svg/jovial_svg.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 
 class ImageWidget extends StatefulWidget {
+  /// A default Image Widget wrapper that can be used anywhere in tha app
+  /// [image] is required
   final String image;
   final Color? color;
   final double? width;

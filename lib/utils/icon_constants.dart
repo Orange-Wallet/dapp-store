@@ -1,4 +1,6 @@
 class IconConstants {
+  /// All assets paths for icons
+
   IconConstants._();
 
   static const String _baseIcon = "assets/icons";

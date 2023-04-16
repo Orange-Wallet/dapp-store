@@ -2,7 +2,7 @@ import 'package:dappstore/utils/app_utils.dart';
 import 'package:dappstore/utils/typedef.dart';
 
 class ResponseModel<T> {
-  final _ResponseHeadersModel headers;
+  final ResponseHeadersModel headers;
   final T body;
 
   const ResponseModel({
@@ -12,7 +12,7 @@ class ResponseModel<T> {
 
   factory ResponseModel.fromJson(JSON json) {
     return ResponseModel(
-      headers: _ResponseHeadersModel.fromJson(
+      headers: ResponseHeadersModel.fromJson(
         json['headers'] as JSON,
       ),
       body: json['data'] as T,
@@ -20,19 +20,19 @@ class ResponseModel<T> {
   }
 }
 
-class _ResponseHeadersModel {
+class ResponseHeadersModel {
   final bool error;
   final String message;
   final String? code;
 
-  const _ResponseHeadersModel({
+  const ResponseHeadersModel({
     required this.error,
     required this.message,
     this.code,
   });
 
-  factory _ResponseHeadersModel.fromJson(JSON json) {
-    return _ResponseHeadersModel(
+  factory ResponseHeadersModel.fromJson(JSON json) {
+    return ResponseHeadersModel(
       error: AppUtils.boolFromInt(json['error'] as int),
       message: json['message'] as String,
       code: json['code'] as String?,

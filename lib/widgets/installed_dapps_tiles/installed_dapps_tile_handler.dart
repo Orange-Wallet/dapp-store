@@ -11,6 +11,8 @@ import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: IInstalledDappsTileHandler)
 class InstalledDappsTileHandler implements IInstalledDappsTileHandler {
+  /// Handler for installed dapps
+  /// let you either [openDapp] or [updateDapp]
   @override
   IPackageManager get packageManager => getIt<IPackageManager>();
   @override
@@ -18,6 +20,7 @@ class InstalledDappsTileHandler implements IInstalledDappsTileHandler {
   @override
   IWalletConnectCubit get walletConnectCubit => getIt<IWalletConnectCubit>();
 
+  /// [dappInfo] is not-null
   @override
   updateDapp(DappInfo dappInfo) async {
     final url = storeCubit.getBuildUrl(
@@ -25,6 +28,7 @@ class InstalledDappsTileHandler implements IInstalledDappsTileHandler {
     packageManager.startDownload(dappInfo, url, true);
   }
 
+  /// [context] and [dappId] are not-null
   @override
   openDapp(BuildContext context, String dappId) {
     storeCubit.setActiveDappId(dappId: dappId);

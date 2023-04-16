@@ -4,6 +4,8 @@ import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:flutter/material.dart';
 
 class WhiteGradientLine extends StatelessWidget implements PreferredSizeWidget {
+  /// Creates a White Gradient Line that is used in dialogs and all appbar.
+
   const WhiteGradientLine({super.key});
 
   @override

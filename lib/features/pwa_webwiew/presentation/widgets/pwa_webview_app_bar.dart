@@ -1,19 +1,19 @@
-import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/i_injected_web3_cubit.dart';
-import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/injected_web3_cubit.dart';
-import 'package:dappstore/features/pwa_webwiew/infrastructure/models/rpc_mapping.dart';
-import 'package:flutter/material.dart';
-
 import 'package:dappstore/core/router/router.dart';
 import 'package:dappstore/core/theme/theme_specs/i_theme_spec.dart';
 import 'package:dappstore/features/pwa_webwiew/application/handler/i_pwa_webview_handler.dart';
+import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/i_injected_web3_cubit.dart';
+import 'package:dappstore/features/pwa_webwiew/application/injected_web3_cubit/injected_web3_cubit.dart';
+import 'package:dappstore/features/pwa_webwiew/infrastructure/models/rpc_mapping.dart';
 import 'package:dappstore/features/pwa_webwiew/presentation/widgets/pop_up_menu.dart';
 import 'package:dappstore/widgets/white_gradient_line.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 typedef NavigationCallback = Function();
 
 // ignore: must_be_immutable
 class PwaAppBar extends StatefulWidget implements PreferredSizeWidget {
+  /// Creates the appbar for PWA screen
   final String title;
   final IThemeSpec theme;
   NavigationCallback forward;

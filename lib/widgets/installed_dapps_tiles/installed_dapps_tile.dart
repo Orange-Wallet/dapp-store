@@ -6,6 +6,10 @@ import 'package:dappstore/widgets/image_widgets/image.dart';
 import 'package:flutter/material.dart';
 
 class InstalledDappsTile extends StatelessWidget {
+  /// Creates a Installed Dapp Tile with
+  /// [openButton], [installButton] , [updateButton] and [installingButton] buttons
+  /// [dappInfo] and [theme] are required and not-null
+
   final DappInfo dappInfo;
   final IThemeSpec theme;
 
