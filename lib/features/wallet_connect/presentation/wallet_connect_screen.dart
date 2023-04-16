@@ -238,7 +238,10 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                   cubit.getMessageToSign(WalletConnectConfig.signMessageData);
               cubit.getEthSign(message).then((value) {
                 if (value.isNotEmpty || value != "") {
-                  final isVerified = cubit.checkSignature(message, value);
+                  final isVerified = cubit.checkSignature(
+                    WalletConnectConfig.signMessageData,
+                    value,
+                  );
                   getIt<IWalletConnectStore>().addSignature(
                       topicID: state.activeSession!.topic, signature: value);
                 }
@@ -336,11 +339,14 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                             WalletConnectConfig.connectingChain);
                       } else {
                         final message = cubit.getMessageToSign(
-                            WalletConnectConfig.signMessageData);
+                          WalletConnectConfig.signMessageData,
+                        );
                         cubit.getEthSign(message).then((value) {
                           if (value.isNotEmpty || value != "") {
-                            final isVerified =
-                                cubit.checkSignature(message, value);
+                            final isVerified = cubit.checkSignature(
+                              WalletConnectConfig.signMessageData,
+                              value,
+                            );
                             getIt<IWalletConnectStore>().addSignature(
                                 topicID: state.activeSession!.topic,
                                 signature: value);
