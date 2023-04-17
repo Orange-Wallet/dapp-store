@@ -28,7 +28,7 @@ class RemoteDataSource implements IDataSource {
   }) async {
     try {
       Response res = await _network.get(
-          path: "${Config.glApiBaseUrl}/api/v1/dapp",
+          path: "${Config.customApiBaseUrl}/api/v1/dapp",
           queryParams: queryParams?.toJson());
 
       return DappListDto.fromJson(res.data);
@@ -43,7 +43,7 @@ class RemoteDataSource implements IDataSource {
   Future<DappInfoDto?> getDappInfo({GetDappInfoQueryDto? queryParams}) async {
     try {
       Response res = await _network.get(
-          path: "${Config.glApiBaseUrl}/api/v1/dapp/searchById",
+          path: "${Config.customApiBaseUrl}/api/v1/dapp/searchById",
           queryParams: queryParams?.toJson());
       return DappInfoDto.fromJson(res.data[0]);
     } catch (e, stack) {
@@ -86,7 +86,7 @@ class RemoteDataSource implements IDataSource {
   Future<List<CuratedCategoryListDto>?> getCuratedCategoryList() async {
     try {
       Response res = await _network.get(
-        path: "${Config.glApiBaseUrl}/api/v1/categories",
+        path: "${Config.customApiBaseUrl}/api/v1/categories",
       );
       List<CuratedCategoryListDto> list = (res.data as List)
           .map((e) => CuratedCategoryListDto.fromJson(e))
@@ -107,7 +107,7 @@ class RemoteDataSource implements IDataSource {
       Response res = await _network.get(
         // path: "${Config.registryApiBaseUrl}/dapp",
         // queryParams: GetDappQueryDto(limit: 20).toJson()
-        path: "${Config.glApiBaseUrl}/api/v1/categories/categorydapps",
+        path: "${Config.customApiBaseUrl}/api/v1/categories/categorydapps",
         queryParams:
             GetDappQueryDto(limit: 20, categories: [category]).toJson(),
       );
@@ -125,7 +125,7 @@ class RemoteDataSource implements IDataSource {
   Future<DappListDto?> getFeaturedDappsList() async {
     try {
       Response res = await _network.get(
-        path: "${Config.glApiBaseUrl}/api/v1/store/featured",
+        path: "${Config.customApiBaseUrl}/api/v1/store/featured",
         queryParams: GetDappQueryDto(limit: 20).toJson(),
       );
 
@@ -154,7 +154,7 @@ class RemoteDataSource implements IDataSource {
     try {
       final packagesList = packageIds.join(",");
       final url =
-          "${Config.glApiBaseUrl}/api/v1/dapp/queryWithPackageId?packages=$packagesList";
+          "${Config.customApiBaseUrl}/api/v1/dapp/queryWithPackageId?packages=$packagesList";
       Response res = await _network.get(
         path: url,
       );
@@ -186,7 +186,7 @@ class RemoteDataSource implements IDataSource {
   ) async {
     try {
       Response res = await _network.post(
-          path: "${Config.glApiBaseUrl}/api/v1/dapp/rate",
+          path: "${Config.customApiBaseUrl}/api/v1/dapp/rate",
           data: ratingData.toJson());
       if (res.statusCode == 200) {
         return true;
@@ -228,7 +228,7 @@ class RemoteDataSource implements IDataSource {
   }) async {
     try {
       Response res = await _network.get(
-        path: "${Config.glApiBaseUrl}/api/v1/reviews",
+        path: "${Config.customApiBaseUrl}/api/v1/reviews",
         queryParams: params.toJson(),
       );
       return RatingListDto.fromJson(res.data);
@@ -247,11 +247,12 @@ class RemoteDataSource implements IDataSource {
     String address,
   ) async {
     try {
-      Response res = await _network
-          .get(path: "${Config.glApiBaseUrl}/api/v1/dapp/rate", queryParams: {
-        "dappId": dappId,
-        "userAddress": address,
-      });
+      Response res = await _network.get(
+          path: "${Config.customApiBaseUrl}/api/v1/dapp/rate",
+          queryParams: {
+            "dappId": dappId,
+            "userAddress": address,
+          });
       if ((res.statusCode ?? 400) < 400 && (res.data as Map).isNotEmpty) {
         final data = PostRatingDto.fromJson(res.data);
         if (data.rating == null) {

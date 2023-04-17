@@ -14,7 +14,7 @@ class RemoteDataSource implements IDataSource {
   @override
   Future<ProfileModel?> getProfile({required String address}) async {
     Response res = await _network.get(
-        path: "${Config.glApiBaseUrl}/api/v1/fetchuser",
+        path: "${Config.customApiBaseUrl}/api/v1/fetchuser",
         queryParams: {"walletAddress": address});
     if (res.data[address] == null ||
         res.data[address].toString().toLowerCase() == "null") {
@@ -29,7 +29,7 @@ class RemoteDataSource implements IDataSource {
   Future<bool> postProfile({required ProfileModel profile}) async {
     try {
       Response res = await _network.post(
-          path: "${Config.glApiBaseUrl}/api/v1/postuser",
+          path: "${Config.customApiBaseUrl}/api/v1/postuser",
           data: profile.toJson());
       log(res.toString());
       return true;

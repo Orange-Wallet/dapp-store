@@ -14,7 +14,7 @@ class RemoteDataSource implements IDataSource {
       {required InstallAnalyticsDTO installAnalyticsDTO}) async {
     try {
       Response res = await _network.post(
-          path: "${Config.glApiBaseUrl}/api/v1/analytics",
+          path: "${Config.customApiBaseUrl}/api/v1/analytics",
           data: {"analytics": installAnalyticsDTO.toJson()});
 
       return res.data != null;

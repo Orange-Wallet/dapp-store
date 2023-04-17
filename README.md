@@ -1,5 +1,12 @@
 # DappStore
 
+## Authors
+
+- Akshit Ostwal [Github](https://github.com/AkshitOstwal) [Twitter](https://twitter.com/Akshitstwal)
+- Abhimanyu Shekhawat [Github](https://github.com/abhimanyu121) [Twitter](https://twitter.com/sokkkkaaa)
+
+<br>
+
 ## Requirements
 
 ### • Flutter SDK
@@ -16,6 +23,12 @@ Framework • revision b8f7f1f986 (4 months ago) • 2022-11-23 06:43:51 +0900
 Engine • revision 8f2221fbef
 Tools • Dart 2.18.5 • DevTools 2.15.0
 ```
+
+## How to run
+
+- `flutter pub get`
+- `flutter pub run build_runner build --delete-conflicting-outputs`
+- `flutter run`
 
 ## Structure Overview
 
