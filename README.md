@@ -24,11 +24,15 @@ Engine • revision 8f2221fbef
 Tools • Dart 2.18.5 • DevTools 2.15.0
 ```
 
+<br>
+
 ## How to run
 
 - `flutter pub get`
 - `flutter pub run build_runner build --delete-conflicting-outputs`
 - `flutter run`
+
+<br>
 
 ## Structure Overview
 
@@ -108,10 +112,14 @@ include with your application.
 The `assets/images` directory contains [resolution-aware
 images](https://flutter.dev/docs/development/ui/assets-and-images#resolution-aware).
 
+<br>
+
 ## Commands Run in CI
 
 - `flutter analyze`
 - `dart format --output=none --set-exit-if-changed .`
+
+<br>
 
 ## Useful Commands
 
