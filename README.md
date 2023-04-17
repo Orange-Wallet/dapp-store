@@ -109,8 +109,11 @@ apps](https://flutter.dev/docs/development/accessibility-and-localization/intern
 The `assets` directory houses images, fonts, and any other files you want to
 include with your application.
 
-The `assets/images` directory contains [resolution-aware
-images](https://flutter.dev/docs/development/ui/assets-and-images#resolution-aware).
+The `assets/images` directory contains images
+
+The `assets/icons` directory contains icons
+
+The `assets/fonts` directory contains fonts used
 
 <br>
 
