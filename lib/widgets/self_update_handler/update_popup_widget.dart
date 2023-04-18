@@ -23,13 +23,24 @@ class UpdateWidget extends StatelessWidget {
   UpdateWidget({super.key, this.isHardUpdate = false});
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size.width * 0.25;
+    final size = MediaQuery.of(context).size.width * 0.1;
     IThemeSpec theme = themeCubit.theme;
-    final Widget download = Image.asset(
-      IconConstants.downloadIcon,
-      color: theme.ratingGrey,
-      height: size,
-      width: size,
+    final Widget download = Container(
+      decoration: BoxDecoration(
+        color: theme.blue,
+        borderRadius: BorderRadius.all(
+          Radius.circular(
+            theme.cardRadius,
+          ),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Text(
+          "Start Download",
+          style: theme.titleTextStyle,
+        ),
+      ),
     );
 
     final Widget downloading = SizedBox(
@@ -48,7 +59,7 @@ class UpdateWidget extends StatelessWidget {
           bloc: selfUpdateHandler.packageManager,
           builder: ((context, state) {
             return SizedBox(
-              height: MediaQuery.of(context).size.height * 0.3,
+              height: MediaQuery.of(context).size.height * 0.2,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
