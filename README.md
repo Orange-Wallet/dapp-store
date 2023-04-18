@@ -1,5 +1,12 @@
 # DappStore
 
+## Authors
+
+- Akshit Ostwal [Github](https://github.com/AkshitOstwal) [Twitter](https://twitter.com/Akshitostwal)
+- Abhimanyu Shekhawat [Github](https://github.com/abhimanyu121) [Twitter](https://twitter.com/sokkkkaaa)
+
+<br>
+
 ## Requirements
 
 ### • Flutter SDK
@@ -16,6 +23,16 @@ Framework • revision b8f7f1f986 (4 months ago) • 2022-11-23 06:43:51 +0900
 Engine • revision 8f2221fbef
 Tools • Dart 2.18.5 • DevTools 2.15.0
 ```
+
+<br>
+
+## How to run
+
+- `flutter pub get`
+- `flutter pub run build_runner build --delete-conflicting-outputs`
+- `flutter run`
+
+<br>
 
 ## Structure Overview
 
@@ -92,13 +109,20 @@ apps](https://flutter.dev/docs/development/accessibility-and-localization/intern
 The `assets` directory houses images, fonts, and any other files you want to
 include with your application.
 
-The `assets/images` directory contains [resolution-aware
-images](https://flutter.dev/docs/development/ui/assets-and-images#resolution-aware).
+The `assets/images` directory contains images
+
+The `assets/icons` directory contains icons
+
+The `assets/fonts` directory contains fonts used
+
+<br>
 
 ## Commands Run in CI
 
 - `flutter analyze`
 - `dart format --output=none --set-exit-if-changed .`
+
+<br>
 
 ## Useful Commands
 

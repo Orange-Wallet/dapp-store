@@ -16,7 +16,7 @@ class RemoteDataSource implements ISelfUpdateDataSource {
   Future<SelfUpdateDataModel?> getLatestBuild() async {
     try {
       Response res = await _network.get(
-        path: "${Config.glApiBaseUrl}/api/v1/dappstoreUpdate",
+        path: "${Config.customApiBaseUrl}/api/v1/dappstoreUpdate",
       );
 
       return SelfUpdateDataModel.fromJson(res.data);

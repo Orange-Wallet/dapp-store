@@ -3,7 +3,7 @@ import 'package:wallet_connect_dart_v2/core/models/app_metadata.dart';
 class Config {
   const Config._();
   static const registryApiBaseUrl = "https://api-a.meroku.store";
-  static const glApiBaseUrl = "https://htc.guardiannft.net";
+  static const customApiBaseUrl = "https://htc.guardiannft.net";
   static const sentryDSN =
       "https://6b758247cdb149a1950fd476f793df98@o4504921352372224.ingest.sentry.io/4504921353486336";
 }
