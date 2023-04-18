@@ -114,15 +114,15 @@ flutter:
 
 flutter_native_splash:
   color: "#000000"
-  image: assets/images/htc_logo_space.png
-  branding: assets/images/htc_logo_space.png
-  image_dark: assets/images/htc_logo_space.png
-  branding_dark: assets/images/htc_logo_space.png
+  image: assets/images/slick_logo_transparent.png
+  branding: assets/images/slick_logo_transparent.png
+  image_dark: assets/images/slick_logo_transparent.png
+  branding_dark: assets/images/slick_logo_transparent.png
 
   android_12:
-    image: assets/images/htc_logo_space.png
+    image: assets/images/slick_logo_transparent.png
     icon_background_color: "#000000"
-    image_dark: assets/images/htc_logo_space.png
+    image_dark: assets/images/slick_logo_transparent.png
     icon_background_color_dark: "#000000"
 
   web: false

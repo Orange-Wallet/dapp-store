@@ -20,7 +20,7 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
       leading: Padding(
         padding: const EdgeInsets.only(left: 20),
         child: Image.asset(
-          ImageConstants.htcLogo,
+          ImageConstants.slickLogo,
         ),
       ),
       // title: TextField(),

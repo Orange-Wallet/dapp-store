@@ -163,7 +163,7 @@ class LocalDataSource implements IDataSource {
 "category": "testerr",
 "image": "https://dashboard-assets.dappradar.com/document/3/cryptokitties-dapp-games-eth-logo_43af8137d6219e1fd08b52d9cdfc9447.png"
 },{
-"category": "htc apps",
+"category": "apps",
 "image": "https://dashboard-assets.dappradar.com/document/3/cryptokitties-dapp-games-eth-logo_43af8137d6219e1fd08b52d9cdfc9447.png"
 }
 ]

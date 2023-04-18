@@ -1,4 +1,4 @@
-package com.htc.dappstore
+package com.merokudao.dappstore
 
 import android.R
 import android.app.Notification

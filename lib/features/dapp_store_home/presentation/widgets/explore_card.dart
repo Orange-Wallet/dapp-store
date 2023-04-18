@@ -33,7 +33,7 @@ class ExploreCard extends StatelessWidget {
                     height: 40,
                   ),
                   Text(
-                    context.getLocale!.htcDappStore,
+                    context.getLocale!.slickStore,
                     style: handler.theme.secondaryTextStyle1,
                   ),
                   Text.rich(

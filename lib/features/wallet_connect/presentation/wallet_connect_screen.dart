@@ -2,7 +2,6 @@
 
 import 'package:dappstore/config/config.dart';
 import 'package:dappstore/core/di/di.dart';
-import 'package:dappstore/core/installed_apps/i_installed_apps_cubit.dart';
 import 'package:dappstore/core/localisation/localisation_extension.dart';
 import 'package:dappstore/core/localisation/store/i_localisation_store.dart';
 import 'package:dappstore/core/router/constants/routes.dart';
@@ -21,17 +20,14 @@ import 'package:dappstore/features/wallet_connect/infrastructure/cubit/i_wallet_
 import 'package:dappstore/features/wallet_connect/infrastructure/cubit/wallet_connect_cubit.dart';
 import 'package:dappstore/features/wallet_connect/infrastructure/store/i_wallet_connect_store.dart';
 import 'package:dappstore/features/wallet_connect/presentation/widget/terms_and_condition.dart';
-import 'package:dappstore/utils/constants.dart';
 import 'package:dappstore/utils/icon_constants.dart';
 import 'package:dappstore/utils/image_constants.dart';
 import 'package:dappstore/widgets/bottom_sheet/bottom_sheet.dart';
 import 'package:dappstore/widgets/bottom_sheet/error_bottom_sheet.dart';
 import 'package:dappstore/widgets/self_update_handler/update_popup_widget.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class WalletConnectScreen extends StatefulScreen {
   /// App login screen
@@ -46,7 +42,6 @@ class WalletConnectScreen extends StatefulScreen {
 
 class _WalletConnectScreenState extends State<WalletConnectScreen> {
   late final IThemeSpec theme;
-  late final bool viveInstalled;
   late final IWalletConnectCubit cubit;
   late final IWalletConnectStore wcStore;
   late final IProfileHandler profileHandler;
@@ -82,17 +77,6 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
 
   @override
   void didChangeDependencies() async {
-    /// To check if Vive Wallet is installed or not
-    IInstalledAppsCubit installedCubit = getIt<IInstalledAppsCubit>();
-    installedCubit
-        .getAppInfo(packageName: Constants.vivePackageName)
-        .then((value) {
-      if (value != null) {
-        viveInstalled = true;
-      } else {
-        viveInstalled = false;
-      }
-    });
     super.didChangeDependencies();
   }
 
@@ -122,7 +106,7 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                   height: 60,
                 ),
                 Expanded(
-                  child: Image.asset(ImageConstants.htcStore),
+                  child: Image.asset(ImageConstants.slickLogo),
                 ),
                 const SizedBox(
                   height: 60,
@@ -135,7 +119,7 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                         style: theme.headingTextStyle,
                       ),
                       Text(
-                        context.getLocale!.welcomeToHTC,
+                        context.getLocale!.welcomeToSlick,
                         style: theme.bodyTextStyle,
                       ),
                       const SizedBox(
@@ -171,34 +155,6 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                               ),
                             ],
                           ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 26, horizontal: 12),
-                        child: Text.rich(
-                          TextSpan(
-                            text: "${context.getLocale!.dontHaveAWallet} ",
-                            style: theme.secondaryWhiteTextStyle3,
-                            children: <TextSpan>[
-                              TextSpan(
-                                  text: "${context.getLocale!.viveWallet} ",
-                                  style: theme.secondaryGreenTextStyle4,
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () async {
-                                      if (viveInstalled) {
-                                        await getIt<IInstalledAppsCubit>()
-                                            .startApp(
-                                                packageName:
-                                                    Constants.vivePackageName);
-                                      } else {
-                                        await launchUrlString(
-                                            Constants.viveWalletPlaystore);
-                                      }
-                                    }),
-                            ],
-                          ),
-                          textAlign: TextAlign.center,
                         ),
                       ),
                     ],
@@ -384,78 +340,11 @@ class _WalletConnectScreenState extends State<WalletConnectScreen> {
                     style: theme.headingTextStyle,
                   ),
                 ),
-                // if (viveInstalled)
-                //   buildViveButton(onPressed: () {}, isVive: true),
-                // if(w)
-                // buildViveButton(
-                //     onPressed: () async {
-                //       final status =
-                //           await cubit.getConnectRequest(["eip155:137"]);
-                //       if (status) {
-                //         try {
-                //           context.showMsgBar(
-                //               "Go back to the wallet and sign the message to continue login");
-                //           String? res = await cubit.getEthSign("Testing");
-                //           if (res != null) {
-                //             context.replaceRoute(const HomePage());
-                //           }
-                //         } ccatch (e, stack) {
-                // errorLogger.logError(e,stack);
-
-                //         }
-                //       }
-                //     },
-                //     isVive: false),
                 const SizedBox(
                   height: 20,
                 )
               ]);
         }));
-  }
-
-// not used
-  Widget buildViveButton(
-      {required void Function()? onPressed, required bool isVive}) {
-    return Container(
-      height: 50,
-      margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-      child: TextButton(
-        onPressed: onPressed,
-        style: TextButton.styleFrom(
-          backgroundColor: theme.secondaryBackgroundColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(theme.cardRadius),
-          ),
-        ),
-        child: Row(
-          children: [
-            const SizedBox(
-              width: 12,
-            ),
-            if (isVive)
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(theme.imageBorderRadius),
-                ),
-                clipBehavior: Clip.hardEdge,
-                child: Image.asset(
-                  ImageConstants.viveLogo,
-                ),
-              ),
-            if (isVive)
-              const SizedBox(
-                width: 12,
-              ),
-            Text(
-              isVive
-                  ? "${context.getLocale!.connectWith} VIVE Wallet"
-                  : context.getLocale!.connectWithOthers,
-              style: theme.normalTextStyle,
-            ),
-          ],
-        ),
-      ),
-    );
   }
 }
 

@@ -136,7 +136,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Image.asset(
-              ImageConstants.htcLogo,
+              ImageConstants.slickLogo,
               scale: 2,
             ),
           ),

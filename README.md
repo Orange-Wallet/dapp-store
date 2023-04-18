@@ -34,6 +34,14 @@ Tools • Dart 2.18.5 • DevTools 2.15.0
 
 <br>
 
+## Before you start building
+
+- Goto **/lib/config/config.dart** and update `Config.sentryDSN`, `WalletConnectConfig.projectId` and `WalletConnectConfig.metadata` with your own configuration before start building on top of this repo.
+
+- Goto **/lib/config/config.dart** and Change `Config.customApiBaseUrl` and change it to you own hosted Backend base URI
+
+<br>
+
 ## Structure Overview
 
 ### Core
